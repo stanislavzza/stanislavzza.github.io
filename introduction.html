@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Your Name">
 
-<title>Your Site Title - Introduction</title>
+<title>Introduction – Your Site Title</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -80,7 +46,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -89,14 +61,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -105,46 +105,46 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Your Site Title</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html" rel="" target="">
- <span class="menu-text">Home</span></a>
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./introduction.html" rel="" target="" aria-current="page">
- <span class="menu-text">Introduction</span></a>
+    <a class="nav-link active" href="./introduction.html" aria-current="page"> 
+<span class="menu-text">Introduction</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./chapter1.html" rel="" target="">
- <span class="menu-text">Chapter 1</span></a>
+    <a class="nav-link" href="./chapter1.html"> 
+<span class="menu-text">Chapter 1</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./chapter2.html" rel="" target="">
- <span class="menu-text">Chapter 2</span></a>
+    <a class="nav-link" href="./chapter2.html"> 
+<span class="menu-text">Chapter 2</span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools ms-auto">
-</div>
           </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Contents</h2>
    
@@ -165,9 +165,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="introduction.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -193,15 +193,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
 
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tikzDevice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
+
 <section id="sec-intro" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Quantifying Agreement</h1>
 <p>This chapter gives a brief background on rater agreement with a focus on the goals of the project and how legacy methods fall short. It contrasts psychological measurement methods to machine learning algorithms. A general model is introduced that combines the best features of both of those cultures, and an example is given.</p>
@@ -215,7 +210,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Davis magnified the handwriting, she noticed subtle variations. In certain places, the script was more cramped or more likely to slant as it crossed the page. She tested this observation by picking a letter that didn’t appear often and tracking it across the manuscript’s pages. Its style, she saw, varied among groups of pages but not within those groups. This suggested that the differences—larger or smaller loops, straighter or curvier crossbars, longer or shorter feet—were the product of different scribes rather than of one scribe writing the same letter in different ways.</p>
 </blockquote>
 <p>See <a href="https://ceur-ws.org/Vol-3313/keynote2.pdf">Davis’s paper</a> for details<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. For our purposes, the “raters” are scholars who categorize writing styles, the “subjects” are sections (folios) of the manuscript they are reviewing, and the presumed different scribes are the categories we generically refer to as “ratings.”</p>
-<table class="table">
+<table class="caption-top table">
 <caption>Selected rows from a table at the website for the manuscript: <a href="https://voynich.nu/index.html" class="uri">https://voynich.nu/index.html</a>, comparing an early attempt to classify writing “hands” (Currier) to the recent classification (Davis). Hypothesized identity is unique to each column with the numbers denoting individual scribes.</caption>
 <thead>
 <tr class="header">
@@ -289,7 +284,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="1.3" class="anchored" data-anchor-id="sec-intro-confusion"><span class="header-section-number">1.3</span> The Confusion Matrix</h2>
 <p>Diagnosing illness is an important classification problem, and the simplest version is a blood test that returns a positive or negative result, perhaps scanning for an antibody. There are four possibilities, which can be organized into what is commonly called a <em>confusion matrix.</em> Suppose that we consider a statement S about the world, like “this patient has the flu.” Using a definition and process we reach a conclusion, so that we believe S to be true or false. This generates the classifications we’re interested in: this is what the raters do, generating lots of S or not-S data on cases.</p>
 <p>The truth is often inaccessible, but recall that we assume that it exists, so that the statement really is true or false: each patient really does have the flu or does not. Here are the four possibilities:</p>
-<table class="table">
+<table class="caption-top table">
 <caption>Sample confusion matrix</caption>
 <colgroup>
 <col style="width: 36%">
@@ -319,7 +314,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Notice that there are four spots in the table where data can go: if we had perfect knowledge we could count the number of true positive cases, etc. If we converted these numbers to proportions by dividing by the table, we have three parameters left. This foreshadows what comes later: the heart of the classification problem (in its simple form) is a three-parameter problem<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p>
 <p>The limitation of casting the confusion matrix into a single-parameter statistics was noted by <span class="citation" data-cites="cicchetti1990high">@cicchetti1990high</span>, who suggested “two separate indexes of proportionate agreement in the observers’ positive and negative decisions. […] Why do we want a single index?” Another example comes from the motivation for the AC1 rater statistic <span class="citation" data-cites="gwet2008computing">@gwet2008computing</span>. It separately considers rater true positives and true negatives, but in to get to a single parameter, the model assumes that these are identical for each rater.</p>
 <p>For a concrete illustration, consider the wine judging data used in <span class="citation" data-cites="hodgson2008examination">@hodgson2008examination</span>. The first five rows look like this:</p>
-<table class="table">
+<table class="caption-top table">
 <caption>Wine ratings showing rows 1-5 of 183, taken from the study by Hodgson (personal communication).</caption>
 <thead>
 <tr class="header">
@@ -369,7 +364,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <p>The 1-4 scale is ordinal, meaning that we imagine quality to increase with the numerical value. For this discussion, we will reduce that complexity to a binary classification: acceptable wine (ratings 2-4) or wine to avoid (rating 1). This simplifies the table to.</p>
-<table class="table">
+<table class="caption-top table">
 <caption>Simplified wine ratings, where 1 means “acceptable” and 0 means “avoid.”</caption>
 <thead>
 <tr class="header">
@@ -420,7 +415,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <p>Intuitively there is more reason to believe wines 1 and 2 are acceptable than with 3 or 4, for which one judge found them not metal-worthy. It seems safe to avoid wine 5, since all but one of the judges found it not to be metal-worthy.</p>
 <p>We can put this information into the confusion matrix, but we’re missing information.</p>
-<table class="table">
+<table class="caption-top table">
 <caption>Confusion matrix for the first five wines, with missing information as question marks.</caption>
 <thead>
 <tr class="header">
@@ -452,7 +447,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sec-intro-agreement" class="level2" data-number="1.4">
 <h2 data-number="1.4" class="anchored" data-anchor-id="sec-intro-agreement"><span class="header-section-number">1.4</span> Agreement Statistics</h2>
 <p>Signal and noise as variability between and variability within subjects translates into rater agreement within subjects versus between subjects. The usual way to turn this idea into a number is to count the number of actual agreements and divide by the total number possible.</p>
-<table class="table">
+<table class="caption-top table">
 <caption>Rater agreements count, showing the maximum agreements for N raters, the number matches that are evidence versus logical implications and the ratio of evidence to matches.</caption>
 <colgroup>
 <col style="width: 20%">
@@ -515,12 +510,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p>The maximum agreements in the table come from the combinatorics formula “N choose 2,” counting the number of possible pairs out of N. If a group of 5 people meet and all shake hands, it’s 10 handshakes. The number of pairs grow much more rapidly than the number of raters does.</p>
+<p>The maximum agreements in the table come from the combinatorics formula “N choose 2,” counting the number of possible pairs out of N. If a group of 5 people meet and all shake hands, it’s 10 handshakes. The number of pairs grow much more rapidly than the number of raters does<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>.</p>
 <p>There’s a rule in thumb in statistics that it’s preferable to use standard deviation instead of variance when understanding the data. That’s because the units of standard deviation are the same as the original data, whereas the variance has squared units. The same effect is going on with counting agreement. In some sense, what we want looks more like the square root of agreement.</p>
 <p>Intuitively, three raters agreeing doesn’t seem like three times as much evidence as two agreeing. And if we look at where those agreements are coming from, most of them are purely logical. Agreement is transitive, meaning if A agrees with B and B agrees with C, then A agrees with C. This is a logical necessity, and it’s not evidence of anything. The Evidentiary and Implied columns of the table record the distinction between the two types of matches. As the number of raters <span class="math inline">\(N\)</span> increases, the logically necessary agreements greatly outnumber the evidentiary ones, so the ratio in the last column of the table decreases toward zero.</p>
 <p>If we only counted the evidentiary agreements, the maximum for <span class="math inline">\(N\)</span> raters would be <span class="math inline">\(N - 1\)</span>, which is roughly proportional to the square root of the total number of agreements. We’ll come back to that idea later. However, the well-trodden path is to estimate the probability of agreement over all the subjects, which leads to the kappa statistics.</p>
 <p>For the five wine ratings, we can calculate the agreement as follows.</p>
-<table class="table">
+<table class="caption-top table">
 <caption>Agreement calculation for the first five wines, showing the maximum possible matches, the actual matches, and the agreement proportion.</caption>
 <thead>
 <tr class="header">
@@ -571,7 +566,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <p>For the fifth with, there are more matches with the zeros than there are with the ones; both are counted. It is at this point what seemed like a good starting point begins to turn into a muddle, because since both the zeros and the ones can create agreement, how do we know what’s <em>good enough</em> agreement? What’s the worst agreement possible?</p>
 <p>A group of raters who agree on the 1 ratings of size <span class="math inline">\(n+1\)</span> produces a number of agreements about proportional to <span class="math inline">\(n_1^2\)</span>, and similarly the 0 agreements produce about <span class="math inline">\(n_0^2\)</span> agreements. Together that’s around <span class="math inline">\(n_1^2 + n_0^2\)</span> agreements, which is less than or equal to <span class="math inline">\((n_1 + n_0)^2\)</span>. So we get more agreement when everyone agrees than we do when the raters split into groups. That means that the <em>least</em> agreement happens when the raters are evenly split, giving us a floor for agreement.</p>
-<table class="table">
+<table class="caption-top table">
 <caption>Minimum rater agreement rates</caption>
 <colgroup>
 <col style="width: 25%">
@@ -664,13 +659,13 @@ m_r &amp;= .625 \\
 <h2 data-number="1.7" class="anchored" data-anchor-id="machine-learning"><span class="header-section-number">1.7</span> Machine Learning</h2>
 <p>The geyser of data produced in the information age has led to new methods of analyzing it that fall generally in the description of “machine learning (ML).” Assigning categories to subjects is a common task in machine learning, and the field has developed a number of methods to do so, including neural networks, support vector machines, and random forests. The goal is to assign categories to subjects in a way that generalizes to new subjects. The methods are often evaluated by comparing the predicted categories to the true categories, and the results are summarized in a confusion matrix.</p>
 <p>It may come as a surprise to both behavioral scientists and machine learning researchers that they seem to have independently worked on the rater agreement problem, since the two fields’ literatures don’t seem to overlap. Articles on rater agreement don’t cite machine learning papers, and vice versa. However, the two fields are working on the same problem: how to measure the accuracy of a categorization when we don’t have the true categories to reference.</p>
-<p>There are differences in the methods and philosophies of the two cultures. The kappa approach is implicitly backward-looking, asking “how accurate were these ratings,” with the assumption that the measured accuracy (a kappa) will carry forward to future instances. The ML approach is more forward-looking, with a suite of tools like cross-validation and a vocabulary (bias-variance trade-off) to measure generalizability. As we have seen, the kappa approach is to reason out a plausible chance-correction calculation and use it to produce the single-parameter kappa. The ML approach is to estimate three parameters with regression models. Finally, the kappas are grounded in the psychology of human classification and come with philosophical links to epistemology, which I described in <a href="#sec-intro-knowledge">Section&nbsp;1.2</a>. The ML algorithms are just statistics and code, barren of philosophical considerations.</p>
+<p>There are differences in the methods and philosophies of the two cultures. The kappa approach is implicitly backward-looking, asking “how accurate were these ratings,” with the assumption that the measured accuracy (a kappa) will carry forward to future instances. The ML approach is more forward-looking, with a suite of tools like cross-validation and a vocabulary (bias-variance trade-off) to measure generalizability. As we have seen, the kappa approach is to reason out a plausible chance-correction calculation and use it to produce the single-parameter kappa. The ML approach is to estimate three parameters with regression models. Finally, the kappas are grounded in the psychology of human classification and come with philosophical links to epistemology, which I described in <a href="#sec-intro-knowledge" class="quarto-xref">Section&nbsp;1.2</a>. The ML algorithms are just statistics and code, barren of philosophical considerations.</p>
 <p>The advantage of the ML approaches over the kappas is that the three parameter models avoid the confusions of the kappa zoo. But because they lack philosophical grounding, they run into an embarrassment of riches: three parameters is sometimes <em>too many</em> parameters for a model, so there can be multiple solutions. There are work-arounds, but it’s the same species of <em>ad hoc</em> reasoning that causes the problems of the kappa zoo. Fortunately, there’s a way to combine the best of both cultures to avoid most of these problems.</p>
 </section>
 <section id="sec-intro-tap" class="level2" data-number="1.8">
 <h2 data-number="1.8" class="anchored" data-anchor-id="sec-intro-tap"><span class="header-section-number">1.8</span> The t-a-p model</h2>
-<p>We can now describe a regression model that allows us to estimate the four proportions that appear in the confusion matrix (see <a href="#sec-intro-confusion">Section&nbsp;1.3</a>). Since the four cells sum to one, there are three free parameters to estimate.</p>
-<table class="table">
+<p>We can now describe a regression model that allows us to estimate the four proportions that appear in the confusion matrix (see <a href="#sec-intro-confusion" class="quarto-xref">Section&nbsp;1.3</a>). Since the four cells sum to one, there are three free parameters to estimate.</p>
+<table class="caption-top table">
 <caption>: Confusion matrix with entries to be filled in by the model estimates. The four numbers are proportions and sum to one, leaving three free parameters to estimate. C0 = class zero, and C1 = class one, standing in for any binary categories we might choose.</caption>
 <thead>
 <tr class="header">
@@ -697,7 +692,7 @@ m_r &amp;= .625 \\
 <li><p>The classifications are real in the sense that true values exist.</p></li>
 <li><p>The true values have a binary causal effect on the classification process.</p></li>
 </ol>
-<p>These assumptions are provisional like hypothesis in statistics; the evidence will provide some support for the assumptions, ranging from no support at all to quite good. The reality of the truth values posed in assumption one is not like Plato’s cave shadows. In the case of wine judging, we can’t say there is a universal ideal for good wine, but if rater agreement is high we can say that some physical causal process exists for translating the observable subject (tasting the wine) into a category. So in that sense the category exists as part of the world. The translation is imperfect, because the conditions are not always perfect for the cause to happen, as with the Gettier problems<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>.</p>
+<p>These assumptions are provisional like hypothesis in statistics; the evidence will provide some support for the assumptions, ranging from no support at all to quite good. The reality of the truth values posed in assumption one is not like Plato’s cave shadows. In the case of wine judging, we can’t say there is a universal ideal for good wine, but if rater agreement is high we can say that some physical causal process exists for translating the observable subject (tasting the wine) into a category. So in that sense the category exists as part of the world. The translation is imperfect, because the conditions are not always perfect for the cause to happen, as with the Gettier problems<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>.</p>
 <p>This may seem fiddly, but it gives us a place to start. For any given subject to be rated (e.g.&nbsp;object to be classified) we provisionally assume that there’s a latent truth value that we can never know, but might find evidence for. The second assumption then allows us to provisionally assume that the causal effect of the true value in the context of the classification process has the following nature:</p>
 <ul>
 <li><p>The rater either assigns the correct class due to the causal pathway operating to connect the observation to the class (justified true knowledge), or</p></li>
@@ -715,7 +710,7 @@ m_r &amp;= .625 \\
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/tap diagram.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">tap diagram</figcaption>
+<figcaption>tap diagram</figcaption>
 </figure>
 </div>
 <p>The diagram shows probabilistic links between states of the world and rater classifications. The lowercase letters are probabilities (recall that the bar means subtract from one to make the complementary probability, so <span class="math inline">\(\bar{.2} = .8\)</span>). We read the tree top to bottom, hence the name for the model: t-a-p, an abbreviation of the tree structure.</p>
@@ -723,7 +718,7 @@ m_r &amp;= .625 \\
 <p>It’s important to note that the value of <span class="math inline">\(T\)</span> is the same for the same wine. So when four judges all rate the same wine, they are all either on the left side of the diagram (if the wine is acceptable in reality) or on the right side (if not). The ratings are determined only by <span class="math inline">\(a\)</span> and <span class="math inline">\(p\)</span> at that point.</p>
 <p>For a wine chosen at random, we can compute the probabilities of rater classifications. An acceptable wine will be classified accurately with a proportion of <span class="math inline">\(ta\)</span>, multiplying the probabilities along the leftmost edge from top to bottom. An inaccurate rating of <span class="math inline">\(\hat{C_1}\)</span> (acceptability) can come from either the left or right side of the diagram, and if we add those together we get <span class="math inline">\(t\bar{a}p + \bar{t}\bar{a}p\)</span>, and since <span class="math inline">\(t + \bar{t} = 1\)</span> that expression reduces to <span class="math inline">\(\bar{a}p\)</span>.</p>
 <p>Assuming we can estimate the three parameters from the data, we can then populate the confusion matrix by tracing the diagram down to each of the four outcomes, and multiplying probabilities as we go.</p>
-<table class="table">
+<table class="caption-top table">
 <caption>The t-a-p model’s correspondence to the confusion matrix. Terms in parentheses are inaccurate ratings.</caption>
 <colgroup>
 <col style="width: 20%">
@@ -759,7 +754,7 @@ m_r &amp;= .625 \\
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/wine tap.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Wine rating t-a-p analysis comparing C1 = ratings 1,2,3 (in-class) to C0 = rating 0.</figcaption>
+<figcaption>Wine rating t-a-p analysis comparing C1 = ratings 1,2,3 (in-class) to C0 = rating 0.</figcaption>
 </figure>
 </div>
 <p>The acceptable wines are the primary (in-) class, and the plot shows the distribution of ratings for acceptability. Since there are four judges, the possibilities are:</p>
@@ -781,7 +776,7 @@ m_r &amp;= .625 \\
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/wine cutpoints.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Wine ratings divided into binary groups by cutpoint.</figcaption>
+<figcaption>Wine ratings divided into binary groups by cutpoint.</figcaption>
 </figure>
 </div>
 <p>The 3|4 bar of the plot shows us that 88% of ratings are in {1,2,3}, so the remaining 12% are 4s (gold medal). As a validity check, there are 183 wines, each rated by four judges, so that should be 732 ratings. That looks like the height on the bars, so it checks out.</p>
@@ -808,7 +803,8 @@ m_r &amp;= .625 \\
 <li id="fn3"><p>I found this on wikipedia here <a href="https://en.wikipedia.org/wiki/Gettier_problem" class="uri">https://en.wikipedia.org/wiki/Gettier_problem</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>which seems like an infinite regress of JTB inquiry.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>Confusion matrices are at the heart of measures of causality too, for reasons that are not coincidental. See <em>Causal Interfaces.</em><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6"><p>For much more on this idea see “Causal Interfaces.”<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>The process of a group of people <em>reaching</em> agreement does not seem to be transitive! It may well be three times as difficult for three people to agree on a movie to watch as two people. The rater agreement models get around this by assuming that raters don’t talk to (argue with) each other, but reach conclusions independently before comparing notes.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>For much more on this idea see “Causal Interfaces.”<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -846,18 +842,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -889,11 +874,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -903,8 +927,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -916,7 +949,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -960,6 +1116,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -985,6 +1142,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1045,6 +1228,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 

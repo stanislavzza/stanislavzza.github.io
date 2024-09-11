@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Your Name">
 
-<title>Your Site Title - Chapter 1: Introduction to XYZ</title>
+<title>Chapter 2: Estimating t-a-p Parameters – Your Site Title</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -46,7 +80,13 @@ ul.task-list li input[type="checkbox"] {
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -55,12 +95,42 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -69,68 +139,71 @@ ul.task-list li input[type="checkbox"] {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Your Site Title</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html" rel="" target="">
- <span class="menu-text">Home</span></a>
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./introduction.html" rel="" target="">
- <span class="menu-text">Introduction</span></a>
+    <a class="nav-link" href="./introduction.html"> 
+<span class="menu-text">Introduction</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./chapter1.html" rel="" target="">
- <span class="menu-text">Chapter 1</span></a>
+    <a class="nav-link" href="./chapter1.html"> 
+<span class="menu-text">Chapter 1</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./chapter2.html" rel="" target="" aria-current="page">
- <span class="menu-text">Chapter 2</span></a>
+    <a class="nav-link active" href="./chapter2.html" aria-current="page"> 
+<span class="menu-text">Chapter 2</span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools ms-auto">
-</div>
           </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Contents</h2>
    
   <ul class="collapse">
-  <li><a href="#chapter-1-introduction-to-xyz" id="toc-chapter-1-introduction-to-xyz" class="nav-link active" data-scroll-target="#chapter-1-introduction-to-xyz"><span class="header-section-number">1</span> Chapter 1: Introduction to XYZ</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a>
   <ul class="collapse">
-  <li><a href="#section-1.1-overview" id="toc-section-1.1-overview" class="nav-link" data-scroll-target="#section-1.1-overview"><span class="header-section-number">1.1</span> Section 1.1: Overview</a></li>
-  <li><a href="#section-1.2-another-topic" id="toc-section-1.2-another-topic" class="nav-link" data-scroll-target="#section-1.2-another-topic"><span class="header-section-number">1.2</span> Section 1.2: Another Topic</a></li>
+  <li><a href="#conditional-probabilities" id="toc-conditional-probabilities" class="nav-link" data-scroll-target="#conditional-probabilities"><span class="header-section-number">1.1</span> Conditional Probabilities</a></li>
+  <li><a href="#binomial-mixtures" id="toc-binomial-mixtures" class="nav-link" data-scroll-target="#binomial-mixtures"><span class="header-section-number">1.2</span> Binomial Mixtures</a></li>
+  <li><a href="#overdispersion" id="toc-overdispersion" class="nav-link" data-scroll-target="#overdispersion"><span class="header-section-number">1.3</span> Overdispersion</a></li>
+  <li><a href="#fitting-the-model" id="toc-fitting-the-model" class="nav-link" data-scroll-target="#fitting-the-model"><span class="header-section-number">1.4</span> Fitting the Model</a></li>
   </ul></li>
+  <li><a href="#indentifiability" id="toc-indentifiability" class="nav-link" data-scroll-target="#indentifiability"><span class="header-section-number">2</span> Indentifiability</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="chapter2.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Chapter 1: Introduction to XYZ</h1>
+<h1 class="title">Chapter 2: Estimating t-a-p Parameters</h1>
 </div>
 
 
@@ -149,20 +222,154 @@ ul.task-list li input[type="checkbox"] {
   </div>
   
 
+
 </header>
 
-<section id="chapter-1-introduction-to-xyz" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Chapter 1: Introduction to XYZ</h1>
-<section id="section-1.1-overview" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="section-1.1-overview"><span class="header-section-number">1.1</span> Section 1.1: Overview</h2>
-<p>Content for section 1.1…</p>
+
+<p>This chapter examines the assumptions and implications of the t-a-p model in detail to build a theoretical foundation for estimation and inference. This work also paves the way to connect the three parameter model to the kappas commonly in use as well as the machine learning (ML) algorithms used for rater agreement.</p>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>Suppose that we have <span class="math inline">\(N\)</span> subjects to be classified by raters, and each subject is belongs (in truth) to one of two categories Class 1 or Class 0, abbreviated to <span class="math inline">\(C_1, C_0\)</span>. The latter class could include any category that is not Class 1; think of Class 0 as Class “Other.” Each subject is independently assigned to one of these two categories by each of <span class="math inline">\(R\)</span> observers (raters). For now, think of <span class="math inline">\(R\)</span> as fixed, but that condition is relaxed later on, so that the number of ratings per subject can vary. Assigned categories are distinguished from true classes in notation by the use of hats: an observation that is rated as Class 1 is <span class="math inline">\(\widehat{C_1}\)</span>, but it may be <span class="math inline">\(C_0\)</span> in truth. This is a common distinction in binary classification problems, leading to the idea of true/false positives/negatives and the confusion matrix described in the introductory chapter.</p>
+<p>We will say that a rater makes an <em>accurate</em> assignment of <span class="math inline">\(\widehat{C_1}\)</span> or <span class="math inline">\(\widehat{C_0}\)</span> for a subject if (1) the rater-assigned class is the true class, and (2) the rater has justification for the choice. This operationalizes the Justified True Belief (JTB) definition of knowledge used by philosophers who study epistemology. Inaccurate ratings are those where one of the two conditions fails: either a rater can assign the wrong category to a subject, or the rater can assign the correct category but for the wrong reason. The latter case corresponds loosely to Gettier-type problems. A rater can still be correct even if the rating is inaccurate (lacking justification), like guessing the result of a coin toss.</p>
+<p>The model lends itself to a tree diagram that illustrates the three nested latent variables as conditional probabilities: (1) the true Class 1 rate <span class="math inline">\(t\)</span>, (2) rater accuracy <span class="math inline">\(a\)</span>, and (3) the probability of choosing <span class="math inline">\(\widehat{C_1}\)</span> when rating inaccurately.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/tap diagram.png" class="img-fluid figure-img"></p>
+<figcaption>tap diagram</figcaption>
+</figure>
+</div>
+<p>Each rating is conditional on a subject’s true classification (Class 1 or Class 0), which will often be unknown, so that we can only observe the rater-assigned categories <span class="math inline">\(\widehat{C_1}\)</span> and <span class="math inline">\(\widehat{C_0}\)</span>. The rating data will be denoted by <span class="math inline">\(c_{ij}\)</span>, where <span class="math inline">\(i = 1 \dots N\)</span> are the subjects and <span class="math inline">\(j = 1 \dots R\)</span> are the raters, who independently classify subjects as 1 or 0 according to the <span class="math inline">\(\widehat{C_1}\)</span> or &gt;Class 0 assignment, respectively. This is convenient, since <span class="math inline">\(k_i := \sum_j c_{ij}\)</span> is the number of <span class="math inline">\(\widehat{C_1}\)</span> ratings for subject <span class="math inline">\(i\)</span>, and the average of the classifications made by raters is <span class="math inline">\(\text{E}[\text{\widehat{C_1}}] = \sum{c_{ij}}/(NR)\)</span>.</p>
+<section id="conditional-probabilities" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="conditional-probabilities"><span class="header-section-number">1.1</span> Conditional Probabilities</h2>
+<p>The tree diagram in figure <span class="math inline">\(\ref{fig:tree}\)</span> models the assignments of <span class="math inline">\(c_{ij}\)</span> and can be read by multiplying the conditional probabilities on the edges from the top down to find the probability that a given classification is <span class="math inline">\(c_{ij} = \widehat{C_1}\)</span>. We use the convention throughout that the complement of probability <span class="math inline">\(p\)</span> is represented by a hat, i.e.&nbsp;<span class="math inline">\(\bar{p} := 1-p\)</span> .</p>
+<p>If a subject is not classified accurately, the classification for that rater is assumed to be made at random, with probability <span class="math inline">\(p\)</span> of choosing <span class="math inline">\(\widehat{C_1}\)</span> regardless of the true class. So the conditional probability of a <span class="math inline">\(\widehat{C_1}\)</span> classification when the subject really is <span class="math inline">\(C_1\)</span> is <span class="math inline">\(\text{Pr}(\widehat{C_1} | C_1) = a + a'p\)</span>. Similarly, <span class="math inline">\(\text{Pr}(\widehat{C_1} | C_0) = a'p\)</span>. This model is simplified in that it assumes that guess rates for the two classes are the same independent of the true classification. More complex models are introduced later.</p>
 </section>
-<section id="section-1.2-another-topic" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="section-1.2-another-topic"><span class="header-section-number">1.2</span> Section 1.2: Another Topic</h2>
-<p>Content for section 1.2…</p>
+<section id="binomial-mixtures" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="binomial-mixtures"><span class="header-section-number">1.2</span> Binomial Mixtures</h2>
+<p>The accuracy rate <span class="math inline">\(a\)</span> will affect the subject distributions. If <span class="math inline">\(a = 0\)</span> the ratings will be distributed as <span class="math inline">\(\text{Bernoulli}(p)\)</span>, independently of the subjects being rated. If <span class="math inline">\(a=1\)</span>, then all raters agree on the true value for each subject. Therefore the way we can reconstruct <span class="math inline">\(a\)</span> from data is through the distribution of the within-subject ratings. The method used here can be seen as a latent class model with binomial mixture distributions. For a nice discussion of these ideas in practice see , which helpfully notes that binomial mixtures are statistically identifiable if the number of cases exceeds a low threshold . More generally, see chapter 14 on mixture models for discrete data.</p>
+<p>We would like to know the true proportion <span class="math inline">\(t\)</span> of the subjects belonging to <span class="math inline">\(C_1\)</span> regardless of how they were rated, rater accuracy <span class="math inline">\(a\)</span>, and the proportion <span class="math inline">\(p\)</span> of inaccurate assignments that are <span class="math inline">\(\widehat{C_1}\)</span>. That goal describes the general model illustrated in the following section. A hierarchical version is given subsequently.</p>
+<p>As is shown in Appendix A, rater accuracy <span class="math inline">\(a\)</span> is proportional to the correlation between the true and assigned classifications. If <span class="math inline">\(C\)</span> is the true classification and <span class="math inline">\(T\)</span> is the assigned classification, then</p>
+<p><span class="math display">\[
+\text{Cor}(T, C) = a\frac{\sigma_T}{\sigma_C}
+\]</span></p>
+<p>The t-app model focuses on raters more than subjects. For example, some rater models include a difficulty parameter for each subject, assuming that some are harder to classify than others. The t-a-p model does not include this, per se, but a random-effects version of the model is introduced later that allows for subject-specific coefficients <span class="math inline">\(p_i\)</span>, which adjusts the guessing rate per subject when a classification is made inaccurately. See <span class="citation" data-cites="paun2018comparing">@paun2018comparing</span> for a discussion of difficulty parameters in machine-learning models similar to tap.</p>
+<p>note: see <a href="https://www.jarad.me/courses/stat544/slides/Ch05/Ch05a.pdf" class="uri">https://www.jarad.me/courses/stat544/slides/Ch05/Ch05a.pdf</a></p>
+<p>and <a href="https://cran.r-project.org/web/packages/mixtools/vignettes/mixtools.pdf" class="uri">https://cran.r-project.org/web/packages/mixtools/vignettes/mixtools.pdf</a></p>
+<p><a href="https://joss.theoj.org/papers/10.21105/joss.01505" class="uri">https://joss.theoj.org/papers/10.21105/joss.01505</a></p>
+<p>I should address the label-switching problem. I think that’s taken care of by way the classifications are pre-specified, AND accuracy is generic.</p>
+</section>
+<section id="overdispersion" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="overdispersion"><span class="header-section-number">1.3</span> Overdispersion</h2>
+<p>The tap model assumes fixed averages over raters and subjects for the three parameters. The most sensible of these assumptions is that there is a single value for <span class="math inline">\(t\)</span> that represents the fraction of Class 1 cases, although this idea has been challenged by @???. That leaves two parameters that are certainly oversimplified in the tap model, so that counts of Class 1 ratings per subject are likely to have more variance than a binomial model would. This is due to anticipated variance in rater ability and the difficulty in rating subjects, resulting in overdispersion. A general approach to this problem is to allow each rater to have a different accuracy rate <span class="math inline">\(a_j\)</span> and each subject to have a different guessing rate <span class="math inline">\(p_i\)</span>. This is the hierarchical model, which is described later.</p>
+<p>Original suggestion to use beta-binomial <span class="citation" data-cites="williams1975394">@williams1975394</span>, modern look at it in <span class="citation" data-cites="ascari2021new">@ascari2021new</span>.</p>
+</section>
+<section id="fitting-the-model" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="fitting-the-model"><span class="header-section-number">1.4</span> Fitting the Model</h2>
+<p>The first question about the model illustrated in figure <span class="math inline">\(\ref{fig:tree}\)</span> is whether it is computationally useful. Using known parameter values for <span class="math inline">\(p, a, t\)</span> to generate simulated ratings, can we then recover the parameters from the data? The answer is yes, with some provisos. Given a data set <span class="math inline">\(c_{ij}\)</span>, we can fit a general model to estimate the three parameters <span class="math inline">\(t\)</span>, <span class="math inline">\(a\)</span>, and <span class="math inline">\(p\)</span> using maximum likelihood to fit a binomial mixture model. The log likelihood function for the binomial mixture described by figure <span class="math inline">\(\ref{fig:tree}\)</span> with <span class="math inline">\(N\)</span> subjects and <span class="math inline">\(R&gt;1\)</span> raters is</p>
+<p><span class="math display">\[
+\ell(t,a,p;k_1, \dots,k_N) = \sum_{i = 1}^N \log \left( t\binom{R}{k_i}(a + a'p)^{k_i}(a'p')^{R-k_i} + t'\binom{R}{k_i}(a'p)^{k_i}(1-a'p)^{R-k_i} \right)  
+\]</span></p>
+<p>where <span class="math inline">\(k_i=\sum_{j}C_{ij}\)</span> the number of Class 1 ratings for subject <span class="math inline">\(i\)</span>. The sum over the logs is justified by the assumption that ratings are independent. It is straightforward to implement the function in the Bayesian programming language Stan , using uniform <span class="math inline">\((0,1)\)</span> priors for the three parameters (see the Discussion section to access the source code).</p>
+<p>To test the computational feasibility of this method, ratings were simulated using a range of values of <span class="math inline">\(t\)</span>, <span class="math inline">\(a\)</span>, and <span class="math inline">\(p\)</span>. The 729 trials each simulated 300 subjects with five raters each, using all combinations of values ranging from .1 to .9 in increments of .1 for each of <span class="math inline">\(t\)</span>, <span class="math inline">\(a\)</span>, and <span class="math inline">\(p\)</span>. The Stan engine uses a Markov chain Monte Carlo (MCMC) algorithm to gather representative samples from the joint probability density of the three parameters. Each run used 1,000 iterations (800 after warm-up) with four chains each.</p>
+<p><span class="citation" data-cites="gelman2020bayesian">[need to cite @gelman2020bayesian and use those methods]</span></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>regenerate <span class="ot">=</span> <span class="cn">FALSE</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(regenerate <span class="sc">==</span> <span class="cn">TRUE</span>){</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  param_grid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">t =</span> <span class="fu">seq</span>(.<span class="dv">1</span>,.<span class="dv">9</span>,.<span class="dv">1</span>),<span class="at">a =</span> <span class="fu">seq</span>(.<span class="dv">1</span>,.<span class="dv">9</span>,.<span class="dv">1</span>),<span class="at">p =</span> <span class="fu">seq</span>(.<span class="dv">1</span>,.<span class="dv">9</span>,.<span class="dv">1</span>))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  n_sims <span class="ot">&lt;-</span> <span class="fu">nrow</span>(param_grid)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  N <span class="ot">&lt;-</span> <span class="dv">300</span> <span class="co"># number of subjects</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  R <span class="ot">&lt;-</span> <span class="dv">5</span>   <span class="co"># number of raters</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()  </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  fixed_model_spec <span class="ot">&lt;-</span> <span class="fu">stan_model</span>(<span class="st">"code/fixed_effects.stan"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_sims){</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    ratings <span class="ot">&lt;-</span> <span class="fu">generate_ratings</span>(N, R, param_grid<span class="sc">$</span>p[i], param_grid<span class="sc">$</span>a[i], param_grid<span class="sc">$</span>t[i])  </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get the number of Class 1 ratings per subject in a vector</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    counts <span class="ot">&lt;-</span> ratings <span class="sc">%&gt;%</span> </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(SubjectID) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarize</span>(<span class="at">k =</span> <span class="fu">sum</span>(RatedClass)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(k) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pull</span>()</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    kappa <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">fleiss</span>(counts,R))</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    fixed_model <span class="ot">&lt;-</span> <span class="fu">sampling</span>(<span class="at">object =</span> fixed_model_spec, </span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>                              <span class="at">data =</span> <span class="fu">list</span>(<span class="at">N =</span> N, <span class="at">R =</span> R, <span class="at">S =</span> <span class="dv">1</span>, <span class="at">count =</span> counts), </span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>                              <span class="at">iter =</span> <span class="dv">1000</span>,</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>                              <span class="at">warmup =</span> <span class="dv">200</span>,</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>                              <span class="at">thin =</span> <span class="dv">1</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>      stats <span class="ot">&lt;-</span> <span class="fu">rbind</span>( broom<span class="sc">::</span><span class="fu">tidy</span>(fixed_model),</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">data.frame</span>(<span class="at">term =</span> <span class="st">"root kappa"</span>,<span class="at">estimate =</span> kappa, <span class="at">std.error =</span> <span class="cn">NA</span>,</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">mutate</span>(<span class="at">p =</span> param_grid<span class="sc">$</span>p[i], <span class="at">a =</span> param_grid<span class="sc">$</span>a[i], <span class="at">t =</span> param_grid<span class="sc">$</span>t[i])</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>      out <span class="ot">&lt;-</span> <span class="fu">rbind</span>(out,stats)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write_csv</span>(out,<span class="st">"data/fit_test_sim.csv"</span>)</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/fit_test_sim.csv"</span>)</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="co"># format for plotting</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>pdf <span class="ot">&lt;-</span> out <span class="sc">%&gt;%</span> </span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co">#  filter(a &gt; .2) %&gt;% </span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">parameter =</span> term, <span class="at">value =</span> estimate, <span class="at">actual_p =</span> p, <span class="at">actual_a =</span> a, <span class="at">actual_t =</span> t) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(parameter, value) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">estimated_a =</span> accuracy, <span class="at">estimated_p =</span> p, <span class="at">kappa_a =</span> <span class="st">`</span><span class="at">root kappa</span><span class="st">`</span>, <span class="at">estimated_t =</span> t) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Sim =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(parameter, value, <span class="sc">-</span>Sim) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(parameter, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"type"</span>,<span class="st">"parameter"</span>), <span class="at">sep =</span> <span class="st">"_"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(type, value)</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(pdf, <span class="fu">aes</span>(<span class="at">x =</span> actual, <span class="at">y =</span> estimated, <span class="at">group =</span> actual)) <span class="sc">+</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(. <span class="sc">~</span> parameter) <span class="sc">+</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="chapter2_files/figure-html/tap_sim-1.png" class="img-fluid figure-img" width="576"></p>
+<figcaption>Box and whisker plots show parameter estimates from simulations of rater data <span class="math inline">\(t\)</span>-<span class="math inline">\(a\)</span>-<span class="math inline">\(p\)</span> values ranging from .1 to .9. The diagonal line marks perfect estimates.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The accuracy measure <span class="math inline">\(a\)</span> and the Class 1 “guess rate” <span class="math inline">\(p\)</span> are stable across scenarios in figure <span class="math inline">\(\ref{fig:tap_sim}\)</span>, but the estimated true fraction of Class 1 cases <span class="math inline">\(t\)</span> is sensitive to values of <span class="math inline">\(a\)</span> near zero. To see this, substitute <span class="math inline">\(a = 0\)</span> into the likelihood function to get</p>
+<p><span class="math display">\[
+\begin{aligned}
+\ell(t,p;a = 0, k_1, \dots,k_N) &amp;= \sum_{i = 1}^N \log \left( t\binom{R}{k_i}p^{k_i}(p')^{R-k_i} + t'\binom{R}{k_i}p^{k_i}(p')^{R-k_i} \right) \\
+&amp;= \sum_{i = 1}^N \log \left( \binom{R}{k_i}p^{k_i}(1-p)^{R-k_i}  \right)
+\end{aligned}
+\]</span></p>
+<p>showing that <span class="math inline">\(t\)</span> is under-determined when <span class="math inline">\(a = 0\)</span>, and we should expect poor behavior as <span class="math inline">\(a\)</span> nears zero. This is intuitive: if the raters are only guessing, they should give us no information about the true <span class="math inline">\(C_1\)</span> rate. If the data in figure <span class="math inline">\(\ref{fig:tap_sim}\)</span> are filtered to <span class="math inline">\(a &gt; .2\)</span> the estimates of <span class="math inline">\(t\)</span> greatly improve. Aside from extreme values of <span class="math inline">\(a\)</span> affecting the estimation of <span class="math inline">\(t\)</span>, a visual inspection of the scatter plots of the parameter estimates shows no correlations.</p>
+</section>
+</section>
+<section id="indentifiability" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Indentifiability</h1>
+<p>The tap model is not identifiable in the sense that, given a set of ratings, the likelihood function is not uniquely maximized for a single choice of <span class="math inline">\((t,a,p)\)</span>. As an example, consider a set of ratings of subjects with two raters each, where for each subject one rater assigns Class 1 and the other rater assigns Class 0. The likelihood function is the product of the likelihood for each subject, and these will be identical, so maximizing likelihood for one subject is the same as for the whole data set. By symmetry, <span class="math inline">\(a \le 1/2\)</span> and likelihood will be maximized when <span class="math inline">\(a +\bar{a}p = 1/2\)</span> so that any value of <span class="math inline">\(p = \frac{1/2 - a}{1-a}\)</span> is a solution. Intuitively, this choice ranges from accuracy of .5 and <span class="math inline">\(p = 0\)</span> to accuracy of 0 and <span class="math inline">\(p = 1/2\)</span>.</p>
+<p>Other non-identifiable cases occur when one or more of the tap parameters is zero or one. If a = 1, it doesn’t matter what p is, for example. These degenerate cases aside, the tap paramterization of the binomial mixture has an advantage over the usual way this is done, to estimate the mean of each of the two binomial distributions individually. If <span class="math inline">\(Pr[mixture] = t \text{binom}(\mu = c_1) + (1-t)\text{binom}(mu = c_0)\)</span> we must then add the constraint that <span class="math inline">\(\mu_1 \ge \mu_2\)</span> to avoid label switching. The tap parameterization allows all three of the parameters to be in [0,1] without such a problem, because a is the difference between the two means: $ c_1 - c_0 = a + {a}p - {a}p$.</p>
+<p>Non-uniqueness is a well-known problem with mixture models, and it is less of a problem for Bayesian MCMC estimation, which provides a full posterior distribution for the parameters, which may be multi-modal if there are two competing solutions. This gives us a way to detect degenerate solutions and look for a different model if desired.</p>
+<p>In the case where we allow individual parameters for accuracy and random class assignment, the t-a0a1-p0p1 case, we may get data sets that are not identifiable for label-switching reasons. That is, we may be able to find the maximum likelihood mixture of binomial distributions, but not know which is Class 0 and which is Class 1. This is not a model problem, but a data problem.</p>
+<p>With the <span class="math inline">\(a0,a1,p0,p1\)</span> parameters, label switching means that we swap <span class="math inline">\(\bar{t}\)</span> for <span class="math inline">\(t\)</span> and the two corresponding means swap as well. That requires some second set of the parameters <span class="math inline">\(a0',a1',p0',p1'\)</span> such that</p>
+<p><span class="math display">\[
+\begin{align}
+a_1 + \bar{a_1}p_1 &amp;= \bar{a_0}'p_0' \\
+a_1' + \bar{a_1}'p_1' &amp;= \bar{a_0}p_0 \\
+\end{align}
+\]</span></p>
+<p>Then we can swap the primes for the non-primes, and exchange t for 1-t and the distribution is the same. There are four free parameters and two constraints shown above, plus the constraints that all parameters are in [0,1]. A example of a label-switching set is when <span class="math inline">\(\mu_0 = \bar{a_0}p_0 &gt; a_1 + \bar{a_1}p_1 = \mu_1\)</span>, so that there are more class 1 ratings for class 0 cases that there are for true class 1 cases. Suppose a0 = .5, a1 = .2, p0 = .7 and p1 = .1, we have <span class="math inline">\(\mu_0 = (.5)(.7) = .35\)</span> and <span class="math inline">\(\mu_1 = .2 + (.8).1 = .28\)</span>, so the mean of the class 1 ratings is to the left of the mean of the class 0 ratings. This can’t happen with the three-parameter model. It’s not a problem with the model, however, but an expression of the ratings and raters. For example, suppose these are wine tasting ratings, and it’s easier to for judges to agree on poor wine than excellent wine (this seems to be the case in practice). Suppose further that some of the raters are motivated to over-rate poor wines, pushing up the p0 rate to .7 from some lower value. This rating inflation makes the poor wines seem better than they are, and by comparison the good wines seem worse. From the data, we can’t tell which class is which under these model assumptions and with this data. However, the MCMC results will show us a multi-model distribution.</p>
+<p>[I’m not sure we can ignore t, because the rows of data create the likelihood. Need to test this with real data using the simulator]</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -201,18 +408,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -244,11 +440,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -258,8 +493,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -271,7 +515,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -315,6 +682,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -340,6 +708,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -400,6 +794,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 
