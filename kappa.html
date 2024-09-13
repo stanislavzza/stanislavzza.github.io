@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Your Name">
+
+<title>Chapter 3: Kappa Statistics – The Kappa Zoo</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">The Kappa Zoo</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./introduction.html"> 
+<span class="menu-text">Introduction</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./chapter1.qmd"> 
+<span class="menu-text">Chapter 1</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./chapter2.qmd"> 
+<span class="menu-text">Chapter 2</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#the-fleiss-kappa-proficient-raters" id="toc-the-fleiss-kappa-proficient-raters" class="nav-link" data-scroll-target="#the-fleiss-kappa-proficient-raters"><span class="header-section-number">2</span> The Fleiss Kappa: Proficient Raters</a></li>
+  <li><a href="#s-g-index-naive-raters" id="toc-s-g-index-naive-raters" class="nav-link" data-scroll-target="#s-g-index-naive-raters"><span class="header-section-number">3</span> S (G-index): Naive Raters</a></li>
+  <li><a href="#ac1" id="toc-ac1" class="nav-link" data-scroll-target="#ac1"><span class="header-section-number">4</span> AC1</a></li>
+  <li><a href="#cohens-kappa" id="toc-cohens-kappa" class="nav-link" data-scroll-target="#cohens-kappa"><span class="header-section-number">5</span> Cohen’s Kappa</a></li>
+  <li><a href="#krippendorffs-alpha" id="toc-krippendorffs-alpha" class="nav-link" data-scroll-target="#krippendorffs-alpha"><span class="header-section-number">6</span> Krippendorff’s Alpha</a></li>
+  <li><a href="#conclusions-about-kappa" id="toc-conclusions-about-kappa" class="nav-link" data-scroll-target="#conclusions-about-kappa"><span class="header-section-number">7</span> Conclusions about kappa</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="kappa.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Chapter 3: Kappa Statistics</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Your Name </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
+<p>One way to make the model identifiable is to put a constraint on one of the parameters. For example, we can constrain the guessing parameter <span class="math inline">\(p\)</span> to be equal to the truth parameter <span class="math inline">\(t\)</span>. This is the approach taken by the Fleiss kappa <span class="citation" data-cites="fleiss1971measuring">[@fleiss1971measuring]</span>, as we’ll see below.</p>
+<p>The formula for chance-corrected measure of agreement (generically a “kappa”) compares observed match rates to the expectation of random match rates. The kappas vary in how they estimate the random match rates. For two ratings to match, two raters <span class="math inline">\(j,k\)</span> of the same subject <span class="math inline">\(i\)</span> must agree in their assignment of either Class 1 or Class 0 classifications. In other words, the binary random variables must agree: <span class="math inline">\(C_{ij} = C_{ik}\)</span>. A generic formula that includes the most common kappas is</p>
+<p><span class="math display">\[
+\kappa = \frac{m_o - m_c}{1 - m_c},
+\]</span> where <span class="math inline">\(m_o\)</span> is the observed proportion of agreements and <span class="math inline">\(m_c\)</span> is the expected proportion of agreements under chance. The most general treatment of such statistics is the Krippendorff alpha <span class="citation" data-cites="krippendorff2018content">[@krippendorff2018content, pp. 221–250]</span></p>
+<p>The various kappas differ in the assumption made about the chance correction probabiliy <span class="math inline">\(m_c\)</span>. Commonly, the assumption is that <span class="math inline">\(m_c = x^2 + \bar{x}^2\)</span> for some probability <span class="math inline">\(x\)</span>. This simple formulation makes sense when both raters are guessing, but the actual case is more complicated because a match “by chance” could be a case where one rating was accurate and the other was a guess. This distinction isn’t generally made in the derivations of the kappas, although the AC1 paper discusses the issue, and hints at a full three-parameter model. It’s ironic that the confusion about kappas is disagreement about the probability of agreement by chance.</p>
+<p>The Fleiss kappa assumes that <span class="math inline">\(p = c\)</span>, the observed fraction of class 1 ratings (<span class="math inline">\(\hat{c} = E[C]\)</span>), so that <span class="math inline">\(m_c = c^2 + \bar{c}^2\)</span>. The <span class="math inline">\(S\)</span> statistic (also called the <span class="math inline">\(G\)</span>-index) is a kappa formulation that assumes <span class="math inline">\(m_c = 1/2\)</span>. The AC1 kappa has a different form, assuming that <span class="math inline">\(m_c = 2c\bar{c}\)</span>. The Cohen kappa is a variation where each rater gets a guessing distribution, so <span class="math inline">\(m_c = x_1x_2 + \bar{x_1}\bar{x_2}\)</span>.</p>
+<p>Consider two raters classifying an observation. In the <span class="math inline">\(t-a-p\)</span> model we can express the expected value of observed matches <span class="math inline">\(m_o\)</span> as the sum of three kinds of agreement: (1) <span class="math inline">\(m_a\)</span> is when both raters are accurate (and hence agree), (2) <span class="math inline">\(m_i\)</span> when both raters are inaccurate (guessing) and agree, and (3) <span class="math inline">\(m_x\)</span> is the mixed case when one rater is accurate and the other is inaccurate but they agree. The second two of these have expressions that include the guessing rate <span class="math inline">\(m_c\)</span>. Following that thinking we have the following expectations for rates:</p>
+<p><span class="math display">\[
+\begin{aligned}
+m_a &amp;= a^2 &amp; \text{(both accurate)}\\
+m_r &amp;= p^2 + \bar{p}^2 &amp; \text{(random ratings)}\\
+m_i &amp;= \bar{a}^2m_r = a^2m_r - 2am_r + m_r &amp;\text{(both inaccurate)}\\
+m_x &amp;= 2a\bar{a}(tp + \bar{t}\bar{p}) &amp;\text{(mixed accurate &amp; inaccurate)}\\
+m_o &amp;= m_a + m_i + m_x &amp;\text{(observed match rate)}\\
+    &amp;= a^2+a^2m_r + m_r - 2am_r + 2a\bar{a}(tp + \bar{t}\bar{p})\\
+\end{aligned}
+\]</span></p>
+<p>For <span class="math inline">\(m_a\)</span>, both ratings must be accurate, in which case they automatically agree. For <span class="math inline">\(m_i\)</span>, both must be inaccurate (<span class="math inline">\(\bar{a}^2\)</span>) and then match randomly (<span class="math inline">\(m_r\)</span>). For <span class="math inline">\(m_x\)</span>, one rater must be accurate and the other inaccurate, in which case they agree if the accurate rater chooses the category that the inaccurate rater guesses.</p>
+<p>Following the intuition in the introduction, that kappa is the square of what we are interested in, we can attempt to choose <span class="math inline">\(m_c\)</span> so that <span class="math inline">\(\kappa = a^2\)</span> via <span class="math inline">\(m_0 - m_c = a^2(1-m_c)\)</span>. This leads to</p>
+<p><span id="eq-mc"><span class="math display">\[
+\begin{align}
+m_c^* &amp;= \frac{m_i + m_x}{1 - a^2} \\
+&amp;= \frac{\bar{a}^2m_r + 2a\bar{a}(tp + \bar{t}\bar{p})}{(1+a)\bar{a}} \\
+&amp;= \frac{\bar{a}(p^2 + \bar{p}^2)  + 2a(tp + \bar{t}\bar{p})}{1+a} \\
+\end{align}
+\tag{1}\]</span></span></p>
+<p>where the asterisk denotes the choice of the chance correction formula <span class="math inline">\(m_c\)</span> that always makes <span class="math inline">\(\kappa = a^2\)</span>. In unsimplified form, the numerator of is the expected proportion of matches where there is at least one inaccurate rating, and the denominator is the the rate of non-perfect rating pairs, where at least one of the raters is inaccurate, and they may or may not match. The chance correction is therefore accounting for the accurate ratings by taking them out of the data altogether and then calculating inaccurate matches out of all rating pairs as the probability of by-chance matching.</p>
+<p>The formulation of <span class="math inline">\(m_c^*\)</span> isn’t directly helpful for computing a kappa because the whole point is to discover <span class="math inline">\(a\)</span>, so a formula for <span class="math inline">\(m_c\)</span> that requires knowing <span class="math inline">\(a\)</span> is circular. However, some special cases are of interest. For values of <span class="math inline">\(a\)</span> close to zero, we have <span class="math inline">\(m_c^* \approx p^2 + \bar{p}^2\)</span>; when most ratings are random, the guessing parameter <span class="math inline">\(p\)</span> is most important. When <span class="math inline">\(a\)</span> is close to one, <span class="math inline">\(m_c^* \approx tp + \bar{t}\bar{p}\)</span>; when most ratings are accurate, the inaccurate matches are likely to have only one inaccurate rating.</p>
+<p>If <span class="math inline">\(m_c^2\)</span> is averaged over a uniform distribution <span class="math inline">\(p \epsilon [0,1]\)</span>, <span class="math inline">\(t\)</span> also drops out so that the chance correction only depends on <span class="math inline">\(a\)</span>, the proportion of accurate ratings.</p>
+<p><span class="math display">\[
+\int_0^1 \frac{\bar{a}(p^2 + \bar{p}^2)  + 2a(tp + \bar{t}\bar{p})}{1+a} dp = \frac{a+2}{3+3a}.
+\]</span></p>
+<p>If when raters assign inaccurate ratings, if they at least conform to the <em>distribution</em> of true values, so that <span class="math inline">\(t = p\)</span>, then <span class="math inline">\(m_c^* = p^2 + \bar{p}^2\)</span>. Finally, if <span class="math inline">\(p = 1/2\)</span> then <span class="math inline">\(m_c^*\)</span> simplifies to <span class="math inline">\(1/2\)</span> as well. These two conditions will be referred to respectively as “proficient” or “naive” raters, as described below.</p>
+</section>
+<section id="the-fleiss-kappa-proficient-raters" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="the-fleiss-kappa-proficient-raters"><span class="header-section-number">2</span> The Fleiss Kappa: Proficient Raters</h2>
+<p>[Note: in the asymptotic likelihood app, it seems that in addition to t = p, when p = .5 we have an accurate estimate of a as well–No, that’s only if we use p = .5, not c = .5.]</p>
+<p>The Fleiss kappa is designed to work over multiple raters and a rating scale of arbitrary length. It assumes an asymptotic form for chance correction, so is most appropriate for large samples. We only consider the binary scale case here. Extension to larger scales is a topic in the discussion section at the end of this essay.</p>
+<p>The baseline for random ratings for Fleiss is if we took all the observations and randomly shuffled them between subjects. This worse case has accuracy equal to zero, and the rating process devolves to</p>
+<p><span class="math display">\[
+\begin{aligned}
+C_{ij} &amp;= T_iA_{ij} + \bar{A_{ij}}P_{ij} \\
+&amp;= P_{ij}
+\end{aligned}
+\]</span></p>
+<p>This is a simple binomial distribution with probability <span class="math inline">\(p\)</span> , not a mixture of them, and <span class="math inline">\(p = \hat{c}\)</span> (the observed average fraction of Class 1 ratings) will have maximum likelihood over binomial models. In this case, we have no information about <span class="math inline">\(t\)</span>, and any value will do in the model, since it has no effect. The Fleiss kappa uses this random baseline and takes it one step further by assuming that the fraction of true Class 1 cases is the same as the reported fraction, as well, i.e. <span class="math inline">\(t = \hat{c}=p\)</span>. The Fleiss kappa can therefore give poor estimates for <span class="math inline">\(a\)</span> when the raters get the proportion of Class 1 cases wrong.</p>
+<p>For example, consider a test for a medical condition that has a prevalence of 10%, but the test is in fact returning random results that are half positive and half negative. Then the kappa’s baseline for comparison is wrong, and the resulting estimate for accuracy will be biased.</p>
+<p>A review of the properties of Fleiss kappa can be found in , chapter 18, including kappa’s equivalence to an intraclass correlation coefficient, defined as ICC(1,1) in . In our notation here, the Fleiss kappa is defined as taking <span class="math inline">\(m_c = \hat{c}^2 + \hat{\bar{c}}^2\)</span>, where <span class="math inline">\(\hat{c}\)</span> is the observed proportion of class 1 ratings. The Fleiss kappa is therefore a <span class="math inline">\(\hat{c}\)</span>-<span class="math inline">\(a\)</span>-<span class="math inline">\(\hat{c}\)</span> model. The functional form <span class="math inline">\(f(x) = x + x^2\)</span> for <span class="math inline">\(x \epsilon [0,1]\)</span> is parabolic, with a minimum at <span class="math inline">\(x = 1/2\)</span>, where <span class="math inline">\(f(x) = 1/2\)</span> and maxima at <span class="math inline">\(x = 0\)</span> and <span class="math inline">\(x = 1\)</span>, when <span class="math inline">\(f(x) = 1\)</span>. Therefore, the chance correction term <span class="math inline">\(m_c\)</span> of the Fleiss kappa is opinionated, favoring larger rates of rater error. We would expect that the rater agreement statistic will tend to underestimate rater accuracy, taken to be <span class="math inline">\(\hat{a} = \sqrt{\kappa}\)</span>.</p>
+<p>As noted, the chance correction for Fleiss depends on the observed proportion of Class 1 ratings, <span class="math inline">\(\hat{c}\)</span>. The expected value under the tap model assumptions is <span class="math inline">\(E[\hat{c}] = c = ta + p\bar{a}\)</span>; ratings of Class 1 result from either true and accurate ratings or from inaccurate ones that happen to guess Class 1.</p>
+<p>When <span class="math inline">\(p = t\)</span>, the expectation of ratings simplifies to <span class="math inline">\(c = pa + p\bar{a} = p\)</span>. Intuitively, this case causes rater accuracy <span class="math inline">\(a\)</span> to wash out of the observed rate of Class 1 ratings <span class="math inline">\(\hat{c}\)</span>, so that the chance correction can be estimated directly. In the discussion of <a href="#eq-mc" class="quarto-xref">Equation&nbsp;1</a>, we saw that when <span class="math inline">\(t = p\)</span>, <span class="math inline">\(m_c^* = p^2 + \bar{p}^2\)</span>. Therefore, the Fleiss kappa is equivalent to the chance correction that makes <span class="math inline">\(E[\kappa] = a^2\)</span> when <span class="math inline">\(t = p\)</span>. Under this assumption, when raters make inaccurate ratings, their ratings at least conform to the distribution of true values <span class="math inline">\(t\)</span>, and more generally the fraction <span class="math inline">\(c\)</span> of Class 1 ratings is the true fraction. I’ll refer to that case “proficient” raters, since on average their work represents the true distribution of the data, which in the notation here is <span class="math inline">\(t = c\)</span>.</p>
+<p>Under this <span class="math inline">\(t = c\)</span> “proficiency” condition, rater accuracy <span class="math inline">\(a\)</span> is the correlation between the raters’ ratings and the true classifications, <span class="math inline">\(\sqrt{E[\kappa]} = a = cor(C, T)\)</span>. Additionally, the Fleiss kappa is the intraclass correlation of the ratings. Derivations of these results are found in the appendices, where there is also an alternative derivation of the <span class="math inline">\(a = \sqrt{E[\kappa}]\)</span> result.</p>
+<p>Even when <span class="math inline">\(t \ne p\)</span>, when <span class="math inline">\(a = 1\)</span>, <span class="math inline">\(\kappa = 1\)</span>, and when <span class="math inline">\(a = 0\)</span>, <span class="math inline">\(\kappa = 0\)</span> or is undefined.</p>
+<p>In calculations over a grid of possible values for the input parameters in <span class="math inline">\((0,1)\)</span> for each, the Fleiss kappa was rounded up to zero for negative values. When <span class="math inline">\(t \ne p\)</span>, the bias away from <span class="math inline">\(a^2\)</span> was often substantial (the R code to reproduce these results are in the supplementary materials).</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">kappa_error</span>(<span class="fl">1e6</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(t, a) <span class="sc">|&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">error =</span> <span class="fu">mean</span>(fleiss_a <span class="sc">-</span> a)) <span class="sc">|&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> a, <span class="at">z =</span> error)) <span class="sc">+</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_contour_filled</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="sc">-</span>.<span class="dv">2</span>, <span class="sc">-</span>.<span class="dv">1</span>, <span class="sc">-</span>.<span class="dv">05</span>, <span class="dv">0</span>,.<span class="dv">05</span>))  <span class="sc">+</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>(<span class="at">start =</span> .<span class="dv">2</span>, <span class="at">end =</span> .<span class="dv">8</span>) <span class="sc">+</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill=</span><span class="fu">guide_legend</span>(<span class="at">title=</span><span class="st">"Error"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-fleiss-error-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fleiss-error-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="kappa_files/figure-html/fig-fleiss-error-plot-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fleiss-error-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: The Fleiss kappa’s error in the estimate of rater accuracy averaging over expression(p epsilon [0,1]), taken over a dense grid of values in [0,1] for the parameters.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The average of the Fleiss kappa’s estimate of <span class="math inline">\(a\)</span>, shown in <a href="#fig-fleiss-error-plot" class="quarto-xref">Figure&nbsp;1</a>, is pretty good when <span class="math inline">\(t\)</span> is somewhere near .5, across the whole range of true <span class="math inline">\(a\)</span> values. Problems occur for large and small values of <span class="math inline">\(t\)</span>. This result doesn’t hold for <em>all</em> values of <span class="math inline">\(p\)</span>, just the average. So if we have a large number of raters and imagine that their individual statistics <span class="math inline">\(p_j\)</span> are randomly distributed, there’s some assurance that for reasonable values of <span class="math inline">\(t\)</span>, then <span class="math inline">\(| \sqrt{\kappa_{fleiss}} - a | \le .05.\)</span> Recall that under the proficient rater assumption (<span class="math inline">\(p = t\)</span>), the expectation of this kappa is <span class="math inline">\(a^2\)</span>.</p>
+<p>As a soft version of the proficient rater assumption, we can assume that the prior distribution of <span class="math inline">\(p\)</span> is not uniform over <span class="math inline">\([0,1]\)</span>, but is represented by a beta distribution <span class="math inline">\(\beta(c_1, c_0)\)</span>.</p>
+<p>[Note: see “decomposing a.rmd” for possible results connecting proficient raters to the decomposed accuracy models]</p>
+<p>[closed form for a exists under Fleiss assumptions, and we have t = p, so there’s a closed form for the likelihood given a data set]</p>
+</section>
+<section id="s-g-index-naive-raters" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="s-g-index-naive-raters"><span class="header-section-number">3</span> S (G-index): Naive Raters</h2>
+<p>Recall that the S (G-index) version of kappa assumes that raters “flip coins” when assigning an inaccurate rating, with chance correction <span class="math inline">\(m_c = 1/2\)</span>. As noted in the discussion of <a href="#eq-mc" class="quarto-xref">Equation&nbsp;1</a>, the choice of <span class="math inline">\(p =  1/2\)</span> corresponds to this choice. Thus, S is a <span class="math inline">\(t-a-1/2\)</span> model. The <span class="math inline">\(S\)</span> statistic will recover <span class="math inline">\(a\)</span> when <span class="math inline">\(t = 1/2\)</span>, subject to sampling error, but generally this is not the case. A grid expansion of n uniformly distributed values of the three model parameters <span class="math inline">\((t, a, p)\)</span> was used to calculate the estimation error of rater accuracy, using <span class="math inline">\(a = \sqrt{\kappa}\)</span>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(t, a) <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">error =</span> <span class="fu">mean</span>(S_a <span class="sc">-</span> a)) <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> a, <span class="at">z =</span> error)) <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_contour_filled</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>,.<span class="dv">05</span>, .<span class="dv">1</span>, .<span class="dv">2</span>, <span class="dv">1</span>))  <span class="sc">+</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>(<span class="at">start =</span> .<span class="dv">8</span>, <span class="at">end =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill=</span><span class="fu">guide_legend</span>(<span class="at">title=</span><span class="st">"Error"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-s_error" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s_error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="kappa_files/figure-html/fig-s_error-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s_error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: The S statistic’s error in the estimate of rater accuracy averaging over expression(p epsilon [0,1]), taken over a dense grid of values in [0,1] for the parameters.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>For small values of <span class="math inline">\(a\)</span>, the S statistic’s constant <span class="math inline">\(m_c = 1/2\)</span> underestimates <span class="math inline">\(m_c^*\)</span> and hence inflates kappa. The contours in <strong>?@fig-s-error</strong> show that, when averaging over <span class="math inline">\(p\)</span>, the S version of kappa badly overestimates <span class="math inline">\(\hat{a}\)</span> for small values of <span class="math inline">\(a\)</span>.When <span class="math inline">\(a = 1\)</span>, <span class="math inline">\(S = 1\)</span>, and when <span class="math inline">\(a = 0\)</span>, S can take any value in [0,1]. For example, when <span class="math inline">\((t,a,p) = (0,0,1/2)\)</span>, the S is 0, but when <span class="math inline">\((t,a,p) = (1/2,0,1)\)</span>, S is 1.</p>
+<p>[is this model unique in t-a-p like Fleiss is?]</p>
+</section>
+<section id="ac1" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="ac1"><span class="header-section-number">4</span> AC1</h2>
+<p>The AC1 version of kappa developed in uses the same disaggregation of rating agreements found in . This can be found in Table 4, page 36, where Gwet uses the idea of ratings that are certain (the same as ??’s “for cause”) versus random, so that what I’ve called the accurate match rate <span class="math inline">\(m_a = a^2\)</span> is the sum of Gwet’s counts of accurate matches <span class="math inline">\(N_{++.CC} + N_{--.CC}\)</span> divided by the total number of rating pairs. In terms of the t-a-p model, Gwet assumes that the probability of a by-chance agreement is <span class="math inline">\(m_c = m_i + m_x\)</span>, the sum of the cases where both raters make inaccurate ratings and the case where exactly one does. This amounts to assuming <span class="math inline">\(a^2\)</span> is close to zero in <span class="math inline">\(m_c^* = (m_i + mx)/(1-a^2)\)</span>. After some approximations, the accidental match rate <span class="math inline">\(m_i + mx\)</span> is assumed to be <span class="math inline">\(2c\bar{c}\)</span>, estimating <span class="math inline">\(c\)</span> from <span class="math inline">\(\hat{c}\)</span>, the observed fraction of <span class="math inline">\(C = 1\)</span>. Since <span class="math inline">\(1 = (c + \bar{c})^2 = c^2 + 2c\bar{c} + \bar{c}^2\)</span>, the AC1 version of <span class="math inline">\(m_c\)</span> is the complement of the Fleiss version: they sum to one. In effect, matches that Fleiss considers random, AC1 considers non-random, and vice-versa, at least in expectation. One consequence is that <span class="math inline">\(AC1 \ge \kappa_{fleiss}\)</span>.</p>
+<p>If the assumptions of AC1 are met,,</p>
+<p><span id="eq-AC1"><span class="math display">\[
+\begin{aligned}
+E[\kappa] &amp;= \frac{m_o - m_c}{1 - m_c} \\
+&amp;= \frac{m_a + m_i + m_x - 2c\bar{c}}{1-2c\bar{c}} \\
+&amp;\approx \frac{a^2}{1-2c\bar{c}} &amp; \text{(if } m_i + m_x \approx 2c\bar{c}\text{),}\\
+\end{aligned}
+\tag{2}\]</span></span></p>
+<p>which will overestimate <span class="math inline">\(a\)</span>, moreso when <span class="math inline">\(c \approx .5\)</span>.</p>
+<p>As noted in the discussion of the Fleiss kappa, when <span class="math inline">\(a\)</span> is small, the Fleiss chance correction of <span class="math inline">\(c^2 + \bar{c}^2\)</span> is a good approximation of <span class="math inline">\(m_i + m_x\)</span>, which means that the AC1 complement of this, <span class="math inline">\(1 - (c^2 + \bar{c}^2)\)</span>, gives a poor estimate for small values of <span class="math inline">\(a\)</span>. Neither version is a good approximation when <span class="math inline">\(a\)</span> is close to one.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(t, a) <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">error =</span> <span class="fu">mean</span>(AC1_a <span class="sc">-</span> a)) <span class="sc">|&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> a, <span class="at">z =</span> error)) <span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_contour_filled</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>,.<span class="dv">05</span>, .<span class="dv">1</span>, .<span class="dv">2</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>(<span class="at">start =</span> .<span class="dv">8</span>, <span class="at">end =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill=</span><span class="fu">guide_legend</span>(<span class="at">title=</span><span class="st">"Error"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-ac1_error" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ac1_error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="kappa_files/figure-html/fig-ac1_error-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ac1_error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: The AC1 statistic’s error in the estimate of rater accuracy averaged over a dense grid of values in (0,1) for <span class="math inline">\((t,a,p)\)</span>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The contours in <strong>?@fig-ac1-error</strong> shows the median error (solid line), the 25th and 75th percentiles (lighter ribbons), and maximum error (lighter ribbons) for S as a function of rater accuracy. The S version of kappa tends to overestimate rater accuracy when <span class="math inline">\(a&lt;.5\)</span>. For example, if <span class="math inline">\(t = p = .8\)</span> with <span class="math inline">\(a = .25\)</span>, the AC1 has an expectation of .58, implying an accuracy of .76.</p>
+<p>[is this model unique in t-a-p like Fleiss is?]</p>
+</section>
+<section id="cohens-kappa" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="cohens-kappa"><span class="header-section-number">5</span> Cohen’s Kappa</h2>
+<p>The original kappa is a variation that exceeds the three-parameter <span class="math inline">\(t\)</span>-<span class="math inline">\(a\)</span>-<span class="math inline">\(p\)</span> model, because each rater gets a custom guessing rate. With two raters, the model becomes <span class="math inline">\(t\)</span>-<span class="math inline">\(a\)</span>-<span class="math inline">\(p_1,p_2\)</span>, and the chance match rate is <span class="math inline">\(m_c = p_1 p_2 + \bar{p_1}\bar{p_2}\)</span>. The kappa is still calculated by comparing the observed match rate <span class="math inline">\(m_o\)</span> and the estimated chance correction, with <span class="math inline">\(\kappa = (m_o - m_c)/(1-m_c)\)</span>.</p>
+<p>In cases where <span class="math inline">\(p_1 = p_2 = t\)</span>, the Cohen kappa is equivalent to the Fleiss kappa with the proficient rater condition, and <span class="math inline">\(\sqrt{E[\kappa]} = a\)</span>.</p>
+</section>
+<section id="krippendorffs-alpha" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="krippendorffs-alpha"><span class="header-section-number">6</span> Krippendorff’s Alpha</h2>
+<p>On the wiki page, it notes that the metric used is a square of an actual metric, which probably relates to the a^2 thing.</p>
+<p><a href="https://en.wikipedia.org/wiki/Krippendorff%27s_alpha" class="uri">https://en.wikipedia.org/wiki/Krippendorff%27s_alpha</a></p>
+<p>There’s a note about the bias in Fleiss. I think the alpha is the small-n version of fleiss with varying numbers of raters. I should code it up.</p>
+</section>
+<section id="conclusions-about-kappa" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="conclusions-about-kappa"><span class="header-section-number">7</span> Conclusions about kappa</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span>  </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(t,a,p, <span class="at">Fleiss =</span> fleiss_a, <span class="at">S =</span> S_a, <span class="at">AC1 =</span> AC1_a) <span class="sc">|&gt;</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="at">key =</span> <span class="st">"kappa"</span>, <span class="at">value =</span> <span class="st">"value"</span>, <span class="sc">-</span>t, <span class="sc">-</span>a, <span class="sc">-</span>p) <span class="sc">|&gt;</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Error =</span> <span class="fu">sqrt</span>(value) <span class="sc">-</span> a) <span class="sc">|&gt;</span> </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(kappa, Error)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">|&gt;</span> </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Error)) <span class="sc">+</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> .<span class="dv">1</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>() <span class="sc">+</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>kappa, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-all-error" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-all-error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="kappa_files/figure-html/fig-all-error-1.png" class="img-fluid figure-img" width="624">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-all-error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Expected error histograms in estimating rater accuracy, taken over a dense grid of values in [0,1] for the t-a-p parameters$.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The histograms in <a href="#fig-all-error" class="quarto-xref">Figure&nbsp;4</a> show the expected error in estimating rater accuracy for selected kappa statistics identified above. In actual use, sampling error will be added to this. The Fleiss kappa has the least error overall. AC1 and S tend to overestimate <span class="math inline">\(a\)</span>, and The bias with the Fliess, S, and Cohen kappas come from their assumption that <span class="math inline">\(D=0\)</span> in , which derives from the assumption that the raters are either proficient (Fleiss) or naive (S). Cohen has the additional assumption about individual rater guessing parameters. If those conditions don’t hold in the data (i.e.&nbsp;if the model fit is poor), then rater accuracy will estimated with error depending on how large <span class="math inline">\(D\)</span> actually is. For example, if <span class="math inline">\(t = 0.2\)</span>, <span class="math inline">\(a = 0.2\)</span>, and <span class="math inline">\(p=0\)</span> (no one ever guesses <span class="math inline">\(\widehat{C_1}\)</span>), then neither of the kappa assumptions <span class="math inline">\(p = 1/2\)</span> (S) or <span class="math inline">\(t = p\)</span> (Fleiss) are close to true and <span class="math inline">\(D = 0.2\)</span> instead of zero. The S estimate of <span class="math inline">\(a\)</span> is .99 and the Fleiss estimate is .13.</p>
+<p>Although the two kappas surveyed can recover rater accuracy when the assumptions are met, they are not robust to large violations of those assumptions. The parameterized rater model presented here is a more general modeling approach to estimating rater accuracy and other parameters of interest.</p>
+<p>Under the assumptions of the t-a-p model, each of the kappa statistics considered in this section add assumptions. For example, Fleiss adds the assumption <span class="math inline">\(p = t\)</span>. This has the effect of reducing the size of the parameter space. For a given data set, it’s then possible to assess the likelihood of each of the kappa choices by maximizing over the respective restricted parameter space. This can reveal which of the assumptions has maximum likelihood, if the desire is to choose between models. However, it’s probably better to not introduce such restrictions unless there’s a good reason to do so.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
