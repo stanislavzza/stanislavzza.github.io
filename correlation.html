@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Your Name">
+<meta name="author" content="David Eubanks">
 
 <title>Appendix A: Statistical Details – The Kappa Zoo</title>
 <style>
@@ -122,18 +122,6 @@ window.Quarto = {
     <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./introduction.html"> 
-<span class="menu-text">Introduction</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./tapmodel.html"> 
-<span class="menu-text">Chapter 1</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./kappa.html"> 
-<span class="menu-text">Chapter 2</span></a>
-  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -176,7 +164,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Your Name </p>
+             <p>David Eubanks </p>
           </div>
   </div>
     
@@ -192,38 +180,44 @@ window.Quarto = {
 <section id="correlation-of-ratings-between-raters" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Correlation of Ratings between Raters</h1>
 <p>Given two distinct raters <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> with common accuracy <span class="math inline">\(a\)</span> and guess probability <span class="math inline">\(p\)</span>, what’s the correlation between their ratings? Let <span class="math inline">\(c = E[C_i] = E[C_j] = ta + p\bar{a}\)</span>.</p>
-<p>$$ <span class="math display">\[\begin{align}
+$$
+<span class="math display">\[\begin{aligned}
+
 \text{Cor}(C_i, C_j) &amp;= \frac{\text{Cov}(C_i, C_j)}{\sqrt{\text{Var}(C_i)\text{Var}(C_j)}} \\
 
 &amp;= \frac{E[(TA_i + \bar{A_i}P_i)(TA_j + \bar{A_j}P_j)] - c^2}{\text{Var}(C)} \\
 &amp;= \frac{ta^2 + 2ta\bar{a}p + \bar{a}^2p^2  - (ta + p\bar{a})^2}{(ta + p\bar{a})\overline{(ta + p\bar{a})  }} &amp; (\text{since }T^2 = T)\\
 &amp;= \frac{ta^2 + 2ta\bar{a}p - t^2a^2 - 2tap\bar{a}}{(ta + p\bar{a})\overline{(ta + p\bar{a})  }} \\
 &amp;= \frac{a^2t\bar{t}}{c\bar{c }} \\
-\end{align}\]</span></p>
+\end{aligned}\]</span>
 <p>$$</p>
 <p>Rater accuracy can be obtained via</p>
 <p><span id="eq-cor-c"><span class="math display">\[
 a^2 =\frac{c\overline{c }}{t\bar{t}} \text{Cor}(C_a, C_b) = \frac{c\overline{c }}{t\bar{t}}\kappa_{fleiss}
-\tag{1}\]</span></span> The correlation between two raters’ ratings of the same subject is the intraclass correlation coefficient (ICC) for a two-way random effects model , which has been shown to be equivalent to the Fleiss kappa as described in . Under the <span class="math inline">\(t = p\)</span> proficient rater assumption, <span class="math inline">\(c = ta + \bar{a}p = p\)</span>, so that the Fliess kappa is (again) shown to be <span class="math inline">\(a^2\)</span> under that condition. The relation <a href="#eq-cor-c" class="quarto-xref">Equation&nbsp;1</a> suggests that the Fliess kappa could be adjusted for cases when <span class="math inline">\(t \ne p\)</span>. The overall rate of Class 1 ratings <span class="math inline">\(c\)</span> can be estimated directly from the data, but estimating <span class="math inline">\(t\)</span> requires either prior knowledge of the context or using the full tap estimation process, in which case there’s no need to compute the Fliess kappa.</p>
+\tag{1}\]</span></span></p>
+<p>The correlation between two raters’ ratings of the same subject is the intraclass correlation coefficient (ICC) for a two-way random effects model , which has been shown to be equivalent to the Fleiss kappa as described in . Under the <span class="math inline">\(t = p\)</span> proficient rater assumption, <span class="math inline">\(c = ta + \bar{a}p = p\)</span>, so that the Fliess kappa is (again) shown to be <span class="math inline">\(a^2\)</span> under that condition. The relation <a href="#eq-cor-c" class="quarto-xref">Equation&nbsp;1</a> suggests that the Fliess kappa could be adjusted for cases when <span class="math inline">\(t \ne p\)</span>. The overall rate of Class 1 ratings <span class="math inline">\(c\)</span> can be estimated directly from the data, but estimating <span class="math inline">\(t\)</span> requires either prior knowledge of the context or using the full tap estimation process, in which case there’s no need to compute the Fliess kappa.</p>
 <section id="correlation-between-ratings-and-true-values" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="correlation-between-ratings-and-true-values"><span class="header-section-number">1.1</span> Correlation Between Ratings and True Values</h2>
 <p>It is of interest to find the correlation between <span class="math inline">\(T_i\)</span> the truth value of subject <span class="math inline">\(i\)</span> and the resulting classification <span class="math inline">\(C_i\)</span>. Note that both of the random variables <span class="math inline">\(T_i\)</span> and <span class="math inline">\(C_i\)</span> take only values of zero or one, so squaring them doesn’t change their values. This fact simplifies computations, for example <span class="math inline">\(E[C_i^2] = E[C_i] = ta + p\bar{a}\)</span>. The variance of <span class="math inline">\(C\)</span> is therefore</p>
-<p>$$ <span class="math display">\[\begin{align}
+$$
+<span class="math display">\[\begin{aligned}
 Var(C) &amp;= E[C^2] - E^2[C] \\
        &amp;= c - c^2 \\
        &amp;= c\bar{c} \\
        &amp;= (ta + p\bar{a})\overline{(ta + p\bar{a})}. \\
 
-\end{align}\]</span> $$</p>
+\end{aligned}\]</span>
+<p>$$</p>
 <p>Similarly, <span class="math inline">\(Var(T) = t\bar{t}\)</span>. The correlation between true values and ratings is then</p>
-<p>$$ <span class="math display">\[\begin{align}
+$$
+<span class="math display">\[\begin{aligned}
 \text{Cor}(T, C) &amp;= \frac{\text{Cov}(T, C)}{\sqrt{\text{Var}(T)\text{Var}(C)}} \\
 
 &amp;= \frac{E[T(Ta + p\bar{a}) ] - t(ta + p\bar{a})}{\sqrt{t\bar{t} c\bar{c}}  } \\
 &amp;= \frac{t(a + p\bar{a})  - t(ta + p\bar{a})}{\sqrt{t\bar{t} c\bar{c}}  } \\
 &amp;= a\frac{\sqrt{t\bar{t}}}{\sqrt{c\bar{c}}} \\
 &amp;= a\frac{\sigma_T}{\sigma_C}.
-\end{align}\]</span></p>
+\end{aligned}\]</span>
 <p>$$ {#eq-cor-tc}</p>
 <p>Where <span class="math inline">\(\sigma\)</span> is the standard deviation (square root of variance). The relationship in <strong>?@eq-cor-tc</strong> can also be seen as <span class="math inline">\(a = \text{Cor}(T, C) \frac{\sigma_C}{\sigma_T}\)</span>, which means <span class="math inline">\(a\)</span> can be interpreted as the slope of the regression line <span class="math inline">\(C = \beta_0 + \beta_1T + \varepsilon\)</span>, i.e.&nbsp;<span class="math inline">\(a = \beta_1\)</span>. In the proficient rater case <span class="math inline">\(p = t\)</span>, <span class="math inline">\(\sigma_C = \sigma_T\)</span> and so <span class="math inline">\(\text{Cor}(T, C) = a\)</span>. It can also be shown that for a <span class="math inline">\(t\)</span>-<span class="math inline">\(a_1,a_0\)</span>-<span class="math inline">\(p\)</span> model, the <span class="math inline">\(t=p\)</span> assumption leads to <span class="math inline">\(a = \sqrt{a_1a_0}.\)</span> See .</p>
 <p>The two correlations derived here are related by <span class="math inline">\(\text{Cor}^2(T, C) = \text{Cor}(C_i, C_j)\)</span>.</p>

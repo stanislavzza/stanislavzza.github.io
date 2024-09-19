@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Your Name">
+<meta name="author" content="David Eubanks">
 
 <title>Introduction – The Kappa Zoo</title>
 <style>
@@ -122,18 +122,6 @@ window.Quarto = {
     <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="./introduction.html" aria-current="page"> 
-<span class="menu-text">Introduction</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./chapter1.qmd"> 
-<span class="menu-text">Chapter 1</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./chapter2.qmd"> 
-<span class="menu-text">Chapter 2</span></a>
-  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -184,7 +172,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Your Name </p>
+             <p>David Eubanks </p>
           </div>
   </div>
     
@@ -202,10 +190,8 @@ window.Quarto = {
 <p>This chapter gives a brief background on rater agreement with a focus on the goals of the project and how legacy methods fall short. It contrasts psychological measurement methods to machine learning algorithms. A general model is introduced that combines the best features of both of those cultures, and an example is given.</p>
 <section id="sec-intro-overview" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="sec-intro-overview"><span class="header-section-number">1.1</span> Overview</h2>
-<p>One of the powers of human language is the facility to agree or disagree with a statement. This chapter introduces the concept of quantifying agreement, which is a way to measure the extent to which two or more people agree that a statement is true or fall in cases where they have independently made up their minds. A jury would not meet that qualification, because their purpose to discuss and mull over evidence to reach unanimous agreement. However, a straw poll taken before conversations begin could be considered a set of independent opinions.</p>
-<p>In ordinary discourse, we use informal agreement to decide what to each for dinner, what movie to watch, or what to do on a Saturday afternoon. In science, we use formal agreement to decide whether a new drug is effective, whether a new theory is correct, or whether a new technology is safe. In politics, we use agreement to decide who should be elected, what laws should be passed, or what policies should be implemented. Science is generally the only domain where we work to ensure that the data (measurements instead of opinions) are taken independently, so they don’t influence one another. This assumption of independence makes the calculations easier, but it is not always realistic. Another limiting assumption is that the process of rating cases is repeatable using the same process. Many real-world situations are not repeatable on a personal level, for example deciding where to go on vacation. Sometimes we can hypothesize repeatability by aggregating over many people who go on vacation, for example.</p>
-<p>The combination of independence and repeatability are abbreviated in probability theory as “iid” for “independent and identically distributed.” This is a powerful assumption that allows us to reach strong conclusions. However, it is not always realistic.</p>
-<p>The focus of this guide is on the statistical methods used to quantify agreement between humans, who we’ll call “raters” who assign “ratings” to “subjects.” This describes a familiar case like a product review with a five-star rating system. However, the same methods can be used to quantify agreement between any two entities that can assign categories to cases. A fascinating example comes from an article in <a href="https://www.theatlantic.com/magazine/archive/2024/09/decoding-voynich-manuscript/679157/">The Atlantic Magazine</a>, here describing an analysis of a very old text called the <a href="https://voynich.nu/index.html">Voynich manuscript</a>.</p>
+<p>Humans often use consensus to assess knowledge. We might seek a second opinion for a diagnosis, ask around for restaurant recommendations, or look for online reviews of a product. Intiuitively, we put more weight on opinions that have more agreement. This chapter describes how agreement or disagreement can be quantified. These agreement statistics are restricted to situations where the assessments are made independently and where each subject is assessed at least twice. The combination of independence and repeatability are abbreviated in probability theory as “iid” for “independent and identically distributed.” This is a powerful assumption that allows us to reach strong conclusions. However, it is not always realistic.</p>
+<p>In behavioral science, the focus of these statistics is on human observers who we’ll call “raters.” Raters assign “ratings” to “subjects.” This describes a familiar case like a product review with a five-star rating system. However, the same idea applies to any categorization task, like classifying images of cats and dogs, or diagnosing diseases from medical images. A fascinating example comes from an article in <a href="https://www.theatlantic.com/magazine/archive/2024/09/decoding-voynich-manuscript/679157/">The Atlantic Magazine</a>, here describing an analysis of a very old text called the <a href="https://voynich.nu/index.html">Voynich manuscript</a>.</p>
 <blockquote class="blockquote">
 <p>Davis magnified the handwriting, she noticed subtle variations. In certain places, the script was more cramped or more likely to slant as it crossed the page. She tested this observation by picking a letter that didn’t appear often and tracking it across the manuscript’s pages. Its style, she saw, varied among groups of pages but not within those groups. This suggested that the differences—larger or smaller loops, straighter or curvier crossbars, longer or shorter feet—were the product of different scribes rather than of one scribe writing the same letter in different ways.</p>
 </blockquote>
@@ -257,8 +243,8 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p>In the table, Currier thought that the obverse and main folio fRos were in a single hand, whereas Davis has two scribes. Conversely, Davis has the last three rows as the same author while Currier has three. This is an example of how science works toward consensus by placing observations into categories. Agreements are good for pointing to what might be real, and disagreements are for honing theory.</p>
-<p>The statistical question for data like this is to quantify a degree of separation between categories., to compare variation within groups to variation between groups. One application is an idea called “signal-to-noise ratio,” which is a measure of how much of the variation in the data is due to the thing we’re interested in (signal) versus how much is due to random variation (noise). In the manuscript example, the signal is the commonality of handwriting within contiguous sections, and the noise is variation within each section. Reliability of measures is the same idea in different clothing, where we might formula reliability as between-subject variation divided by total variation. As an example, college grade averages (GPA) can have a reliability of about 0.8, meaning that 80% of the variation in grades is due to differences between students, and 20% is due to variation in how individual students earn grades. This makes GPA useful as a statistical measure, for example in predicting career outcomes [cite eubanks, et al].</p>
+<p>In the table, Currier thought that the obverse and main folio fRos were in a single hand, whereas Davis has two scribes. Conversely, Davis has the last three rows as the same author while Currier has three. This is an example of how science works toward consensus by placing observations into categories. Agreements are good for pointing to what might be real, and disagreements are for honing or discarding theories.</p>
+<p>The statistical question for data like this is to compare variation within groups to variation between groups. One application is an idea called “signal-to-noise ratio,” which is a measure of how much of the variation in the data is due to the thing we’re interested in (signal) versus how much is due to random variation (noise). In the manuscript example, the signal is the commonality of handwriting within contiguous sections, and the noise is variation within each section. Reliability of measures is the same idea in different clothing, where we might formula reliability as between-subject variation divided by total variation. As an example, college grade averages (GPA) can have a reliability of about 0.8, meaning that 80% of the variation in grades is due to differences between students, and 20% is due to variation in how individual students earn grades. This makes GPA useful as a statistical measure, for example in predicting career outcomes [cite eubanks, et al].</p>
 <p>How do we summarize all this to reach a formal conclusion? This formality is in service of the question “what is the truth?”</p>
 </section>
 <section id="sec-intro-knowledge" class="level2" data-number="1.2">

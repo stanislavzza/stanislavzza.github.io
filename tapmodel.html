@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Your Name">
+<meta name="author" content="David Eubanks">
 
 <title>Chapter 2: The t-a-p Model – The Kappa Zoo</title>
 <style>
@@ -156,18 +156,6 @@ window.Quarto = {
     <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./introduction.html"> 
-<span class="menu-text">Introduction</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./chapter1.qmd"> 
-<span class="menu-text">Chapter 1</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./chapter2.qmd"> 
-<span class="menu-text">Chapter 2</span></a>
-  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -183,14 +171,14 @@ window.Quarto = {
     <h2 id="toc-title">Contents</h2>
    
   <ul class="collapse">
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a>
-  <ul class="collapse">
-  <li><a href="#conditional-probabilities" id="toc-conditional-probabilities" class="nav-link" data-scroll-target="#conditional-probabilities"><span class="header-section-number">1.1</span> Conditional Probabilities</a></li>
-  <li><a href="#binomial-mixtures" id="toc-binomial-mixtures" class="nav-link" data-scroll-target="#binomial-mixtures"><span class="header-section-number">1.2</span> Binomial Mixtures</a></li>
-  <li><a href="#overdispersion" id="toc-overdispersion" class="nav-link" data-scroll-target="#overdispersion"><span class="header-section-number">1.3</span> Overdispersion</a></li>
-  <li><a href="#fitting-the-model" id="toc-fitting-the-model" class="nav-link" data-scroll-target="#fitting-the-model"><span class="header-section-number">1.4</span> Fitting the Model</a></li>
-  </ul></li>
-  <li><a href="#indentifiability" id="toc-indentifiability" class="nav-link" data-scroll-target="#indentifiability"><span class="header-section-number">2</span> Indentifiability</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#conditional-probabilities" id="toc-conditional-probabilities" class="nav-link" data-scroll-target="#conditional-probabilities"><span class="header-section-number">2</span> Conditional Probabilities</a></li>
+  <li><a href="#binomial-mixtures" id="toc-binomial-mixtures" class="nav-link" data-scroll-target="#binomial-mixtures"><span class="header-section-number">3</span> Binomial Mixtures</a></li>
+  <li><a href="#simulation" id="toc-simulation" class="nav-link" data-scroll-target="#simulation"><span class="header-section-number">4</span> Simulation</a></li>
+  <li><a href="#fitting-the-model" id="toc-fitting-the-model" class="nav-link" data-scroll-target="#fitting-the-model"><span class="header-section-number">5</span> Fitting the Model</a></li>
+  <li><a href="#indentifiability" id="toc-indentifiability" class="nav-link" data-scroll-target="#indentifiability"><span class="header-section-number">6</span> Indentifiability</a></li>
+  <li><a href="#overdispersion" id="toc-overdispersion" class="nav-link" data-scroll-target="#overdispersion"><span class="header-section-number">7</span> Overdispersion</a></li>
+  <li><a href="#other-properties" id="toc-other-properties" class="nav-link" data-scroll-target="#other-properties"><span class="header-section-number">8</span> Other Properties</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="tapmodel.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </nav>
@@ -213,7 +201,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Your Name </p>
+             <p>David Eubanks </p>
           </div>
   </div>
     
@@ -226,45 +214,194 @@ window.Quarto = {
 </header>
 
 
-<p>This chapter examines the assumptions and implications of the t-a-p model in detail to build a theoretical foundation for estimation and inference. This work also paves the way to connect the three parameter model to the kappas commonly in use as well as the machine learning (ML) algorithms used for rater agreement.</p>
+<p>This chapter examines the assumptions and implications of the t-a-p model in detail to build a theoretical foundation for estimation and inference. This work also paves the way to connect the three parameter model to widely-used rater agreement statistics (kappas) and machine learning algorithms.</p>
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
-<p>Suppose that we have <span class="math inline">\(N\)</span> subjects to be classified by raters, and each subject is belongs (in truth) to one of two categories Class 1 or Class 0, abbreviated to <span class="math inline">\(C_1, C_0\)</span>. The latter class could include any category that is not Class 1; think of Class 0 as Class “Other.” Each subject is independently assigned to one of these two categories by each of <span class="math inline">\(R\)</span> observers (raters). For now, think of <span class="math inline">\(R\)</span> as fixed, but that condition is relaxed later on, so that the number of ratings per subject can vary. Assigned categories are distinguished from true classes in notation by the use of hats: an observation that is rated as Class 1 is <span class="math inline">\(\widehat{C_1}\)</span>, but it may be <span class="math inline">\(C_0\)</span> in truth. This is a common distinction in binary classification problems, leading to the idea of true/false positives/negatives and the confusion matrix described in the introductory chapter.</p>
-<p>We will say that a rater makes an <em>accurate</em> assignment of <span class="math inline">\(\widehat{C_1}\)</span> or <span class="math inline">\(\widehat{C_0}\)</span> for a subject if (1) the rater-assigned class is the true class, and (2) the rater has justification for the choice. This operationalizes the Justified True Belief (JTB) definition of knowledge used by philosophers who study epistemology. Inaccurate ratings are those where one of the two conditions fails: either a rater can assign the wrong category to a subject, or the rater can assign the correct category but for the wrong reason. The latter case corresponds loosely to Gettier-type problems. A rater can still be correct even if the rating is inaccurate (lacking justification), like guessing the result of a coin toss.</p>
-<p>The model lends itself to a tree diagram that illustrates the three nested latent variables as conditional probabilities: (1) the true Class 1 rate <span class="math inline">\(t\)</span>, (2) rater accuracy <span class="math inline">\(a\)</span>, and (3) the probability of choosing <span class="math inline">\(\widehat{C_1}\)</span> when rating inaccurately.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/tap diagram.png" class="img-fluid figure-img"></p>
-<figcaption>tap diagram</figcaption>
+<p>Suppose that we have <span class="math inline">\(N\)</span> subjects to be classified by at least two raters each, and each subject belongs (in truth) to one of two categories Class 1 or Class 0, abbreviated to <span class="math inline">\(C_1, C_0\)</span>. For example, if faculty members review portfolios of student work, the two classes could be “pass” and “fail.” We often use ordered classifications like “A, B, C, D, F” or “Excellent, Good, Fair, Poor” but these can be converted to binary classifications by grouping the classes. For example “A, B, C” could be compared to “D, F” or “Excellent, Good” could be compared to “Fair, Poor.” There are also extensions of the t-a-p model that work directly on ordinal or non-binary categorical scales. The exposition is easiest to understand for the binary case, so we will start there.</p>
+<p>We assume that each subject is independently assigned to one of the two classes by each of <span class="math inline">\(R\)</span> observers (raters). For now, think of <span class="math inline">\(R\)</span> as fixed, so that there are <span class="math inline">\(RN\)</span> total ratings, but that condition is relaxed later on, so that the number of ratings per subject can vary, which is common in real data.<br>
+Rater-assigned categories are distinguished from true classes in notation by the use of hats to suggest an estimated value. Ratings of Class 1 are denoted <span class="math inline">\(\widehat{C_1}\)</span>, but some of them may be <span class="math inline">\(C_0\)</span> in truth. This distinction between rated (estimated) values and true values leads to the idea of true/false positives/negatives and the confusion matrix described in the introductory chapter. However, the confusion matrix does not capture all the details we are interested in. For example, the true positive rate of classification in the matrix doesn’t distinguish between ratings that are true for a good reason and those that are accidentally true (maybe the rater is just flipping coins). To solve that problem we need the idea of rater accuracy.</p>
+<p>We will assume that an assigned rating corresponds to the <em>belief</em> of a rater. This rules out raters who are intentionally being deceptive, for example. Then we will say that a rater makes an <em>accurate</em> assignment of <span class="math inline">\(\widehat{C_1}\)</span> or <span class="math inline">\(\widehat{C_0}\)</span> for a subject if</p>
+<ol type="1">
+<li><p>the rater-assigned class is the true class, and</p></li>
+<li><p>the rater has justification for the choice.</p></li>
+</ol>
+<p>These requirements operationalize the Justified True Belief (JTB) definition of knowledge used by philosophers who study epistemology. Inaccurate ratings are those where one of the two listed conditions fails. If the rater’s belief is false and chooses the wrong category or if they choose the correct category but because of an invalid justification. The latter case corresponds loosely to Gettier-type problems, where the chain of reasoning reaches a correct conclusion, but because of flaws in perception the logic isn’t sound. A clear case of failing the justification requirement is if raters flip coins to choose categories. Coin flipping is entirely random, but even good raters have some randomness inherent to the classifications. That randomness is the usual starting point for chance-corrected agreement statistics.</p>
+<p>The rating process just described lends itself to a tree diagram that illustrates three variables as conditional probabilities: (1) the true Class 1 rate <span class="math inline">\(t\)</span>, (2) rater accuracy <span class="math inline">\(a\)</span>, and (3) the probability <span class="math inline">\(p\)</span> of choosing <span class="math inline">\(\widehat{C_1}\)</span> when rating inaccurately. On the diagram, it’s convenient to use a bar over a variable to denote its complementary probability, e.g.&nbsp;<span class="math inline">\(\bar{a} = 1 - a\)</span>.</p>
+<div id="fig-tree" class="quarto-float quarto-figure quarto-figure-center anchored" alt="t-a-p model diagram" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-tree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/tap diagram.png" class="border img-fluid quarto-figure quarto-figure-center figure-img" alt="t-a-p model diagram">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Assumed rating process, where <span class="math inline">\(T\)</span> is a hidden variable recording the true classification of each subject and <span class="math inline">\(C\)</span> recorded the assigned class by a rater.
+</figcaption>
 </figure>
 </div>
-<p>Each rating is conditional on a subject’s true classification (Class 1 or Class 0), which will often be unknown, so that we can only observe the rater-assigned categories <span class="math inline">\(\widehat{C_1}\)</span> and <span class="math inline">\(\widehat{C_0}\)</span>. The rating data will be denoted by <span class="math inline">\(c_{ij}\)</span>, where <span class="math inline">\(i = 1 \dots N\)</span> are the subjects and <span class="math inline">\(j = 1 \dots R\)</span> are the raters, who independently classify subjects as 1 or 0 according to the <span class="math inline">\(\widehat{C_1}\)</span> or &gt;Class 0 assignment, respectively. This is convenient, since <span class="math inline">\(k_i := \sum_j c_{ij}\)</span> is the number of <span class="math inline">\(\widehat{C_1}\)</span> ratings for subject <span class="math inline">\(i\)</span>, and the average of the classifications made by raters is <span class="math inline">\(\text{E}[\text{\widehat{C_1}}] = \sum{c_{ij}}/(NR)\)</span>.</p>
-<section id="conditional-probabilities" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="conditional-probabilities"><span class="header-section-number">1.1</span> Conditional Probabilities</h2>
-<p>The tree diagram in figure <span class="math inline">\(\ref{fig:tree}\)</span> models the assignments of <span class="math inline">\(c_{ij}\)</span> and can be read by multiplying the conditional probabilities on the edges from the top down to find the probability that a given classification is <span class="math inline">\(c_{ij} = \widehat{C_1}\)</span>. We use the convention throughout that the complement of probability <span class="math inline">\(p\)</span> is represented by a hat, i.e.&nbsp;<span class="math inline">\(\bar{p} := 1-p\)</span> .</p>
-<p>If a subject is not classified accurately, the classification for that rater is assumed to be made at random, with probability <span class="math inline">\(p\)</span> of choosing <span class="math inline">\(\widehat{C_1}\)</span> regardless of the true class. So the conditional probability of a <span class="math inline">\(\widehat{C_1}\)</span> classification when the subject really is <span class="math inline">\(C_1\)</span> is <span class="math inline">\(\text{Pr}(\widehat{C_1} | C_1) = a + a'p\)</span>. Similarly, <span class="math inline">\(\text{Pr}(\widehat{C_1} | C_0) = a'p\)</span>. This model is simplified in that it assumes that guess rates for the two classes are the same independent of the true classification. More complex models are introduced later.</p>
+<p>Each rating is conditional on a subject’s true classification (Class 1 or Class 0), which will often be unknown, so that we can only observe the rater-assigned categories <span class="math inline">\(\widehat{C_1}\)</span> and <span class="math inline">\(\widehat{C_0}\)</span>. The rating data will be denoted by <span class="math inline">\(c_{ij}\)</span>, where <span class="math inline">\(i = 1 \dots N\)</span> are the subjects and <span class="math inline">\(j = 1 \dots R\)</span> are the raters, who independently classify subjects as 1 or 0 according to the <span class="math inline">\(\widehat{C_1}\)</span> or <span class="math inline">\(\widehat{C_0}\)</span>assignment, respectively. This is convenient, since <span class="math inline">\(k_i := \sum_j c_{ij}\)</span> is the number of <span class="math inline">\(\widehat{C_1}\)</span> ratings for subject <span class="math inline">\(i\)</span>, and the average of the classifications made by raters is <span class="math inline">\(\text{E}[\widehat{C_1}] = \sum{c_{ij}}/(NR)\)</span>.</p>
+<p>Example: A wine judge independently and honestly assesses a vintage for excellence. The two categories are <span class="math inline">\(C_1\)</span> = “excellent” and <span class="math inline">\(C_0\)</span> = “not excellent.” After judging four wines, the situation might be that in the table below.</p>
+<table class="caption-top table">
+<caption>Sample wine ratings showing normally unknown truth values.</caption>
+<thead>
+<tr class="header">
+<th>Wine</th>
+<th>Truth</th>
+<th>Accurate?</th>
+<th>Classification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Excellent</td>
+<td>Yes</td>
+<td>Excellent</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Excellent</td>
+<td>No</td>
+<td>Not Excellent</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Not Excellent</td>
+<td>No</td>
+<td>Not Excellent</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Not Excellent</td>
+<td>Yes</td>
+<td>Not Excellent</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Not Excellent</td>
+<td>Yes</td>
+<td>Not Excellent</td>
+</tr>
+</tbody>
+</table>
+<p>If the judge makes an accurate assessment, the classification recorded matches the true value. But for the third wine, the judge got the correct answer even though the process was flawed and somewhat random (an inaccurate rating). For the second wine, the inaccuracy resulted in the wrong classification being assigned. Those two inaccurate cases are illustrated in the process diagram in the middle, marked Random.</p>
 </section>
-<section id="binomial-mixtures" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="binomial-mixtures"><span class="header-section-number">1.2</span> Binomial Mixtures</h2>
-<p>The accuracy rate <span class="math inline">\(a\)</span> will affect the subject distributions. If <span class="math inline">\(a = 0\)</span> the ratings will be distributed as <span class="math inline">\(\text{Bernoulli}(p)\)</span>, independently of the subjects being rated. If <span class="math inline">\(a=1\)</span>, then all raters agree on the true value for each subject. Therefore the way we can reconstruct <span class="math inline">\(a\)</span> from data is through the distribution of the within-subject ratings. The method used here can be seen as a latent class model with binomial mixture distributions. For a nice discussion of these ideas in practice see , which helpfully notes that binomial mixtures are statistically identifiable if the number of cases exceeds a low threshold . More generally, see chapter 14 on mixture models for discrete data.</p>
-<p>We would like to know the true proportion <span class="math inline">\(t\)</span> of the subjects belonging to <span class="math inline">\(C_1\)</span> regardless of how they were rated, rater accuracy <span class="math inline">\(a\)</span>, and the proportion <span class="math inline">\(p\)</span> of inaccurate assignments that are <span class="math inline">\(\widehat{C_1}\)</span>. That goal describes the general model illustrated in the following section. A hierarchical version is given subsequently.</p>
-<p>As is shown in Appendix A, rater accuracy <span class="math inline">\(a\)</span> is proportional to the correlation between the true and assigned classifications. If <span class="math inline">\(C\)</span> is the true classification and <span class="math inline">\(T\)</span> is the assigned classification, then</p>
+<section id="conditional-probabilities" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Conditional Probabilities</h1>
+<p>The tree diagram in figure @fig-tree models the assignments of ratings <span class="math inline">\(c_{ij}\)</span> over subject <span class="math inline">\(i\)</span> and rater <span class="math inline">\(j\)</span>, and can be read by multiplying the conditional probabilities on the edges from the top down to find the probability of a given classification being <span class="math inline">\(c_{ij} = \widehat{C_1}\)</span>.</p>
+<p>If a subject is not classified accurately, the classification for that rater is assumed to be made at random, with probability <span class="math inline">\(p\)</span> of choosing <span class="math inline">\(\widehat{C_1}\)</span> regardless of the true class. So the conditional probability of a <span class="math inline">\(\widehat{C_1}\)</span> classification when the subject really is <span class="math inline">\(C_1\)</span> is <span class="math inline">\(\text{Pr}(\widehat{C_1} | C_1) = a + a'p\)</span>. Similarly, <span class="math inline">\(\text{Pr}(\widehat{C_1} | C_0) = a'p\)</span>. This model assumes that guess rates for the two classes are the same independent of the true classification. More complex models are introduced later.</p>
+<p>The binary (Bernoulli) probability that for a given subject with a given true classification, a rater will assign a <span class="math inline">\(\widehat{C_1}\)</span> rating is shown in the table below. This comes from reading the tree diagram from the top down, multiplying the branches.</p>
+<table class="caption-top table">
+<caption>Conditional probabilities of a single rater assigning a <span class="math inline">\(\widehat{C_1}\)</span> rating to a subject.</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th>True C1</th>
+<th>True C0</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Classified C1</td>
+<td><span class="math inline">\(a + \bar{a}p\)</span></td>
+<td><span class="math inline">\(\bar{a}p\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>We can use these probabilities to find the expected number of ratings of Class 1.</p>
+</section>
+<section id="binomial-mixtures" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Binomial Mixtures</h1>
+<p>The rating process posed in the t-a-p model is illustrated with the tree diagram and table of example ratings above. But both of those entail the use of the hidden true classification value for each subject. There are cases where that can be known, but in general it is not. What we usually have to work with is a table of ratings, from which we must infer the hidden variables like rater accuracy. The collection the ratings under the t-a-p assumptions fall into a well-studied probability distribution called a binomial mixture.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set the parameters</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>N_r <span class="ot">=</span> <span class="dv">5</span>    <span class="co"># number of raters for each subject </span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>N_s <span class="ot">=</span> <span class="dv">100</span>  <span class="co"># number of subjects (not used here)</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>t <span class="ot">=</span> .<span class="dv">3</span> <span class="co"># fraction of subjects that are in fact class 1</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> .<span class="dv">7</span> <span class="co"># probability of a rater rating a subject accurately</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>p <span class="ot">=</span> .<span class="dv">2</span> <span class="co"># probability of a rater rating a subject as class 1 when rating inaccurately</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># find the conditional probabilities for each class</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># probabilities of a class 1 rating for a class 0 subject</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  c0_probs <span class="ot">=</span> <span class="fu">dbinom</span>(<span class="dv">0</span><span class="sc">:</span>N_r, N_r, <span class="at">prob =</span> (<span class="dv">1</span><span class="sc">-</span>a)<span class="sc">*</span>p)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># probabilities of a class 1 rating for a class 1 subject</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  c1_probs <span class="ot">=</span> <span class="fu">dbinom</span>(<span class="dv">0</span><span class="sc">:</span>N_r, N_r, <span class="at">prob =</span> a <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>a)<span class="sc">*</span>p)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># create the mixture with t as the mixing parameter</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>mixture <span class="ot">=</span> c0_probs <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>t) <span class="sc">+</span> c1_probs <span class="sc">*</span> t</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the conditional probabilities</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">0</span><span class="sc">:</span>N_r, c0_probs, <span class="at">type=</span><span class="st">"b"</span>, <span class="at">col=</span><span class="st">"blue"</span>, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(<span class="fu">c</span>(c0_probs, c1_probs, mixture))),</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">"Probability"</span>, <span class="at">xlab=</span><span class="st">"Number of class 1 ratings for a given subject"</span>, <span class="at">main=</span><span class="st">"Binomial Mixture Plot"</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the second component (c1_probs)</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="dv">0</span><span class="sc">:</span>N_r, c1_probs, <span class="at">type=</span><span class="st">"b"</span>, <span class="at">col=</span><span class="st">"red"</span>, <span class="at">pch=</span><span class="dv">16</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the mixture as a black dashed line</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="dv">0</span><span class="sc">:</span>N_r, mixture, <span class="at">type=</span><span class="st">"b"</span>, <span class="at">col=</span><span class="st">"black"</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">pch=</span><span class="dv">16</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a legend</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="at">legend=</span><span class="fu">c</span>(<span class="st">"Class 0 Probabilities"</span>, <span class="st">"Class 1 Probabilities"</span>, <span class="st">"Mixture"</span>),</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"red"</span>, <span class="st">"black"</span>), <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="at">pch=</span><span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-mixture" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mixture-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="tapmodel_files/figure-html/fig-mixture-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mixture-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Binomial mixture showing the probability of the number of class 1 ratings for a given subject. In blue is the distribution for true-class 0 subjects, in red is the distribution for true-class 1 subjects, and the black line is the mixture based on relative proportions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-mixture" class="quarto-xref">Figure&nbsp;2</a> shows an example of how probabilities combine to create the mixture. Given the three t-a-p parameters plus the number of raters per subject, we apply the binomial probability density function using the probabilities found at the end of the previous section. The mixture is created by weighting these two distributions by their frequency in the sample space. In this case, the parameters are <span class="math inline">\(t = .3\)</span>, <span class="math inline">\(a = .7\)</span>, and <span class="math inline">\(p = .2\)</span>.</p>
+<p>For true Class 1 cases, the probability of a rater assigning a <span class="math inline">\(\widehat{C_1}\)</span> rating is <span class="math inline">\(ta + t\bar{a}p\)</span>, and for true Class 0 cases it is <span class="math inline">\(\bar{t}\bar{a}p\)</span> (see the table at the end of the last section). Those are probabilities for a single rating. If we have <span class="math inline">\(N_r\)</span> raters, then anywhere between zero and <span class="math inline">\(N_r\)</span> of them could assign a <span class="math inline">\(\widehat{C_1}\)</span> rating to a given subject. The binomial distribution gives the probability for each of those possible count outcomes. For true Class 1 subjects the probability of <span class="math inline">\(k\)</span> raters assigning a <span class="math inline">\(\widehat{C_1}\)</span> rating is</p>
 <p><span class="math display">\[
-\text{Cor}(T, C) = a\frac{\sigma_T}{\sigma_C}
-\]</span></p>
-<p>The t-app model focuses on raters more than subjects. For example, some rater models include a difficulty parameter for each subject, assuming that some are harder to classify than others. The t-a-p model does not include this, per se, but a random-effects version of the model is introduced later that allows for subject-specific coefficients <span class="math inline">\(p_i\)</span>, which adjusts the guessing rate per subject when a classification is made inaccurately. See <span class="citation" data-cites="paun2018comparing">@paun2018comparing</span> for a discussion of difficulty parameters in machine-learning models similar to tap.</p>
+\begin{aligned}
+Pr(k | C_1) &amp;= \binom{N_r}{k} (a + \bar{a}p)^k (1 - a - \bar{a}p)^{N_r - k} \\
+            &amp;= \binom{N_r}{k} (a + \bar{a}p)^k (\bar{a} - \bar{a}p)^{N_r - k} \\
+            &amp;= \binom{N_r}{k} (a + \bar{a}p)^k (\bar{a} \bar{p})^{N_r - k}
+\end{aligned}
+\]</span> That distribution is represented by the red line in <a href="#fig-mixture" class="quarto-xref">Figure&nbsp;2</a>. Notice that the most outcome is that four of the five raters assign a <span class="math inline">\(\widehat{C_1}\)</span> rating. The reason that’s not five is that the parameter <span class="math inline">\(p = .2\)</span> means that for inaccurate ratings, the “guess” is much more likely to assign <span class="math inline">\(\widehat{C_0}\)</span> than <span class="math inline">\(\widehat{C_1}\)</span>. The effect is to deflate the number of <span class="math inline">\(\widehat{C_1}\)</span> ratings for true Class 1 subjects.</p>
+<p>For true Class 0 cases (the blue line in the plot), it is</p>
+<p><span class="math display">\[ Pr(k | C_0) = \binom{N_r}{k} (\bar{a}p)^k (1 - \bar{a}p)^{N_r - k} \]</span></p>
+<p>These are the two probability distributions are shown in <a href="#fig-mixture" class="quarto-xref">Figure&nbsp;2</a>, with the given parameters applied. The code is included so that you can try variations on your own.</p>
+<p>But there are not necessarily the same number of true Class 1 and Class 0 cases. The fraction of Class 1 cases is assumed to be <span class="math inline">\(t\)</span>. The mixture of the two</p>
+<p><span class="math display">\[ Pr(k) = t \binom{N_r}{k} (a + \bar{a}p)^k (\bar{a}\bar{p})^{N_r - k} + \bar{t} \binom{N_r}{k} (\bar{a}p)^k (1 - \bar{a}p)^{N_r - k} \]</span></p>
+<p>This is the mixture distribution that is assumed to represent the count data. To proceed with an investigation of the t-a-p model, we first count up the number of <span class="math inline">\(\widehat{C_1}\)</span> ratings for each subject. If there are the same number of raters for each subject, these counts will form a histogram that corresponds to the black dashed line in the figure, for some set of t-a-p parameters. The job then is to find out what those parameters are.</p>
+<p>So for a real data set, the red and blue plots in <a href="#fig-mixture" class="quarto-xref">Figure&nbsp;2</a> are assumed to exist, but are not directly accessible to us. Instead we can see something like the mixture (black dashed line). But even that isn’t exact, because it is subject to sampling error: the histogram of counts won’t exactly correspond to the ideal probabilities. The larger the number of subjects rated, the closer the empirical proportions will, in theory, converge to the ideal mixture distribution.</p>
+<p>For general information on binomial mixtures of discrete data see <span class="citation" data-cites="agresti2003categorical">@agresti2003categorical</span> chapter 14.</p>
+</section>
+<section id="simulation" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Simulation</h1>
+<p>The interactive app provided with the tapModel R package allows you to specify t-a-p parameters and generate a data set from them. Once the package is installed, you can run the app with <code>tapModel::launchApp().</code> Navigate to the Simulate Data tab.</p>
+<div id="fig-sim-pair" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sim-pair-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/mixtures.png" class="border img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sim-pair-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Rating distributions with t = .3, a = .7, p = .2. Plot A has 20 subjects and Plot B has 1000. The blue bars are the histograms of the simulated data and the orange dashed line is the true mixture probability distribution.
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-sim-pair" class="quarto-xref">Figure&nbsp;3</a> shows two count histograms with identical parameters except for the number of subjects (20 versus 1000). The histograms are the result of applying the t-a-p binomial mixture distribution with five raters on each subject and parameter set <span class="math inline">\((t = .3, a = .7, p = .2)\)</span>. Notice that the smaller sample size on the left (plot A) doesn’t match the distribution line as well as the one on the right. This is the effect of random sampling. The smaller the sample, the more likely it is that the empirical counts don’t look like the distribution.</p>
+<p>This leaves us with two problems: how do we estimate the parameters, and how much should we trust the results? These are classical problems from statistics.</p>
+<p>The accuracy rate <span class="math inline">\(a\)</span> will affect the subject distributions. If <span class="math inline">\(a = 0\)</span> the ratings will be distributed as <span class="math inline">\(\text{Bernoulli}(p)\)</span>, independently of the subjects being rated. If <span class="math inline">\(a=1\)</span>, then all raters agree on the true value for each subject. Therefore the way we can reconstruct <span class="math inline">\(a\)</span> from data is through the distribution of the within-subject ratings. The method used here can be seen as a latent class model with binomial mixture distributions. For a nice discussion of these ideas in practice see , which helpfully notes that binomial mixtures are statistically identifiable if the number of cases exceeds a low threshold .</p>
+<p>We would like to know the true proportion <span class="math inline">\(t\)</span> of the subjects belonging to <span class="math inline">\(C_1\)</span> regardless of how they were rated, rater accuracy <span class="math inline">\(a\)</span>, and the proportion <span class="math inline">\(p\)</span> of inaccurate assignments that are <span class="math inline">\(\widehat{C_1}\)</span>. That goal describes the general model illustrated in the following section. A hierarchical version is given subsequently.</p>
 <p>note: see <a href="https://www.jarad.me/courses/stat544/slides/Ch05/Ch05a.pdf" class="uri">https://www.jarad.me/courses/stat544/slides/Ch05/Ch05a.pdf</a></p>
 <p>and <a href="https://cran.r-project.org/web/packages/mixtools/vignettes/mixtools.pdf" class="uri">https://cran.r-project.org/web/packages/mixtools/vignettes/mixtools.pdf</a></p>
 <p><a href="https://joss.theoj.org/papers/10.21105/joss.01505" class="uri">https://joss.theoj.org/papers/10.21105/joss.01505</a></p>
 <p>I should address the label-switching problem. I think that’s taken care of by way the classifications are pre-specified, AND accuracy is generic.</p>
 </section>
-<section id="overdispersion" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="overdispersion"><span class="header-section-number">1.3</span> Overdispersion</h2>
-<p>The tap model assumes fixed averages over raters and subjects for the three parameters. The most sensible of these assumptions is that there is a single value for <span class="math inline">\(t\)</span> that represents the fraction of Class 1 cases, although this idea has been challenged by @???. That leaves two parameters that are certainly oversimplified in the tap model, so that counts of Class 1 ratings per subject are likely to have more variance than a binomial model would. This is due to anticipated variance in rater ability and the difficulty in rating subjects, resulting in overdispersion. A general approach to this problem is to allow each rater to have a different accuracy rate <span class="math inline">\(a_j\)</span> and each subject to have a different guessing rate <span class="math inline">\(p_i\)</span>. This is the hierarchical model, which is described later.</p>
-<p>Original suggestion to use beta-binomial <span class="citation" data-cites="williams1975394">@williams1975394</span>, modern look at it in <span class="citation" data-cites="ascari2021new">@ascari2021new</span>.</p>
-</section>
-<section id="fitting-the-model" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="fitting-the-model"><span class="header-section-number">1.4</span> Fitting the Model</h2>
+<section id="fitting-the-model" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Fitting the Model</h1>
 <p>The first question about the model illustrated in figure <span class="math inline">\(\ref{fig:tree}\)</span> is whether it is computationally useful. Using known parameter values for <span class="math inline">\(p, a, t\)</span> to generate simulated ratings, can we then recover the parameters from the data? The answer is yes, with some provisos. Given a data set <span class="math inline">\(c_{ij}\)</span>, we can fit a general model to estimate the three parameters <span class="math inline">\(t\)</span>, <span class="math inline">\(a\)</span>, and <span class="math inline">\(p\)</span> using maximum likelihood to fit a binomial mixture model. The log likelihood function for the binomial mixture described by figure <span class="math inline">\(\ref{fig:tree}\)</span> with <span class="math inline">\(N\)</span> subjects and <span class="math inline">\(R&gt;1\)</span> raters is</p>
 <p><span class="math display">\[
 \ell(t,a,p;k_1, \dots,k_N) = \sum_{i = 1}^N \log \left( t\binom{R}{k_i}(a + a'p)^{k_i}(a'p')^{R-k_i} + t'\binom{R}{k_i}(a'p)^{k_i}(1-a'p)^{R-k_i} \right)  
@@ -275,64 +412,64 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>regenerate <span class="ot">=</span> <span class="cn">FALSE</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(regenerate <span class="sc">==</span> <span class="cn">TRUE</span>){</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  param_grid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">t =</span> <span class="fu">seq</span>(.<span class="dv">1</span>,.<span class="dv">9</span>,.<span class="dv">1</span>),<span class="at">a =</span> <span class="fu">seq</span>(.<span class="dv">1</span>,.<span class="dv">9</span>,.<span class="dv">1</span>),<span class="at">p =</span> <span class="fu">seq</span>(.<span class="dv">1</span>,.<span class="dv">9</span>,.<span class="dv">1</span>))</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  n_sims <span class="ot">&lt;-</span> <span class="fu">nrow</span>(param_grid)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  N <span class="ot">&lt;-</span> <span class="dv">300</span> <span class="co"># number of subjects</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  R <span class="ot">&lt;-</span> <span class="dv">5</span>   <span class="co"># number of raters</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()  </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  fixed_model_spec <span class="ot">&lt;-</span> <span class="fu">stan_model</span>(<span class="st">"code/fixed_effects.stan"</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_sims){</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    ratings <span class="ot">&lt;-</span> <span class="fu">generate_ratings</span>(N, R, param_grid<span class="sc">$</span>p[i], param_grid<span class="sc">$</span>a[i], param_grid<span class="sc">$</span>t[i])  </span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get the number of Class 1 ratings per subject in a vector</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    counts <span class="ot">&lt;-</span> ratings <span class="sc">%&gt;%</span> </span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(SubjectID) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarize</span>(<span class="at">k =</span> <span class="fu">sum</span>(RatedClass)) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(k) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pull</span>()</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    kappa <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">fleiss</span>(counts,R))</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    fixed_model <span class="ot">&lt;-</span> <span class="fu">sampling</span>(<span class="at">object =</span> fixed_model_spec, </span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>                              <span class="at">data =</span> <span class="fu">list</span>(<span class="at">N =</span> N, <span class="at">R =</span> R, <span class="at">S =</span> <span class="dv">1</span>, <span class="at">count =</span> counts), </span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>                              <span class="at">iter =</span> <span class="dv">1000</span>,</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>                              <span class="at">warmup =</span> <span class="dv">200</span>,</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>                              <span class="at">thin =</span> <span class="dv">1</span>)</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>      stats <span class="ot">&lt;-</span> <span class="fu">rbind</span>( broom<span class="sc">::</span><span class="fu">tidy</span>(fixed_model),</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">data.frame</span>(<span class="at">term =</span> <span class="st">"root kappa"</span>,<span class="at">estimate =</span> kappa, <span class="at">std.error =</span> <span class="cn">NA</span>,</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">mutate</span>(<span class="at">p =</span> param_grid<span class="sc">$</span>p[i], <span class="at">a =</span> param_grid<span class="sc">$</span>a[i], <span class="at">t =</span> param_grid<span class="sc">$</span>t[i])</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>      out <span class="ot">&lt;-</span> <span class="fu">rbind</span>(out,stats)</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write_csv</span>(out,<span class="st">"data/fit_test_sim.csv"</span>)</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/fit_test_sim.csv"</span>)</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="co"># format for plotting</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>pdf <span class="ot">&lt;-</span> out <span class="sc">%&gt;%</span> </span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co">#  filter(a &gt; .2) %&gt;% </span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">parameter =</span> term, <span class="at">value =</span> estimate, <span class="at">actual_p =</span> p, <span class="at">actual_a =</span> a, <span class="at">actual_t =</span> t) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(parameter, value) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">estimated_a =</span> accuracy, <span class="at">estimated_p =</span> p, <span class="at">kappa_a =</span> <span class="st">`</span><span class="at">root kappa</span><span class="st">`</span>, <span class="at">estimated_t =</span> t) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Sim =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(parameter, value, <span class="sc">-</span>Sim) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(parameter, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"type"</span>,<span class="st">"parameter"</span>), <span class="at">sep =</span> <span class="st">"_"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(type, value)</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(pdf, <span class="fu">aes</span>(<span class="at">x =</span> actual, <span class="at">y =</span> estimated, <span class="at">group =</span> actual)) <span class="sc">+</span></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(. <span class="sc">~</span> parameter) <span class="sc">+</span></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>regenerate <span class="ot">=</span> <span class="cn">FALSE</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(regenerate <span class="sc">==</span> <span class="cn">TRUE</span>){</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  param_grid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">t =</span> <span class="fu">seq</span>(.<span class="dv">1</span>,.<span class="dv">9</span>,.<span class="dv">1</span>),<span class="at">a =</span> <span class="fu">seq</span>(.<span class="dv">1</span>,.<span class="dv">9</span>,.<span class="dv">1</span>),<span class="at">p =</span> <span class="fu">seq</span>(.<span class="dv">1</span>,.<span class="dv">9</span>,.<span class="dv">1</span>))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  n_sims <span class="ot">&lt;-</span> <span class="fu">nrow</span>(param_grid)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  N <span class="ot">&lt;-</span> <span class="dv">300</span> <span class="co"># number of subjects</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  R <span class="ot">&lt;-</span> <span class="dv">5</span>   <span class="co"># number of raters</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()  </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  fixed_model_spec <span class="ot">&lt;-</span> <span class="fu">stan_model</span>(<span class="st">"code/fixed_effects.stan"</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_sims){</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    ratings <span class="ot">&lt;-</span> <span class="fu">generate_ratings</span>(N, R, param_grid<span class="sc">$</span>p[i], param_grid<span class="sc">$</span>a[i], param_grid<span class="sc">$</span>t[i])  </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get the number of Class 1 ratings per subject in a vector</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    counts <span class="ot">&lt;-</span> ratings <span class="sc">%&gt;%</span> </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(SubjectID) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarize</span>(<span class="at">k =</span> <span class="fu">sum</span>(RatedClass)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(k) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pull</span>()</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    kappa <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">fleiss</span>(counts,R))</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    fixed_model <span class="ot">&lt;-</span> <span class="fu">sampling</span>(<span class="at">object =</span> fixed_model_spec, </span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>                              <span class="at">data =</span> <span class="fu">list</span>(<span class="at">N =</span> N, <span class="at">R =</span> R, <span class="at">S =</span> <span class="dv">1</span>, <span class="at">count =</span> counts), </span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>                              <span class="at">iter =</span> <span class="dv">1000</span>,</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>                              <span class="at">warmup =</span> <span class="dv">200</span>,</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>                              <span class="at">thin =</span> <span class="dv">1</span>)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>      stats <span class="ot">&lt;-</span> <span class="fu">rbind</span>( broom<span class="sc">::</span><span class="fu">tidy</span>(fixed_model),</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">data.frame</span>(<span class="at">term =</span> <span class="st">"root kappa"</span>,<span class="at">estimate =</span> kappa, <span class="at">std.error =</span> <span class="cn">NA</span>,</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">mutate</span>(<span class="at">p =</span> param_grid<span class="sc">$</span>p[i], <span class="at">a =</span> param_grid<span class="sc">$</span>a[i], <span class="at">t =</span> param_grid<span class="sc">$</span>t[i])</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>      out <span class="ot">&lt;-</span> <span class="fu">rbind</span>(out,stats)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write_csv</span>(out,<span class="st">"data/fit_test_sim.csv"</span>)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/fit_test_sim.csv"</span>)</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="co"># format for plotting</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>pdf <span class="ot">&lt;-</span> out <span class="sc">%&gt;%</span> </span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="co">#  filter(a &gt; .2) %&gt;% </span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">parameter =</span> term, <span class="at">value =</span> estimate, <span class="at">actual_p =</span> p, <span class="at">actual_a =</span> a, <span class="at">actual_t =</span> t) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(parameter, value) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">estimated_a =</span> accuracy, <span class="at">estimated_p =</span> p, <span class="at">kappa_a =</span> <span class="st">`</span><span class="at">root kappa</span><span class="st">`</span>, <span class="at">estimated_t =</span> t) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Sim =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(parameter, value, <span class="sc">-</span>Sim) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(parameter, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"type"</span>,<span class="st">"parameter"</span>), <span class="at">sep =</span> <span class="st">"_"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(type, value)</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(pdf, <span class="fu">aes</span>(<span class="at">x =</span> actual, <span class="at">y =</span> estimated, <span class="at">group =</span> actual)) <span class="sc">+</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(. <span class="sc">~</span> parameter) <span class="sc">+</span></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -352,22 +489,32 @@ window.Quarto = {
 \]</span></p>
 <p>showing that <span class="math inline">\(t\)</span> is under-determined when <span class="math inline">\(a = 0\)</span>, and we should expect poor behavior as <span class="math inline">\(a\)</span> nears zero. This is intuitive: if the raters are only guessing, they should give us no information about the true <span class="math inline">\(C_1\)</span> rate. If the data in figure <span class="math inline">\(\ref{fig:tap_sim}\)</span> are filtered to <span class="math inline">\(a &gt; .2\)</span> the estimates of <span class="math inline">\(t\)</span> greatly improve. Aside from extreme values of <span class="math inline">\(a\)</span> affecting the estimation of <span class="math inline">\(t\)</span>, a visual inspection of the scatter plots of the parameter estimates shows no correlations.</p>
 </section>
-</section>
-<section id="indentifiability" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Indentifiability</h1>
+<section id="indentifiability" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Indentifiability</h1>
 <p>The tap model is not identifiable in the sense that, given a set of ratings, the likelihood function is not uniquely maximized for a single choice of <span class="math inline">\((t,a,p)\)</span>. As an example, consider a set of ratings of subjects with two raters each, where for each subject one rater assigns Class 1 and the other rater assigns Class 0. The likelihood function is the product of the likelihood for each subject, and these will be identical, so maximizing likelihood for one subject is the same as for the whole data set. By symmetry, <span class="math inline">\(a \le 1/2\)</span> and likelihood will be maximized when <span class="math inline">\(a +\bar{a}p = 1/2\)</span> so that any value of <span class="math inline">\(p = \frac{1/2 - a}{1-a}\)</span> is a solution. Intuitively, this choice ranges from accuracy of .5 and <span class="math inline">\(p = 0\)</span> to accuracy of 0 and <span class="math inline">\(p = 1/2\)</span>.</p>
-<p>Other non-identifiable cases occur when one or more of the tap parameters is zero or one. If a = 1, it doesn’t matter what p is, for example. These degenerate cases aside, the tap paramterization of the binomial mixture has an advantage over the usual way this is done, to estimate the mean of each of the two binomial distributions individually. If <span class="math inline">\(Pr[mixture] = t \text{binom}(\mu = c_1) + (1-t)\text{binom}(mu = c_0)\)</span> we must then add the constraint that <span class="math inline">\(\mu_1 \ge \mu_2\)</span> to avoid label switching. The tap parameterization allows all three of the parameters to be in [0,1] without such a problem, because a is the difference between the two means: $ c_1 - c_0 = a + {a}p - {a}p$.</p>
+<p>Other non-identifiable cases occur when one or more of the tap parameters is zero or one. If a = 1, it doesn’t matter what p is, for example. These degenerate cases aside, the tap paramterization of the binomial mixture has an advantage over the usual way this is done, to estimate the mean of each of the two binomial distributions individually. If <span class="math inline">\(Pr[mixture] = t \text{binom}(\mu = c_1) + (1-t)\text{binom}(mu = c_0)\)</span> we must then add the constraint that <span class="math inline">\(\mu_1 \ge \mu_2\)</span> to avoid label switching. The tap parameterization allows all three of the parameters to be in [0,1] without such a problem, because a is the difference between the two means: <span class="math inline">\(c_1 - c_0 = a + \bar{a}p - \bar{a}p\)</span>.</p>
 <p>Non-uniqueness is a well-known problem with mixture models, and it is less of a problem for Bayesian MCMC estimation, which provides a full posterior distribution for the parameters, which may be multi-modal if there are two competing solutions. This gives us a way to detect degenerate solutions and look for a different model if desired.</p>
 <p>In the case where we allow individual parameters for accuracy and random class assignment, the t-a0a1-p0p1 case, we may get data sets that are not identifiable for label-switching reasons. That is, we may be able to find the maximum likelihood mixture of binomial distributions, but not know which is Class 0 and which is Class 1. This is not a model problem, but a data problem.</p>
 <p>With the <span class="math inline">\(a0,a1,p0,p1\)</span> parameters, label switching means that we swap <span class="math inline">\(\bar{t}\)</span> for <span class="math inline">\(t\)</span> and the two corresponding means swap as well. That requires some second set of the parameters <span class="math inline">\(a0',a1',p0',p1'\)</span> such that</p>
 <p><span class="math display">\[
-\begin{align}
+\begin{aligned}
 a_1 + \bar{a_1}p_1 &amp;= \bar{a_0}'p_0' \\
 a_1' + \bar{a_1}'p_1' &amp;= \bar{a_0}p_0 \\
-\end{align}
+\end{aligned}
 \]</span></p>
 <p>Then we can swap the primes for the non-primes, and exchange t for 1-t and the distribution is the same. There are four free parameters and two constraints shown above, plus the constraints that all parameters are in [0,1]. A example of a label-switching set is when <span class="math inline">\(\mu_0 = \bar{a_0}p_0 &gt; a_1 + \bar{a_1}p_1 = \mu_1\)</span>, so that there are more class 1 ratings for class 0 cases that there are for true class 1 cases. Suppose a0 = .5, a1 = .2, p0 = .7 and p1 = .1, we have <span class="math inline">\(\mu_0 = (.5)(.7) = .35\)</span> and <span class="math inline">\(\mu_1 = .2 + (.8).1 = .28\)</span>, so the mean of the class 1 ratings is to the left of the mean of the class 0 ratings. This can’t happen with the three-parameter model. It’s not a problem with the model, however, but an expression of the ratings and raters. For example, suppose these are wine tasting ratings, and it’s easier to for judges to agree on poor wine than excellent wine (this seems to be the case in practice). Suppose further that some of the raters are motivated to over-rate poor wines, pushing up the p0 rate to .7 from some lower value. This rating inflation makes the poor wines seem better than they are, and by comparison the good wines seem worse. From the data, we can’t tell which class is which under these model assumptions and with this data. However, the MCMC results will show us a multi-model distribution.</p>
 <p>[I’m not sure we can ignore t, because the rows of data create the likelihood. Need to test this with real data using the simulator]</p>
+</section>
+<section id="overdispersion" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Overdispersion</h1>
+<p>The tap model assumes fixed averages over raters and subjects for the three parameters. The most sensible of these assumptions is that there is a single value for <span class="math inline">\(t\)</span> that represents the fraction of Class 1 cases, although this idea has been challenged by @???. That leaves two parameters that are certainly oversimplified in the tap model, so that counts of Class 1 ratings per subject are likely to have more variance than a binomial model would. This is due to anticipated variance in rater ability and the difficulty in rating subjects, resulting in overdispersion. A general approach to this problem is to allow each rater to have a different accuracy rate <span class="math inline">\(a_j\)</span> and each subject to have a different guessing rate <span class="math inline">\(p_i\)</span>. This is the hierarchical model, which is described later.</p>
+<p>Original suggestion to use beta-binomial <span class="citation" data-cites="williams1975394">@williams1975394</span>, modern look at it in <span class="citation" data-cites="ascari2021new">@ascari2021new</span>.</p>
+</section>
+<section id="other-properties" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Other Properties</h1>
+<p>As is shown in Appendix A, rater accuracy <span class="math inline">\(a\)</span> is proportional to the correlation between the true and assigned classifications. If <span class="math inline">\(C\)</span> is the true classification and <span class="math inline">\(T\)</span> is the assigned classification, then</p>
+<p><span class="math display">\[ \text{Cor}(T, C) = a\frac{\sigma_T}{\sigma_C} \]</span></p>
+<p>The t-a-p model focuses on raters more than subjects. For example, some rater models include a difficulty parameter for each subject, assuming that some are harder to classify than others. The t-a-p model does not include this, per se, but a random-effects version of the model is introduced later that allows for subject-specific coefficients <span class="math inline">\(p_i\)</span>, which adjusts the guessing rate per subject when a classification is made inaccurately. See <span class="citation" data-cites="paun2018comparing">@paun2018comparing</span> for a discussion of difficulty parameters in machine-learning models similar to tap.</p>
 
 
 </section>

@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Your Name">
+<meta name="author" content="David Eubanks">
 
 <title>Chapter 3: Kappa Statistics – The Kappa Zoo</title>
 <style>
@@ -156,18 +156,6 @@ window.Quarto = {
     <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./introduction.html"> 
-<span class="menu-text">Introduction</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./chapter1.qmd"> 
-<span class="menu-text">Chapter 1</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./chapter2.qmd"> 
-<span class="menu-text">Chapter 2</span></a>
-  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -212,7 +200,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Your Name </p>
+             <p>David Eubanks </p>
           </div>
   </div>
     
@@ -240,7 +228,7 @@ window.Quarto = {
 m_a &amp;= a^2 &amp; \text{(both accurate)}\\
 m_r &amp;= p^2 + \bar{p}^2 &amp; \text{(random ratings)}\\
 m_i &amp;= \bar{a}^2m_r = a^2m_r - 2am_r + m_r &amp;\text{(both inaccurate)}\\
-m_x &amp;= 2a\bar{a}(tp + \bar{t}\bar{p}) &amp;\text{(mixed accurate &amp; inaccurate)}\\
+m_x &amp;= 2a\bar{a}(tp + \bar{t}\bar{p}) &amp;\text{(mixed accurate and inaccurate)}\\
 m_o &amp;= m_a + m_i + m_x &amp;\text{(observed match rate)}\\
     &amp;= a^2+a^2m_r + m_r - 2am_r + 2a\bar{a}(tp + \bar{t}\bar{p})\\
 \end{aligned}
@@ -248,13 +236,13 @@ m_o &amp;= m_a + m_i + m_x &amp;\text{(observed match rate)}\\
 <p>For <span class="math inline">\(m_a\)</span>, both ratings must be accurate, in which case they automatically agree. For <span class="math inline">\(m_i\)</span>, both must be inaccurate (<span class="math inline">\(\bar{a}^2\)</span>) and then match randomly (<span class="math inline">\(m_r\)</span>). For <span class="math inline">\(m_x\)</span>, one rater must be accurate and the other inaccurate, in which case they agree if the accurate rater chooses the category that the inaccurate rater guesses.</p>
 <p>Following the intuition in the introduction, that kappa is the square of what we are interested in, we can attempt to choose <span class="math inline">\(m_c\)</span> so that <span class="math inline">\(\kappa = a^2\)</span> via <span class="math inline">\(m_0 - m_c = a^2(1-m_c)\)</span>. This leads to</p>
 <p><span id="eq-mc"><span class="math display">\[
-\begin{align}
+\begin{aligned}
 m_c^* &amp;= \frac{m_i + m_x}{1 - a^2} \\
 &amp;= \frac{\bar{a}^2m_r + 2a\bar{a}(tp + \bar{t}\bar{p})}{(1+a)\bar{a}} \\
 &amp;= \frac{\bar{a}(p^2 + \bar{p}^2)  + 2a(tp + \bar{t}\bar{p})}{1+a} \\
-\end{align}
+\end{aligned}
 \tag{1}\]</span></span></p>
-<p>where the asterisk denotes the choice of the chance correction formula <span class="math inline">\(m_c\)</span> that always makes <span class="math inline">\(\kappa = a^2\)</span>. In unsimplified form, the numerator of is the expected proportion of matches where there is at least one inaccurate rating, and the denominator is the the rate of non-perfect rating pairs, where at least one of the raters is inaccurate, and they may or may not match. The chance correction is therefore accounting for the accurate ratings by taking them out of the data altogether and then calculating inaccurate matches out of all rating pairs as the probability of by-chance matching.</p>
+<p>where the asterisk denotes the choice of the chance correction formula <span class="math inline">\(m_c\)</span> that always makes <span class="math inline">\(\kappa = a^2\)</span>. In unsimplified form, the numerator of the equation above is the expected proportion of matches where there is at least one inaccurate rating, and the denominator is the the rate of non-perfect rating pairs, where at least one of the raters is inaccurate, and they may or may not match. The chance correction is therefore accounting for the accurate ratings by taking them out of the data altogether and then calculating inaccurate matches out of all rating pairs as the probability of by-chance matching.</p>
 <p>The formulation of <span class="math inline">\(m_c^*\)</span> isn’t directly helpful for computing a kappa because the whole point is to discover <span class="math inline">\(a\)</span>, so a formula for <span class="math inline">\(m_c\)</span> that requires knowing <span class="math inline">\(a\)</span> is circular. However, some special cases are of interest. For values of <span class="math inline">\(a\)</span> close to zero, we have <span class="math inline">\(m_c^* \approx p^2 + \bar{p}^2\)</span>; when most ratings are random, the guessing parameter <span class="math inline">\(p\)</span> is most important. When <span class="math inline">\(a\)</span> is close to one, <span class="math inline">\(m_c^* \approx tp + \bar{t}\bar{p}\)</span>; when most ratings are accurate, the inaccurate matches are likely to have only one inaccurate rating.</p>
 <p>If <span class="math inline">\(m_c^2\)</span> is averaged over a uniform distribution <span class="math inline">\(p \epsilon [0,1]\)</span>, <span class="math inline">\(t\)</span> also drops out so that the chance correction only depends on <span class="math inline">\(a\)</span>, the proportion of accurate ratings.</p>
 <p><span class="math display">\[
@@ -346,7 +334,7 @@ Figure&nbsp;2: The S statistic’s error in the estimate of rater accuracy avera
 </section>
 <section id="ac1" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="ac1"><span class="header-section-number">4</span> AC1</h2>
-<p>The AC1 version of kappa developed in uses the same disaggregation of rating agreements found in . This can be found in Table 4, page 36, where Gwet uses the idea of ratings that are certain (the same as ??’s “for cause”) versus random, so that what I’ve called the accurate match rate <span class="math inline">\(m_a = a^2\)</span> is the sum of Gwet’s counts of accurate matches <span class="math inline">\(N_{++.CC} + N_{--.CC}\)</span> divided by the total number of rating pairs. In terms of the t-a-p model, Gwet assumes that the probability of a by-chance agreement is <span class="math inline">\(m_c = m_i + m_x\)</span>, the sum of the cases where both raters make inaccurate ratings and the case where exactly one does. This amounts to assuming <span class="math inline">\(a^2\)</span> is close to zero in <span class="math inline">\(m_c^* = (m_i + mx)/(1-a^2)\)</span>. After some approximations, the accidental match rate <span class="math inline">\(m_i + mx\)</span> is assumed to be <span class="math inline">\(2c\bar{c}\)</span>, estimating <span class="math inline">\(c\)</span> from <span class="math inline">\(\hat{c}\)</span>, the observed fraction of <span class="math inline">\(C = 1\)</span>. Since <span class="math inline">\(1 = (c + \bar{c})^2 = c^2 + 2c\bar{c} + \bar{c}^2\)</span>, the AC1 version of <span class="math inline">\(m_c\)</span> is the complement of the Fleiss version: they sum to one. In effect, matches that Fleiss considers random, AC1 considers non-random, and vice-versa, at least in expectation. One consequence is that <span class="math inline">\(AC1 \ge \kappa_{fleiss}\)</span>.</p>
+<p>The AC1 version of kappa developed in uses the same disaggregation of rating agreements found in [equation]. This can be found in Table 4, page 36, where Gwet uses the idea of ratings that are certain (the same as ??’s “for cause”) versus random, so that what I’ve called the accurate match rate <span class="math inline">\(m_a = a^2\)</span> is the sum of Gwet’s counts of accurate matches <span class="math inline">\(N_{++.CC} + N_{--.CC}\)</span> divided by the total number of rating pairs. In terms of the t-a-p model, Gwet assumes that the probability of a by-chance agreement is <span class="math inline">\(m_c = m_i + m_x\)</span>, the sum of the cases where both raters make inaccurate ratings and the case where exactly one does. This amounts to assuming <span class="math inline">\(a^2\)</span> is close to zero in <span class="math inline">\(m_c^* = (m_i + mx)/(1-a^2)\)</span>. After some approximations, the accidental match rate <span class="math inline">\(m_i + mx\)</span> is assumed to be <span class="math inline">\(2c\bar{c}\)</span>, estimating <span class="math inline">\(c\)</span> from <span class="math inline">\(\hat{c}\)</span>, the observed fraction of <span class="math inline">\(C = 1\)</span>. Since <span class="math inline">\(1 = (c + \bar{c})^2 = c^2 + 2c\bar{c} + \bar{c}^2\)</span>, the AC1 version of <span class="math inline">\(m_c\)</span> is the complement of the Fleiss version: they sum to one. In effect, matches that Fleiss considers random, AC1 considers non-random, and vice-versa, at least in expectation. One consequence is that <span class="math inline">\(AC1 \ge \kappa_{fleiss}\)</span>.</p>
 <p>If the assumptions of AC1 are met,,</p>
 <p><span id="eq-AC1"><span class="math display">\[
 \begin{aligned}
@@ -429,7 +417,7 @@ Figure&nbsp;4: Expected error histograms in estimating rater accuracy, taken ove
 </div>
 </div>
 </div>
-<p>The histograms in <a href="#fig-all-error" class="quarto-xref">Figure&nbsp;4</a> show the expected error in estimating rater accuracy for selected kappa statistics identified above. In actual use, sampling error will be added to this. The Fleiss kappa has the least error overall. AC1 and S tend to overestimate <span class="math inline">\(a\)</span>, and The bias with the Fliess, S, and Cohen kappas come from their assumption that <span class="math inline">\(D=0\)</span> in , which derives from the assumption that the raters are either proficient (Fleiss) or naive (S). Cohen has the additional assumption about individual rater guessing parameters. If those conditions don’t hold in the data (i.e.&nbsp;if the model fit is poor), then rater accuracy will estimated with error depending on how large <span class="math inline">\(D\)</span> actually is. For example, if <span class="math inline">\(t = 0.2\)</span>, <span class="math inline">\(a = 0.2\)</span>, and <span class="math inline">\(p=0\)</span> (no one ever guesses <span class="math inline">\(\widehat{C_1}\)</span>), then neither of the kappa assumptions <span class="math inline">\(p = 1/2\)</span> (S) or <span class="math inline">\(t = p\)</span> (Fleiss) are close to true and <span class="math inline">\(D = 0.2\)</span> instead of zero. The S estimate of <span class="math inline">\(a\)</span> is .99 and the Fleiss estimate is .13.</p>
+<p>The histograms in <a href="#fig-all-error" class="quarto-xref">Figure&nbsp;4</a> show the expected error in estimating rater accuracy for selected kappa statistics identified above. In actual use, sampling error will be added to this. The Fleiss kappa has the least error overall. AC1 and S tend to overestimate <span class="math inline">\(a\)</span>, and The bias with the Fliess, S, and Cohen kappas come from their assumption that <span class="math inline">\(D=0\)</span> in [equation], which derives from the assumption that the raters are either proficient (Fleiss) or naive (S). Cohen has the additional assumption about individual rater guessing parameters. If those conditions don’t hold in the data (i.e.&nbsp;if the model fit is poor), then rater accuracy will estimated with error depending on how large <span class="math inline">\(D\)</span> actually is. For example, if <span class="math inline">\(t = 0.2\)</span>, <span class="math inline">\(a = 0.2\)</span>, and <span class="math inline">\(p=0\)</span> (no one ever guesses <span class="math inline">\(\widehat{C_1}\)</span>), then neither of the kappa assumptions <span class="math inline">\(p = 1/2\)</span> (S) or <span class="math inline">\(t = p\)</span> (Fleiss) are close to true and <span class="math inline">\(D = 0.2\)</span> instead of zero. The S estimate of <span class="math inline">\(a\)</span> is .99 and the Fleiss estimate is .13.</p>
 <p>Although the two kappas surveyed can recover rater accuracy when the assumptions are met, they are not robust to large violations of those assumptions. The parameterized rater model presented here is a more general modeling approach to estimating rater accuracy and other parameters of interest.</p>
 <p>Under the assumptions of the t-a-p model, each of the kappa statistics considered in this section add assumptions. For example, Fleiss adds the assumption <span class="math inline">\(p = t\)</span>. This has the effect of reducing the size of the parameter space. For a given data set, it’s then possible to assess the likelihood of each of the kappa choices by maximizing over the respective restricted parameter space. This can reveal which of the assumptions has maximum likelihood, if the desire is to choose between models. However, it’s probably better to not introduce such restrictions unless there’s a good reason to do so.</p>
 
