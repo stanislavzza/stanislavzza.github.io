@@ -179,54 +179,47 @@ window.Quarto = {
 
 <section id="correlation-of-ratings-between-raters" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Correlation of Ratings between Raters</h1>
-<p>Given two distinct raters <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> with common accuracy <span class="math inline">\(a\)</span> and guess probability <span class="math inline">\(p\)</span>, what’s the correlation between their ratings? Let <span class="math inline">\(c = E[C_i] = E[C_j] = ta + p\bar{a}\)</span>.</p>
-$$
-<span class="math display">\[\begin{aligned}
-
-\text{Cor}(C_i, C_j) &amp;= \frac{\text{Cov}(C_i, C_j)}{\sqrt{\text{Var}(C_i)\text{Var}(C_j)}} \\
-
-&amp;= \frac{E[(TA_i + \bar{A_i}P_i)(TA_j + \bar{A_j}P_j)] - c^2}{\text{Var}(C)} \\
-&amp;= \frac{ta^2 + 2ta\bar{a}p + \bar{a}^2p^2  - (ta + p\bar{a})^2}{(ta + p\bar{a})\overline{(ta + p\bar{a})  }} &amp; (\text{since }T^2 = T)\\
+<p>Given two distinct raters <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> with common accuracy <span class="math inline">\(a\)</span> and guess probability <span class="math inline">\(p\)</span>, what’s the correlation between their ratings? Let <span class="math inline">\(c = E[C_i] = E[C_j] = ta + p\bar{a}\)</span>. Capital letters denote random binary variables, so that <span class="math inline">\(A_i\)</span> is one if the first rater made an accurate assessment and zero if not. <span class="math inline">\(T\)</span> is the true value of a common subject being rated. The covariance between the two raters’ ratings is</p>
+<p><span class="math display">\[
+\begin{aligned}
+\textrm{Cor}(C_i, C_j) &amp;= \frac{\textrm{Cov}(C_i, C_j)}{\sqrt{\textrm{Var}(C_i)\textrm{Var}(C_j)}} \\
+&amp;= \frac{E[(TA_i + \bar{A_i}P_i)(TA_j + \bar{A_j}P_j)] - c^2}{\textrm{Var}(C)} \\
+&amp;= \frac{ta^2 + 2ta\bar{a}p + \bar{a}^2p^2  - (ta + p\bar{a})^2}{(ta + p\bar{a})\overline{(ta + p\bar{a})  }} &amp; (\textrm{since }T^2 = T)\\
 &amp;= \frac{ta^2 + 2ta\bar{a}p - t^2a^2 - 2tap\bar{a}}{(ta + p\bar{a})\overline{(ta + p\bar{a})  }} \\
 &amp;= \frac{a^2t\bar{t}}{c\bar{c }} \\
-\end{aligned}\]</span>
-<p>$$</p>
+\end{aligned}
+\]</span></p>
 <p>Rater accuracy can be obtained via</p>
 <p><span id="eq-cor-c"><span class="math display">\[
 a^2 =\frac{c\overline{c }}{t\bar{t}} \text{Cor}(C_a, C_b) = \frac{c\overline{c }}{t\bar{t}}\kappa_{fleiss}
 \tag{1}\]</span></span></p>
-<p>The correlation between two raters’ ratings of the same subject is the intraclass correlation coefficient (ICC) for a two-way random effects model , which has been shown to be equivalent to the Fleiss kappa as described in . Under the <span class="math inline">\(t = p\)</span> proficient rater assumption, <span class="math inline">\(c = ta + \bar{a}p = p\)</span>, so that the Fliess kappa is (again) shown to be <span class="math inline">\(a^2\)</span> under that condition. The relation <a href="#eq-cor-c" class="quarto-xref">Equation&nbsp;1</a> suggests that the Fliess kappa could be adjusted for cases when <span class="math inline">\(t \ne p\)</span>. The overall rate of Class 1 ratings <span class="math inline">\(c\)</span> can be estimated directly from the data, but estimating <span class="math inline">\(t\)</span> requires either prior knowledge of the context or using the full tap estimation process, in which case there’s no need to compute the Fliess kappa.</p>
+<p>The correlation between two raters’ ratings of the same subject is the intraclass correlation coefficient (ICC) for a two-way random effects model @shrout_intraclass_1979, which has been shown to be equivalent to the Fleiss kappa as described in @fleiss2013statistical, p.&nbsp;611-12. Under the <span class="math inline">\(t = p\)</span> proficient rater assumption, <span class="math inline">\(c = ta + \bar{a}p = p\)</span>, so that the Fliess kappa is (again) shown to be <span class="math inline">\(a^2\)</span> under that condition. The relation <a href="#eq-cor-c" class="quarto-xref">Equation&nbsp;1</a> suggests that the Fliess kappa could be adjusted for cases when <span class="math inline">\(t \ne p\)</span> by making assumptions about those two parameters. For example, maybe the true rate is known from other information. The overall rate of Class 1 ratings <span class="math inline">\(c\)</span> can be estimated directly from the data, but estimating <span class="math inline">\(t\)</span> requires either prior knowledge of the context or using the full t-a-p estimation process, in which case there’s no need to compute the Fliess kappa.</p>
 <section id="correlation-between-ratings-and-true-values" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="correlation-between-ratings-and-true-values"><span class="header-section-number">1.1</span> Correlation Between Ratings and True Values</h2>
-<p>It is of interest to find the correlation between <span class="math inline">\(T_i\)</span> the truth value of subject <span class="math inline">\(i\)</span> and the resulting classification <span class="math inline">\(C_i\)</span>. Note that both of the random variables <span class="math inline">\(T_i\)</span> and <span class="math inline">\(C_i\)</span> take only values of zero or one, so squaring them doesn’t change their values. This fact simplifies computations, for example <span class="math inline">\(E[C_i^2] = E[C_i] = ta + p\bar{a}\)</span>. The variance of <span class="math inline">\(C\)</span> is therefore</p>
-$$
-<span class="math display">\[\begin{aligned}
-Var(C) &amp;= E[C^2] - E^2[C] \\
+<p>It is of interest to find the correlation between <span class="math inline">\(T_i\)</span> the truth value of subject <span class="math inline">\(i\)</span> and the resulting classification <span class="math inline">\(C_i\)</span>. Note that both of the random variables <span class="math inline">\(T_i\)</span> and <span class="math inline">\(C_i\)</span> take only values of zero or one, so squaring them doesn’t change their values. This fact simplifies computations, for example <span class="math inline">\(E[C_i^2] = E[C_i] = ta + p\bar{a}\)</span>. The variance of <span class="math inline">\(C\)</span> is therefore <span class="math display">\[
+\begin{aligned}
+\textrm{Var}(C) &amp;= E[C^2] - E^2[C] \\
        &amp;= c - c^2 \\
        &amp;= c\bar{c} \\
        &amp;= (ta + p\bar{a})\overline{(ta + p\bar{a})}. \\
-
-\end{aligned}\]</span>
-<p>$$</p>
-<p>Similarly, <span class="math inline">\(Var(T) = t\bar{t}\)</span>. The correlation between true values and ratings is then</p>
-$$
-<span class="math display">\[\begin{aligned}
+\end{aligned}
+\]</span> Similarly, <span class="math inline">\(Var(T) = t\bar{t}\)</span>. The correlation between true values and ratings is then</p>
+<p><span class="math display">\[
+\begin{aligned}
 \text{Cor}(T, C) &amp;= \frac{\text{Cov}(T, C)}{\sqrt{\text{Var}(T)\text{Var}(C)}} \\
-
 &amp;= \frac{E[T(Ta + p\bar{a}) ] - t(ta + p\bar{a})}{\sqrt{t\bar{t} c\bar{c}}  } \\
 &amp;= \frac{t(a + p\bar{a})  - t(ta + p\bar{a})}{\sqrt{t\bar{t} c\bar{c}}  } \\
 &amp;= a\frac{\sqrt{t\bar{t}}}{\sqrt{c\bar{c}}} \\
 &amp;= a\frac{\sigma_T}{\sigma_C}.
-\end{aligned}\]</span>
-<p>$$ {#eq-cor-tc}</p>
-<p>Where <span class="math inline">\(\sigma\)</span> is the standard deviation (square root of variance). The relationship in <strong>?@eq-cor-tc</strong> can also be seen as <span class="math inline">\(a = \text{Cor}(T, C) \frac{\sigma_C}{\sigma_T}\)</span>, which means <span class="math inline">\(a\)</span> can be interpreted as the slope of the regression line <span class="math inline">\(C = \beta_0 + \beta_1T + \varepsilon\)</span>, i.e.&nbsp;<span class="math inline">\(a = \beta_1\)</span>. In the proficient rater case <span class="math inline">\(p = t\)</span>, <span class="math inline">\(\sigma_C = \sigma_T\)</span> and so <span class="math inline">\(\text{Cor}(T, C) = a\)</span>. It can also be shown that for a <span class="math inline">\(t\)</span>-<span class="math inline">\(a_1,a_0\)</span>-<span class="math inline">\(p\)</span> model, the <span class="math inline">\(t=p\)</span> assumption leads to <span class="math inline">\(a = \sqrt{a_1a_0}.\)</span> See .</p>
+\end{aligned}
+\]</span> Where <span class="math inline">\(\sigma\)</span> is the standard deviation (square root of variance). The relationship in <strong>?@eq-cor-tc</strong> can also be seen as <span class="math inline">\(a = \text{Cor}(T, C) \frac{\sigma_C}{\sigma_T}\)</span>, which means <span class="math inline">\(a\)</span> can be interpreted as the slope of the regression line <span class="math inline">\(C = \beta_0 + \beta_1T + \varepsilon\)</span>, i.e.&nbsp;<span class="math inline">\(a = \beta_1\)</span>. In the proficient rater case <span class="math inline">\(p = t\)</span>, <span class="math inline">\(\sigma_C = \sigma_T\)</span> and so <span class="math inline">\(\text{Cor}(T, C) = a\)</span>. It can also be shown that for a <span class="math inline">\(t\)</span>-<span class="math inline">\(a_1,a_0\)</span>-<span class="math inline">\(p\)</span> model, the <span class="math inline">\(t=p\)</span> assumption leads to <span class="math inline">\(a = \sqrt{a_1a_0}.\)</span> See @eubankscause.</p>
 <p>The two correlations derived here are related by <span class="math inline">\(\text{Cor}^2(T, C) = \text{Cor}(C_i, C_j)\)</span>.</p>
 </section>
 </section>
 <section id="alternate-derivation-of-fleiss-kappa-relationship" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Alternate Derivation of Fleiss Kappa Relationship</h1>
 <p>This appendix gives an alternative derivation for the Fleiss kappa’s relationship to rater accuracy under the proficient rater assumption.</p>
-<p>The Fleiss kappa as a well-known representative of this genre. The kappa is a particular case of Krippendorf’s alpha and a multi-rater extension of Scott’s pi . The statistic compares the overall distribution of ratings (ignoring subjects) to the average over within-subject distributions. These distributions are used to compute the number of observed matches (i.e.&nbsp;agreements) <span class="math inline">\(m_o\)</span> for each subject <span class="math inline">\(i\)</span>, which for a two-category classification looks like</p>
+<p>The Fleiss kappa @fleiss1971measuring is a particular case of Krippendorf’s alpha @krippendorff1978reliability and a multi-rater extension of Scott’s pi @scott1955reliability. The statistic compares the overall distribution of ratings (ignoring subjects) to the average over within-subject distributions. These distributions are used to compute the number of observed matches (i.e.&nbsp;agreements) <span class="math inline">\(m_o\)</span> over subjects <span class="math inline">\(i = 1 \dots N\)</span>. For a two-category classification with a fixed number of raters <span class="math inline">\(R&gt;1\)</span> per subject the number of matched ratings for a given subject <span class="math inline">\(i\)</span> is</p>
 <p><span class="math display">\[
 \begin{aligned}
 m_o &amp;= \frac{ {\binom{k_i}{2}} + {\binom{R - k_i}{2}}}{\binom{R}{2}} \\
@@ -234,12 +227,13 @@ m_o &amp;= \frac{ {\binom{k_i}{2}} + {\binom{R - k_i}{2}}}{\binom{R}{2}} \\
 &amp;= \frac{2k_i^2 - 2k_iR + R^2-R}{R(R-1)}
 \end{aligned}
 \]</span></p>
-<p>where <span class="math inline">\(k_i\)</span> is the count of Class 1 ratings for the <span class="math inline">\(i\)</span>th subject, and <span class="math inline">\(R&gt;1\)</span> is the number of raters for each subject, a constant. The match rates are averaged to get <span class="math inline">\(\text{E}[m_o]\)</span> and then a chance correction is applied with</p>
+<p>where <span class="math inline">\(k_i\)</span> is the count of Class 1 ratings for the <span class="math inline">\(i\)</span>th subject. The match rates are averaged over the subjects to get <span class="math inline">\(\text{E}[m_o]\)</span> and then a chance correction is applied with</p>
 <p><span class="math display">\[
 \kappa = \frac{\text{E}[m_i] - \text{E}[m_c]}{1-\text{E}[m_c]},
 \]</span></p>
-<p>where <span class="math inline">\(\text{E}[m_c]\)</span> is the chance correction. Under the <span class="math inline">\(t  = p\)</span> proficient rater assumption, the true rate of Class 1 <span class="math inline">\(t\)</span> is assumed to be <span class="math inline">\(\text{E}[c_{ij}]\)</span>, so <span class="math inline">\(\text{E}[m_c] = t^2 + (1-t)^2\)</span>, the asymptotic expected match rate for independent Bernoulli trials with success probability <span class="math inline">\(t\)</span>.</p>
-<p>Asymptotically, the average match rates will be defined by <span class="math inline">\(\text{Pr}(k;a,t)\)</span>, so it suffices for large <span class="math inline">\(N\)</span> to write the expected match rate as</p>
+<p>where <span class="math inline">\(\text{E}[m_c]\)</span> is the expected number of matches due to chance. Recall that different agreement statistics make different assumptions about this chance. Using the t-a-p model, and assuming <span class="math inline">\(t = p\)</span>, the true rate of Class 1 <span class="math inline">\(t\)</span> is assumed to be <span class="math inline">\(\text{E}[c_{ij}]\)</span>, so <span class="math inline">\(\text{E}[m_c] = t^2 + (1-t)^2\)</span>, the asymptotic expected match rate for independent Bernoulli trials with success probability <span class="math inline">\(t\)</span>.</p>
+<p>By replacing <span class="math inline">\(p\)</span> with <span class="math inline">\(t\)</span> in the t-a-p model’s mixture distribution for the number <span class="math inline">\(k\)</span> of Class 1 ratings a subject is assigned we obtain</p>
+<p><span class="math display">\[ Pr(k) = t \binom{R}{k} (a + \bar{a}t)^k (\bar{a}\bar{t})^{R - k} + \bar{t} \binom{R}{k} (\bar{a}t)^k (1 - \bar{a}t)^{R - k} \]</span> so it suffices for large <span class="math inline">\(N\)</span> to write the expected match rate as</p>
 <p><span class="math display">\[
 \begin{aligned}
       \text{E}[m(a)] &amp;= \sum_{k=0}^R \frac{2k^2 - 2kR + R^2-R}{R(R-1)}\text{Pr}(k;a,t) \\
@@ -261,7 +255,6 @@ m_o &amp;= \frac{ {\binom{k_i}{2}} + {\binom{R - k_i}{2}}}{\binom{R}{2}} \\
 \end{aligned}
 \]</span></p>
 <p>So kappa is the square of accuracy under the proficient rater assumption, with constant rater accuracy and fixed number of raters. The relationship does not depend on the true distribution <span class="math inline">\(t\)</span> of Class 1 cases.</p>
-<p>Checking this result against simulated ratings generated under the <span class="math inline">\(P\)</span>-<span class="math inline">\(a\)</span>-<span class="math inline">\(P\)</span> proficient rater assumption (i.e.&nbsp;using observed rates of <span class="math inline">\(\widehat{C}\)</span> for both <span class="math inline">\(t\)</span> and <span class="math inline">\(p\)</span>), using likelihood function <span class="citation" data-cites="eq">@eq</span>-??? shows close adherence to theoretical values. For each of 1,225 trials, 500 subjects were assigned simulated ratings with five raters each, where accuracy ranged from .02 to .98 and the Class 1 rate from .02 to .9.</p>
 
 
 </section>
