@@ -109,6 +109,8 @@ ul.task-list li input[type="checkbox"] {
    
   <ul class="collapse">
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#basic-functions" id="toc-basic-functions" class="nav-link" data-scroll-target="#basic-functions"><span class="header-section-number">2</span> Basic Functions</a></li>
+  <li><a href="#advanced-functions" id="toc-advanced-functions" class="nav-link" data-scroll-target="#advanced-functions"><span class="header-section-number">3</span> Advanced Functions</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="app.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </nav>
@@ -146,7 +148,27 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
-<p>Two interactive applications are available for the t-a-p model. One of them is included in the <code>tapModel</code> R package. Once the package is installed, you can open the app with <code>tapModel::launchApp().</code> This is a limited version of the app that does not provide for Bayesian analysis. The full version of the app can be installed as a stand-alone R project from github: <a href="https://github.com/stanislavzza/t-a-p-rater-agreement" class="uri">https://github.com/stanislavzza/t-a-p-rater-agreement</a>. There are instructions there on installing it. To take advantage of the Bayesian estimation methods, you’ll need to install additional R packages and tools.</p>
+<p>The R programming language has been extended to include the creation of interactive apps using a framework called <a href="https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/index.html">Shiny</a>. You’ll need to install the <code>libray(shiny)</code> to run it, with <code>install.packages("shiny")</code>.</p>
+<p>Two separate interactive applications are available for the t-a-p model. One of them is included in the <code>tapModel</code> R package. Once the package is installed, you can open the app with <code>tapModel::launchApp().</code> This is a limited version of the app that does not provide for Bayesian analysis. The full version of the app can be installed as a stand-alone R project from <a href="https://github.com/stanislavzza/t-a-p-rater-agreement">github</a>. There are instructions there on installing it. To take advantage of the Bayesian estimation methods, you’ll need to install additional R packages and tools. The Bayesian estimation is done with a Markov chain Monte Carlo (MCMC) process of sampling from a probability distribution. For that, the Stan programming language is used, with the <a href="https://mc-stan.org/cmdstanr/articles/cmdstanr.html">stancmdr package</a>. That link has installation instructions. The library <code>LaplacesDemon</code> is also needed to compute the modes of distributions.</p>
+</section>
+<section id="basic-functions" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Basic Functions</h1>
+<p>The simplest way to get started is with the <code>tapModel</code> library. It provides these functions:</p>
+<ul>
+<li><p>Load data from comma-delimited value (CSV) files that are formatted as</p>
+<ul>
+<li><p>Outcome ratings in columns, where multiple traits have rating data, one subject per row, and multiple traits per subject. For example if a jury of reviewers rates a musical performance on style, technique, and musicality, each performer would have multiple rows, each with those three columns.</p></li>
+<li><p>Raters in columns, where the same type of jury data can be reformatted to have a Category column (style, technique, musicality), and each rater appears as a single column. In this format each subject only appears on a single row.</p></li>
+<li><p>Long format, where the subject ID, optional category, and rating appear as the three columns of the CSV.</p></li>
+</ul></li>
+<li><p>Simulate a data set by specifying the t-a-p parameters and sample sizes.</p></li>
+<li><p>Estimate t-a-p parameters from a (simulated or real) data set.</p></li>
+<li><p>Estimate ordinal t-a-p parameters from a data set. This assumes that the rating scale is sorted alphabetically in the correct order. For example, a numerical survey response scale is usually in the right order, but the labels may not be (“neutral” doesn’t sort in the middle of “strongly agree” and “strongly disagree”). You may need to adjust the rating labels accordingly, e.g.&nbsp;“1 - strongly disagree”, … “5 - strongly agree”.</p></li>
+</ul>
+</section>
+<section id="advanced-functions" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Advanced Functions</h1>
+<p>If you launch the app from the <a href="https://github.com/stanislavzza/t-a-p-rater-agreement">github source code</a> and have the <code>stancmdr</code> package installed, some additional features become available.</p>
 
 
 </section>
