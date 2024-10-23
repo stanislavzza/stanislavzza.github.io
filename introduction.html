@@ -149,7 +149,6 @@ window.Quarto = {
   <li><a href="#sec-intro-tap" id="toc-sec-intro-tap" class="nav-link" data-scroll-target="#sec-intro-tap"><span class="header-section-number">1.8</span> The t-a-p model</a></li>
   <li><a href="#example-wine-judging" id="toc-example-wine-judging" class="nav-link" data-scroll-target="#example-wine-judging"><span class="header-section-number">1.9</span> Example: Wine Judging</a></li>
   </ul></li>
-  <li><a href="#t-a-p-parameter-estimates-for-ordinal-scale-based-on-cutpoints" id="toc-t-a-p-parameter-estimates-for-ordinal-scale-based-on-cutpoints" class="nav-link" data-scroll-target="#t-a-p-parameter-estimates-for-ordinal-scale-based-on-cutpoints"><span class="header-section-number">2</span> <img src="images/wine ordinal.png" class="img-fluid" alt="t-a-p parameter estimates for ordinal scale based on cutpoints"></a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="introduction.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </nav>
@@ -201,7 +200,7 @@ window.Quarto = {
 <thead>
 <tr class="header">
 <th>Folio(s)</th>
-<th>Prescotte Currier</th>
+<th>Prescott Currier</th>
 <th>Lisa Fagin Davis</th>
 </tr>
 </thead>
@@ -765,17 +764,20 @@ m_r &amp;= .625 \\
 </div>
 <p>The 3|4 bar of the plot shows us that 88% of ratings are in {1,2,3}, so the remaining 12% are 4s (gold medal). As a validity check, there are 183 wines, each rated by four judges, so that should be 732 ratings. That looks like the height on the bars, so it checks out.</p>
 <p>For a given cut-point, a wine rating will either be in the in-class or out-class This converts the scale to binary, and then we can estimate the model parameters. We repeat the t-a-p model for each cut-point to create a pattern like the one in the plot below.</p>
-</section>
-</section>
-<section id="t-a-p-parameter-estimates-for-ordinal-scale-based-on-cutpoints" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> <img src="images/wine ordinal.png" class="img-fluid" alt="t-a-p parameter estimates for ordinal scale based on cutpoints"></h1>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/wine ordinal.png" class="img-fluid figure-img"></p>
+<figcaption>t-a-p parameter estimates for ordinal scale based on cutpoints</figcaption>
+</figure>
+</div>
 <p>The plot shows each t-a-p parameter for each cut-point. As a reference, the Fleiss kappa estimates are also included as dotted lines. The significance of the Fleiss kappa is discussed later.</p>
 <p>The accuracy parameter <span class="math inline">\(a\)</span> at the top shows good accuracy for the lowest cut-point, meaning that the judges were good at distinguishing the least worthy wines from the rest. This is the case we analyzed earlier when we called the 1 rating unacceptable. As the quality rating increases, moving to the right on the top plot, accuracy decreases to less than half its value for the first cut-point (focus on the solid line). This would be the case if poor wines have more basis in physiology (sourness, etc.) and as the assessments become more aesthetic, they become more individualized and have less group agreement.</p>
 <p>The second plot, showing estimates for <span class="math inline">\(p\)</span> show the probability with which judges place a wine randomly into the in-class for inaccurate ratings. This will happen less often for the left-most cut-points, since accuracy is higher there. The dotted line is useful here: it shows what the <span class="math inline">\(p\)</span> parameter would look like if the raters assigned ratings proportionally when making inaccurate classifications. For example, we noted earlier that 88% of the ratings are 1-3 (rightmost bar of the previous plot), so for the 3|4 cut-point, proportional random ratings would assign 88% of the inaccurate ratings into the {1,2,3} in-class. That’s where the dotted line is, at 88%. The actual parameter estimate (solid line) is at about 84%, meaning that judges are probably too conservative about assigning the gold medal category. Accuracy is low for the gold medals, and when the judges rate inaccurately, the ratings are slightly biased toward the lower ratings.</p>
-<p>The bottom plot estimates the true proportions for each cut-point, after taking into account the other two parameters. For the 3|4 cut-point on the right, it shows a proportion of {1,2,3} wines of about 65%. This is much lower than the 88% of ratings that are {1,2,3}. That’s the combined effect of inaccurate ratings at the top end of the scale combined with the bias toward lower ratings for inaccurate ratings. Looking at the two ends of the scale for the <span class="math inline">\(t\)</span> plot, we can estimate that about 26% of wines are truly in the 1 = no medal category, and about 35% are in the 4 = gold medal category (1 - .65 = .35).</p>
-<p>My general conclusions from this example are that it’s possible to tell good wine from bad wine pretty reliably, but beyond that our individual tastes take over, so sorting out four levels of wine quality is not realistic or useful. The scale should be reduced to three ratings, or else keep the existing scale but collapse the 3 and 4 ratings into a single category before reporting the results. The effect of the existing rating system is leaving a lot of probably excellent wines with poorer ratings than they deserve.</p>
+<p>The bottom plot estimates the true proportions for each cut-point, after taking into account the other two parameters. For the 3|4 cut-point on the right, it shows a proportion of {1,2,3} wines of about 65%. This is much lower than the 88% of ratings that are {1,2,3}. That’s the combined effect of inaccurate ratings at the top end of the scale combined with the bias toward lower ratings for inaccurate ratings. Looking at the two ends of the scale for the <span class="math inline">\(t\)</span> plot, we can estimate that about 26% of wines are truly in the 1 = no medal category, and about 35% are in the 4 = gold medal category (1 - .65 = .35). That 35% figure comes from reading the estimated value of <span class="math inline">\(t\)</span> at the 3|4 cut point, which is about 65%, and subtracting from one.</p>
+<p>My general conclusions from this example are that it’s possible to tell good wine from bad wine pretty reliably, but beyond that our individual tastes take over, so sorting out four levels of wine quality is not realistic or useful. The scale could be reduced to three ratings, or else keep the existing scale but collapse the 3 and 4 ratings into a single category before reporting the results. The effect of the existing rating system is leaving a lot of probably excellent wines with poorer ratings than they deserve. An alternative approach is to try to improve the accuracy of the higher ratings, which can be facilitated by reducing the rater bias against the highest award.</p>
 
 
+</section>
 </section>
 
 
