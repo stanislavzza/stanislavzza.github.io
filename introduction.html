@@ -21,7 +21,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -195,8 +215,13 @@ window.Quarto = {
 <p>Davis magnified the handwriting, she noticed subtle variations. In certain places, the script was more cramped or more likely to slant as it crossed the page. She tested this observation by picking a letter that didn’t appear often and tracking it across the manuscript’s pages. Its style, she saw, varied among groups of pages but not within those groups. This suggested that the differences—larger or smaller loops, straighter or curvier crossbars, longer or shorter feet—were the product of different scribes rather than of one scribe writing the same letter in different ways.</p>
 </blockquote>
 <p>See <a href="https://ceur-ws.org/Vol-3313/keynote2.pdf">Davis’s paper</a> for details<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. For our purposes, the “raters” are scholars who categorize writing styles, the “subjects” are sections (folios) of the manuscript they are reviewing, and the presumed different scribes are the categories we generically refer to as “ratings.”</p>
+<div id="tbl-manuscript" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-manuscript-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Selected rows from a table at the website for the manuscript: <a href="https://voynich.nu/index.html" class="uri">https://voynich.nu/index.html</a>, comparing an early attempt to classify writing “hands” (Currier) to the recent classification (Davis). Hypothesized identity is unique to each column with the numbers denoting individual scribes.
+</figcaption>
+<div aria-describedby="tbl-manuscript-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
-<caption>Selected rows from a table at the website for the manuscript: <a href="https://voynich.nu/index.html" class="uri">https://voynich.nu/index.html</a>, comparing an early attempt to classify writing “hands” (Currier) to the recent classification (Davis). Hypothesized identity is unique to each column with the numbers denoting individual scribes.</caption>
 <thead>
 <tr class="header">
 <th>Folio(s)</th>
@@ -242,7 +267,10 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p>In the table, Currier thought that the obverse and main folio fRos were in a single hand, whereas Davis has two scribes. Conversely, Davis has the last three rows as the same author while Currier has three. This is an example of how science works toward consensus by placing observations into categories. Agreements are good for pointing to what might be real, and disagreements are for honing or discarding theories.</p>
+</div>
+</figure>
+</div>
+<p>In <a href="#tbl-manuscript" class="quarto-xref">Table&nbsp;1</a> it’s recorded that Currier thought that the obverse and main folio fRos were in a single hand, whereas Davis has two scribes. Conversely, Davis has the last three rows as the same author while Currier has three. This is an example of how science works toward consensus by placing observations into categories. Agreements are good for pointing to what might be real, and disagreements are for honing or discarding theories.</p>
 <p>The statistical question for data like this is to compare variation within groups to variation between groups. One application is an idea called “signal-to-noise ratio,” which is a measure of how much of the variation in the data is due to the thing we’re interested in (signal) versus how much is due to random variation (noise). In the manuscript example, the signal is the commonality of handwriting within contiguous sections, and the noise is variation within each section. Reliability of measures is the same idea in different clothing, where we might formulate reliability as between-subject variation divided by total variation. As an example, college grade averages (GPA) can have a reliability of about 0.8, meaning that 80% of the variation in grades is due to differences between students, and 20% is due to variation in how individual students earn grades. This makes GPA useful as a statistical measure, for example in predicting career outcomes.</p>
 <p>How do we summarize a data set to sort signal from noise? This question involves a deeper question about the true categorization of subjects.</p>
 </section>
@@ -261,15 +289,20 @@ window.Quarto = {
 <p>A desert traveller is searching for water. He sees, in the valley ahead, a shimmering blue expanse. Unfortunately, it’s a mirage. But fortunately, when he reaches the spot where there appeared to be water, there actually is water, hidden under a rock. Did the traveller <em>know</em>, as he stood on the hilltop hallucinating, that there was water ahead?</p>
 </blockquote>
 <p>The traveller had a belief that turned out to be true, but the justification was incorrect. The philosphers are concerned with whether or not this constitutes knowledge<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>, but we’re more interested in something simpler. That is to categorize the ways truth and belief can happen. If they don’t coincide (if we believe something false), then we’ll assume that the justification was incorrect. As the Gettier problems and the discussion they generated demonstrate, there are a lot of complicated ways in which justification can go awry.</p>
-<p>In the literature of rater agreement, one can find similar language. In <span class="citation" data-cites="aickin1990maximum">@aickin1990maximum</span>, we find “The <span class="math inline">\(\alpha\)</span> agreement parameter is defined as the proportion of a population of items that are classified identically ‘for cause’ by two classifiers, the remaining items being classified at random […].” The author suggests that some subjects are more difficult to rate than others, which hints at modeling each subject’s probability of being in a category, <em>in truth</em>. This idea was explored in <span class="citation" data-cites="dawid1979maximum">@dawid1979maximum</span>, who also allowed that raters might have different proficiencies.</p>
-<p>Another instance comes from the derivation of a rater agreement statistic called AC1 <span class="citation" data-cites="gwet2008computing">@gwet2008computing</span>. The author notes that “the assumption [is] that any rating that is not random will automatically lead to a correct classification, while a random rating leads to a correct classification with probability 1/2.” The idea is that we conceptually separate accurate ratings from random ones, which then means we must consider the probability distribution of the random ones. The random assignments will sometimes be correct, but for the wrong reason–just like the Gettier problems.</p>
+<p>In the literature of rater agreement, one can find similar language. In <span class="citation" data-cites="aickin1990maximum">Aickin (<a href="#ref-aickin1990maximum" role="doc-biblioref">1990</a>)</span>, we find “The <span class="math inline">\(\alpha\)</span> agreement parameter is defined as the proportion of a population of items that are classified identically ‘for cause’ by two classifiers, the remaining items being classified at random […].” The author suggests that some subjects are more difficult to rate than others, which hints at modeling each subject’s probability of being in a category, <em>in truth</em>. This idea was explored in <span class="citation" data-cites="dawid1979maximum">Dawid &amp; Skene (<a href="#ref-dawid1979maximum" role="doc-biblioref">1979</a>)</span>, who also allowed that raters might have different proficiencies.</p>
+<p>Another instance comes from the derivation of a rater agreement statistic called AC1 <span class="citation" data-cites="gwet2008computing">Gwet (<a href="#ref-gwet2008computing" role="doc-biblioref">2008</a>)</span>. The author notes that “the assumption [is] that any rating that is not random will automatically lead to a correct classification, while a random rating leads to a correct classification with probability 1/2.” The idea is that we conceptually separate accurate ratings from random ones, which then means we must consider the probability distribution of the random ones. The random assignments will sometimes be correct, but for the wrong reason–just like the Gettier problems.</p>
 </section>
 <section id="sec-intro-confusion" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="sec-intro-confusion"><span class="header-section-number">1.3</span> The Confusion Matrix</h2>
 <p>Diagnosing illness is an important classification problem, and the simplest version is a blood test that returns a positive or negative result, perhaps scanning for an antibody. There are four possibilities, which can be organized into what is commonly called a <em>confusion matrix.</em> Suppose that we consider a statement S about the world, like “this patient has the flu.” Using a definition and process we reach a conclusion, so that we believe S to be true or false. This generates the classifications we’re interested in: this is what the raters do, generating lots of S or not-S data on cases.</p>
 <p>The truth is often inaccessible, but recall that we assume that it exists, so that the statement really is true or false: each patient really does have the flu or does not. Here are the four possibilities:</p>
+<div id="tbl-confusion" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-confusion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Sample confusion matrix
+</figcaption>
+<div aria-describedby="tbl-confusion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
-<caption>Sample confusion matrix</caption>
 <colgroup>
 <col style="width: 36%">
 <col style="width: 31%">
@@ -295,11 +328,19 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
+</div>
+</figure>
+</div>
 <p>Notice that there are four spots in the table where data can go: if we had perfect knowledge we could count the number of true positive cases, etc. If we converted these numbers to proportions by dividing by the table, we have three parameters left. This foreshadows what comes later: the heart of the classification problem (in its simple form) is a three-parameter problem<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p>
-<p>The limitation of casting the confusion matrix into a single-parameter statistic was noted by <span class="citation" data-cites="cicchetti1990high">@cicchetti1990high</span>, who suggested “two separate indexes of proportionate agreement in the observers’ positive and negative decisions. […] Why do we want a single index?” Another example comes from the motivation for the AC1 rater statistic <span class="citation" data-cites="gwet2008computing">@gwet2008computing</span>. It separately considers rater true positives and true negatives, but then assumes that these are identical for each rater, so that the result is a single parameter.</p>
-<p>As a concrete illustration, consider the wine judging data used in <span class="citation" data-cites="hodgson2008examination">@hodgson2008examination</span>. The first five rows look like this:</p>
+<p>The limitation of casting the confusion matrix into a single-parameter statistic was noted by <span class="citation" data-cites="cicchetti1990high">Cicchetti &amp; Feinstein (<a href="#ref-cicchetti1990high" role="doc-biblioref">1990</a>)</span>, who suggested “two separate indexes of proportionate agreement in the observers’ positive and negative decisions. […] Why do we want a single index?” Another example comes from the motivation for the AC1 rater statistic <span class="citation" data-cites="gwet2008computing">Gwet (<a href="#ref-gwet2008computing" role="doc-biblioref">2008</a>)</span>. It separately considers rater true positives and true negatives, but then assumes that these are identical for each rater, so that the result is a single parameter.</p>
+<p>As a concrete illustration, consider the wine judging data used in <span class="citation" data-cites="hodgson2008examination">Hodgson (<a href="#ref-hodgson2008examination" role="doc-biblioref">2008</a>)</span>. The first five rows look like this:</p>
+<div id="tbl-wine-data" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-wine-data-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: Wine ratings showing rows 1-5 of 183, taken from the study by Hodgson (personal communication).
+</figcaption>
+<div aria-describedby="tbl-wine-data-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
-<caption>Wine ratings showing rows 1-5 of 183, taken from the study by Hodgson (personal communication).</caption>
 <thead>
 <tr class="header">
 <th>Wine</th>
@@ -347,9 +388,17 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
+</div>
+</figure>
+</div>
 <p>The 1-4 scale is ordinal, meaning that we imagine quality to increase with the numerical value. For this discussion, we will reduce the scale to a binary classification: acceptable wine (ratings 2-4) or wine to avoid (rating 1). This simplifies the table to.</p>
+<div id="tbl-wine-binary" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-wine-binary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4: Simplified wine ratings, where 1 means “acceptable” and 0 means “avoid.”
+</figcaption>
+<div aria-describedby="tbl-wine-binary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
-<caption>Simplified wine ratings, where 1 means “acceptable” and 0 means “avoid.”</caption>
 <thead>
 <tr class="header">
 <th>Wine</th>
@@ -397,10 +446,18 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
+</div>
+</figure>
+</div>
 <p>Intuitively there is more reason to believe wines 1 and 2 are acceptable than with 3 or 4, for which one judge found them not metal-worthy. It seems safe to avoid wine 5, since all but one of the judges found it not to be metal-worthy.</p>
 <p>We can put this information into the confusion matrix, but we’re missing information.</p>
+<div id="tbl-wine-confusion" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-wine-confusion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5: Confusion matrix for the first five wines, with missing information as question marks.
+</figcaption>
+<div aria-describedby="tbl-wine-confusion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
-<caption>Confusion matrix for the first five wines, with missing information as question marks.</caption>
 <thead>
 <tr class="header">
 <th></th>
@@ -424,15 +481,23 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
+</div>
+</figure>
+</div>
 <p>There is some awkwardness in imagining that the physical universe encompasses a reality including true wine ratings. It seems absurd on the face of it that the physical laws of the universe imply “wine science.” It’s useful to think of it in reverse: this reification of the ratings is a <em>hypothesis</em> that may be rejected by the statistics we derive from the data. If we find that raters are assigning ratings at random, there’s no evidence here for the reality of wine asthetics. On the other hand, strong indications of non-randomness need to be explained somehow.</p>
-<p>Taking the leap that all non-randomness is causal, and physical reality has a monopoly on causality, then <em>something</em> concrete in the world is behind the rating consistency. We could imagine the chemical similarities and differences of wines and their effects on human anatomy, and so on. Being “real” in this case doesn’t mean that the universe appreciates wine, only that the universe includes physical blobs called humans, and they have mechanical consistencies that correlate observations in this case. The confusion matrix is also used for calculating the causal effect of an experiment. In a medical context, the rows might be treatment categories and the columns patient outcomes. See <span class="citation" data-cites="eubankscause">@eubankscause</span> for more on that.</p>
+<p>Taking the leap that all non-randomness is causal, and physical reality has a monopoly on causality, then <em>something</em> concrete in the world is behind the rating consistency. We could imagine the chemical similarities and differences of wines and their effects on human anatomy, and so on. Being “real” in this case doesn’t mean that the universe appreciates wine, only that the universe includes physical blobs called humans, and they have mechanical consistencies that correlate observations in this case. The confusion matrix is also used for calculating the causal effect of an experiment. In a medical context, the rows might be treatment categories and the columns patient outcomes. See <span class="citation" data-cites="eubankscause">Eubanks (<a href="#ref-eubankscause" role="doc-biblioref">2014</a>)</span> for more on that.</p>
 <p>By using the rating counts for each subject instead of the total, we can–surprisingly–estimate the whole confusion matrix. We can even estimate the true classification values for each subject. For that level of detail see <a href="./hierarchical.html">Chapter 4: Hierarchical Models</a>.</p>
 </section>
 <section id="sec-intro-agreement" class="level2" data-number="1.4">
 <h2 data-number="1.4" class="anchored" data-anchor-id="sec-intro-agreement"><span class="header-section-number">1.4</span> Agreement Statistics</h2>
 <p>Signal and noise as variability between and variability within subjects translates into rater agreement within subjects versus between subjects. The usual way to turn this idea into a number is to count the number of actual agreements and divide by the total number possible.</p>
+<div id="tbl-agreement" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-agreement-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;6: Rater agreements count, showing the maximum agreements for N raters, the number matches that are evidence versus logical implications and the ratio of evidence to matches.
+</figcaption>
+<div aria-describedby="tbl-agreement-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
-<caption>Rater agreements count, showing the maximum agreements for N raters, the number matches that are evidence versus logical implications and the ratio of evidence to matches.</caption>
 <colgroup>
 <col style="width: 20%">
 <col style="width: 20%">
@@ -494,13 +559,21 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
+</div>
+</figure>
+</div>
 <p>The maximum agreements in the table come from the combinatorics formula “N choose 2,” counting the number of possible pairs out of N. If a group of 5 people meet and all shake hands, it’s 10 handshakes. The number of pairs grow much more rapidly than the number of raters does<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>.</p>
 <p>There’s a rule in thumb in statistics that it’s preferable to use standard deviation instead of variance when understanding the data. That’s because the units of standard deviation are the same as the original data, whereas the variance has squared units. The same effect is going on with counting agreement. In some sense, what we want looks more like the square root of agreement.</p>
 <p>Intuitively, three raters agreeing doesn’t seem like three times as much evidence as two agreeing. And if we look at where those agreements are coming from, most of them are purely logical. Agreement is transitive, meaning if A agrees with B and B agrees with C, then A agrees with C. This is a logical necessity, and it’s not evidence of anything. The Evidentiary and Implied columns of the table record the distinction between the two types of matches. As the number of raters <span class="math inline">\(N\)</span> increases, the logically necessary agreements greatly outnumber the evidentiary ones, so the ratio in the last column of the table decreases toward zero.</p>
 <p>If we only counted the evidentiary agreements, the maximum for <span class="math inline">\(N\)</span> raters would be <span class="math inline">\(N - 1\)</span>, which is roughly proportional to the square root of the total number of agreements. We’ll come back to that idea later. However, the well-trodden path is to estimate the probability of agreement over all the subjects, which leads to the kappa statistics.</p>
-<p>For the five wine ratings that are reduced to the binary category “avoid” or “don’t avoid”, we can calculate the agreement as follows.</p>
+<p>For the five wine ratings that are reduced to the binary category “avoid” or “don’t avoid” in <a href="#tbl-wine-binary" class="quarto-xref">Table&nbsp;4</a>, we can calculate the agreement as follows.</p>
+<div id="tbl-wine-agreement" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-wine-agreement-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7: Agreement calculation for the first five wines, showing the maximum possible agreements, the actual agreements, and the agreement proportion out of the maximum.
+</figcaption>
+<div aria-describedby="tbl-wine-agreement-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
-<caption>Agreement calculation for the first five wines, showing the maximum possible agreements, the actual agreements, and the agreement proportion out of the maximum.</caption>
 <thead>
 <tr class="header">
 <th>Wine</th>
@@ -548,10 +621,18 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p>For the fifth with, there are more matches with the zeros than there are with the ones; both are counted. It is at this point what seemed like a good starting point begins to turn into a muddle, because since both the zeros and the ones can create agreement, how do we know what’s <em>good enough</em> agreement? What’s the worst agreement possible?</p>
+</div>
+</figure>
+</div>
+<p>For the fifth vintage in <a href="#tbl-wine-agreement" class="quarto-xref">Table&nbsp;7</a>, there are more matches with the zeros than there are with the ones; both are counted. It is at this point what seemed like a good starting point begins to turn into a muddle, because since both the zeros and the ones can create agreement, how do we know what’s <em>good enough</em> agreement? What’s the worst agreement possible?</p>
 <p>A group of <span class="math inline">\(n_1\)</span> raters who agree on the 1 ratings produces a number of agreements about proportional to <span class="math inline">\(n_1^2\)</span>, and similarly the <span class="math inline">\(n_0\)</span> raters of 0 agreements produce about <span class="math inline">\(n_0^2\)</span> agreements. Together that’s around <span class="math inline">\(n_1^2 + n_0^2\)</span> agreements, which is less than or equal to <span class="math inline">\((n_1 + n_0)^2\)</span>, which is about the number of agreements if everyone agreed on a single category. So we get more agreement when everyone agrees than we do when the raters split into groups. That means that the <em>least</em> agreement happens when the raters are evenly split, giving us a floor for agreement.</p>
+<div id="tbl-min-agreement" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-min-agreement-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;8: Minimum rater agreement rates
+</figcaption>
+<div aria-describedby="tbl-min-agreement-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
-<caption>Minimum rater agreement rates</caption>
 <colgroup>
 <col style="width: 25%">
 <col style="width: 25%">
@@ -599,6 +680,9 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
+</div>
+</figure>
+</div>
 <p>For six or more raters, there’s at least a 40% agreement rate, even when there’s the least possible amount of agreement. It’s annoying that the minimum rate of agreement changes with the number of raters. For real cases when we want to use these ideas, we might have different numbers of raters for different subjects, complicating an average minimum rate, which defines the worst case agreement.</p>
 </section>
 <section id="chance-correction" class="level2" data-number="1.5">
@@ -629,20 +713,20 @@ m_r &amp;= .625 \\
 </section>
 <section id="the-kappa-zoo" class="level2" data-number="1.6">
 <h2 data-number="1.6" class="anchored" data-anchor-id="the-kappa-zoo"><span class="header-section-number">1.6</span> The Kappa Zoo</h2>
-<p>There are by now several statistics advertised as rater agreement statistics, including Cohen’s kappa, Fleiss’s kappa, Scott’s pi, Krippendorff’s alpha, S, and AC1. For convenience, these statistics will be referred to generically as “kappas.” Researchers who want a simple answer are faced with a bewildering set of options and claims about them. In <span class="citation" data-cites="vach2023gwet">@vach2023gwet</span> we get a sense of the situation.</p>
+<p>There are by now several statistics advertised as rater agreement statistics, including Cohen’s kappa, Fleiss’s kappa, Scott’s pi, Krippendorff’s alpha, S, and AC1. For convenience, these statistics will be referred to generically as “kappas.” Researchers who want a simple answer are faced with a bewildering set of options and claims about them. In <span class="citation" data-cites="vach2023gwet">Vach &amp; Gerke (<a href="#ref-vach2023gwet" role="doc-biblioref">2023</a>)</span> we get a sense of the situation.</p>
 <blockquote class="blockquote">
 <p>Gwet’s AC1 has been proposed as an alternative to Cohen’s kappa in evaluating the agreement between two binary ratings. This approach is becoming increasingly popular, and researchers have been criticized for still using Cohen’s kappa. However, a rigorous discussion of properties of Gwet’s AC1 is still missing.</p>
 </blockquote>
-<p>The authors illustrate both the need for clarification and the faddishness that research communities can adopt when lacking real criteria. The kappas are ill-suited to answer such questions, and the proliferation of agreement statistics makes it difficult to compare results across studies or to know which one to use. Given pressures to publish results, there may be a tendency to use the statistic that gives the highest value, or to use the one that is most familiar. See <span class="citation" data-cites="button2020inter">@button2020inter</span> for a discussion of rater agreement statistics in the context of the “crisis in confidence in psychological research.”</p>
-<p>It’s not just difficult to know what kappa to use, there are no meaningful guides to interpreting the results. “There is a wide distinction in the elucidation of Kappa values, and several efforts have been made to assign practical meaning to calculated Kappa values,” wrote the authors of <span class="citation" data-cites="chaturvedi2015evaluation">@chaturvedi2015evaluation</span>, who mention a widely-used heuristic found in <span class="citation" data-cites="landis1977measurement">@landis1977measurement</span> that proposed a translation between numerical values of kappa and qualitative descriptions of agreement, such as <span class="math inline">\(kappa \ge .81\)</span> is “almost perfect.” The categories are arbitrary, do not translate well between different agreement statistics (which can give different values for the same data) and their assumptions, and do not provide insight into how to improve ratings.</p>
+<p>The authors illustrate both the need for clarification and the faddishness that research communities can adopt when lacking real criteria. The kappas are ill-suited to answer such questions, and the proliferation of agreement statistics makes it difficult to compare results across studies or to know which one to use. Given pressures to publish results, there may be a tendency to use the statistic that gives the highest value, or to use the one that is most familiar. See <span class="citation" data-cites="button2020inter">Button et al. (<a href="#ref-button2020inter" role="doc-biblioref">2020</a>)</span> for a discussion of rater agreement statistics in the context of the “crisis in confidence in psychological research.”</p>
+<p>It’s not just difficult to know what kappa to use, there are no meaningful guides to interpreting the results. “There is a wide distinction in the elucidation of Kappa values, and several efforts have been made to assign practical meaning to calculated Kappa values,” wrote the authors of <span class="citation" data-cites="chaturvedi2015evaluation">Chaturvedi &amp; Shweta (<a href="#ref-chaturvedi2015evaluation" role="doc-biblioref">2015</a>)</span>, who mention a widely-used heuristic found in <span class="citation" data-cites="landis1977measurement">Landis &amp; Koch (<a href="#ref-landis1977measurement" role="doc-biblioref">1977</a>)</span> that proposed a translation between numerical values of kappa and qualitative descriptions of agreement, such as <span class="math inline">\(kappa \ge .81\)</span> is “almost perfect.” The categories are arbitrary, do not translate well between different agreement statistics (which can give different values for the same data) and their assumptions, and do not provide insight into how to improve ratings.</p>
 <p>The agreement statistics for ratings have problems that should now be evident. The goal is to understand a three-dimensional relationship between ratings and true values, but the statistics are single parameters. A second parameter, the worst case baseline, is buried in an assumption, which varies by kappa, and is not tested for fit to the data. The result is a bewildering array of choices for rater agreement measures. As a result of this confusion, different cultures have emerged. If getting published is the goal, then higher agreement rates are more desirable, so a researcher can shop around for the “best” one.</p>
-<p>A research agenda was suggested in <span class="citation" data-cites="landis1977measurement">@landis1977measurement</span> that can be paraphrased as understanding (1) the true category of each subject, (2) the accuracy of raters, (3) truth and accuracy within sub-populations of subjects, (4) conditions that cause disagreement, and (5) what distinguishes “for cause” agreement and random agreement. Some of this can be accomplished by taking a fresh look at the kappas.</p>
+<p>A research agenda was suggested in <span class="citation" data-cites="landis1977measurement">Landis &amp; Koch (<a href="#ref-landis1977measurement" role="doc-biblioref">1977</a>)</span> that can be paraphrased as understanding (1) the true category of each subject, (2) the accuracy of raters, (3) truth and accuracy within sub-populations of subjects, (4) conditions that cause disagreement, and (5) what distinguishes “for cause” agreement and random agreement. Some of this can be accomplished by taking a fresh look at the kappas.</p>
 </section>
 <section id="machine-learning" class="level2" data-number="1.7">
 <h2 data-number="1.7" class="anchored" data-anchor-id="machine-learning"><span class="header-section-number">1.7</span> Machine Learning</h2>
-<p>The geyser of data produced in the information age has led to new methods of analyzing it that fall generally in the description of “machine learning (ML).” Assigning categories to subjects is a common task in machine learning, and the field has developed a number of methods to do so, including neural networks, support vector machines, and random forests. The goal is to assign categories to subjects in a way that generalizes to new subjects. The methods are often evaluated by comparing the predicted categories to the true categories, and the results are summarized in a confusion matrix.</p>
+<p>The geyser of data produced in the information age has led to new methods of analyzing it that fall generally in the description of “machine learning (ML).” Assigning categories to subjects is a common task in machine learning, and the field has developed a number of methods to do so, including neural networks, support vector machines, and random forests. The goal is to assign categories to subjects in a way that generalizes to new subjects. The methods are often evaluated by comparing the predicted categories to the true categories, and the results are summarized in a confusion matrix. See <span class="citation" data-cites="carpenter2008multilevel">Carpenter (<a href="#ref-carpenter2008multilevel" role="doc-biblioref">2008</a>)</span> for a good example of this literature.</p>
 <p>It may come as a surprise to both behavioral scientists and machine learning researchers that they seem to have independently worked on the rater agreement problem, since the two fields’ literatures don’t seem to overlap. Articles on rater agreement don’t cite machine learning papers, and vice versa. However, the two fields are working on the same problem: how to measure the accuracy of a categorization when we don’t have the true categories to reference.</p>
-<p>There are differences in the methods and philosophies of the two cultures. The kappa approach is implicitly backward-looking, asking “how accurate were these ratings,” with the assumption that the measured accuracy (a kappa) will carry forward to future instances. The ML approach is more forward-looking, with a suite of tools like cross-validation and a vocabulary (bias-variance trade-off) to measure generalizability. As we have seen, the kappa approach is to reason out a plausible chance-correction calculation and use it to produce the single-parameter kappa. The ML approach is to estimate three parameters with regression models. Finally, the kappas are grounded in the psychology of human classification and come with philosophical links to epistemology, which I described in <a href="#sec-intro-knowledge" class="quarto-xref">Section&nbsp;1.2</a>. The ML algorithms are just statistics and code, barren of philosophical considerations.</p>
+<p>There are differences in the methods and philosophies of the two cultures. The kappa approach is implicitly backward-looking, asking “how accurate were these ratings,” with the assumption that the measured accuracy (a kappa) will carry forward to future instances. The ML approach is more forward-looking, with a suite of tools like cross-validation and a vocabulary (bias-variance trade-off) to measure generalizability. As we have seen, the kappa approach is to reason out a plausible chance-correction calculation and use it to produce the single-parameter kappa. The ML approach is to estimate three parameters with regression models. Finally, the kappas are grounded in the psychology of human classification and come with philosophical links to epistemology, which I described earlier in <a href="#sec-intro-knowledge" class="quarto-xref">Section&nbsp;1.2</a>. The ML algorithms are just statistics and code, barren of philosophical considerations.</p>
 <p>The advantage of the ML approaches over the kappas is that the three parameter models avoid the confusions of the kappa zoo. But because they lack philosophical grounding, they run into an embarrassment of riches: three parameters is sometimes <em>too many</em> parameters for a model, so there can be multiple solutions. There are work-arounds, but it’s the same species of <em>ad hoc</em> reasoning that causes the problems of the kappa zoo. Fortunately, there’s a way to combine the best of both cultures to avoid most of these problems.</p>
 </section>
 <section id="sec-intro-tap" class="level2" data-number="1.8">
@@ -690,19 +774,28 @@ m_r &amp;= .625 \\
 </ul>
 <p>All three of these parameters are proportions ranging from zero to one, and can be treated as probabilities that we estimate from appropriate regression models. Setting it up this way, instead of the usual machine learning parameterization avoids the most significant problem with non-identifiability (multiple solutions), which is class-switching. That happens when the model can fit the data, but is agnostic about which class is which, and so attempts to fit the model both ways at once.</p>
 <p>The classification model with <span class="math inline">\(t\)</span>, <span class="math inline">\(a\)</span>, and <span class="math inline">\(p\)</span> can be most easily understood in a tree diagram. For convenience, we’ll put a “bar” over a parameter name to indicate that it’s subtracted from one, e.g.&nbsp;<span class="math inline">\(\bar{t} = 1-t\)</span>. This makes the notation more compact, and we always have <span class="math inline">\(a + \bar{a} = 1\)</span>, etc.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/tap diagram.png" class="img-fluid figure-img"></p>
-<figcaption>tap diagram</figcaption>
+<div id="fig-tap-tree" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-tap-tree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/tap diagram.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tap-tree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: tap diagram
+</figcaption>
 </figure>
 </div>
-<p>The diagram shows probabilistic links between states of the world and rater classifications. The lowercase letters are probabilities (recall that the bar means subtract from one to make the complementary probability, so <span class="math inline">\(\bar{.2} = .8\)</span>). The upper case letters stand in for binary variables, with <span class="math inline">\(T\)</span> being the (unknown) true classification, which is either Class 1 ($C_1$) or Class 0 ($C_0$). The raters assign classifications <span class="math inline">\(C\)</span>, which have hats on them to denote empirical assignments rather than true values. We read the tree top to bottom, hence the name for the model: t-a-p, an abbreviation of the tree structure.</p>
+<p>The diagram in <a href="#fig-tap-tree" class="quarto-xref">Figure&nbsp;1</a> shows probabilistic links between states of the world and rater classifications. The lowercase letters are probabilities (recall that the bar means subtract from one to make the complementary probability, so <span class="math inline">\(\bar{.2} = .8\)</span>). The upper case letters stand in for binary variables, with <span class="math inline">\(T\)</span> being the (unknown) true classification, which is either Class 1 ($C_1$) or Class 0 ($C_0$). The raters assign classifications <span class="math inline">\(C\)</span>, which have hats on them to denote empirical assignments rather than true values. We read the tree top to bottom, hence the name for the model: t-a-p, an abbreviation of the tree structure.</p>
 <p>To understand the model, consider a judge (the rater) tasting one of the wines (the subject at the top of the tree). We’re at the top of the tree, where there exists a true classification for the wine as either acceptable (C1) or unacceptable (C0). In the universe of wines the fraction of acceptable ones is <span class="math inline">\(t\)</span>, and for a given wine we can imagine a hidden variable <span class="math inline">\(T\)</span> that records its true class. Suppose this one is acceptable, so that <span class="math inline">\(T = C_1\)</span>. That’s the set-up for the wine taster, who doesn’t know the value of <span class="math inline">\(T\)</span>, but is trying to ascertain it. If this assessment is accurate (a case of justified true belief), then we follow the left branch of the diagram again, and the judge’s classification <span class="math inline">\(C\)</span> is assigned the value <span class="math inline">\(\hat{C_1}\)</span>. The hat indicates that this is an empirical rating, so we can keep it distinct from <span class="math inline">\(C_1\)</span>, which is the true value. The accurate judgments happen with probability <span class="math inline">\(a\)</span>, and if it’s not accurate, the judge’s classification will be randomly determined. The rating will be assigned <span class="math inline">\(\hat{C_1}\)</span> with probability <span class="math inline">\(p\)</span>, and otherwise will get the <span class="math inline">\(\hat{C_0}\)</span> rating.</p>
 <p>It’s important to note that the value of <span class="math inline">\(T\)</span> is the same for any given wine. So when four judges all rate the same wine, they are all either on the left side of the diagram (if the wine is acceptable in reality) or on the right side (if not). The ratings are determined only by <span class="math inline">\(a\)</span> and <span class="math inline">\(p\)</span> at that point.</p>
 <p>For a wine chosen at random, we can compute the probabilities of rater classifications. An acceptable wine will be classified accurately with a proportion of <span class="math inline">\(ta\)</span>, multiplying the probabilities along the leftmost edge from top to bottom. An inaccurate rating of <span class="math inline">\(\hat{C_1}\)</span> (acceptability) can come from either the left or right side of the diagram, and if we add those together we get <span class="math inline">\(t\bar{a}p + \bar{t}\bar{a}p\)</span>, and since <span class="math inline">\(t + \bar{t} = 1\)</span> that expression reduces to <span class="math inline">\(\bar{a}p\)</span>.</p>
 <p>Assuming we can estimate the three parameters from the data, we can then populate the confusion matrix by tracing the diagram down to each of the four outcomes, and multiplying probabilities as we go.</p>
+<div id="tbl-tap-confusion" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-tap-confusion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9: The t-a-p model’s correspondence to the confusion matrix. Terms in parentheses are inaccurate ratings.
+</figcaption>
+<div aria-describedby="tbl-tap-confusion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
-<caption>The t-a-p model’s correspondence to the confusion matrix. Terms in parentheses are inaccurate ratings.</caption>
 <colgroup>
 <col style="width: 20%">
 <col style="width: 28%">
@@ -728,16 +821,23 @@ m_r &amp;= .625 \\
 </tr>
 </tbody>
 </table>
-<p>The table demonstrates that if the t-a-p model fits the data and we are able to estimate the three parameters, it is a general answer to the rater agreement question. The later sections show how S, Fleiss kappa, and other statistics are special cases of t-a-p models.</p>
+</div>
+</figure>
+</div>
+<p>The entries in <a href="#tbl-tap-confusion" class="quarto-xref">Table&nbsp;9</a> demonstrate that if the t-a-p model fits the data and we are able to estimate the three parameters, it is a general answer to the rater agreement question. The later sections show how S, Fleiss kappa, and other statistics are special cases of t-a-p models.</p>
 </section>
 <section id="example-wine-judging" class="level2" data-number="1.9">
 <h2 data-number="1.9" class="anchored" data-anchor-id="example-wine-judging"><span class="header-section-number">1.9</span> Example: Wine Judging</h2>
 <p>The sections above used five rows of the wine judging data for illustration. We now use the whole data set of 183 wines each rated by four judges to estimate the t-a-p parameters. The included app was used (see Chapter 7) for the analysis.</p>
 <p>The binary classification illustrated above was to convert the original scale (1 = no medal, 2 = bronze, 3 = silver, 4 = gold medal) to a binary outcome where 1 = any medal (bronze, silver, gold), and 0 = no medal. We called the Class 1 category “acceptable.” Using the app to analyze that binary comparison we get the following output.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/wine tap.png" class="img-fluid figure-img"></p>
-<figcaption>Wine rating t-a-p analysis comparing C1 = ratings 1,2,3 (in-class) to C0 = rating 0.</figcaption>
+<div id="fig-wine-binary-distro" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-wine-binary-distro-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/wine tap.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-wine-binary-distro-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Wine rating t-a-p analysis comparing C1 = ratings 1,2,3 (in-class) to C0 = rating 0.
+</figcaption>
 </figure>
 </div>
 <p>The acceptable wines are the primary (in-) class, and the plot shows the distribution of ratings for acceptability. Since there are four judges, the possibilities are:</p>
@@ -746,7 +846,7 @@ m_r &amp;= .625 \\
 <li><p>All four of them could find the wine acceptable. This is the 4 (four judges) at the right end of the plot. That happened for about 49% of the wines.</p></li>
 <li><p>Something in between, where the judges disagree. In that case we can have from one to three ratings of “acceptable,” corresponding to those points on the plot.</p></li>
 </ul>
-<p>The lollipops (black lines with dots on top) show the empirical data straight out of the ratings. The dashed blue line is the model fit, showing what the distribution would be if the model were exactly correct. Here, “model” means applying the estimated parameters to generate the distribution.</p>
+<p>The lollipops (black lines with dots on top) in <a href="#fig-wine-binary-distro" class="quarto-xref">Figure&nbsp;2</a> show the empirical data straight out of the ratings. The dashed blue line is the model fit, showing what the distribution would be if the model were exactly correct. Here, “model” means applying the estimated parameters to generate the distribution.</p>
 <p>The estimated parameters are found at the top of the plot:</p>
 <ul>
 <li><p><span class="math inline">\(t\)</span> = .73 estimates that 73% of wines are acceptable <em>in reality.</em> This is more than the rate of unanimous agreement, which we saw above was only 49%.</p></li>
@@ -756,39 +856,85 @@ m_r &amp;= .625 \\
 <p>Note that the randomness of inaccurate ratings is not a conscious choice of raters. They aren’t giving up and flipping a coin. They still have a reasonable basis for making a rating, and may be quite confident about it. The assumption is that something Gettier-like has gone wrong with the causal process that links the input (wine) to output (rating), which flips the process from deterministic to stochastic. As with any regression model, the world doesn’t have to actually be that way; it’s just an assumption to allow us to create the model. Then we check to see if the data matches the model. In this case, the data matches the model pretty well, as we can visually assess by comparing the blue dashed line to the lollipops. More formal tests of agreement will have to wait until later.</p>
 <p>The wine ratings comprise four categories that are naturally ordered from 1 = “no medal” to 4 = “gold medal.” That kind of data is common: from surveys with Strongly Disagree to Strongly Agree scales, from consumer ratings, and many other sources. We humans seem to have a natural facility to think of descriptions along an imaginary intensity scale. This data type is called “ordinal,” meaning we can put the categories in order.</p>
 <p>The t-a-p model is designed to work with binary data. It’s possible to switch to a multinomial model, but it’s common to analyze ordinal scales using binary distinctions. I’ll show how that works with the wine data. Along the 1,2,3,4 scale, there are three sequential cut-points where the commas are. The first one we can denote “1|2”, which splits the scores into two sets: an in-class {1} and and out-class {2,3,4}. This is the same thing as the Class 1 and Class 0 distinction from earlier. The second cut-point is at 2|3, splitting the data into ratings {1,2} and {3,4}. The plot shows the fraction of ratings in the in- and out-class for each cut-point.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/wine cutpoints.png" class="img-fluid figure-img"></p>
-<figcaption>Wine ratings divided into binary groups by cutpoint.</figcaption>
+<div id="fig-wine-ordinal-distro" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-wine-ordinal-distro-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/wine cutpoints.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-wine-ordinal-distro-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Wine ratings divided into binary groups by cutpoint.
+</figcaption>
 </figure>
 </div>
 <p>The 3|4 bar of the plot shows us that 88% of ratings are in {1,2,3}, so the remaining 12% are 4s (gold medal). As a validity check, there are 183 wines, each rated by four judges, so that should be 732 ratings. That looks like the height on the bars, so it checks out.</p>
 <p>For a given cut-point, a wine rating will either be in the in-class or out-class This converts the scale to binary, and then we can estimate the model parameters. We repeat the t-a-p model for each cut-point to create a pattern like the one in the plot below.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/wine ordinal.png" class="img-fluid figure-img"></p>
-<figcaption>t-a-p parameter estimates for ordinal scale based on cutpoints</figcaption>
+<div id="fig-wine-ordinal-results" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-wine-ordinal-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/wine ordinal.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-wine-ordinal-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: t-a-p parameter estimates for ordinal scale based on cutpoints
+</figcaption>
 </figure>
 </div>
-<p>The plot shows each t-a-p parameter for each cut-point. As a reference, the Fleiss kappa estimates are also included as dotted lines. The significance of the Fleiss kappa is discussed later.</p>
+<p>The plot in <a href="#fig-wine-ordinal-results" class="quarto-xref">Figure&nbsp;4</a> shows each t-a-p parameter for each cut-point. As a reference, the Fleiss kappa estimates are also included as dotted lines. The significance of the Fleiss kappa is discussed later.</p>
 <p>The accuracy parameter <span class="math inline">\(a\)</span> at the top shows good accuracy for the lowest cut-point, meaning that the judges were good at distinguishing the least worthy wines from the rest. This is the case we analyzed earlier when we called the 1 rating unacceptable. As the quality rating increases, moving to the right on the top plot, accuracy decreases to less than half its value for the first cut-point (focus on the solid line). This would be the case if poor wines have more basis in physiology (sourness, etc.) and as the assessments become more aesthetic, they become more individualized and have less group agreement.</p>
 <p>The second plot, showing estimates for <span class="math inline">\(p\)</span> show the probability with which judges place a wine randomly into the in-class for inaccurate ratings. This will happen less often for the left-most cut-points, since accuracy is higher there. The dotted line is useful here: it shows what the <span class="math inline">\(p\)</span> parameter would look like if the raters assigned ratings proportionally when making inaccurate classifications. For example, we noted earlier that 88% of the ratings are 1-3 (rightmost bar of the previous plot), so for the 3|4 cut-point, proportional random ratings would assign 88% of the inaccurate ratings into the {1,2,3} in-class. That’s where the dotted line is, at 88%. The actual parameter estimate (solid line) is at about 84%, meaning that judges are probably too conservative about assigning the gold medal category. Accuracy is low for the gold medals, and when the judges rate inaccurately, the ratings are slightly biased toward the lower ratings.</p>
-<p>The bottom plot estimates the true proportions for each cut-point, after taking into account the other two parameters. For the 3|4 cut-point on the right, it shows a proportion of {1,2,3} wines of about 65%. This is much lower than the 88% of ratings that are {1,2,3}. That’s the combined effect of inaccurate ratings at the top end of the scale combined with the bias toward lower ratings for inaccurate ratings. Looking at the two ends of the scale for the <span class="math inline">\(t\)</span> plot, we can estimate that about 26% of wines are truly in the 1 = no medal category, and about 35% are in the 4 = gold medal category (1 - .65 = .35). That 35% figure comes from reading the estimated value of <span class="math inline">\(t\)</span> at the 3|4 cut point, which is about 65%, and subtracting from one.</p>
-<p>My general conclusions from this example are that it’s possible to tell good wine from bad wine pretty reliably, but beyond that our individual tastes take over, so sorting out four levels of wine quality is not realistic or useful. The scale could be reduced to three ratings, or else keep the existing scale but collapse the 3 and 4 ratings into a single category before reporting the results. The effect of the existing rating system is leaving a lot of probably excellent wines with poorer ratings than they deserve. An alternative approach is to try to improve the accuracy of the higher ratings, which can be facilitated by reducing the rater bias against the highest award.</p>
+<p>The bottom plot in <a href="#fig-wine-ordinal-results" class="quarto-xref">Figure&nbsp;4</a> estimates the true proportions for each cut-point, after taking into account the other two parameters. For the 3|4 cut-point on the right, it shows a proportion of {1,2,3} wines of about 65%. This is much lower than the 88% of ratings that are {1,2,3}. That’s the combined effect of inaccurate ratings at the top end of the scale combined with the bias toward lower ratings for inaccurate ratings. Looking at the two ends of the scale for the <span class="math inline">\(t\)</span> plot, we can estimate that about 26% of wines are truly in the 1 = no medal category, and about 35% are in the 4 = gold medal category (1 - .65 = .35). That 35% figure comes from reading the estimated value of <span class="math inline">\(t\)</span> at the 3|4 cut point, which is about 65%, and subtracting from one.</p>
+<p>It’s possible to tell good wine from bad wine pretty reliably in this data set, but beyond that individual tastes may not be discerning enough to sort out four levels of wine quality. The scale could possibly be reduced to three ratings, or else keep the existing scale but collapse the 3 and 4 ratings into a single category before reporting the results. The effect of the existing rating system is leaving a lot of probably excellent wines with poorer ratings than they deserve. An alternative approach is to try to improve the accuracy of the higher ratings, which can be facilitated by reducing the rater bias against the highest award. One study showed that it’s possible to improve reliability in college grade assignment through feedback <span class="citation" data-cites="millet2010improving">Millet (<a href="#ref-millet2010improving" role="doc-biblioref">2010</a>)</span>. This method might work more generally for reducing rater bias.</p>
+
 
 
 </section>
 </section>
 
 
-<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-aickin1990maximum" class="csl-entry" role="listitem">
+Aickin, M. (1990). Maximum likelihood estimation of agreement in the constant predictive probability model, and its relation to cohen’s kappa. <em>Biometrics</em>, 293–302.
+</div>
+<div id="ref-button2020inter" class="csl-entry" role="listitem">
+Button, C. M., Snook, B., &amp; Grant, M. J. (2020). Inter-rater agreement, data reliability, and the crisis of confidence in psychological research. <em>Quant Methods Psychol</em>, <em>16</em>(5), 467–471.
+</div>
+<div id="ref-carpenter2008multilevel" class="csl-entry" role="listitem">
+Carpenter, B. (2008). Multilevel bayesian models of categorical data annotation. <em>Unpublished Manuscript</em>, <em>17</em>(122), 45–50.
+</div>
+<div id="ref-chaturvedi2015evaluation" class="csl-entry" role="listitem">
+Chaturvedi, S., &amp; Shweta, R. (2015). Evaluation of inter-rater agreement and inter-rater reliability for observational data: An overview of concepts and methods. <em>Journal of the Indian Academy of Applied Psychology</em>, <em>41</em>(3), 20–27.
+</div>
+<div id="ref-cicchetti1990high" class="csl-entry" role="listitem">
+Cicchetti, D. V., &amp; Feinstein, A. R. (1990). High agreement but low kappa: II. Resolving the paradoxes. <em>Journal of Clinical Epidemiology</em>, <em>43</em>(6), 551–558.
+</div>
+<div id="ref-dawid1979maximum" class="csl-entry" role="listitem">
+Dawid, A. P., &amp; Skene, A. M. (1979). Maximum likelihood estimation of observer error-rates using the EM algorithm. <em>Journal of the Royal Statistical Society: Series C (Applied Statistics)</em>, <em>28</em>(1), 20–28.
+</div>
+<div id="ref-eubankscause" class="csl-entry" role="listitem">
+Eubanks, D. A. (2014). Causal interfaces. <em>Arxiv.org Preprint</em>. <a href="http://arxiv.org/abs/1404.4884v1">http://arxiv.org/abs/1404.4884v1</a>
+</div>
+<div id="ref-gwet2008computing" class="csl-entry" role="listitem">
+Gwet, K. L. (2008). Computing inter-rater reliability and its variance in the presence of high agreement. <em>British Journal of Mathematical and Statistical Psychology</em>, <em>61</em>(1), 29–48.
+</div>
+<div id="ref-hodgson2008examination" class="csl-entry" role="listitem">
+Hodgson, R. T. (2008). An examination of judge reliability at a major US wine competition. <em>Journal of Wine Economics</em>, <em>3</em>(2), 105–113.
+</div>
+<div id="ref-landis1977measurement" class="csl-entry" role="listitem">
+Landis, J. R., &amp; Koch, G. G. (1977). The measurement of observer agreement for categorical data. <em>Biometrics</em>, 159–174.
+</div>
+<div id="ref-millet2010improving" class="csl-entry" role="listitem">
+Millet, I. (2010). Improving grading consistency through grade lift reporting. <em>Practical Assessment, Research, and Evaluation</em>, <em>15</em>(1).
+</div>
+<div id="ref-vach2023gwet" class="csl-entry" role="listitem">
+Vach, W., &amp; Gerke, O. (2023). Gwet’s AC1 is not a substitute for cohen’s kappa–a comparison of basic properties. <em>MethodsX</em>, 102212.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
 <li id="fn1"><p>An earlier paper on this was published under the auspices of the NSA, and has a stamp declaring it unclassified. See <a href="https://www.nsa.gov/portals/75/documents/news-features/declassified-documents/tech-journals/application-of-cluster-analysis.pdf" class="uri">https://www.nsa.gov/portals/75/documents/news-features/declassified-documents/tech-journals/application-of-cluster-analysis.pdf</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>It’s a mystery why humans can agree on mathematical justifications at such a high rate. If agreement indicates reality, then math must be real in some way.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>I found this on wikipedia here <a href="https://en.wikipedia.org/wiki/Gettier_problem" class="uri">https://en.wikipedia.org/wiki/Gettier_problem</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>which seems like an infinite regress of JTB inquiry.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>Confusion matrices are at the heart of measures of causality too, for reasons that are not coincidental. See <em>Causal Interfaces.</em><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Confusion matrices are at the heart of measures of causality too, for reasons that are not coincidental. See <span class="citation" data-cites="eubankscause">Eubanks (<a href="#ref-eubankscause" role="doc-biblioref">2014</a>)</span>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6"><p>The process of a group of people <em>reaching</em> agreement does not seem to be transitive! It may well be three times as difficult for three people to agree on a movie to watch as two people. The rater agreement models get around this by assuming that raters don’t talk to (argue with) each other, but reach conclusions independently before comparing notes.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn7"><p>For much more on this idea see “Causal Interfaces.”<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
