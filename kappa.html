@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 
-<meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<head>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta charset="utf-8" />
+<meta name="generator" content="quarto-1.5.57" />
 
-<meta name="author" content="David Eubanks">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+
+<meta name="author" content="David Eubanks" />
 
 <title>Chapter 3: Kappa Statistics – The Kappa Zoo</title>
 <style>
@@ -43,23 +45,7 @@ div.csl-indent {
   margin-left: 2em;
 }</style>
 
-
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<!-- htmldependencies:E3FAD763 -->
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -87,7 +73,7 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XP6WMESY52"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XP6WMESY52"></script>
 
 <script type="text/javascript">
 
@@ -127,28 +113,30 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css" />
 </head>
 
-<body class="floating nav-fixed">
+<body>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="/index.html">
     <span class="navbar-title">The Kappa Zoo</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+  aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation"
+  onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="/index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
 </ul>
@@ -162,21 +150,11 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contents</h2>
-   
-  <ul class="collapse">
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
-  <li><a href="#naive-raters-the-s-statistic" id="toc-naive-raters-the-s-statistic" class="nav-link" data-scroll-target="#naive-raters-the-s-statistic"><span class="header-section-number">2</span> Naive Raters: The S-Statistic</a></li>
-  <li><a href="#unbiased-raters-the-fleiss-kappa" id="toc-unbiased-raters-the-fleiss-kappa" class="nav-link" data-scroll-target="#unbiased-raters-the-fleiss-kappa"><span class="header-section-number">3</span> Unbiased Raters: the Fleiss Kappa</a></li>
-  <li><a href="#ac-1" id="toc-ac-1" class="nav-link" data-scroll-target="#ac-1"><span class="header-section-number">4</span> AC 1</a></li>
-  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion"><span class="header-section-number">5</span> Discussion</a></li>
-  </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="kappa.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    <div id="quarto-toc-target"></div>
 </nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" ></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -205,7 +183,18 @@ window.Quarto = {
 
 </header>
 
-
+<nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#naive-raters-the-s-statistic" id="toc-naive-raters-the-s-statistic"><span class="header-section-number">2</span> Naive Raters: The S-Statistic</a></li>
+  <li><a href="#unbiased-raters-the-fleiss-kappa" id="toc-unbiased-raters-the-fleiss-kappa"><span class="header-section-number">3</span> Unbiased Raters: the Fleiss Kappa</a></li>
+  <li><a href="#ac-1" id="toc-ac-1"><span class="header-section-number">4</span> AC 1</a></li>
+  <li><a href="#cohens-kappa" id="toc-cohens-kappa"><span class="header-section-number">5</span> Cohen’s Kappa</a></li>
+  <li><a href="#discussion" id="toc-discussion"><span class="header-section-number">6</span> Discussion</a></li>
+  </ul>
+</nav>
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
 <p>The formula for chance-corrected measure of agreement (generically a “kappa”) compares observed match rates to the expectation of random match rates. The kappas vary in how they estimate the random match rates. For two ratings to match, two raters <span class="math inline">\(j,k\)</span> of the same subject <span class="math inline">\(i\)</span> must agree in their assignment of either Class 1 or Class 0 classifications. In other words, the binary random variables must agree: <span class="math inline">\(C_{ij} = C_{ik}\)</span>. A generic formula that includes the most common kappas is</p>
@@ -213,7 +202,7 @@ window.Quarto = {
 \kappa = \frac{m_o - m_c}{1 - m_c},
 \]</span>where <span class="math inline">\(m_o\)</span> is the observed proportion of agreements and <span class="math inline">\(m_c\)</span> is the expected proportion of agreements under chance. The assumption about <span class="math inline">\(m_c\)</span> is a defining feature of the various kappa statistics. The most general treatment of such statistics is the Krippendorff alpha <span class="citation" data-cites="krippendorff2018content">(<a href="#ref-krippendorff2018content" role="doc-biblioref">Krippendorff, 2018, pp. 221–250</a>)</span></p>
 <p>The various kappas differ in the assumption made about the chance correction probability <span class="math inline">\(m_c\)</span>. Commonly, the assumption is that <span class="math inline">\(m_c = x^2 + \bar{x}^2\)</span> for some probability <span class="math inline">\(x\)</span>. This simple formulation makes sense when both raters are guessing, but the actual case is more complicated because a match “by chance” could be a case where one rating was accurate and the other was a guess. This distinction isn’t generally made in the derivations of the kappas, although the AC1 paper discusses the issue, and hints at a full three-parameter model. It’s ironic that the confusion about kappas is disagreement about the probability of agreement by chance.</p>
-<p>The Fleiss kappa <span class="citation" data-cites="fleiss1971measuring">(<a href="#ref-fleiss1971measuring" role="doc-biblioref">Fleiss, 1971</a>)</span> uses the fraction of Class 1 ratings <span class="math inline">\(c\)</span> to create <span class="math inline">\(m_c = c^2 + \bar{c}^2\)</span>. The S statistic <span class="citation" data-cites="bennett1954communications">Bennett et al. (<a href="#ref-bennett1954communications" role="doc-biblioref">1954</a>)</span> (also called the Guilfords’ G or G-index <span class="citation" data-cites="holley1964note">Holley &amp; Guilford (<a href="#ref-holley1964note" role="doc-biblioref">1964</a>)</span>) is a kappa that assumes <span class="math inline">\(m_c = 1/2\)</span> when there are two categories. The AC1 kappa has a different form, assuming that <span class="math inline">\(m_c = 2c\bar{c}\)</span> <span class="citation" data-cites="gwet2008computing">Gwet (<a href="#ref-gwet2008computing" role="doc-biblioref">2008</a>)</span>. The Cohen kappa is a variation where each rater gets a guessing distribution, so <span class="math inline">\(m_c = x_1x_2 + \bar{x_1}\bar{x_2}\)</span> <span class="citation" data-cites="cohen1960coefficient">Cohen (<a href="#ref-cohen1960coefficient" role="doc-biblioref">1960</a>)</span>.</p>
+<p>The Fleiss kappa <span class="citation" data-cites="fleiss1971measuring">(<a href="#ref-fleiss1971measuring" role="doc-biblioref">Fleiss, 1971</a>)</span> uses the fraction of Class 1 ratings <span class="math inline">\(c\)</span> to create <span class="math inline">\(m_c = c^2 + \bar{c}^2\)</span>. The S statistic <span class="citation" data-cites="bennett1954communications">(<a href="#ref-bennett1954communications" role="doc-biblioref">Bennett et al., 1954</a>)</span>, also called the Guilfords’ G or G-index<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> <span class="citation" data-cites="holley1964note">(<a href="#ref-holley1964note" role="doc-biblioref">Holley &amp; Guilford, 1964</a>)</span>, is a kappa that assumes <span class="math inline">\(m_c = 1/2\)</span> when there are two categories. The AC1 kappa has a different form, assuming that <span class="math inline">\(m_c = 2c\bar{c}\)</span> <span class="citation" data-cites="gwet2008computing">(<a href="#ref-gwet2008computing" role="doc-biblioref">Gwet, 2008</a>)</span>. The Cohen kappa is a variation where each rater gets a guessing distribution, so <span class="math inline">\(m_c = x_1x_2 + \bar{x_1}\bar{x_2}\)</span> <span class="citation" data-cites="cohen1960coefficient">(<a href="#ref-cohen1960coefficient" role="doc-biblioref">Cohen, 1960</a>)</span>. Because of the extra parameter, discussion of Cohen’s kappa is found in the chapter on hierarchical models rather than being included here.</p>
 <p>Consider two raters classifying an observation. In the t-a-p model we can express the expected value of observed matches <span class="math inline">\(m_o\)</span> as the sum of three kinds of agreement: (1) <span class="math inline">\(m_a\)</span> is when both raters are accurate (and hence agree), (2) <span class="math inline">\(m_i\)</span> when both raters are inaccurate (guessing) and agree, and (3) <span class="math inline">\(m_x\)</span> is the mixed case when one rater is accurate and the other is inaccurate but they agree. The second two of these have expressions that include the guessing rate <span class="math inline">\(m_c\)</span>. Following that thinking we have the following expectations for rates:</p>
 <p><span id="eq-match-rates"><span class="math display">\[
 \begin{aligned}
@@ -226,12 +215,12 @@ m_o &amp;= m_a + m_i + m_x &amp;\text{(observed match rate)}\\
 \end{aligned}
 \tag{1}\]</span></span></p>
 <p>For <span class="math inline">\(m_a\)</span>, both ratings must be accurate, in which case they automatically agree. For <span class="math inline">\(m_i\)</span>, both must be inaccurate (probability <span class="math inline">\(\bar{a}^2\)</span>) and then match randomly (probability <span class="math inline">\(m_r\)</span>). For <span class="math inline">\(m_x\)</span>, one rater must be accurate and the other inaccurate, in which case they agree if the accurate rater chooses the category that the inaccurate rater guesses. The various kappa derivations usually ignore these mixed matches in favor of using <span class="math inline">\(m_r\)</span> as the chance match rate, which we called <span class="math inline">\(m_c\)</span> in the kappa formula. This amounts to choosing <span class="math inline">\(p\)</span> since <span class="math inline">\(m_r = p^2 + \bar{p}^2\)</span>.</p>
-<p>The various match rates in <a href="#eq-match-rates" class="quarto-xref">Equation&nbsp;1</a> create a vocabulary for understanding some of the kappa statistics. The easiest one to analyze is the S-statistic (it is sometimes called the G-index).</p>
+<p>The various match rates in <a href="#eq-match-rates" class="quarto-xref">Equation 1</a> create a vocabulary for understanding some of the kappa statistics. The easiest one to analyze is the S-statistic (it is sometimes called the G-index).</p>
 </section>
 <section id="naive-raters-the-s-statistic" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Naive Raters: The S-Statistic</h1>
-<p>Recall that rater agreement for a binary choice is when there are two equal sized groups of raters that assign each of the two categories. This would be the case, on average, if the raters were flipping coins to assign categories. In the t-a-p model, this 50% chance for each category defines the <span class="math inline">\(p\)</span> parameter. The S-statistic <span class="citation" data-cites="bennett1954communications">Bennett et al. (<a href="#ref-bennett1954communications" role="doc-biblioref">1954</a>)</span> makes the assumption that if there are two categories to choose from, then the chance of a random match between two raters is <span class="math inline">\(m_c = m_r = 1/2\)</span>. If we assume this means two <em>random</em> raters in the t-a-p model, we have <span class="math inline">\(p=1/2\)</span>. I call this the naive rater assumption, because it assumes that inaccurate raters are not influenced by the actual proportions of the two categories. For example, if an inexperienced doctor repeatedly diagnosed patients as having a very rare condition, this would be “naive” in the meaning here.</p>
-<p>Substituting <span class="math inline">\(p=1/2\)</span> into the formulas of <a href="#eq-match-rates" class="quarto-xref">Equation&nbsp;1</a> results in the kappa</p>
+<p>Recall that rater agreement for a binary choice is when there are two equal sized groups of raters that assign each of the two categories. This would be the case, on average, if the raters were flipping coins to assign categories. In the t-a-p model, this 50% chance for each category defines the <span class="math inline">\(p\)</span> parameter. The S-statistic <span class="citation" data-cites="bennett1954communications">(<a href="#ref-bennett1954communications" role="doc-biblioref">Bennett et al., 1954</a>)</span> makes the assumption that if there are two categories to choose from, then the chance of a random match between two raters is <span class="math inline">\(m_c = m_r = 1/2\)</span>. If we assume this means two <em>random</em> raters in the t-a-p model, we have <span class="math inline">\(p=1/2\)</span>. I call this the naive rater assumption, because it assumes that inaccurate raters are not influenced by the actual proportions of the two categories. For example, if an inexperienced doctor repeatedly diagnosed patients as having a very rare condition, this would be “naive” in the meaning here.</p>
+<p>Substituting <span class="math inline">\(p=1/2\)</span> into the formulas of <a href="#eq-match-rates" class="quarto-xref">Equation 1</a> results in the kappa</p>
 <p><span class="math display">\[
 \begin{aligned}
 \kappa_s &amp;= \frac{m_o - m_c}{1 - m_c} \\
@@ -255,12 +244,12 @@ m_o &amp;= m_a + m_i + m_x &amp;\text{(observed match rate)}\\
 \end{aligned}
 \]</span></p>
 <p>For the Fleiss kappa, it is also true that the expectation of kappa is the accuracy squared, this time if the condition <span class="math inline">\(t = p\)</span> is met by the raters represented in the data you have.</p>
-<p>A review of the properties of Fleiss kappa can be found in <span class="citation" data-cites="fleiss2013statistical">Fleiss et al. (<a href="#ref-fleiss2013statistical" role="doc-biblioref">2013</a>)</span>, chapter 18, including kappa’s equivalence to an intraclass correlation coefficient, defined as ICC(1,1) in <span class="citation" data-cites="shrout1979intraclass">Shrout &amp; Fleiss (<a href="#ref-shrout1979intraclass" role="doc-biblioref">1979</a>)</span>. Under the <span class="math inline">\(t = p\)</span> “unbiased” condition, rater accuracy <span class="math inline">\(a\)</span> is the correlation between the ratings and the true classifications: <span class="math inline">\(\sqrt{\kappa_f} = a = cor(C, T)\)</span>. Additionally, the Fleiss kappa is the intraclass correlation of the ratings. Derivations of these results are found in <a href="./correlation.html">Appendix A</a>, where there is also an alternative derivation of the <span class="math inline">\(a = \sqrt{\kappa_f}\)</span> result.</p>
+<p>A review of the properties of Fleiss kappa can be found in <span class="citation" data-cites="fleiss2013statistical">Fleiss et al. (<a href="#ref-fleiss2013statistical" role="doc-biblioref">2013</a>)</span>, chapter 18, including kappa’s equivalence to an intraclass correlation coefficient, defined as ICC(1,1) in <span class="citation" data-cites="shrout1979intraclass">Shrout &amp; Fleiss (<a href="#ref-shrout1979intraclass" role="doc-biblioref">1979</a>)</span>. Under the <span class="math inline">\(t = p\)</span> “unbiased” condition, rater accuracy <span class="math inline">\(a\)</span> is the correlation between the ratings and the true classifications: <span class="math inline">\(\sqrt{\kappa_f} = a = cor(C, T)\)</span>. Additionally, the Fleiss kappa is the intraclass correlation of the ratings. Derivations of these results are found in <a href="correlation.qmd">Appendix A</a>, where there is also an alternative derivation of the <span class="math inline">\(a = \sqrt{\kappa_f}\)</span> result.</p>
 <p>If the <span class="math inline">\(t = p\)</span> assumption is not true for your raters, then the resulting kappa will be biased. In some cases, kappa may be negative. This is a general problem for the kappas, since they make assumptions about the distribution of random raters without testing those assumptions.</p>
 </section>
 <section id="ac-1" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> AC 1</h1>
-<p>The AC1 version of kappa developed in <span class="citation" data-cites="gwet2008computing">Gwet (<a href="#ref-gwet2008computing" role="doc-biblioref">2008</a>)</span> uses a disaggregation of rating agreements found in Table 4, page 36, where the author distinguishes between ratings that are certain (the same as “for cause” as found in <span class="citation" data-cites="landis1977measurement">Landis &amp; Koch (<a href="#ref-landis1977measurement" role="doc-biblioref">1977</a>)</span>) versus random. The stated goal is to estimate the probability that two raters match when they both rate accurately (“with certainty”). This is <span class="math inline">\(a^2\)</span> in the t-a-p model (equation 16 in the paper). Random matches are those in which at least one of raters rates randomly. In terms of the t-a-p model, this assumes that the probability of a by-chance agreement is <span class="math inline">\(m_c = m_i + m_x\)</span>, the cases where either both raters match randomly or at least one makes an inaccurate rating and they match. The acknowledgement of partially inaccurate matches is a philosophical advance over previous derivations of kappa.</p>
+<p>The AC1 version of kappa developed in <span class="citation" data-cites="gwet2008computing">Gwet (<a href="#ref-gwet2008computing" role="doc-biblioref">2008</a>)</span> uses a disaggregation of rating agreements found in Table 4, page 36, where the author distinguishes between ratings that are “certain” (the same as “for cause” as found in <span class="citation" data-cites="landis1977measurement">Landis &amp; Koch (<a href="#ref-landis1977measurement" role="doc-biblioref">1977</a>)</span>) versus random. This is similar to the justified true belief formula described in the <a href="introduction.qmd">introductory chapter</a>, except that there’s no provision for being certain (believing a classification is true) and yet mistaken (the Gettier problem). The stated goal is to estimate the probability that two raters match when they both rate accurately (“with certainty”). This is <span class="math inline">\(a^2\)</span> in the t-a-p model (equation 16 in the paper). Random matches are those in which at least one of raters rates randomly. In terms of the t-a-p model, this assumes that the probability of a by-chance agreement is <span class="math inline">\(m_c = m_i + m_x\)</span>, the cases where either both raters match randomly or at least one makes an inaccurate rating and they match. The acknowledgement of partially inaccurate matches is a philosophical advance over previous derivations of kappa.</p>
 <p>The AC1 kappa is derived from the usual formula (total match rate - estimated random match rate) / (1 - estimated random match rate) (see equation 17 in the paper). The problem, as usual with this approach, is to estimate the (partially) random match rate <span class="math inline">\(m_c = m_i + m_x\)</span>. Of course, neither <span class="math inline">\(m_i\)</span> nor <span class="math inline">\(m_x\)</span> are directly observable, so the author derives an approximation in two steps. First the probability of agreement between two raters, at least one of whom made an inaccurate rating, is assumed to be 1/2. In the t-a-p model, this amounts to</p>
 <p><span id="eq-ac1"><span class="math display">\[
 Pr[\text{match|random}] = \frac{m_i + m_x}{1-a^2} \approx 1/2.
@@ -272,21 +261,24 @@ Pr[\text{random}] = 1-a^2 \approx 4(ta + \bar{a}p)(1-ta-\bar{a}p)
 <p>Multiplying these gives (page 37) <span class="math inline">\(\hat{m_c} = 2c\bar{c} = 2(ta + \bar{a}p)(1-ta-\bar{a}p)\)</span>. The approach here is ingenious and philosophically rich, but the limitations of a one-parameter index for rater agreement limit how much can be done.</p>
 <p>In our notation here, the Fleiss kappa assumes <span class="math inline">\(m_c = c^2 + \bar{c}^2\)</span>, and the AC1 assumes that <span class="math inline">\(m_c = 2c\bar{c}\)</span>. The AC1 version is the complement of the Fleiss version: they sum to one since <span class="math inline">\(1 = (c + \bar{c})^2 = c^2 + 2c\bar{c} + \bar{c}^2\)</span>. In some sense, the assumptions about the two kappas are opposite: what Fleiss considers random, AC1 considers non-random, and vice-versa, at least in expectation.</p>
 </section>
-<section id="discussion" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Discussion</h1>
+<section id="cohens-kappa" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Cohen’s Kappa</h1>
+<p>Cohen’s kappa <span class="citation" data-cites="cohen1960coefficient">(<a href="#ref-cohen1960coefficient" role="doc-biblioref">Cohen, 1960</a>)</span> is the original kappa, and is still widely used. In its original form, it’s limited to two raters and a binary scale. It’s similar to the Fleiss kappa in that it uses empirical rating distributions to assume a chance match rate <span class="math inline">\(m_c\)</span>, however it has an extra complication. Cohen’s kappa assumes that each rater has an <em>individual parameter</em> for random ratings. In the t-a-p model, this amounts to assigning each rater <span class="math inline">\(j\)</span> a parameter <span class="math inline">\(p_j\)</span>. The original statistic only considered two raters, but that can be extended to any number of them. This situation is best treated as a hierarchical model that uses a more general approach to maximum likelihood than a binomial mixture (see the chapter on hierarchical models). However, it’s possible to simply expand the simple t-a-p model to include two raters with individual parameters <span class="math inline">\(p_1\)</span> and <span class="math inline">\(p_2\)</span>. If <span class="math inline">\(p_1 = p_2 = t\)</span>, we are back to the Fleiss model’s assumption about unbiased raters. If <span class="math inline">\(p_1 \ne p_2\)</span>, then at least one rater is biased, meaning that the distribution of their random ratings is different from the true distribution of classifications.</p>
+</section>
+<section id="discussion" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Discussion</h1>
 <p>Both the worst-case match rate for binary ratings, <span class="math inline">\(p= 1/2\)</span>, and the proportional (unbiased) rate <span class="math inline">\(t=p\)</span> lead to kappas that have a nice relationship to accuracy in the t-a-p model, but only when the respective assumption about raters is true. Generally we don’t know what <span class="math inline">\(p\)</span> is for a given data set, however, so assuming either of those conditions is a leap of faith.</p>
 <p>We might wonder if there are other kappas that have the nice property that accuracy is the square root. We can attempt to choose <span class="math inline">\(m_c\)</span> so that <span class="math inline">\(\kappa = a^2\)</span> via <span class="math inline">\(m_o - m_c = a^2(1-m_c)\)</span>. Solving for <span class="math inline">\(m_c\)</span> and using <span class="math inline">\(m_o - a^2 = m_i + m_x\)</span> leads to</p>
 <p><span id="eq-a-square"><span class="math display">\[ \begin{aligned} m_c^* &amp;= \frac{m_i + m_x}{1 - a^2} \\ &amp;= \frac{\bar{a}^2m_r + 2a\bar{a}(tp + \bar{t}\bar{p})}{(1+a)\bar{a}} \\ &amp;= \frac{\bar{a}(p^2 + \bar{p}^2)  + 2a(tp + \bar{t}\bar{p})}{1+a} \\ \end{aligned}  \tag{3}\]</span></span></p>
-<p>where the asterisk denotes the choice of the chance correction formula <span class="math inline">\(m_c\)</span> that makes <span class="math inline">\(\kappa = a^2\)</span>. In the first line of <a href="#eq-a-square" class="quarto-xref">Equation&nbsp;3</a>, the numerator is the expected proportion of matches where there is at least one inaccurate rating, and the denominator is the the rate of non-perfect rating pairs, where at least one of the raters is inaccurate (they may or may not match). We saw this above in the derivation of AC1 in <a href="#eq-ac1" class="quarto-xref">Equation&nbsp;2</a>. It turns out that the correct choice of <span class="math inline">\(m_c\)</span> is the conditional probability of a match given that at least one of the raters is inaccurate, rather than the unconditional probability of a match given that at least one of the raters is inaccurate.</p>
-<p>The chance correction is therefore accounting for the accurate ratings by taking them out of the data altogether and then calculating inaccurate matches out of all rating pairs as the probability of by-chance matching.</p>
-<p>The formula in <a href="#eq-a-square" class="quarto-xref">Equation&nbsp;3</a> is useful for testing properties of kappa assumptions. We can use it to verify that <span class="math inline">\(p=1/2\)</span> (naive raters) and <span class="math inline">\(t=p\)</span> (unbiased raters) works as shown earlier.</p>
-<p>In practice, it’s better to just derive all three of the t-a-p parameters instead of making assumptions that have to be tested (by deriving all the parameters).</p>
-
-
-
-</section>
-
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<p>where the asterisk denotes the choice of the chance correction formula <span class="math inline">\(m_c\)</span> that makes <span class="math inline">\(\kappa = a^2\)</span>. In the first line of <a href="#eq-a-square" class="quarto-xref">Equation 3</a>, the numerator is the expected proportion of matches where there is at least one inaccurate rating, and the denominator is the the rate of non-perfect rating pairs, where at least one of the raters is inaccurate (they may or may not match). We saw this above in the derivation of AC1 in <a href="#eq-ac1" class="quarto-xref">Equation 2</a>. It turns out that the correct choice of <span class="math inline">\(m_c\)</span> is the conditional probability of a match given that at least one of the raters is inaccurate, rather than the unconditional probability of a match given that at least one of the raters is inaccurate. The difference is the <span class="math inline">\(1-a^2\)</span> denominator. The chance correction is therefore accounting for the accurate ratings by taking them out of the data altogether and then calculating inaccurate matches out of all remaining rating pairs as the probability of by-chance matching.</p>
+<p>The formula in <a href="#eq-a-square" class="quarto-xref">Equation 3</a> is useful for testing properties of kappa assumptions. We can use it to verify that <span class="math inline">\(p=1/2\)</span> (naive raters) and <span class="math inline">\(t=p\)</span> (unbiased raters) works as shown earlier. In practice, it’s better to just derive all three of the t-a-p parameters instead of making assumptions that have to be tested (by deriving all the parameters).</p>
+<div id="quarto-navigation-envelope" class="hidden">
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-sidebar-title">The Kappa Zoo</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar-title">The Kappa Zoo</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:Home">Home</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:/index.html">/index.html</span></p>
+</div>
+<div id="quarto-meta-markdown" class="hidden">
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-metatitle">Chapter 3: Kappa Statistics – The Kappa Zoo</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-twittercardtitle">Chapter 3: Kappa Statistics – The Kappa Zoo</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-ogcardtitle">Chapter 3: Kappa Statistics – The Kappa Zoo</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-metasitename">The Kappa Zoo</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-twittercarddesc"></span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-ogcardddesc"></span></p>
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
 <div id="ref-bennett1954communications" class="csl-entry" role="listitem">
 Bennett, E. M., Alpert, R., &amp; Goldstein, A. (1954). Communications through limited-response questioning. <em>Public Opinion Quarterly</em>, <em>18</em>(3), 303–308.
 </div>
@@ -314,8 +306,17 @@ Landis, J. R., &amp; Koch, G. G. (1977). The measurement of observer agreement f
 <div id="ref-shrout1979intraclass" class="csl-entry" role="listitem">
 Shrout, P. E., &amp; Fleiss, J. L. (1979). Intraclass correlations: Uses in assessing rater reliability. <em>Psychological Bulletin</em>, <em>86</em>(2), 420.
 </div>
-</div></section></div></main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Not to be confused with the G-index used for ranking citation counts of scholars.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id = "quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -737,7 +738,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 </div> <!-- /content -->
 
+</body>
 
-
-
-</body></html>
+</html>
