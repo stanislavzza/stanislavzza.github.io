@@ -300,9 +300,66 @@ Figure&nbsp;1: Results from a t-a-p model on the kappa paradox data, showing the
 </div>
 </div>
 </div>
-<p>To see the Stan code used to fit the Bayesian t-a-p model, click the button below. ::: {add-from=code/t-a-p.stan}</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode stan code-with-copy"><code class="sourceCode stan"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>:::</p>
+<p>To see the Stan code used to fit the Bayesian t-a-p model, click the button below.</p>
+<div data-add-from="code/t-a-p.stan">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode stan code-with-copy"><code class="sourceCode stan"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">//</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">//   Stan model specification for fixed rater a and no random effects</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">//</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Learn more about model development with Stan at:</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">//</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">//    http://mc-stan.org/users/interfaces/rstan.html</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">//    https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">//</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">// functions to make the code simpler below</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="kw">functions</span> {</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span> p_true(<span class="dt">real</span> a, <span class="dt">real</span> s) {  <span class="co">// convenience function for binomial probability for </span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a + (<span class="fl">1.0</span>-a)*s;        <span class="co">// subjects that are class 1 in reality</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span> p_false(<span class="dt">real</span> a, <span class="dt">real</span> s) {  <span class="co">// convenience function for binomial probability for</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (<span class="fl">1.0</span>-a)*s;            <span class="co">// subjects that are class 2 in reality</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">// The ratings summary (number of 1-ratings per case) and descriptives</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> {</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>&gt; N;   <span class="co">// number of subjects</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="dt">array</span>[N] <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>&gt; R;   <span class="co">// number of raters fo a given subject</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  <span class="dt">array</span>[N] <span class="dt">int</span> count;  <span class="co">// count of ratings of category 1 for subject i</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co">// The parameter to estimate</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="kw">parameters</span> {</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>, <span class="kw">upper</span> = <span class="dv">1</span>&gt; a; <span class="co">// fixed for all raters</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>, <span class="kw">upper</span> = <span class="dv">1</span>&gt; p;        <span class="co">// guess rate for class 1 when inaccurate</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>, <span class="kw">upper</span> = <span class="dv">1</span>&gt; t;        <span class="co">// true class 1 rate</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co">// The model to be estimated. We model the output</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co">// count (of 1s) by the binomial mixture described</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="co">// in the paper. S is the fraction of 1-ratings in the whole data set</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co">// The log_sum_exp function is useful for this--we take the log of each binomial </span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="co">// likelihood using built-in functions, and the log_sum_exp function exponentiates,</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="co">// adds, and then takes the log to get the actual likelihood we care about. </span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="co">// cf http://modernstatisticalworkflow.blogspot.com/2016/10/finite-mixture-models-in-stan.html</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="kw">model</span> {</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>  a ~ uniform(<span class="dv">0</span>,<span class="dv">1</span>);</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>  t ~ uniform(<span class="dv">0</span>,<span class="dv">1</span>);</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>  p ~ uniform(<span class="dv">0</span>,<span class="dv">1</span>);</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span>:N) {  <span class="co">// for each subject rated</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>    <span class="kw">target +=</span> log_sum_exp(log(t)   + binomial_lpmf(count[i] | R[i], p_true(a,p)),</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>                          log(<span class="dv">1</span>-t) + binomial_lpmf(count[i] | R[i], p_false(a,p)));</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 <p>The results in <a href="#fig-paradox-tap" class="quarto-xref">Figure&nbsp;1</a> come from a MCMC summary of samples for the parameters. The plot for <span class="math inline">\(a\)</span> shows a bimodal distribution of rater accuracy that slightly favors <span class="math inline">\(a \approx 0\)</span> over <span class="math inline">\(a \approx 1\)</span>. Also in agreement with the analysis, the mode for <span class="math inline">\(p - t\)</span> is nearly zero since both of those statistics are near zero. The <span class="math inline">\(t \approx 0\)</span> tells us that the modeled result is that there are very view Class 1 (test positive) cases.</p>
 <p>The parameter estimates in <a href="#fig-paradox-tap" class="quarto-xref">Figure&nbsp;1</a> point us to divergent interpretations of the severely unbalanced data: (1) the accuracy is about zero and the results are due almost entirely to random ratings combined with a severe test bias, or (2) the accuracy is high, but the prevalence of the condition is very small. These two conclusions correspond to the usual philosophical positions in the paradox’s discussion. The graphs in <a href="#fig-paradox-tap" class="quarto-xref">Figure&nbsp;1</a> show usefulness of MCMC sampling, and serve as a caution against taking mean estimate values as meaningful without inspecting the distribution first.</p>
 </section>
@@ -349,10 +406,69 @@ Figure&nbsp;2: Results from a t-a0,a1-p model on the kappa paradox data, showing
 </div>
 </div>
 </div>
-<p>To see the Stan code used to fit the Bayesian t-a0,a1-p model, click the button below. ::: {add-from=code/t-a0,a1-p.stan}</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode stan code-with-copy"><code class="sourceCode stan"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>:::</p>
-<p>Histograms of MCMC draws in <a href="#fig-paradox-tap2" class="quarto-xref">Figure&nbsp;2</a> for the t-a0,a1-p model reveal the limitations of the three-parameter version. The plots suggest high confidence that <span class="math inline">\(a_0\)</span> is near 1, and somewhat less confidence that <span class="math inline">\(a_1\)</span> is near zero. There is evidence that the accuracy of negative test results is high, but there is no evidence that the accuracy of positive test results is high. A scatterplot of the two parameters as drawn together from the posterior distributions shows that they cluster around the modes of the distributions in figure <span class="math inline">\(\ref{fig:paradox_a1a0}\)</span>. In other words, the induced model prefers the case when the accuracy of negative test results is high, but the accuracy of positive test results is low.</p>
+<p>To see the Stan code used to fit the Bayesian t-a0,a1-p model, click the button below.</p>
+<div data-add-from="code/t-a0a1-p.stan">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode stan code-with-copy"><code class="sourceCode stan"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">//</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">//   Stan model specification for fixed rater accuracy and no random effects</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">//</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Learn more about model development with Stan at:</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">//</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">//    http://mc-stan.org/users/interfaces/rstan.html</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">//    https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">//</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">// functions to make the code simpler below</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="kw">functions</span> {</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span> p_true(<span class="dt">real</span> a, <span class="dt">real</span> s) {  <span class="co">// convenience function for binomial probability for </span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a + (<span class="fl">1.0</span>-a)*s;        <span class="co">// subjects that are class 1 in reality</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span> p_false(<span class="dt">real</span> a, <span class="dt">real</span> s) {  <span class="co">// convenience function for binomial probability for</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (<span class="fl">1.0</span>-a)*s;            <span class="co">// subjects that are class 2 in reality</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">// The ratings summary (number of 1-ratings per case) and descriptives</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> {</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>&gt; N;   <span class="co">// number of subjects</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>  <span class="dt">array</span>[N] <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>&gt; R;   <span class="co">// number of raters fo a given subject</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>  <span class="dt">array</span>[N] <span class="dt">int</span> count;  <span class="co">// count of ratings of category 1 for subject i</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co">// The parameter to estimate</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="kw">parameters</span> {</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>, <span class="kw">upper</span> = <span class="dv">1</span>&gt; a1; <span class="co">// fixed for all raters</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>, <span class="kw">upper</span> = <span class="dv">1</span>&gt; a0; <span class="co">// fixed for all raters</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>, <span class="kw">upper</span> = <span class="dv">1</span>&gt; p;        <span class="co">// guess rate for class 1 when inaccurate</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>, <span class="kw">upper</span> = <span class="dv">1</span>&gt; t;        <span class="co">// true class 1 rate</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="co">// The model to be estimated. We model the output</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="co">// count (of 1s) by the binomial mixture described</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="co">// in the paper. S is the fraction of 1-ratings in the whole data set</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="co">// The log_sum_exp function is useful for this--we take the log of each binomial </span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="co">// likelihood using built-in functions, and the log_sum_exp function exponentiates,</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="co">// adds, and then takes the log to get the actual likelihood we care about. </span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="co">// cf http://modernstatisticalworkflow.blogspot.com/2016/10/finite-mixture-models-in-stan.html</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="kw">model</span> {</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>  a1 ~ uniform(<span class="dv">0</span>,<span class="dv">1</span>);</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>  a0 ~ uniform(<span class="dv">0</span>,<span class="dv">1</span>);</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>  t ~ uniform(<span class="dv">0</span>,<span class="dv">1</span>);</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>  p ~ uniform(<span class="dv">0</span>,<span class="dv">1</span>);</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span>:N) {  <span class="co">// for each subject rated</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>    <span class="kw">target +=</span> log_sum_exp(log(t)   + binomial_lpmf(count[i] | R[i], p_true(a1,p)),</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>                          log(<span class="dv">1</span>-t) + binomial_lpmf(count[i] | R[i], p_false(a0,p)));</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Histograms of MCMC draws in <a href="#fig-paradox-tap2" class="quarto-xref">Figure&nbsp;2</a> for the t-a0,a1-p model reveal the limitations of the three-parameter version. The plots suggest high confidence that <span class="math inline">\(a_0\)</span> is near 1, and somewhat less confidence that <span class="math inline">\(a_1\)</span> is near zero. There is evidence that the accuracy of negative test results is high, but there is no evidence that the accuracy of positive test results is high. A scatterplot of the two parameters as drawn together from the posterior distributions shows that they cluster around the modes of the distributions in <a href="#fig-paradox-tap2" class="quarto-xref">Figure&nbsp;2</a>. In other words, the induced model prefers the case when the accuracy of negative test results is high, but the accuracy of positive test results is low.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
@@ -382,7 +498,7 @@ Figure&nbsp;3: Scatterplot of the two accuracy parameters from the t-a0,a1-p mod
 <section id="individual-p-parameters" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Individual <span class="math inline">\(p\)</span> parameters</h1>
 <p>We could take this one step further and split <span class="math inline">\(p\)</span> into two parameters that correspond to the two classes. In this t-a0,a1-p0,p1 case, we may get data sets that are not identifiable for label-switching reasons. That is, we may be able to find the maximum likelihood mixture of binomial distributions, but not know which is Class 0 and which is Class 1.</p>
-<p>With the <span class="math inline">\(a0,a1,p0,p1\)</span> parameters, label-switching means that we swap <span class="math inline">\(\bar{t}\)</span> for <span class="math inline">\(t\)</span> and the two corresponding means swap as well. That requires some second set of the parameters <span class="math inline">\(a0',a1',p0',p1'\)</span> such that</p>
+<p>With the <span class="math inline">\(a_0,a_1,p_0,p_1\)</span> parameters, label-switching means that we swap <span class="math inline">\(\bar{t}\)</span> for <span class="math inline">\(t\)</span> and the two corresponding means swap as well. That requires some second set of the parameters <span class="math inline">\(a_0',a_1',p_0',p_1'\)</span> such that</p>
 <p><span id="eq-swap"><span class="math display">\[
 \begin{aligned}
 a_1 + \bar{a_1}p_1 &amp;= \bar{a_0}'p_0' \\
