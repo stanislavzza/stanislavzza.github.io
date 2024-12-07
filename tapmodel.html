@@ -292,7 +292,7 @@ Table&nbsp;1: The t-a-p model’s correspondence to the confusion matrix. Terms 
 </ol>
 <p>These requirements operationalize the Justified True Belief (JTB) definition of knowledge used by philosophers who study epistemology. Inaccurate ratings are those where one of the two listed conditions fails. If the rater’s belief is false and chooses the wrong category or if they choose the correct category but because of an invalid justification. The latter case corresponds loosely to Gettier-type problems, where the chain of reasoning reaches a correct conclusion, but because of flaws in perception the logic isn’t sound. A clear case of failing the justification requirement is if raters flip coins to choose categories. Coin flipping is entirely random, but even good raters have some randomness inherent to the classifications. That randomness is the usual starting point for chance-corrected agreement statistics.</p>
 <p>The rating process just described lends itself to a tree diagram that illustrates three variables as conditional probabilities: (1) the true Class 1 rate <span class="math inline">\(t\)</span>, (2) rater accuracy <span class="math inline">\(a\)</span>, and (3) the probability <span class="math inline">\(p\)</span> of choosing <span class="math inline">\(\widehat{C_1}\)</span> when rating inaccurately. On the diagram, it’s convenient to use a bar over a variable to denote its complementary probability, e.g.&nbsp;<span class="math inline">\(\bar{a} = 1 - a\)</span>.</p>
-<div id="fig-tree" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="t-a-p model diagram">
+<div id="fig-tree" class="quarto-float quarto-figure quarto-figure-center anchored" alt="t-a-p model diagram" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-tree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/tap diagram.png" class="border img-fluid quarto-figure quarto-figure-center figure-img" alt="t-a-p model diagram">
@@ -467,8 +467,8 @@ Figure&nbsp;3: Rating distributions with t = .3, a = .7, p = .2. Plot A has 20 s
 <p><span id="eq-efficient-likelihood"><span class="math display">\[
 \begin{aligned}
 \ell(t,a,p;R_1, \dots, R_N, k_1, \dots,k_N) &amp;= \sum_{i = 1}^N \log \left( t\binom{R_i}{k_i}(a + \bar{a}p)^{k_i}(\bar{a}\bar{p})^{R_i-k_i} +  \bar{t}\binom{R_i}{k_i}(\bar{a}p)^{k_i}(1-\bar{a}p)^{R_i-k_i} \right)  \\
-&amp;= \sum_{i = 1}^N \log \left( t\text{binom}(R_i,k_i,a + \bar{a}p) +  \bar{t}\text{binom}(R_u,k_u,\bar{a}p) \right)  \\
-&amp;= \sum_{u = 1}^{\text{unique}(R_i,k_i)}n_u \left[ \log \left( t\text{binom}(R_i,k_i,a + \bar{a}p) +  \bar{t}\text{binom}(R_u,k_u,\bar{a}p) \right)  \right]\\
+&amp;= \sum_{i = 1}^N \log \left( t\text{binom}(R_i,k_i,a + \bar{a}p) +  \bar{t}\text{binom}(R_i,k_u,\bar{a}p) \right)  \\
+&amp;= \sum_{u = 1}^{\text{unique}(R_i,k_i)}n_u \left[ \log \left( t\text{binom}(R_u,k_i,a + \bar{a}p) +  \bar{t}\text{binom}(R_u,k_u,\bar{a}p) \right)  \right]\\
 \end{aligned}
 \tag{2}\]</span></span></p>
 <p>where <span class="math inline">\(k_i=\sum_{j}C_{ij}\)</span> is the number of Class 1 ratings for subject <span class="math inline">\(i\)</span>. The sum over the logs is justified by the assumption that ratings are independent (i.e.&nbsp;multiplying probabilities). The <span class="math inline">\(t\)</span> and <span class="math inline">\(\bar{t}\)</span> terms at the top of <a href="#eq-efficient-likelihood" class="quarto-xref">Equation&nbsp;2</a> are the mixing proportions for the two classes.</p>
