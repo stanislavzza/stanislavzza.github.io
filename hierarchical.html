@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -55,7 +55,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -70,10 +90,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-f3c2ea88cadbcfb37ba28ffa2c97cfc1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -101,6 +121,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XP6WMESY52"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-XP6WMESY52', { 'anonymize_ip': true});
+</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -172,12 +201,22 @@ window.Quarto = {
    
   <ul class="collapse">
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
-  <li><a href="#binary-truth" id="toc-binary-truth" class="nav-link" data-scroll-target="#binary-truth"><span class="header-section-number">2</span> Binary Truth</a></li>
-  <li><a href="#probability-instead-of-truth" id="toc-probability-instead-of-truth" class="nav-link" data-scroll-target="#probability-instead-of-truth"><span class="header-section-number">3</span> Probability Instead of Truth</a></li>
-  <li><a href="#a-em-approach" id="toc-a-em-approach" class="nav-link" data-scroll-target="#a-em-approach"><span class="header-section-number">4</span> A EM Approach</a></li>
-  <li><a href="#model-notation" id="toc-model-notation" class="nav-link" data-scroll-target="#model-notation"><span class="header-section-number">5</span> Model Notation</a></li>
+  <li><a href="#hierarchical-likelihood" id="toc-hierarchical-likelihood" class="nav-link" data-scroll-target="#hierarchical-likelihood"><span class="header-section-number">2</span> Hierarchical Likelihood</a></li>
+  <li><a href="#truth-parameters" id="toc-truth-parameters" class="nav-link" data-scroll-target="#truth-parameters"><span class="header-section-number">3</span> Truth Parameters</a></li>
+  <li><a href="#rater-parameters" id="toc-rater-parameters" class="nav-link" data-scroll-target="#rater-parameters"><span class="header-section-number">4</span> Rater Parameters</a></li>
+  <li><a href="#units-of-likelihood" id="toc-units-of-likelihood" class="nav-link" data-scroll-target="#units-of-likelihood"><span class="header-section-number">5</span> Units of Likelihood</a>
+  <ul class="collapse">
+  <li><a href="#likelihood-as-information" id="toc-likelihood-as-information" class="nav-link" data-scroll-target="#likelihood-as-information"><span class="header-section-number">5.1</span> Likelihood as Information</a></li>
+  <li><a href="#signal-and-noise" id="toc-signal-and-noise" class="nav-link" data-scroll-target="#signal-and-noise"><span class="header-section-number">5.2</span> Signal and Noise</a></li>
+  </ul></li>
+  <li><a href="#assessing-model-fit" id="toc-assessing-model-fit" class="nav-link" data-scroll-target="#assessing-model-fit"><span class="header-section-number">6</span> Assessing Model Fit</a>
+  <ul class="collapse">
+  <li><a href="#example-uniform-raters" id="toc-example-uniform-raters" class="nav-link" data-scroll-target="#example-uniform-raters"><span class="header-section-number">6.1</span> Example: Uniform Raters</a></li>
+  <li><a href="#example-ptsd-data" id="toc-example-ptsd-data" class="nav-link" data-scroll-target="#example-ptsd-data"><span class="header-section-number">6.2</span> Example: PTSD Data</a></li>
+  </ul></li>
+  <li><a href="#bayesian-models" id="toc-bayesian-models" class="nav-link" data-scroll-target="#bayesian-models"><span class="header-section-number">7</span> Bayesian Models</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="hierarchical.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</nav>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
@@ -213,84 +252,563 @@ window.Quarto = {
 
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
-<p>We’ve seen how adding parameters to the simple kappa models leads to more general t-a-p models. Adding more parameters is possible to generate details that are hidden by averaging. The Cohen Kappa is an old example of this, where each rater has a different <span class="math inline">\(p\)</span> probability of guessing correctly.</p>
-<p>This idea can be expanded, for example to simultaneously estimate the accuracy of each rater and classification of subject individually. Such models are sometimes called hierarchical or random effects models or fixed effects models, depending on the research tradition. (As noted in <span class="citation" data-cites="agresti2003categorical">@agresti2003categorical</span>, p.&nbsp;523 and <span class="citation" data-cites="gelman2006data">@gelman2006data</span>, p.&nbsp;245, fixed versus random effects are not good descriptions for Bayesian models.) What these larger models have in common is that they allow for complex relationships of average and individual parameters, for example having a grand average accuracy parameter <span class="math inline">\(a\)</span> in addition to individual accuracy parameters <span class="math inline">\(a_j\)</span> for each rater <span class="math inline">\(j\)</span>. In a Bayesian context, we can do “partial pooling” by allowing the scale (standard deviation) of the <span class="math inline">\(a_j\)</span> parameters to be estimated from the data, rather than fixed at a constant value. This allows the model to estimate the degree to which the raters are similar to each other, and to the grand average, which can increase likelihood, producing better model fit.</p>
-<p>Individual rater parameters and subject truth values are of interest in many contexts. In educational psychology, we might want to know how well a teacher is able to assess student learning, and how well the students demonstrate knowledge or skill. In medical research, we might want to know how well a doctor is able to diagnose a disease, and how well the patients are responding to treatment. In machine learning, we may be concerned with the quality of training data drawn from human classifications. The ratings of consumer products on sites like Amazon or Yelp can be polluted with unfaithful reviews, so some means of detection is valuable.</p>
-<p>Allowing for each rater to have an accuracy parameter is straightforward, but the truth value of each subject is more complicated. For concreteness, consider a model where each subject has a true classification <span class="math inline">\(T_i\)</span> of Class 1 or Class 0, and each rater has an accuracy parameter <span class="math inline">\(a_j\)</span>. Finally, suppose the <span class="math inline">\(p\)</span> “guessing” parameter is treated as a nuisanse coefficient with a fixed scalar <span class="math inline">\(p\)</span>. Using the tree diagram, we can write the conditional probabilities for each rating of Class 1 as <span class="math inline">\(Pr[C_{ij} = 1] = T_ia_j + \bar{a_j}p\)</span> and hence <span class="math inline">\(Pr[C_{ij} = 0] = 1 - T_ia_j - \bar{a_j}p\)</span>. For independent observations, the log likelihood function can then be updated by summing over</p>
-<p><span class="math display">\[
-L = -\sum_{i,j} \left[ C_{ij}\log(T_ia_j + \bar{a_j}p) + \bar{C_{ij}}\log(1 - T_ia_j - \bar{a_j}p) \right]
-\]</span>In the notation, capital letters are used for binary variables and lower case for scalars, which are usually in <span class="math inline">\([0,1]\)</span>. The <span class="math inline">\(C_{ij}\)</span> values are the observations (the data from the ratings), so that only one of the summands in the expression will be non-zero at a time, depending on whether the rating was Class 1 or Class 0. The <span class="math inline">\(T_i\)</span> values are the unknown true classifications, which can only be 1 or 0, for Class 1 or Class 0.</p>
+<p>In <a href="./paradox.html">Chapter 4: The Kappa Paradox</a> we saw how adding parameters can increase the explanatory power of t-a-p models. This is an old idea. The Cohen kappa <span class="citation" data-cites="cohen1960coefficient">(<a href="#ref-cohen1960coefficient" role="doc-biblioref">Cohen, 1960</a>)</span> dates from the 1960s, and for large data sets can be seen as a variation of the Fleiss kappa, but where each rater has a parameter for random assigments. In the original paper, the formula is derived for two rates, but it can be expanded to any number of them. The application of that idea to the three parameter t-a-p model is to create a <span class="math inline">\(p_j\)</span> parameter for each rater <span class="math inline">\(j\)</span>. However, this involves complications, and is treated toward the end of this chapter.</p>
+<p>The expansion of model parameters maximally includes coefficients for each rater and subject. For example, we could assign a truth parameter <span class="math inline">\(t_i\)</span> to each subject <span class="math inline">\(i\)</span>, and accuracy and random assignment parameters <span class="math inline">\(a_j\)</span> and <span class="math inline">\(p_j\)</span>, respectively, to each rater <span class="math inline">\(j\)</span>. The latter requires that we have IDs for the raters. Generally, regression models like this are called hierarchical models or random effects models or fixed effects models, depending on the research tradition (As noted in <span class="citation" data-cites="agresti2003categorical">Agresti (<a href="#ref-agresti2003categorical" role="doc-biblioref">2003</a>)</span>, p.&nbsp;523 and <span class="citation" data-cites="gelman2006data">Gelman &amp; Hill (<a href="#ref-gelman2006data" role="doc-biblioref">2006</a>)</span>, p.&nbsp;245, fixed versus random effects are not good descriptions for Bayesian models).</p>
+<p>The three parameter t-a-p model is <em>already</em> hierarchical in the sense that the ratings for each subject are clustered for analysis. That’s how we create a distribution of agreement to compare with a binomial mixture. The hierarchical model we’re discussing in this chapter is a further extension of that idea, where we add parameters to the model, generally for one of two reasons. One reason is to increase model fit by accounting for variation in the data that is not explained by the three average parameters. The other reason is to obtain estimates for individual subjects or raters.</p>
+<p>Individual rater parameters and subject truth values are of interest in many contexts. In educational psychology, we might want to know how well a teacher is able to assess student learning, and how well the students demonstrate knowledge or skill. In medical research, we might want to know how well a doctor is able to diagnose a disease, and how well the patients are responding to treatment. In machine learning, we may be concerned with the quality of training data drawn from human classifications. The ratings of consumer products on sites like Amazon or Yelp can be polluted with unfaithful reviews, so some means of detection is valuable. Likewise, individual subject truth parameters are valuable if we want to make decisions with the rating data, for example in a medical diagnosis, a pass/fail assessment of student learning, or using product ratings to make a selection.</p>
 </section>
-<section id="binary-truth" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Binary Truth</h1>
-<p>So far we have treated truth as a metaphysical property of each subject: we’ve assumed an unknown true classification for each subject. This assumption makes the general t-a-p model easy to analyze by using binomial mixtures because we only need to estimate the <em>fraction</em> of true Class 1 cases.</p>
-<p>In the derivation of the t-a-p model we used <span class="math inline">\(T_i\)</span> to denote the true binary classification of subject <span class="math inline">\(i\)</span>, and <span class="math inline">\(t\)</span> to denote the proportion of subjects that are Class 1. The <span class="math inline">\(t\)</span> parameter became the mixture weight (a scalar) in the binomial mixture model. This presented no computational challenges, because each of the three parameters is a scalar in <span class="math inline">\([0,1]\)</span>, and the likelihood function is differentiable.</p>
-<p>To estimate individual rater accuracy using metaphysical truth, we have to deal with binary values in the function, which means it cannot be differentiated. This is a problem for many optimization algorithms, which require smoothness to find a maximum value. One work-around is to use a threshold function, as is used in logistic regression, neural nets, and so forth. This corresponds to the idea from psychological measurement, where a “latent” variable is allowed to have real values, usually with a normal distribution centered at zero, but the value is not directly observed or measured. For example, we might imagine that college students have an abstract trait of “writing ability” that is approximately normally distributed over the universe of students. We then convert from the latent scale to an approximation of a discrete one by applying a threshold function <span class="math inline">\(\tau\)</span> like the logistic function. For example, <span class="math inline">\(\tau(s) = 1/(1+e^{-cs})\)</span> has the property that <span class="math inline">\(\tau(0) = 1/2\)</span> , <span class="math inline">\(\tau(s) \rightarrow 0\)</span> as <span class="math inline">\(s \rightarrow -\infty\)</span> and <span class="math inline">\(\tau(s) \rightarrow 1\)</span> as <span class="math inline">\(s \rightarrow \infty\)</span>. The steepness of the transition from zero to one (the thresholding) can be adjusted via the parameter <span class="math inline">\(c\)</span>, which can be used in conjunction with the scale (standard deviation) of the distribution used as a prior for the latent variable in a Bayesian analysis.</p>
+<section id="hierarchical-likelihood" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Hierarchical Likelihood</h1>
+<p>So far we have relied on using the rated subject as a unit of analysis (the hierarchical element just mentioned). This approach averages out differences in raters, so that we are in effect assuming all the raters are the same. That assumption allows for an efficient method of calculating likelihood for each subject and accumulating it as a way to fit the parameters. From <a href="./tapmodel.html">Chapter 2: The t-a-p Model</a>, we have</p>
+<p><span id="eq-efficient-likelihood"><span class="math display">\[
+\begin{aligned}
+\ell(t,a,p; &amp; R_1, \dots, R_N, k_1, \dots,k_N) = \\
+&amp; \sum_{u = 1}^{\text{unique}(R_i,k_i)}n_u \left[ \log \left( t\,\text{binom}(R_u,k_u,a + \bar{a}p) +  \bar{t}\,\text{binom}(R_u,k_u,\bar{a}p) \right)  \right].\\
+\end{aligned}
+\tag{1}\]</span></span></p>
+<p>The log-likelihood function sums over each unique combination of raters <span class="math inline">\(R_u\)</span> and Class 1 ratings <span class="math inline">\(k_u\)</span>, with count <span class="math inline">\(n_u\)</span>. The values for <span class="math inline">\(R_u\)</span>, <span class="math inline">\(k_u\)</span>, and <span class="math inline">\(n_u\)</span> come from counting the ratings in the data. The <span class="math inline">\(n_u\)</span> count sums up how many subjects have the same combination of raters and Class 1 ratings <span class="math inline">\((R_u,k_u)\)</span>. Assuming there is no other ways to distinguish subjects, the three empirical values <span class="math inline">\(R_u\)</span>, <span class="math inline">\(k_u\)</span>, and <span class="math inline">\(n_u\)</span> are all we have to distinguish one subject from another. Since truth values are subject-dependent (not rater dependent), the distributional form of a binomial mixture puts the <span class="math inline">\(t\)</span> outside the binomial distribution function in the likelihood. Without changing much, we could imagine replacing the average <span class="math inline">\(t\)</span> with individual parameters, which with the arguments on the left hidden in <span class="math inline">\(\cdot\)</span>, is</p>
+<p><span id="eq-likelihood-t_u"><span class="math display">\[
+\begin{aligned}
+\ell(\cdot) &amp;= \sum_{u = 1}^{\text{unique}(R_i,k_i)}n_u \left[ \log \left( t_u\,\text{binom}(R_u,k_u,a + \bar{a}p) +  \bar{t_u}\,\text{binom}(R_u,k_u,\bar{a}p) \right)  \right],\\
+\end{aligned}
+\tag{2}\]</span></span></p>
+<p>where <span class="math inline">\(t_u\)</span> now indexes a truth parameter for subjects that have the same number of raters and Class 1 ratings, the unique <span class="math inline">\((R_u,k_u)\)</span> pairs. Note that one of the terms <span class="math inline">\(\text{binom}(R_u,k_u,a + \bar{a}p)\)</span> and <span class="math inline">\(\text{binom}(R_u,k_u,\bar{a}p)\)</span> will usually be larger than the other, so if we maximize likelihood with <span class="math inline">\(t_u\)</span> as a free parameter, the optimization will push these truth probabilities toward binary values. Recall that we assumed binary truth in the general t-a-p model. As a demonstration of that using MCMC estimation <a href="./hierarchical-demo-1.html">see the demo</a>. However, assuming that the collection of cases with the same <span class="math inline">\(R_u\)</span> and <span class="math inline">\(k_u\)</span> values are have the same class is unrealistic. In the next section we’ll consider values for the <span class="math inline">\(t_u\)</span> parameters that average over subjects.</p>
+<p>If we consider individual rater parameters, as with the Cohen kappa, we can’t use the formulation of the likelihood function in <a href="#eq-efficient-likelihood" class="quarto-xref">Equation&nbsp;1</a>, because the raters are not usually clustered in the same way as the subjects. Computing the probability of a combination <span class="math inline">\((R_u,k_u)\)</span> when raters do not have a common accuracy or random assignment parameter is more complex.</p>
+<p>If we abondon the binomial form and consider each rating as a unit of analysis, the log likelihood function for an assignment of raters and their characteristics to ratings is</p>
+<p><span id="eq-likelihood-rating"><span class="math display">\[
+\begin{aligned}
+\ell_{\text{rating}}(\cdot) &amp;= \sum_{i,j} C_{ij}\log \left( t_ia_j + \bar{a_j}p_j \right)  + \\
+&amp; \sum_{i,j}\bar{C_{ij}}\log \left( 1- t_ia_j - \bar{a_j}p_j \right).
+\end{aligned}
+\tag{3}\]</span></span></p>
+<p>The sum is over all ratings, and the <span class="math inline">\(t_i\)</span>, <span class="math inline">\(a_j\)</span>, and <span class="math inline">\(p_j\)</span> parameters are indexed by subject and rater. Here, <span class="math inline">\(C_{ij}\)</span> is the binary classification assigned by rater <span class="math inline">\(j\)</span> to subject <span class="math inline">\(i\)</span>, and <span class="math inline">\(\bar{C_{ij}}\)</span> is the opposite classification. Since each rater only assigns a single rating to a subject, exactly one of <span class="math inline">\(C_{ij}\)</span> and <span class="math inline">\(\bar{C_{ij}}\)</span> will be non-zero. In contrast to the combinatoric formulation in <a href="#eq-efficient-likelihood" class="quarto-xref">Equation&nbsp;1</a>, we’re summing over both the ratings of Class 0 and Class 1 (not just counts of Class 1), and since raters are now identified and matched to ratings, the factor <span class="math inline">\(\binom{R}{k}\)</span> is gone. I’ll refer to this variation as <strong>rating</strong> likelihood, since we accumulate over each rating instead of over each subject, as with <a href="#eq-efficient-likelihood" class="quarto-xref">Equation&nbsp;1</a>.</p>
+</section>
+<section id="truth-parameters" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Truth Parameters</h1>
+<p>The t-a-p model assumes that in the unknowable background, there are “latent” binary states <span class="math inline">\(T_i \epsilon  \{0,1\}\)</span> for each subject <span class="math inline">\(i\)</span>. The average truth parameter <span class="math inline">\(t\)</span> is the estimated proportion of subjects that are in Class 1 in truth. How much can we know about the <span class="math inline">\(T_i\)</span>’s in hierarchical models?</p>
+<p>In t-a-p models with average <span class="math inline">\(a\)</span> and <span class="math inline">\(p\)</span> we can only distinguish subjects by the number of raters and Class 1 ratings each recieves. This is the <span class="math inline">\((R_u, k_u)\)</span> pair in <a href="#eq-efficient-likelihood" class="quarto-xref">Equation&nbsp;1</a>. Suppose we now imagine an average truth parameter <span class="math inline">\(t_u\)</span> for each of these combinations. The conditional probability that the true class of subject <span class="math inline">\(i\)</span> is 1 (notated <span class="math inline">\(T_i = 1\)</span>) given that the number of Class 1 ratings for that subject is <span class="math inline">\(k_u\)</span> out of <span class="math inline">\(R_u\)</span> total ratings is</p>
+<p><span id="eq-class1-prob"><span class="math display">\[
+\begin{aligned}
+Pr[T_i = 1|N_r = R_u, N_c = k_u] &amp;= \frac{Pr[T_i = 1]Pr[N_c = k_u|T_i = 1, N_r = R_u]}{ Pr[N_c = k_u]} \\
+&amp;= \frac{t\,\text{Binom}(R_u,k_u,a+\bar{a}p)}{t\,\text{Binom}(R_u,k_u,a+\bar{a}p) + \bar{t}\,\text{Binom}(R_u,k_u,\bar{a}p)},
+\end{aligned}
+\tag{4}\]</span></span></p>
+<p>where <span class="math inline">\(N_r\)</span> and <span class="math inline">\(N_c\)</span> are placeholders for number of raters and Class 1 ratings, respectively.</p>
+<p>For illustration, simulated ratings of ten raters with <span class="math inline">\(t= .5\)</span>, <span class="math inline">\(a = .6\)</span> and <span class="math inline">\(p = .3\)</span> are shown in <a href="#fig-sample-distro" class="quarto-xref">Figure&nbsp;1</a>. The plot shows the distribution of the number of Class 1 ratings <span class="math inline">\(k\)</span> out of 10 for true Class 1 cases, with the binomial mixture distribution overlaid.</p>
 <div class="cell">
 <details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' plot the logistic function from [-5,5] with three different thresholding constants</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>,<span class="dv">5</span>,.<span class="dv">1</span>), <span class="at">c =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,.<span class="dv">5</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">y =</span> <span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(<span class="sc">-</span>c<span class="sc">*</span>x)))</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">color =</span> <span class="fu">as.factor</span>(c))) <span class="sc">+</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"s"</span>) <span class="sc">+</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"tau(s)"</span>) <span class="sc">+</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>(<span class="at">name =</span> <span class="st">"c"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Illustrate a t-a-p binomial mixture distribution of Class 1 Counts</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> .<span class="dv">6</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> .<span class="dv">3</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>pr_c0 <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">-</span>a)<span class="sc">*</span>p </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>pr_c1 <span class="ot">&lt;-</span> a <span class="sc">+</span> pr_c0</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>distr <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">N_c =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>           <span class="fu">rowwise</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>           <span class="fu">mutate</span>(<span class="st">`</span><span class="at">Pr[k|C0]</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">dbinom</span>(N_c, <span class="dv">10</span>, pr_c0),</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                  <span class="st">`</span><span class="at">Pr[k}C1]</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">dbinom</span>(N_c, <span class="dv">10</span>, pr_c1),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                  <span class="st">`</span><span class="at">Pr[C1|k]</span><span class="st">`</span> <span class="ot">=</span> <span class="st">`</span><span class="at">Pr[k}C1]</span><span class="st">`</span><span class="sc">/</span>(<span class="st">`</span><span class="at">Pr[k|C0]</span><span class="st">`</span> <span class="sc">+</span> <span class="st">`</span><span class="at">Pr[k}C1]</span><span class="st">`</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>           <span class="fu">gather</span>(Class, Probability, <span class="sc">-</span>N_c)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>distr <span class="sc">|&gt;</span> </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> N_c, <span class="at">y =</span> Probability, <span class="at">color =</span> Class)) <span class="sc">+</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Number of Class 1 Ratings"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="fig-threshold" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-sample-distro" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-threshold-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="hierarchical_files/figure-html/fig-threshold-1.png" class="img-fluid figure-img" width="480">
+<div aria-describedby="fig-sample-distro-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="hierarchical_files/figure-html/fig-sample-distro-1.png" class="img-fluid figure-img" width="432">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-threshold-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: The logistic function, <span class="math inline">\(\tau(s) = 1/(1+e^{-cs})\)</span>, with <span class="math inline">\(c = 1, 2, .5\)</span>.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sample-distro-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Sample distribution of Class 1 ratings counts, with <span class="math inline">\(t= .5\)</span>, <span class="math inline">\(a = .6\)</span> and <span class="math inline">\(p=.3\)</span>. The green and blue lines show the density functions for true Class 0 and Class 1 cases, respecitvely. The red line shows the probability of a Class 1 subject given the number of Class 1 ratings received.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Use of the threshold function (sometimes called a sigma function because it looks like an S) with a restrictive prior distribution constrains the domain of the latent variables for computational efficiency. This arrangement allows the truth parameters to remain real values, and the log likelihood function to be differentiable, but it approximates a discrete truth value because applying the transformation forces the values toward zero or one. The modification to the likelihood function is straightforward.</p>
-<p><span class="math display">\[
-L = -\sum_{i,j} \left[ C_{ij}\log(\tau_i(s)a_j + \bar{a_j}p) + \bar{C_{ij}}\log(1 - \tau_i(s)a_j - \bar{a_j}p) \right]
-\]</span></p>
-<p>This approach is similar to item response theory or Rasche models. One advantage is that it’s straightforward to include predictor variables in the model, for example to estimate the effect of a rater’s experience (e.g.&nbsp;age, number of ratings) on their accuracy.</p>
-<p>An alternative approach is the Expectation-Maximization (EM) algorithm, which is a general method for estimating parameters in models with latent variables. The EM algorithm is a two-step process, where the E-step computes the expected value of the latent variables given the current parameter estimates, and the M-step updates the parameter estimates given the expected values of the latent variables. The EM algorithm is guaranteed to converge to a local maximum of the likelihood function, but it is not guaranteed to find the global maximum. In practice, I have not found the EM algorithm to give good results unless the binomial distributions are widely separated in the mixture (e.g.&nbsp;<span class="math inline">\(a &gt; .5\)</span>).</p>
+<p>The green and blue lines in <a href="#fig-sample-distro" class="quarto-xref">Figure&nbsp;1</a> trace the distribution of Class 1 ratings out of ten for true Class 0 and Class 1 cases, respectively. The bump in the blue line to the right is because true Class 1 cases are likely to get more Class 1 assignments, since the accuracy is reasonably high. The most likely outcome for a true Class 0 subject is only one Class 1 rating (green line above <span class="math inline">\(k = 1\)</span>). The red line answers the question “given that we see <span class="math inline">\(k\)</span> Class 1 ratings, what is the probability that the subject is Class 1 in truth?” This is the conditional probability denoted <span class="math inline">\(Pr[C_1|k]\)</span>. At <span class="math inline">\(k=4\)</span>, meaning a subject got four Class 1 classifications from raters and six of Class 0, it’s more than 50% likely that the subject is Class 1, but it’s close to a coin flip. With fewer than four Class 1 ratings, it’s much more likely that the subject is Class 0.</p>
+<p>The conditional probabilities in red in <a href="#fig-sample-distro" class="quarto-xref">Figure&nbsp;1</a> can be used as estimates for <span class="math inline">\(t_u\)</span> in <a href="#eq-likelihood-t_u" class="quarto-xref">Equation&nbsp;2</a> by first estimating the average t-a-p coefficients and then applying the conditional probability formula for each combination of raters and ratings.</p>
 </section>
-<section id="probability-instead-of-truth" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Probability Instead of Truth</h1>
-<p>An alternative truth model is useful for hierarchical models, where we assume merely that each subject has a probability of being in Class 1, rather than a cryptic truth value. Here we imagine that each subject’s ratings for proficient raters is itself a binomial mixture with mixing parameter <span class="math inline">\(t\)</span>. This is like embedding the whole t-a-p model within each subject, and the combined likelihood function is a binomial mixture that possibly has unique contributions from each subject (if they all have unique true probabilities <span class="math inline">\(t_i\)</span>). The log-likelihood function becomes</p>
+<section id="rater-parameters" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Rater Parameters</h1>
+<p>Suppose that we estimate the <span class="math inline">\(t_u\)</span> parameters as just described, and that we have rater IDs in the data set. Then for each rater we can create a confusion matrix of the ratings they assigned verus the estimated true class probabilities. From <a href="./introduction.html">Chapter 1</a> we have the following average rates in the table, where the average true Class 1 rate <span class="math inline">\(t\)</span> has been replaced with <span class="math inline">\(t_u\)</span> and average <span class="math inline">\(a\)</span> and <span class="math inline">\(p\)</span> are now specific to rater <span class="math inline">\(j\)</span>.</p>
+<div id="tbl-tap-confusion" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-tap-confusion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: The confusion matrix for a combination of raters <span class="math inline">\(R\)</span> and Class 1 ratings <span class="math inline">\(k\)</span> applied rater <span class="math inline">\(j\)</span>. Terms in parentheses are inaccurate ratings. TPR = true positive rate, etc.
+</figcaption>
+<div aria-describedby="tbl-tap-confusion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 27%">
+<col style="width: 47%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>True C1</th>
+<th>True C0</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Classified C1</td>
+<td>TPR <span class="math inline">\(= t_ua_j + (t_u\bar{a}_jp_j)\)</span></td>
+<td>FPR <span class="math inline">\(=(\bar{t}_u\bar{a}_jp_j)\)</span></td>
+</tr>
+<tr class="even">
+<td>Classified C0</td>
+<td>FNR <span class="math inline">\(=(t_u\bar{a}_j\bar{p}_j)\)</span></td>
+<td>TNR <span class="math inline">\(=\bar{t}_ua_j + (\bar{t}_u\bar{a}_j\bar{p}_j)\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Given the estimated <span class="math inline">\(t_u\)</span> values and rater-identified ratings, we can populate the estimated probabilities in the confusion matrix in <a href="#tbl-tap-confusion" class="quarto-xref">Table&nbsp;1</a>, and then use algebra to solve for the <span class="math inline">\(a_j\)</span> and <span class="math inline">\(p_j\)</span> parameters, with</p>
 <p><span class="math display">\[
-L = -\sum_{i,j} \left[ C_{ij}\log(t_ia_j + \bar{a_j}p) + \bar{C_{ij}}\log(1 - t_ia_j - \bar{a_j}p) \right]
+\begin{aligned}
+a_j &amp;= \text{TPR}/t_u - \text{FPR}/\bar{t}_u \\
+p_j &amp;= \frac{\text{FPR}}{\bar{a}_j\bar{t}_u}.
+\end{aligned}
 \]</span></p>
-<p>Where <span class="math inline">\(t_i \epsilon [0,1]\)</span> is a unit scalar probability that subject <span class="math inline">\(i\)</span> is Class 1. Although the notation change is minor, this version of the model has significant differences from the discrete truth model. In the binary truth t-a-p model, each subject’s ratings will have a binomial distribution of the number of class 1 ratings assigned by raters. That distribution will be one of two types, which are summed with the weights <span class="math inline">\(t\)</span> (for true Class 1 cases) and <span class="math inline">\(\bar{t}\)</span> (for true Class 0 cases). This creates a binomial mixture distribution as we have seen, one binomial for each of the true class types, combined by the frequency of each.</p>
-<p>If instead of binary truth for each subject, we switch to a probability <span class="math inline">\(t \epsilon [0,1]\)</span>, each rater’s classification is a combination of the possibilities that the subject is truly Class 1 or Class 0. Consider an example where the <span class="math inline">\(t\)</span> scalar is .5 for each subject, indicating that the subjects are half Class 1, but we don’t know which half. The probability of a rater assigning Class 1 is <span class="math inline">\(t_ia + \bar{a}p\)</span> instead of <span class="math inline">\(T_ia_j + \bar{a_j}p\)</span> in the discrete case. The difference is that the accuracy rating is applied partially instead of fully or not at all. For binary truth, it is the <span class="math inline">\(T_ia\)</span> term that creates the mixture of two binomial distributions, and the difference in means between them is <span class="math inline">\(a\)</span>. With probabilistic truth, there is one binomial distribution for each value of <span class="math inline">\(t_i\)</span>, and the absolute difference in means between subject 1 and subject 2 is <span class="math inline">\(|t_1 - t_2|a\)</span>, for constant <span class="math inline">\(a\)</span> and <span class="math inline">\(p\)</span> parameters. If all the subjects have the same truth probability, there’s not a mixture at all, just a single binomial distribution of Class 1 ratings.</p>
-<p>This case is somewhat like using the threshold function <span class="math inline">\(\tau(s)\)</span> with a small <span class="math inline">\(c\)</span> parameter that creates a gradual slope threshold. Following this idea, we could let the <span class="math inline">\(c\)</span> parameter itself be fitted as part of the MCMC estimation process. In my limited attempts with this idea, there has not been enough selective pressure on the parameter to matter.</p>
+<p>To illustrate, I’ll try this out on the PTSD data set.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ptsd)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># convert Q2 to long form</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> ptsd <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Question <span class="sc">==</span> <span class="st">"Q2"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Question) <span class="sc">|&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(RaterID, Rating, <span class="sc">-</span>SubjectID) <span class="sc">|&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rater_id =</span> <span class="fu">as.integer</span>(<span class="fu">str_extract</span>(RaterID,<span class="st">"</span><span class="sc">\\</span><span class="st">d+"</span>)),</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">rating  =</span> Rating <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">subject_id =</span> SubjectID, rating, rater_id)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># summary of ratings by combination (R, k)</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">as_counts</span>(ratings)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># get average t-a-p parameter estimates</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>params <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">fit_counts</span>(counts)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># compute the rater stats a_j and p_j</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>rater_stats <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">estimate_aj_pj</span>(ratings, params)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># display results</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>rater_stats <span class="sc">|&gt;</span> </span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="tbl-rater-params" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-rater-params-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Rater parameters estimated from the confusion matrix, showing the ID of the rater from the ordinal data with individual rater statistics: c1 is the rate of class 1 assignments; tpr is the true positive rate given the induced truth estimates, and similarly with tnr, fpr, and fnr; a_j and p_j are the t-a-p model parameters for this rater; and bias is p_j - t_i.
+</figcaption>
+<div aria-describedby="tbl-rater-params-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">rater_id</th>
+<th style="text-align: right;">c1</th>
+<th style="text-align: right;">tpr</th>
+<th style="text-align: right;">tnr</th>
+<th style="text-align: right;">fpr</th>
+<th style="text-align: right;">fnr</th>
+<th style="text-align: right;">a_j</th>
+<th style="text-align: right;">p_j</th>
+<th style="text-align: right;">bias</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.84</td>
+<td style="text-align: right;">0.54</td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">0.30</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.36</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">0.46</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.44</td>
+<td style="text-align: right;">0.38</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">0.65</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">-0.05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.56</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.79</td>
+<td style="text-align: right;">0.64</td>
+<td style="text-align: right;">0.10</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.80</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">0.26</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.43</td>
+<td style="text-align: right;">0.99</td>
+<td style="text-align: right;">0.45</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.80</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">0.19</td>
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.39</td>
+<td style="text-align: right;">0.96</td>
+<td style="text-align: right;">0.42</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.43</td>
+<td style="text-align: right;">0.44</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">0.11</td>
+<td style="text-align: right;">0.76</td>
+<td style="text-align: right;">0.19</td>
+<td style="text-align: right;">-0.35</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.54</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">0.75</td>
+<td style="text-align: right;">0.54</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.59</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.84</td>
+<td style="text-align: right;">0.87</td>
+<td style="text-align: right;">0.33</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0.66</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">0.14</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">0.65</td>
+<td style="text-align: right;">0.87</td>
+<td style="text-align: right;">0.33</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0.60</td>
+<td style="text-align: right;">0.54</td>
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.87</td>
+<td style="text-align: right;">0.98</td>
+<td style="text-align: right;">0.44</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>There is a lot of detailed information in <a href="#tbl-rater-params" class="quarto-xref">Table&nbsp;2</a> that we seem to get for almost free. These estimates suggest that rater 1 was the least accurate and rater 10 the most accurate. This is useful information for classification improvement if it’s right. Testing the reasonableness of these conclusions is the subject of the next section.</p>
 </section>
-<section id="a-em-approach" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> A EM Approach</h1>
-<p>The expression <span class="math inline">\(ta + \bar{a}p\)</span> in the likelihood function will be maximized when <span class="math inline">\(t=1\)</span>, whether or not a threshold function is used. The nature of the t-a-p model therefore prefers discrete truth values. This suggests an EM type approach where we:</p>
+<section id="units-of-likelihood" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Units of Likelihood</h1>
+<p>The search for t-a-p model parameters from a set of ratings is done using maximum likelihood estimation. The likelihood function is a product of the probabilities of the observed ratings, given the model parameters. The objective is to find the values of the t-a-p parameters that maximize this product of probabilities. In actual computation, it is not practical to multiply probabilities, because the product of many small numbers will look like zero to a computer. Instead, we take the log of the likelihood function, which turns the product into a sum.</p>
+<p>To compute likelihood for a hierarchical model with individual parameters for subjects and raters, we first use <a href="#eq-likelihood-rating" class="quarto-xref">Equation&nbsp;3</a> to compute the log likelihood for each rating given the estimated parameters with</p>
+<p><span class="math display">\[
+\begin{aligned}
+\ell^1_{ij} &amp; := \ell(C=1|t_i,a_j,p_j) = \log(t_ia_j+\bar{a}_jp_j) \\
+\ell^0_{ij}  &amp;:=\ell(C=0|t_i,a_j,p_j) = \log (1 - t_ia_j -\bar{a}_jp_j).
+\end{aligned}
+\]</span> These are the log probabilities that a pair of subject <span class="math inline">\(i\)</span> and rater <span class="math inline">\(j\)</span> will result in a rating of 1 or 0, respectively, given the parameter estimates. The actual ratings are denoted <span class="math inline">\(C^1_{ij}\)</span> and <span class="math inline">\(C^0_{ij}\)</span>, for ratings of one and zero, respectively. The second step is to calculate the cumulative log probability over all raters and ratings using</p>
+<p><span class="math display">\[
+\ell(\cdot) = \sum_{i,j} C^1_{ij}\ell^1_{ij} + \sum_{i,j} C^0_{ij}\ell^0_{ij}.
+\]</span></p>
+<p>The classifications <span class="math inline">\(C^1_{ij}\)</span> and <span class="math inline">\(C^0_{ij}\)</span> are distributed as binomial mixtures over subjects for each rater, and in the aggregate will tend toward a bell shape. The multiplication by rater likelihoods and summation of these is similar to a dot project, so the calculation can perhaps be thought of as a kind of projection operator from the data onto the space of parameters. That idea could use further development. Since the <span class="math inline">\(\ell\)</span> coefficients are opinionated about which subjects are Class 1 because of the inclusion of <span class="math inline">\(t_i\)</span> in the calculation, the cumulative likelihood will be maximized when <span class="math inline">\(\ell^1_{ij} &gt; \ell^0_{ij}\)</span> for ratings of 1.</p>
+<section id="likelihood-as-information" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="likelihood-as-information"><span class="header-section-number">5.1</span> Likelihood as Information</h2>
+<p>Since the ratings are binary, we can use ideas from information theory to make sense of the log likelihood. From <span class="citation" data-cites="shannon1948mathematical">Shannon (<a href="#ref-shannon1948mathematical" role="doc-biblioref">1948</a>)</span>, the amount of information in a binary data stream is <span class="math inline">\(I = x \log_{\frac{1}{2} } x\)</span> per event with probability <span class="math inline">\(x\)</span>, where the information is measured in bits (binary digits). If <span class="math inline">\(x = 1/2\)</span> is the fraction of 1s in the data stream, then <span class="math inline">\(I = \log_{\frac{1}{2} } 1/2= 1\)</span> bit per symbol sent.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I will use the convention that <span class="math inline">\(\log x\)</span> means <span class="math inline">\(\log_{\frac{1}{2} } x\)</span>, without specifying the base each time. This reads oddly for those used to integer log bases, since the log of any probability with base greater than one is negative. Hence there are a lot of expressions that start with negative signs in the usual likelihood formulations. The advantage of log base 1/2 is that we don’t need the negative signs to get a result in bits. Another important difference is that when we maximize likelihood, we <em>minimize</em> the number of informational bits per rating (again, because of the lack of a minus sign).</p>
+</div>
+</div>
+<p>For a t-a-p model, the average rate of Class 1 assignments is <span class="math inline">\(c = ta + \bar{a}p\)</span>, and heuristically the expected information per rating is hence <span class="math inline">\(I_{tap} = c \log c + \bar{c} \log \bar{c}\)</span>. If all the ratings are of the same type (Class 1, say), the expression becomes zero; no information can be transmitted if the signal never changes. The maximum information rate is when <span class="math inline">\(c = 1/2\)</span>, which is <span class="math inline">\(I_{tap} = 1\)</span> bit per rating.</p>
+<p>The information <span class="math inline">\(I_{tap}\)</span> has an approximate relationship to likelihood, which is the probability of seeing the provided data set under the model assumptions. To see that, consider the accumulation of log likelihood <span class="math inline">\(\ell\)</span> by comparing the actual ratings to their probabilities under a given t-a-p model, with a sum over each classification <span class="math inline">\(\hat{C}_{ij}\)</span> by rater <span class="math inline">\(j\)</span> of subject <span class="math inline">\(i\)</span>. From <a href="#eq-likelihood-rating" class="quarto-xref">Equation&nbsp;3</a> we have</p>
+<p><span id="eq-ll-information"><span class="math display">\[
+\begin{aligned}
+\ell_{\text{rating}}(\text{ratings}|\text{model}) &amp;=  \log \prod_{i,j} Pr[C_{ij} = \hat{C}_{ij}] \\
+&amp;= \sum_{i,j} \log Pr[C_{ij} = \hat{C}_{ij}] \\
+&amp;= \sum_{\hat{C}_{ij}= 1} \log c+ \sum_{\hat{C}_{ij}= 0}  \log \bar{c}\\
+&amp; \approx N(c \log c + \bar{c} \log \bar{c}) \\
+&amp;= N I_{tap}.
+\end{aligned}
+\tag{5}\]</span></span></p>
+<p>Here, the probability <span class="math inline">\(Pr[C_{ij} = \hat{C}_{ij}]\)</span> in the fitted t-a-p model is <span class="math inline">\(c = ta + \bar{a}p\)</span> when raters assign <span class="math inline">\(\hat{C}_{ij} = 1\)</span> to a subject, and and <span class="math inline">\(\bar{c}\)</span> for <span class="math inline">\(\hat{C}_{ij} = 0\)</span>. <span class="math inline">\(N\)</span> is the number of ratings. If the model represents the data, the fraction of <span class="math inline">\(\hat{C}_{ij}= 1\)</span> is <span class="math inline">\(c\)</span>, and there will be approximately <span class="math inline">\(Nc\)</span> ratings of Class 1. From <a href="#eq-ll-information" class="quarto-xref">Equation&nbsp;5</a> it’s intuitive to compare t-a-p models on the common scale <span class="math inline">\(I_{tap}\)</span>, bits of information per rating. This isn’t technically correct, because unless the ratings are completely random, correlations within subjects interfere with the information stream analogy. We can see this most directly with the likelihood from <a href="#eq-efficient-likelihood" class="quarto-xref">Equation&nbsp;1</a>, where only counts per subject matter. For example, if three out of four raters assign a Class 1 rating with probability <span class="math inline">\(c = 1/2\)</span>, the log likelihood for that subject is</p>
+<p><span class="math display">\[
+\begin{aligned}
+\ell &amp;= \log \binom{4}{1}c^3\bar{c} \\
+&amp;= \log 4 + 4 \log \frac{1}{2} \\
+&amp;= -2 + 4 = 2 \text{ bits}
+\end{aligned}
+\]</span></p>
+<p>The within-subject variation absorbs half of the four bits that the four ratings nominally provide. A similar effect is present in calculations from <a href="#eq-likelihood-rating" class="quarto-xref">Equation&nbsp;3</a>. If one subject has 1000 raters and another subject has 5, the information of the 1000th rating of the first subject is intuitively less informative than the fifth rating from the second. Similarly, a rating from a rater with accuracy zero isn’t as informative as a rater with accuracy one. Accordingly, for hierarchical models we could consider weighting ratings according to such factors.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Research Project
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>How might we modify <a href="#eq-likelihood-rating" class="quarto-xref">Equation&nbsp;3</a> to assign weights to ratings according to the relative amount of information provided?</p>
+</div>
+</div>
+<p>In practice, we compute <span class="math inline">\(\ell_{\text{rating}}(\cdot)\)</span> from <a href="#eq-likelihood-rating" class="quarto-xref">Equation&nbsp;3</a>, and then divide by the number of ratings to get the bits per rating to get <span class="math inline">\(I_{tap}\)</span>. This can be done even for the subject-likelihood average t-a-p models computed from <a href="#eq-efficient-likelihood" class="quarto-xref">Equation&nbsp;1</a> by assigning each of the (possibly anonymous) raters the same average accuracy and random assignment parameters.</p>
+</section>
+<section id="signal-and-noise" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="signal-and-noise"><span class="header-section-number">5.2</span> Signal and Noise</h2>
+<p>In addition to splitting the ratings by the rating of 0 or 1 as in <a href="#eq-ll-information" class="quarto-xref">Equation&nbsp;5</a>, we could also split them by their accuracy. With probability <span class="math inline">\(a\)</span> a rating will be accurate, in which case we have an information stream with characteristics determined by <span class="math inline">\(t\)</span>. In the complementary case, it’s determined by <span class="math inline">\(p\)</span>. Then we can sum over the ratings to extract two kinds of information with</p>
+<p><span class="math display">\[
+\begin{aligned}
+I_{\text{signal}} &amp;= \frac{1}{N} \sum_{i,j}^N a_{ij}(t_i \log t_i + \bar{t}_i \log \bar{t}_i) \\
+I_{\text{noise}} &amp;= \frac{1}{N} \sum_{i,j}^N \bar{a}_{ij}(p_{ij} \log p_{ij} + \bar{p}_{ij}\log \bar{p}_{ij}).
+\end{aligned}
+\]</span></p>
+<p>Note that for unbiased raters (<span class="math inline">\(t=p= c\)</span>), <span class="math inline">\(I_{\text{signal}} + I_{\text{noise}} = c \log c + \bar{c} \log \bar{c} = I_{tap}\)</span>, but in general the sum of signal and noise won’t equal the average likelihood <span class="math inline">\(I_{tap}\)</span>. The information per bit of two communications channels is not generally additive when we combine them. As an example, a channel of all zeros and a channel of all ones each have zero information, but if we mix the two up, the result will be positive.</p>
+<p>The names “signal” and “noise” are borrowed from communication theory, but they can be misunderstood here. The maximum signal occurs when raters are perfectly accurate and samples are split evenly between true Class 1 and Class 0 cases. It’s not always possible or desirable to have evenly balanced classes, for example with a medical test that detects a rare condition. Such unbalanced data sets are common in ratings (see <a href="./paradox.html">Chapter 4: The Kappa Paradox</a>).</p>
+</section>
+</section>
+<section id="assessing-model-fit" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Assessing Model Fit</h1>
+<p>We can now create t-a-p models with individual parameters for raters and subjects, but how do we know that these models are any better than the simpler three-parameter t-a-p model for explaining the data? We’ll explore that question here with two basic approaches. One is to compare models directly using the likelihood scale of zero to one bits of randomness per rating. The other is to take a proposed set of model parameters and simulate new ratings sets to see how unusual the observed ratings are under the model assumptions. The outline is:</p>
 <ol type="1">
-<li><em>E step.</em> Compute the individual <span class="math inline">\(t_i\)</span> truth parameters using the probabilistic approach, then round them to 0 or 1.</li>
-<li><em>M step.</em> Compute the new fixed effects using the rounded random effects.</li>
-<li>Repeat until convergence.</li>
+<li><p>Given prior experience or literature on the given type of ratings, write down expectations for <span class="math inline">\(t\)</span> an <span class="math inline">\(a\)</span>. Compute the three-parameter t-a-p solution with <code>params = fit_counts(as_counts(ratings))</code> and inspect for reasonableness (given your priors) and degeneracy (any coefficient of zero or one). If the accuracy coefficient is less than about .3, be aware that it may be misleading. This will depend on the sample size as well as the t-a-p estimates.</p></li>
+<li><p>Use the t-a-p parameters to estimate the <span class="math inline">\(t_u\)</span> truth probabilities and rater <span class="math inline">\(a_j\)</span> and <span class="math inline">\(p_j\)</span> parameters using <code>rating_params = fit_ratings(ratings)</code> and compare the model fit for this hierarchical model to the three-parameter version using <code>model_fit_comparison(rating_params)$plot</code>. This uses the estimated parameters to simulate new ratings to see if the original data set looks like the simulated ones, an indication that the model represents the data. We’re looking for two things here. One is whether the hierarchical model has better fit (fewer bits/rating) than the average model. If not, we should probably stick with the three-parameter model to avoid overfitting. The second thing to inspect is the relationship to the simulated likelihood (bits/rating) and the dashed line indicating the likelihood for the actual data set. Ideally this line will fall well within the bell shape of the simulation distribution. That indicates that the original data is not unusual with respect to the data sets generated by those parameters.</p></li>
+<li><p>Use the <code>rating_params</code>, which have all the hierarchical coefficients, to generate new sample ratings and then see if the solver can properly estimate those coefficients. You can generate boxplots for accuracy with <code>estimate_rater_parameter_error(rating_params)$plot_a</code>. This gives us an idea of how much the sampling error combined with estimation error affect the estimates.</p></li>
+<li><p>Optionally use Bayesian models to further refine parameters and their likely distributions. The <code>shinystan</code> package has interactive tools for detailed analysis.</p></li>
 </ol>
-<p>I have not yet tried this.</p>
+<p>This process isn’t intended to produce a single statistic that tells us if the model is “good” or not. Rather, it’s intended to be a work flow that allows an analyst to develop an intuition about the data and models to aid in judgments about applications of the ratings. At all points, it’s necessary to apply judgment to test the results for reasonableness with respect to the subjects, raters, and rating processes that produced the data.</p>
+<section id="example-uniform-raters" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="example-uniform-raters"><span class="header-section-number">6.1</span> Example: Uniform Raters</h2>
+<p>As a simple illustration of model assessment, I’ll start with a simulated data set where all the raters and subjects have the same average parameters, subject only to sampling error. The data set is generated with 200 subjects and 20 raters each, with <span class="math inline">\(t = .5\)</span>, <span class="math inline">\(a = .7\)</span>, and <span class="math inline">\(p = .2\)</span> (the raters are significantly biased away from Class 1). One purpose of this example is to inspire some confidence in the method, since we already know the parameter values. Another purpose is to show how we can investigate a parameter set by simulating values from it to make sure we can recover them. This can be done, for example, after estimating parameters from a real rating set.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">generate_sample_ratings</span>(<span class="at">N_s =</span> <span class="dv">200</span>, <span class="at">N_r =</span> <span class="dv">20</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">t =</span> .<span class="dv">5</span>, <span class="at">a0 =</span> .<span class="dv">7</span>, <span class="at">a1 =</span> .<span class="dv">7</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">p0 =</span> .<span class="dv">2</span>, <span class="at">p1 =</span> .<span class="dv">2</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">details =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>params <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">fit_counts</span>(<span class="fu">as_counts</span>(ratings))</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>params <span class="sc">|&gt;</span> <span class="fu">select</span>(t, a, p) <span class="sc">|&gt;</span> <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="tbl-uniform-raters1" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-uniform-raters1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: Model fit for 20 uniform raters on 200 subjects, showing the fitted parameters for the average t-a-p model with simulated ratings where t = .5, a = .7, and p = .2.
+</figcaption>
+<div aria-describedby="tbl-uniform-raters1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">t</th>
+<th style="text-align: right;">a</th>
+<th style="text-align: right;">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.51</td>
+<td style="text-align: right;">0.69</td>
+<td style="text-align: right;">0.2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Here, we know the real values of the parameters, but normally we would not. The parameters don’t look degenerate (close to zero or one). Next we assess the likelihood in units of bits/rating.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rating_params <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">fit_ratings</span>(ratings)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>tapModel<span class="sc">::</span><span class="fu">model_fit_comparison</span>(rating_params, <span class="at">model_names =</span> <span class="fu">c</span>(<span class="st">"hierarchical"</span>,<span class="st">"average"</span>))<span class="sc">$</span>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-uniform-rater-compare" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-uniform-rater-compare-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="hierarchical_files/figure-html/fig-uniform-rater-compare-1.png" class="img-fluid figure-img" width="432">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-uniform-rater-compare-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Model fit for uniform raters, showing the simulated distribution of bits per rating for the average and hierarchical t-a-p models with simulated ratings where t = .5, a = .7, and p = .2. The vertical lines shows the bits per rating for each model with the original data set, and the densities are for data sets simulated from the respective parameters.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The model fit in <a href="#fig-uniform-rater-compare" class="quarto-xref">Figure&nbsp;2</a> shows overlapping distributions of log likelihoods for the hierarchical and average (three-parameter) t-a-p models. Recall that better fit for a model means a smaller value of bits/rating (hence larger likelihood). Here there’s no difference between the two models, so we can conclude that the hierarchical model is adding parameters with no benefit. In this case, we would choose the average three-parameter t-a-p model as the most parsimonious description of the data. Because this is simulated data, we know that’s the correct conclusion.</p>
 </section>
-<section id="model-notation" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Model Notation</h1>
-<p>It’s useful to have compact notation to describe the choices for parametrization, and I’ll use the following convention. The t-a-p model has three average parameters with metaphysical truth. The indexed model in the previous section, where truth is probabilistic, can be denoted as <span class="math inline">\(t_i\)</span>-<span class="math inline">\(a_j\)</span>-<span class="math inline">\(p\)</span>, where <span class="math inline">\(i\)</span> indexes subjects and <span class="math inline">\(j\)</span> indexes raters. Extending that model to include partial pooling for the truth parameters can be written <span class="math inline">\(t + t_i\)</span>-<span class="math inline">\(a_j\)</span>-<span class="math inline">\(p\)</span>, to denote the addition of an average truth parameter <span class="math inline">\(t\)</span>. I’m assuming here that Bayesian estimation is used with hyperparameters for the scale of the <span class="math inline">\(t\)</span> parameter.</p>
-<p>There is an epistemological complexity in indexed <span class="math inline">\(t_*\)</span>-<span class="math inline">\(a_*\)</span>-<span class="math inline">\(p_*\)</span> models that has practical implications. The three-parameter <span class="math inline">\(t\)</span>-<span class="math inline">\(a\)</span>-<span class="math inline">\(p\)</span> model assumes that each subject <span class="math inline">\(i\)</span> being observed has a true classification of Class 1 or Class 0 as indicated by the random variable <span class="math inline">\(T_i\)</span>. This is different from a model of the <em>probability</em> that a case is in Class 1. In the analysis so far, we’ve only dealt with expectations over a set of observations, so the distinction wasn’t apparent. But if we create individual parameters <span class="math inline">\(a_j\)</span> for each rater, estimating those depends on true classifications of subjects existing, even if we cannot know what they are. Not all computational methods for estimating the parameters are well-suited to enforce the discrete constraint that <span class="math inline">\(t_i \epsilon \{0,1\}\)</span> for each subject <span class="math inline">\(i\)</span>. One work-around is to average out (marginalize) truth values over the ratings for a subject. That idea is outlined in <span class="citation" data-cites="stanuser">@stanuser</span>, section 1.10 and implemented in several algorithms found in <span class="citation" data-cites="carpenter2008multilevel">@carpenter2008multilevel</span>. Another approach is to use a threshold function to map a continuous latent variable to a discrete truth value.</p>
-<p>One consideration for a <span class="math inline">\(t_*\)</span>-<span class="math inline">\(a_*\)</span>-<span class="math inline">\(p_*\)</span> model is that we must decide what model relationship there is between the <span class="math inline">\(a_*\)</span> and <span class="math inline">\(p_*\)</span> parameters. The three main options are (1) leave <span class="math inline">\(p\)</span> a global average and don’t estimate indexed parameters for it, (2) assign <span class="math inline">\(p_j\)</span> for each rater, or (3) assign <span class="math inline">\(p_i\)</span> for each subject. The second option is a Cohen kappa approach. Generally this option will have identifiability problems for unbalanced data. To see that, consider <span class="math inline">\(c_{ij} = T_i a_j + \bar{a_j}p_j\)</span> when <span class="math inline">\(T_i = 0\)</span>. If this is the large majority of cases, then the same rating will be obtained from either low accuracy or high guess rates, and the model will not be able to distinguish between them (the kappa paradox situation). This is not the case for the third option, where the <span class="math inline">\(p_i\)</span> parameters are assigned to subjects, not raters. In simulations across a range of conditions, the third option performed best, but more work needs to be done on that.</p>
+<section id="example-ptsd-data" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="example-ptsd-data"><span class="header-section-number">6.2</span> Example: PTSD Data</h2>
+<p>We’ll now analyze the PTSD data set, which has unknown true parameter values. This is not my research data, so I don’t have intuition about what reasonable answers might look like. We already generated parameter estimates for raters in <a href="#tbl-rater-params" class="quarto-xref">Table&nbsp;2</a>, so we can skip to the model comparison with the three-parameter model.</p>
+<div class="cell" data-fig-caption="Model fit for PTSD data Question 2, showing the model fit for the average and hierarchical t-a-p models with the PTSD data set. The vertical lines shows the bits per rating for each model with the original data set, and the densities are for data sets simulated from the respective parameters.">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ptsd)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># convert Q2 to long form</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> ptsd <span class="sc">|&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Question <span class="sc">==</span> <span class="st">"Q2"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Question) <span class="sc">|&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(RaterID, Rating, <span class="sc">-</span>SubjectID) <span class="sc">|&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rater_id =</span> <span class="fu">as.integer</span>(<span class="fu">str_extract</span>(RaterID,<span class="st">"</span><span class="sc">\\</span><span class="st">d+"</span>)),</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">rating  =</span> Rating <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">subject_id =</span> SubjectID, rating, rater_id)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># generate individual parameters for subjects, raters, ratings</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>rating_params <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">fit_ratings</span>(ratings)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>tapModel<span class="sc">::</span><span class="fu">model_fit_comparison</span>(rating_params, <span class="at">model_names =</span> <span class="fu">c</span>(<span class="st">"hierarchical"</span>,<span class="st">"average"</span>))<span class="sc">$</span>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-ptsd1" class="quarto-float quarto-figure quarto-figure-center anchored" width="480">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ptsd1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="hierarchical_files/figure-html/fig-ptsd1-1.png" id="fig-ptsd1" class="img-fluid figure-img" width="480">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-ptsd1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Unlike the case in <a href="#fig-uniform-rater-compare" class="quarto-xref">Figure&nbsp;2</a>, the model fit for the PTSD data set in <a href="#fig-ptsd1" class="quarto-xref">Figure&nbsp;3</a> shows that the hierarchical rater model is a much better fit than the average model. The bits per rating for the individual model is .46, while the average model is .57. So the first conclusion is that raters probably vary in their accuracy and bias. This seems reasonable given that these are human raters who are classifying complex evidence. To pursue the reasonableness of that, if we had the original data we could examine in detail the classifications made by the raters with lowest and highest accuracy, for example by getting more ratings from a few experts. This kind of information could be useful in improving classifications generally.</p>
+<p>In both distributions in <a href="#fig-ptsd1" class="quarto-xref">Figure&nbsp;3</a>, the dashed line showing the bits/rating for the actual data is somewhat to the left of the mean of the distribution of the bits/rating from the simulated ratings. The parameters are generated from the given data, so we’d expect that the original data set would be a somewhat better fit for the model than data that’s randomly generated from the parameters. That’s the case here, but this “overfitting” subjectively doesn’t look too bad. It would be different if the dashed blue line were way off to the left of the distribution. That would indicate a degree of overfitting (or other problem) that we should follow up on.</p>
+<p>To test the robustness of the individual model fit, we can simulate new data sets from the hierarchcial parameters and then see how well we can recover the parameters. This is computationally expensive for large data sets, so I’ll only run 50 of these.</p>
+<div class="cell" data-fig-caption="Rater accuracy values generated from synthetic ratings, showing boxplots of recovered values with red markers to show the input values.">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>error_est <span class="ot">&lt;-</span> <span class="fu">estimate_rater_parameter_error</span>(rating_params,<span class="at">n_sim =</span> <span class="dv">50</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>error_est<span class="sc">$</span>plot_a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-ptsd-a" class="quarto-float quarto-figure quarto-figure-center anchored" width="480">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ptsd-a-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="hierarchical_files/figure-html/fig-ptsd-a-1.png" id="fig-ptsd-a" class="img-fluid figure-img" width="480">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-ptsd-a-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The results in <a href="#fig-ptsd-a" class="quarto-xref">Figure&nbsp;4</a> show that the individual rater parameters are well recovered from the simulated data sets. The red markers show the proposed accuracy estimates for each rater, and the boxplots show the distribution of recovered values after simulating new ratings and recovering the parameters. We can do the same for the <span class="math inline">\(p_j\)</span> parameters.</p>
+<div class="cell" data-fig-caption="Rater random assignment (p_j) values generated from synthetic ratings, showing boxplots of recovered values with red markers to show the input values.">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>error_est<span class="sc">$</span>plot_p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-ptsd-p" class="quarto-float quarto-figure quarto-figure-center anchored" width="480">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ptsd-p-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="hierarchical_files/figure-html/fig-ptsd-p-1.png" id="fig-ptsd-p" class="img-fluid figure-img" width="480">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-ptsd-p-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The plots in <a href="#fig-ptsd-p" class="quarto-xref">Figure&nbsp;5</a> show that the estimates are robust, and that raters 1,4,5, and 10 are quite biased toward assigning Class 1. In practice, this feedback can likely be used to improve ratings.</p>
+<p>In summary, the PTSD data shows that we can extract much more meaningful information from the ratings than is possible with the kappa statistics. Note, however, that we only get the full benefit of these new methods if we have rater identification for each rating.</p>
+</section>
+</section>
+<section id="bayesian-models" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Bayesian Models</h1>
+<p>One limitation of the approach illustrated in the PTSD example above is that the truth parameters <span class="math inline">\(t_i\)</span> are assumed fixed throughout. Recall that the <span class="math inline">\(t_u\)</span> values, which are unique to each species of rating counts (e.g.&nbsp;3 out of 5 Class 1 ratings), are generated from the average t-a-p ratings. The rater parameters <span class="math inline">\(a_j\)</span> and <span class="math inline">\(p_j\)</span> come from the <span class="math inline">\(t_i\)</span> estimates. Hence, there is bound to be some error in the true Class 1 probabilities. To avoid overfitting, we can introduce a form of regularization, which pushes hierarchical parameter estimates toward a mean. The goal of that approach is increased generalizability, meaning that the parameter estimates obtained describe a wider range of data.</p>
+<p>I have done quite a lot of work on the Bayesian approach, and the current tapModel package has functions to implement them, but they’re still a work in progress. I’ll update this page when it’s ready.</p>
+
 
 
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-agresti2003categorical" class="csl-entry" role="listitem">
+Agresti, A. (2003). <em>Categorical data analysis</em> (Vol. 482). John Wiley &amp; Sons.
+</div>
+<div id="ref-cohen1960coefficient" class="csl-entry" role="listitem">
+Cohen, J. (1960). A coefficient of agreement for nominal scales. <em>Educational and Psychological Measurement</em>, <em>20</em>(1), 37–46.
+</div>
+<div id="ref-gelman2006data" class="csl-entry" role="listitem">
+Gelman, A., &amp; Hill, J. (2006). <em>Data analysis using regression and multilevel/hierarchical models</em>. Cambridge university press.
+</div>
+<div id="ref-shannon1948mathematical" class="csl-entry" role="listitem">
+Shannon, C. E. (1948). A mathematical theory of communication. <em>The Bell System Technical Journal</em>, <em>27</em>(3), 379–423.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -373,8 +891,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -485,7 +1001,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
