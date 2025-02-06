@@ -200,16 +200,18 @@ window.Quarto = {
     <h2 id="toc-title">Contents</h2>
    
   <ul class="collapse">
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
-  <li><a href="#conditional-probabilities" id="toc-conditional-probabilities" class="nav-link" data-scroll-target="#conditional-probabilities"><span class="header-section-number">2</span> Conditional Probabilities</a></li>
-  <li><a href="#binomial-mixtures" id="toc-binomial-mixtures" class="nav-link" data-scroll-target="#binomial-mixtures"><span class="header-section-number">3</span> Binomial Mixtures</a></li>
-  <li><a href="#simulation" id="toc-simulation" class="nav-link" data-scroll-target="#simulation"><span class="header-section-number">4</span> Simulation</a></li>
-  <li><a href="#fitting-the-model" id="toc-fitting-the-model" class="nav-link" data-scroll-target="#fitting-the-model"><span class="header-section-number">5</span> Fitting the Model</a></li>
-  <li><a href="#indentifiability" id="toc-indentifiability" class="nav-link" data-scroll-target="#indentifiability"><span class="header-section-number">6</span> Indentifiability</a></li>
-  <li><a href="#overdispersion" id="toc-overdispersion" class="nav-link" data-scroll-target="#overdispersion"><span class="header-section-number">7</span> Overdispersion</a></li>
-  <li><a href="#other-properties" id="toc-other-properties" class="nav-link" data-scroll-target="#other-properties"><span class="header-section-number">8</span> Other Properties</a></li>
+  <li><a href="#sec-intro" id="toc-sec-intro" class="nav-link active" data-scroll-target="#sec-intro"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#sec-conditional" id="toc-sec-conditional" class="nav-link" data-scroll-target="#sec-conditional"><span class="header-section-number">2</span> Conditional Probabilities</a></li>
+  <li><a href="#sec-mixtures" id="toc-sec-mixtures" class="nav-link" data-scroll-target="#sec-mixtures"><span class="header-section-number">3</span> Binomial Mixtures</a></li>
+  <li><a href="#sec-sims" id="toc-sec-sims" class="nav-link" data-scroll-target="#sec-sims"><span class="header-section-number">4</span> Simulation</a></li>
+  <li><a href="#sec-fitting" id="toc-sec-fitting" class="nav-link" data-scroll-target="#sec-fitting"><span class="header-section-number">5</span> Fitting the Model</a></li>
+  <li><a href="#sec-exact" id="toc-sec-exact" class="nav-link" data-scroll-target="#sec-exact"><span class="header-section-number">6</span> Exact Formulas for Accuracy</a></li>
+  <li><a href="#sec-identifiability" id="toc-sec-identifiability" class="nav-link" data-scroll-target="#sec-identifiability"><span class="header-section-number">7</span> Identifiability</a></li>
+  <li><a href="#sec-dk" id="toc-sec-dk" class="nav-link" data-scroll-target="#sec-dk"><span class="header-section-number">8</span> The Dunning-Kruger Horizon</a></li>
+  <li><a href="#sec-overdispersion" id="toc-sec-overdispersion" class="nav-link" data-scroll-target="#sec-overdispersion"><span class="header-section-number">9</span> Overdispersion</a></li>
+  <li><a href="#sec-other" id="toc-sec-other" class="nav-link" data-scroll-target="#sec-other"><span class="header-section-number">10</span> Other Properties</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="tapmodel.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</nav>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
@@ -244,7 +246,7 @@ window.Quarto = {
 
 
 <p>This chapter examines the assumptions and implications of the t-a-p model in detail to build a theoretical foundation for estimation and inference. This work also paves the way to connect the three parameter model to widely-used rater agreement statistics (kappas) and machine learning algorithms.</p>
-<section id="introduction" class="level1" data-number="1">
+<section id="sec-intro" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
 <p>Suppose that we have <span class="math inline">\(N\)</span> subjects to be classified by at least two raters each, and each subject belongs (in truth) to one of two categories Class 1 or Class 0, abbreviated to <span class="math inline">\(C_1, C_0\)</span>. For example, if faculty members review portfolios of student work, the two classes could be “pass” and “fail.” We often use ordered classifications like “A, B, C, D, F” or “Excellent, Good, Fair, Poor” but these can be converted to binary classifications by grouping the classes. For example “A, B, C” could be compared to “D, F” or “Excellent, Good” could be compared to “Fair, Poor.” There are also extensions of the t-a-p model that work directly on ordinal or non-binary categorical scales. The exposition is easiest to understand for the binary case, so we will start there.</p>
 <p>We assume that each subject is independently assigned to one of the two classes by each of <span class="math inline">\(R\)</span> observers (raters). For now, think of <span class="math inline">\(R\)</span> as fixed, so that there are <span class="math inline">\(RN\)</span> total ratings, but that condition is relaxed later on, so that the number of ratings per subject can vary, which is common in real data.</p>
@@ -349,7 +351,7 @@ Figure&nbsp;1: Assumed rating process, where <span class="math inline">\(T\)</sp
 </table>
 <p>If the judge makes an accurate assessment, the classification recorded matches the true value. But for the third wine, the judge got the correct answer even though the process was flawed and somewhat random (an inaccurate rating). For the second wine, the inaccuracy resulted in the wrong classification being assigned. Those two inaccurate cases are illustrated in the process diagram in the middle, marked Random.</p>
 </section>
-<section id="conditional-probabilities" class="level1" data-number="2">
+<section id="sec-conditional" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Conditional Probabilities</h1>
 <p>The tree diagram in figure <a href="#fig-tree" class="quarto-xref">Figure&nbsp;1</a> models the assignments of ratings <span class="math inline">\(c_{ij}\)</span> over subject <span class="math inline">\(i\)</span> and rater <span class="math inline">\(j\)</span>, and can be read by multiplying the conditional probabilities on the edges from the top down to find the probability of a given classification being <span class="math inline">\(c_{ij} = \widehat{C_1}\)</span>.</p>
 <p>If a subject is not classified accurately, the classification for that rater is assumed to be made at random, with probability <span class="math inline">\(p\)</span> of choosing <span class="math inline">\(\widehat{C_1}\)</span> regardless of the true class. So the conditional probability of a <span class="math inline">\(\widehat{C_1}\)</span> classification when the subject really is <span class="math inline">\(C_1\)</span> is <span class="math inline">\(\text{Pr}(\widehat{C_1} | C_1) = a + \bar{a}p\)</span>. Similarly, <span class="math inline">\(\text{Pr}(\widehat{C_1} | C_0) = \bar{a}p\)</span>. This model assumes that guess rates for the two classes are the same independent of the true classification. More complex models are introduced later.</p>
@@ -373,12 +375,12 @@ Figure&nbsp;1: Assumed rating process, where <span class="math inline">\(T\)</sp
 </table>
 <p>We can use these probabilities to find the expected number of ratings of Class 1.</p>
 </section>
-<section id="binomial-mixtures" class="level1" data-number="3">
+<section id="sec-mixtures" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Binomial Mixtures</h1>
 <p>The rating process posed in the t-a-p model is illustrated with the tree diagram and table of example ratings above. But both of those entail the use of the hidden true classification value for each subject. There are cases where that can be known, but in general it is not. What we usually have to work with is a table of ratings, from which we must infer the hidden variables like rater accuracy. The collection the ratings under the t-a-p assumptions fall into a well-studied probability distribution called a binomial mixture.</p>
 <div class="cell">
 <details class="code-fold">
-<summary>Code</summary>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set the parameters</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>N_r <span class="ot">=</span> <span class="dv">5</span>    <span class="co"># number of raters for each subject </span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>N_s <span class="ot">=</span> <span class="dv">100</span>  <span class="co"># number of subjects (not used here)</span></span>
@@ -443,7 +445,7 @@ Pr(k | C_1) &amp;= \binom{R}{k} (a + \bar{a}p)^k (1 - a - \bar{a}p)^{R - k} \\
 <p>For a real data set, the red and blue plots in <a href="#fig-mixture" class="quarto-xref">Figure&nbsp;2</a> are assumed to exist, but are not directly accessible to us. Instead we can see something like the mixture (black dashed line). But even that isn’t exact, because it is subject to sampling error: the histogram of counts won’t exactly correspond to the ideal probabilities. The larger the number of subjects rated, the closer the empirical proportions will, in theory, converge to the ideal mixture distribution.</p>
 <p>For general information on binomial mixtures of discrete data see <span class="citation" data-cites="agresti2003categorical">Agresti (<a href="#ref-agresti2003categorical" role="doc-biblioref">2003</a>)</span> chapter 14.</p>
 </section>
-<section id="simulation" class="level1" data-number="4">
+<section id="sec-sims" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Simulation</h1>
 <p>The interactive app provided with the <code>tapModel</code> R package allows you to specify t-a-p parameters and generate a data set from them. Once the package is installed, you can run the app with <code>tapModel::launchApp().</code> Navigate to the Simulate Data tab.</p>
 <div id="fig-sim-pair" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -461,14 +463,14 @@ Figure&nbsp;3: Rating distributions with t = .3, a = .7, p = .2. Plot A has 20 s
 <p>The accuracy rate <span class="math inline">\(a\)</span> will affect the subject distributions. If <span class="math inline">\(a = 0\)</span> the ratings will be distributed as <span class="math inline">\(\text{Bernoulli}(p)\)</span>, independently of the subjects being rated. If <span class="math inline">\(a=1\)</span>, then all raters agree on the true value for each subject. Therefore the way we can reconstruct <span class="math inline">\(a\)</span> from data is through the distribution of the within-subject ratings. The method used here can be seen as a latent class model with binomial mixture distributions. For a nice discussion of these ideas in practice see <span class="citation" data-cites="grilli20155">Grilli et al. (<a href="#ref-grilli20155" role="doc-biblioref">2015</a>)</span>, which helpfully notes that binomial mixtures are statistically identifiable if the number of cases exceeds a low threshold <span class="citation" data-cites="mclachlan2000wiley">McLachlan &amp; Peel (<a href="#ref-mclachlan2000wiley" role="doc-biblioref">2000</a>)</span>.</p>
 <p>We would like to know the true proportion <span class="math inline">\(t\)</span> of the subjects belonging to <span class="math inline">\(C_1\)</span> regardless of how they were rated, rater accuracy <span class="math inline">\(a\)</span>, and the proportion <span class="math inline">\(p\)</span> of inaccurate assignments that are <span class="math inline">\(\widehat{C_1}\)</span>. That goal describes the general model illustrated in the following section.</p>
 </section>
-<section id="fitting-the-model" class="level1" data-number="5">
+<section id="sec-fitting" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Fitting the Model</h1>
 <p>The first question about the model illustrated in figure <a href="#fig-tree" class="quarto-xref">Figure&nbsp;1</a> is whether it is computationally useful. Using known parameter values for <span class="math inline">\(p, a, t\)</span> to generate simulated ratings, can we then recover the parameters from the data? The answer is yes, with some provisos. Given a data set <span class="math inline">\(c_{ij}\)</span>, we can fit a general model to estimate the three parameters <span class="math inline">\(t\)</span>, <span class="math inline">\(a\)</span>, and <span class="math inline">\(p\)</span> using maximum likelihood to fit a binomial mixture model. The log likelihood function for the binomial mixture described by figure <a href="#fig-tree" class="quarto-xref">Figure&nbsp;1</a> with <span class="math inline">\(N\)</span> subjects and <span class="math inline">\(R_i\)</span> raters for subject <span class="math inline">\(i\)</span> is</p>
 <p><span id="eq-efficient-likelihood"><span class="math display">\[
 \begin{aligned}
 \ell(t,a,p;R_1, \dots, R_N, k_1, \dots,k_N) &amp;= \sum_{i = 1}^N \log \left( t\binom{R_i}{k_i}(a + \bar{a}p)^{k_i}(\bar{a}\bar{p})^{R_i-k_i} +  \bar{t}\binom{R_i}{k_i}(\bar{a}p)^{k_i}(1-\bar{a}p)^{R_i-k_i} \right)  \\
-&amp;= \sum_{i = 1}^N \log \left( t\text{binom}(R_i,k_i,a + \bar{a}p) +  \bar{t}\text{binom}(R_i,k_i,\bar{a}p) \right)  \\
-&amp;= \sum_{u = 1}^{\text{unique}(R_i,k_i)}n_u \left[ \log \left( t\text{binom}(R_u,k_u,a + \bar{a}p) +  \bar{t}\text{binom}(R_u,k_u,\bar{a}p) \right)  \right]\\
+&amp;= \sum_{i = 1}^N \log \left( t\,\text{binom}(R_i,k_i,a + \bar{a}p) +  \bar{t}\,\text{binom}(R_i,k_i,\bar{a}p) \right)  \\
+&amp;= \sum_{u = 1}^{\text{unique}(R_i,k_i)}n_u \left[ \log \left( t\,\text{binom}(R_u,k_u,a + \bar{a}p) +  \bar{t}\,\text{binom}(R_u,k_u,\bar{a}p) \right)  \right]\\
 \end{aligned}
 \tag{2}\]</span></span></p>
 <p>where <span class="math inline">\(k_i=\sum_{j}C_{ij}\)</span> is the number of Class 1 ratings for subject <span class="math inline">\(i\)</span>. The sum over the logs is justified by the assumption that ratings are independent (i.e.&nbsp;multiplying probabilities). The <span class="math inline">\(t\)</span> and <span class="math inline">\(\bar{t}\)</span> terms at the top of <a href="#eq-efficient-likelihood" class="quarto-xref">Equation&nbsp;2</a> are the mixing proportions for the two classes.</p>
@@ -499,8 +501,48 @@ Figure&nbsp;4: Box and whisker plots show parameter estimates from simulations o
 <p>Since the two terms at the top are the same, and we sum <span class="math inline">\(t + \bar{t} = 1\)</span>, the <span class="math inline">\(t\)</span> drops out of the formula. So <span class="math inline">\(t\)</span> is under-determined when <span class="math inline">\(a = 0\)</span>, and we should expect poor behavior as <span class="math inline">\(a\)</span> nears zero. This is intuitive: if the raters are only guessing, they should give us no information about the true Class 1 rate. If the data in figure <a href="#fig-tap-sim" class="quarto-xref">Figure&nbsp;4</a> are filtered to <span class="math inline">\(a &gt; .2\)</span> the estimates of <span class="math inline">\(t\)</span> greatly improve. Aside from extreme values of <span class="math inline">\(a\)</span> affecting the estimation of <span class="math inline">\(t\)</span>, a visual inspection of the scatter plots of the parameter estimates shows no correlations.</p>
 <p>The estimates in <a href="#fig-tap-sim" class="quarto-xref">Figure&nbsp;4</a> are taken from averages of the posterior parameter distributions, which is convenient, but sometimes hides the uncertainty in the estimates because of the limited range of possible values on [0,1]. When making inferences from a real data set, it’s useful to look at the full posterior distributions of the parameters to see if they are multi-modal or have other complications.</p>
 </section>
-<section id="indentifiability" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Indentifiability</h1>
+<section id="sec-exact" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Exact Formulas for Accuracy</h1>
+<p>The Fliess Kappa illustrates a “closed form” for calculating accuracy in the case when <span class="math inline">\(t = p\)</span>. We can find exact formulas for other special cases, which is useful for theoretical purposes. Consider the two-rater case on <span class="math inline">\(N_s\)</span> subjects, where the number of cases where both raters assigned Class 0 is <span class="math inline">\(n_0\)</span>, the mixed-rating case is <span class="math inline">\(n_1\)</span>, and the count of cases with both Class 1 is <span class="math inline">\(N_2\)</span>. The log likelihood function is</p>
+<p><span class="math display">\[
+\begin{aligned}
+\ell(t,a,p)
+&amp;= n_0\log [t(\bar{a}\bar{p})^2+ \bar{t}(1-\bar{a}p)^2]\\
+&amp;+ n_1\log 2[t\bar{a}\bar{p}(a+\bar{a}p)+ \bar{t}\bar{a}p(1-\bar{a}p)] \\
+&amp;+ n_2\log [t(a+\bar{a}p)^2+ \bar{t}(\bar{a}p)^2].
+\end{aligned}
+\]</span> If we further assume that <span class="math inline">\(t = p = 1/2\)</span>, after some simplification we arrive at</p>
+<p><span class="math display">\[
+\begin{aligned}
+\ell(t = 1/2,a,p = 1/2)
+&amp;= n_0 (\log (1+a^2) - 2)\\
+&amp;+ n_1\log(1 - a^2) - 1 \\
+&amp;+ n_2 (\log (1 + a^2) - 2),
+\end{aligned}
+\]</span> where we assume that the base for the log is <span class="math inline">\(1/2\)</span> (motivation for that choice is found in <a href="./hierarchical.html">Chapter 5</a>). When the log likelihood is maximized, the derivative is assumed to be zero, so we differentiate with respect to <span class="math inline">\(a\)</span> and obtain</p>
+<p><span class="math display">\[
+\begin{aligned}
+\frac{\ell(a)}{\partial a}
+&amp;=  2a \left( \frac{n_0 + n_2}{1+a^2} -\frac{n_1}{1-a^2} \right)
+\end{aligned}.
+\]</span> Clearly, <span class="math inline">\(a=0\)</span> is one solution. The other is</p>
+<p><span id="eq-exact-a"><span class="math display">\[
+\begin{aligned}
+a &amp;= \sqrt{\frac{n_0 - n_1+ n_2 }{n_0 + n_1 + n_2}} \\
+&amp;=  \sqrt{\eta_0 - \eta_1 + \eta_2} \, ,
+\end{aligned}
+\tag{3}\]</span></span></p>
+<p>where <span class="math inline">\(\eta_i = n_i/N_r\)</span> is the proportion of cases with <span class="math inline">\(i\)</span> ratings of Class 1. If there are no mismatched ratings, then <span class="math inline">\(\eta_1=0\)</span>, and <span class="math inline">\(a = 1\)</span>. If <span class="math inline">\(\eta_1 = 1/2\)</span>, then the ratings look like coin flips, and <span class="math inline">\(a = 0\)</span>. The form of <a href="#eq-exact-a" class="quarto-xref">Equation&nbsp;3</a> represents <span class="math inline">\(a^2\)</span> as a linear combination of match rates and mismatch rates. In fact, for unbiased raters (<span class="math inline">\(t=p\)</span>) we can derive the coefficients <span class="math inline">\(\beta_k\)</span> so that</p>
+<p><span id="eq-exact-a-general"><span class="math display">\[
+\begin{aligned}
+a^2 &amp;= \sum_{k=0}^R \beta_k\ \eta_k  \\
+\beta_k &amp;= \frac{k^2}{R(R-1)t\bar{t}}+ 1 - \frac{R}{(R-1)\bar{t}}. \\
+\end{aligned}
+\tag{4}\]</span></span></p>
+<p>The derivation of the formula for <span class="math inline">\(\beta_k\)</span> is found in the <a href="./correlation.html">Appendix</a>. The linear models for <span class="math inline">\(a^2\)</span> are useful as theoretical tools, e.g.&nbsp;sensitivity analysis, but shouldn’t be used for direct estimation of accuracy, since the <span class="math inline">\(t=p\)</span> coefficient has to be specified, and the computation is sensitive to violations of the unbiased rater assumption. The supporting R package contains a function <code>tapModel::exact_accuracy_coefs(N_r, tp)</code> that computes the <span class="math inline">\(\beta_k\)</span> coefficients.</p>
+</section>
+<section id="sec-identifiability" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Identifiability</h1>
 <p>Binomial mixtures are not always identifiable, meaning that the data don’t contain enough information to uniquely determine the parameters. If we fit two binomial distributions to the data with complete flexibility, each will have a “success rate” for the underlying Bernoulli trial, which determines the distribution’s mean and variance. There is also a weight parameter that defines the mixture; that determines the heights of the respective histograms of the two binomials. A simple data set would comprise the counts of Class 1 ratings for each subject. If the raters have reasonably high accuracy, a histogram of ratings will have a peak on the right, where a large fraction of raters of true Class 1 ratings agree. The average might be that 75 of 100 raters, on average agree that it’s Class 1. For true Class 0 cases, the raters might have an average of 25 of 100 ratings of Class 1 (erroneous ratings). The <a href="./app.html">chapter on the interactive application</a> shows how to simulate such data. It looks like this:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -512,12 +554,79 @@ Figure&nbsp;4: Box and whisker plots show parameter estimates from simulations o
 <p>Non-identifiable cases do occur when one or more of the t-a-p parameters is zero or one. If <span class="math inline">\(a = 1\)</span>, it doesn’t matter what <span class="math inline">\(p\)</span> is, for example. This can also cause problems when a parameter is <em>close</em> to one or zero. For an example of that, see <a href="./paradox.html">Chapter 4: The Kappa Paradox</a>. These issues can be investigated using Bayesian MCMC estimation, which provides a full posterior distribution for the parameters. The distribution may be multi-modal if there are two competing solutions. This gives us a way to detect degenerate solutions and look for a different model if desired. These degenerate cases aside, the tap parameterization of the binomial mixture has an advantage over generic optimization.</p>
 <p>We can add more parameters to the basic t-a-p model. For example, we might split accuracy into Class 1 accuracy and Class 0 accuracy, as is illustrated in Chapter 4. These additions can lead to multiple solutions, which can often be detected from the MCMC distributions of parameters. This topic needs more development.</p>
 </section>
-<section id="overdispersion" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Overdispersion</h1>
-<p>The basic t-a-p model assumes fixed averages of the three parameters over raters and subjects. The most sensible of these assumptions is that there is a single value for <span class="math inline">\(t\)</span> that represents the fraction of Class 1 cases. That leaves two parameters that are certainly oversimplified in the tap model, so that counts of Class 1 ratings per subject are likely to have more variance than a binomial model would. This is due to anticipated variance in rater ability and the difficulty in rating subjects, resulting in <a href="https://en.wikipedia.org/wiki/Overdispersion">overdispersion</a>. A general approach to this problem is to allow each rater to have a different accuracy rate <span class="math inline">\(a_j\)</span> and each subject to have a different guessing rate <span class="math inline">\(p_i\)</span>. This is a hierarchical model, which is described in <a href="./hierarchical.html">Chapter 5: Hierarchical Models</a>. Other approaches include using a beta-binomial prior for parameters, <span class="citation" data-cites="williams1975394">Williams (<a href="#ref-williams1975394" role="doc-biblioref">1975</a>)</span>. Also see <span class="citation" data-cites="ascari2021new">Ascari &amp; Migliorati (<a href="#ref-ascari2021new" role="doc-biblioref">2021</a>)</span>. See Chapter 5 for more on these topics, particularly the discussion under the heading “Truth Parameters.”</p>
+<section id="sec-dk" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> The Dunning-Kruger Horizon</h1>
+<p>The Dunning–Kruger effect <span class="citation" data-cites="kruger1999unskilled">(<a href="#ref-kruger1999unskilled" role="doc-biblioref">Kruger &amp; Dunning, 1999</a>)</span> is the tendency of people with low ability in some domain to overestimate their own ability (ignorance creates meta-ignorance). It turns out to be a useful metaphor for what happens when we estimate rater accuracy, because low rater accuracy degrades estimates of accuracy. We can visualize this effect using the linear model derived above for for exactly calculating accuracy (<span class="math inline">\(a\)</span>) when <span class="math inline">\(p=t=1/2\)</span> for two raters. If we suppose that thirty subjects are being rated (<span class="math inline">\(N_s=30\)</span>), the t-a-p model assumes a binomial mixture distribution for the counts of Class 1 ratings across all subjects. In particular, if accuracy is zero (<span class="math inline">\(a=0\)</span>), the count <span class="math inline">\(n_1\)</span> of the number of subjects that have split ratings (one Class 1 and one Class 0) will be distributed as a simple binomial with mean <span class="math inline">\(15 = 30(.5)\)</span>. With zero accuracy, the raters are essentially flipping coins. The question is, given this coin-flipping distribution for the results of the ratings, what are the possible accuracy ratings that reflect those random samples? Since we have an exact formula for the accuracy, we can draw a picture.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>N_s <span class="ot">=</span> <span class="dv">30</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>( <span class="at">n1 =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">30</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>              <span class="st">`</span><span class="at">Pr[n1]</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">dbinom</span>(n1, N_s, .<span class="dv">5</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">a       =</span> <span class="fu">if_else</span>(n1<span class="sc">*</span><span class="dv">2</span> <span class="sc">&gt;=</span> N_s, <span class="dv">0</span>,  <span class="fu">sqrt</span>((N_s <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span>n1)<span class="sc">/</span>N_s)))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(statistic, value, <span class="sc">-</span>n1) <span class="sc">|&gt;</span> </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n1, <span class="at">y =</span> value, <span class="at">group =</span> statistic, <span class="at">color =</span> statistic)) <span class="sc">+</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="at">xmin =</span> <span class="dv">11</span>, <span class="at">xmax =</span> <span class="dv">19</span>, <span class="at">ymin =</span> <span class="dv">0</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>, </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">fill =</span> <span class="st">"#CCCCCC22"</span>, <span class="at">color =</span> <span class="st">"#CCCCCC22"</span>) <span class="sc">+</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Number of Class 1 ratings (n1)"</span>) <span class="sc">+</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-random-a" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-random-a-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="tapmodel_files/figure-html/fig-random-a-1.png" class="img-fluid figure-img" width="480">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-random-a-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Illustrating the range of accuracy estimates from random (a = 0, p = .5) ratings of 30 subjects with two raters each. The key statistic is how many mixed ratings n1 (one of each class) are generated, and the blue line shows the probability of each n1 occuring. The shaded region captures 90% of the distribution. The red line shows the accuracy estimate resulting from the sample.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The plot in <a href="#fig-random-a" class="quarto-xref">Figure&nbsp;5</a> shows how bad our estimate of accuracy can be for random ratings. Half of the time the count of mixed ratings <span class="math inline">\(n_1\)</span> will be greater than the mean of 15, and we’ll get the correct estimate of <span class="math inline">\(a = 0\)</span>. The other half of the time, when the number of mismatched ratings is less than 15, the estimate for accuracy quickly increases. We can see from the plot that there’s a significant chance that the estimated <span class="math inline">\(a \ge .25\)</span>. At the left edge of the shaded area, where <span class="math inline">\(n_1 = 11\)</span>, there is a 5% chance of this outcome, and the resulting accuracy estimate is a little more than .5.</p>
+<p>The t-a-p model is asymetrical with respect to accuracy. If the ratings are 100% accurate, we’ll get the correct answer of <span class="math inline">\(a = 1\)</span> every time. But when the accuracy is zero, we’ll get a significant overestimate of <span class="math inline">\(a\)</span> almost half the time. This effect produces a “zone of ignorance” in the following sense. If we can’t <em>a priori</em> rule out a very low accuracy, then as a precautionary measure we should entertain the idea that the ratings are purely random. Maybe something went wrong with the raters or coding or data transmission. Maybe the subject IDs got mixed up. If it’s possible that the ratings could be random, then we must condider how large an estimate of accuracy can be in that condition. That depends on the sample size and <span class="math inline">\(p\)</span>. Assuming <span class="math inline">\(p=.5\)</span> is not universally applicable, but it’s a reasonable reference point.</p>
+<p>If we choose the 5% mark as the cutoff value, as in <a href="#fig-random-a" class="quarto-xref">Figure&nbsp;5</a>, then given the number of subjects and average number of ratings, we can simulate the largest (worst) <span class="math inline">\(a\)</span> that can occur in those conditions at that threshold. I’ll call the resulting value of <span class="math inline">\(a\)</span> the “DK horizon” as a nod to Dunning and Kruger. The analogy isn’t perfect, but the idea is that if accuracy (like expertise) is low enough, a reversal happens, where our estimates of the accuracy increase instead of decrease.</p>
+<p>For the example here, the DK horizon is <span class="math inline">\(a = .5\)</span>, meaning with 30 subjects and 2 raters each, any result that has <span class="math inline">\(a \le .5\)</span> is highly suspect; we could be looking at the result of coin-flipping raters. The DK horizon is a veil of ignorance that prevents us from interpreting the t-a-p model coefficients when accuracy is too low. The horizon is affected by sample size, so we can do something like a power analysis to estimate where the DK horizon is.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sampled_a <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/a_sim_exact.csv"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>sampled_a <span class="sc">|&gt;</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> a, <span class="at">y =</span> a_sim, <span class="at">group =</span> a)) <span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>() <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x =</span> a, <span class="at">y =</span> a_sim, <span class="at">group =</span> <span class="dv">1</span>), <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">linewidth =</span> .<span class="dv">9</span>) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(N_s <span class="sc">~</span> N_r)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-a-sim" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-a-sim-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="tapmodel_files/figure-html/fig-a-sim-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-a-sim-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Box plots showing the maximum likelihood estimate for accuracy (a) from samples drawn from a tap model with parameters t = p = 1/2 and a as shown on the horizontal axis. The 2, 5, 10, and 25 column headers are the number of raters for each subject, and the row headers along the right side are the number of subjects rated by each rater. The blue line is the average accuracy for the sampled ratings.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>As is usually the case, larger sample sizes reduce sampling error. With 300 subjects and 25 raters each (bottom right), there’s hardly any sampling error. But for small sample sizes, the sampling error noticiably increases as accuracy approaches zero. For the 2-rater, 3-subject case in the top left of <a href="#fig-a-sim" class="quarto-xref">Figure&nbsp;6</a>, when <span class="math inline">\(a &lt; .5\)</span>, the estimation error quickly becomes so bad as to make the estimation worthless. Intuitively, if we got an estimate of <span class="math inline">\(a = .3\)</span>, say, the best we can say is that probably the accuracy is somewhere between zero and one half. For the 5-rater, 30-subject case, this “zone of ignorance” is not as bad, with the DK horizon at about <span class="math inline">\(a =.25\)</span>. This is useful knowledge when interpreting parameter estimates from a small sample of ratings.</p>
 </section>
-<section id="other-properties" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Other Properties</h1>
+<section id="sec-overdispersion" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Overdispersion</h1>
+<p>The basic t-a-p model assumes fixed averages of the three parameters over raters and subjects. The most sensible of these assumptions is that there is a single value for <span class="math inline">\(t\)</span> that represents the fraction of Class 1 cases. That leaves two parameters that are certainly oversimplified in the tap model, so that counts of Class 1 ratings per subject are likely to have more variance than a binomial model would. This is due to anticipated variance in rater ability and the difficulty in rating subjects, resulting in <a href="https://en.wikipedia.org/wiki/Overdispersion">overdispersion</a>. A general approach to this problem is to allow each rater to have a different accuracy rate <span class="math inline">\(a_j\)</span> and each subject to have a different guessing rate <span class="math inline">\(p_i\)</span>. This is a hierarchical model, which is described in <a href="./hierarchical.html">Chapter 5: Hierarchical Models</a>. Other approaches include using a beta-binomial prior for parameters, <span class="citation" data-cites="williams1975394">Williams (<a href="#ref-williams1975394" role="doc-biblioref">1975</a>)</span>. Also see <span class="citation" data-cites="ascari2021new">Ascari &amp; Migliorati (<a href="#ref-ascari2021new" role="doc-biblioref">2021</a>)</span>.</p>
+</section>
+<section id="sec-other" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Other Properties</h1>
 <p>As is shown in <a href="./correlation.html">Appendix A</a>, rater accuracy <span class="math inline">\(a\)</span> is proportional to the correlation between the true and assigned classifications. If <span class="math inline">\(C\)</span> is the true classification and <span class="math inline">\(T\)</span> is the assigned classification, then</p>
 <p><span class="math display">\[ \text{Cor}(T, C) = a\frac{\sigma_T}{\sigma_C} \]</span></p>
 <p>Related properties can be found in the appendix.</p>
@@ -538,6 +647,9 @@ Carpenter, B., Gelman, A., Hoffman, M. D., Lee, D., Goodrich, B., Betancourt, M.
 </div>
 <div id="ref-grilli20155" class="csl-entry" role="listitem">
 Grilli, L., Rampichini, C., &amp; Varriale, R. (2015). Binomial mixture modeling of university credits. <em>Communications in Statistics - Theory and Methods</em>, <em>44</em>(22), 4866–4879. <a href="https://doi.org/10.1080/03610926.2013.804565">https://doi.org/10.1080/03610926.2013.804565</a>
+</div>
+<div id="ref-kruger1999unskilled" class="csl-entry" role="listitem">
+Kruger, J., &amp; Dunning, D. (1999). Unskilled and unaware of it: How difficulties in recognizing one’s own incompetence lead to inflated self-assessments. <em>Journal of Personality and Social Psychology</em>, <em>77</em>(6), 1121.
 </div>
 <div id="ref-mclachlan2000wiley" class="csl-entry" role="listitem">
 McLachlan, G., &amp; Peel, D. (2000). Wiley series in probability and statistics. <em>Finite Mixture Models</em>, 420–427.

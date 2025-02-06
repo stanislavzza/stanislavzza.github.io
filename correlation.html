@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -21,7 +21,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -36,10 +90,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-f3c2ea88cadbcfb37ba28ffa2c97cfc1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -146,13 +200,12 @@ window.Quarto = {
     <h2 id="toc-title">Contents</h2>
    
   <ul class="collapse">
-  <li><a href="#correlation-of-ratings-between-raters" id="toc-correlation-of-ratings-between-raters" class="nav-link active" data-scroll-target="#correlation-of-ratings-between-raters"><span class="header-section-number">1</span> Correlation of Ratings between Raters</a>
-  <ul class="collapse">
-  <li><a href="#correlation-between-ratings-and-true-values" id="toc-correlation-between-ratings-and-true-values" class="nav-link" data-scroll-target="#correlation-between-ratings-and-true-values"><span class="header-section-number">1.1</span> Correlation Between Ratings and True Values</a></li>
-  </ul></li>
-  <li><a href="#alternate-derivation-of-fleiss-kappa-relationship" id="toc-alternate-derivation-of-fleiss-kappa-relationship" class="nav-link" data-scroll-target="#alternate-derivation-of-fleiss-kappa-relationship"><span class="header-section-number">2</span> Alternate Derivation of Fleiss Kappa Relationship</a></li>
+  <li><a href="#closed-form-accuracy-coefficients" id="toc-closed-form-accuracy-coefficients" class="nav-link active" data-scroll-target="#closed-form-accuracy-coefficients"><span class="header-section-number">1</span> Closed Form Accuracy Coefficients</a></li>
+  <li><a href="#correlation-of-ratings-between-raters" id="toc-correlation-of-ratings-between-raters" class="nav-link" data-scroll-target="#correlation-of-ratings-between-raters"><span class="header-section-number">2</span> Correlation of Ratings between Raters</a></li>
+  <li><a href="#correlation-between-ratings-and-true-values" id="toc-correlation-between-ratings-and-true-values" class="nav-link" data-scroll-target="#correlation-between-ratings-and-true-values"><span class="header-section-number">3</span> Correlation Between Ratings and True Values</a></li>
+  <li><a href="#alternate-derivation-of-fleiss-kappa-relationship" id="toc-alternate-derivation-of-fleiss-kappa-relationship" class="nav-link" data-scroll-target="#alternate-derivation-of-fleiss-kappa-relationship"><span class="header-section-number">4</span> Alternate Derivation of Fleiss Kappa Relationship</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="correlation.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</nav>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
@@ -186,8 +239,201 @@ window.Quarto = {
 </header>
 
 
-<section id="correlation-of-ratings-between-raters" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Correlation of Ratings between Raters</h1>
+<section id="closed-form-accuracy-coefficients" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Closed Form Accuracy Coefficients</h1>
+<p>We’ll show that</p>
+<p><span class="math display">\[
+a^2 = \sum_{k=0}^R\beta_k\eta_k
+\]</span> for unbiased raters (<span class="math inline">\(t=p\)</span>), so that the Fleiss kappa can be expressed as a weighted sum of the proportions of subject counts of Class 1 ratings. This provides details for the section on exact formulas in Chapter 2. A closed form for the coefficients is derived below.</p>
+<p>The Fleiss kappa calculates match rates per subject. Suppose we have <span class="math inline">\(R\)</span> raters who assigned <span class="math inline">\(k\)</span> ratings of Class 1 for subject <span class="math inline">\(i\)</span>, then the number of matched ratings is the sum of Class 1 matches and Class 0 matches, or <span class="math inline">\(M_i = k(k-1)/2 + \bar{k}(\bar{k}-1)/2\)</span>, where <span class="math inline">\(\bar{k} = R - k\)</span>. The match rate is this count out of the number of possible matches, which is <span class="math inline">\(R(R-1)/2\)</span>. With <span class="math inline">\(R\)</span> raters, <span class="math inline">\(k \epsilon \{0,1,..,R\}\)</span>, and over the <span class="math inline">\(N\)</span> subjects there will be some count <span class="math inline">\(n_k\)</span> for the number of the occurances of each possible value of <span class="math inline">\(k\)</span>. The Fliess kappa calculation averages over these subject match rates. This average match rate <span class="math inline">\(m_o\)</span> can be simplified with</p>
+<p><span class="math display">\[
+\begin{aligned}
+m_o &amp;=  \frac{2}{NR(R-1)}\sum_{k=0}^{R} n_k M_k \\
+&amp;= \frac{1}{R(R-1)}\sum_{k=0}^{R} \eta_k \left( k(k-1) + \bar{k}(\bar{k}-1) \right)\\
+&amp;= \frac{1}{R(R-1)}\sum_{k=0}^{R} \eta_k \left( 2k^2 -2Rk+R^2-R\right)\\
+&amp;= \frac{1}{R-1}\sum_{k=0}^{R} \eta_k \left( R-2k-1\right) + \frac{2}{R(R-1)}\sum_{k=0}^{R} k^2\eta_k \\
+&amp;= \frac{R - 1 -2 \sum_{k=0}^{R} k\eta_k  }{R-1} +  \frac{2}{R(R-1)}\sum_{k=0}^{R} k^2\eta_k \\
+&amp;= 1 - \frac{2}{R-1}\sum_{k=0}^{R} k\eta_k + \frac{2}{R(R-1)}\sum_{k=0}^{R} k^2\eta_k \\
+\end{aligned}
+\]</span></p>
+<p>where <span class="math inline">\(\eta_k = n_k / N\)</span> is the proportion of subjects with <span class="math inline">\(k\)</span> ratings of Class 1, so that <span class="math inline">\(\sum \eta_k = 1\)</span>. It will be useful to use the fact that the average rate of Class 1 ratings is</p>
+<p><span class="math display">\[
+c = \frac{1}{R}\sum_{k=0}^{R} k\eta_k\,,
+\]</span> since the sum adds up the number of Class 1 ratings over all subjects divided by the number of subjects, and <span class="math inline">\(NR\)</span> is the total number of ratings. Using that idea, we can express</p>
+<p><span class="math display">\[
+\begin{aligned}
+m_o &amp;= 1 - \frac{2R}{R-1}c + \frac{2}{R(R-1)}\sum_{k=0}^{R} k^2\eta_k/R \\
+&amp;:= 1 - 2\frac{Rc-\gamma}{R-1} \, ,
+\end{aligned}
+\]</span> where <span class="math inline">\(\gamma = \sum k^2\eta_k/R\)</span> to simplify the notation.</p>
+<p>The Fleiss kappa is then the difference between the average match rate and the expected match rate under independence, which is the sum of the products of the marginal proportions of Class 1 ratings for each rater.</p>
+<p>The Fleiss formula is</p>
+<p><span class="math display">\[
+\kappa = \frac{m_o - m_c}{1 - m_c},
+\]</span></p>
+<p>where <span class="math inline">\(m_c = c^2 + \bar{c}^2 = 2c^2 - 2c + 1\)</span>. Here <span class="math inline">\(c\)</span> is the average Class 1 rate over all ratings,</p>
+<p>So that we can express the kappa formula as <span class="math display">\[
+\begin{aligned}
+\kappa &amp;= \frac{1 - 2\frac{Rc-\gamma}{R-1}-2c^2 + 2c - 1  }{1-2c^2 + 2c - 1} \\
+&amp;= \frac{\gamma/c-R}{(R-1)(1-c)} + 1
+\end{aligned}
+\]</span> Under the unbiased rater assumption we have <span class="math inline">\(p=t=c\)</span>, and if we fix <span class="math inline">\(t\)</span> to a constant, with the only unknown being <span class="math inline">\(a\)</span>, the formula reduces to</p>
+<p><span class="math display">\[
+\begin{aligned}
+\kappa_t = a^2 &amp;=\frac{\frac{1}{Rt} \sum_{k=0}^{R} k^2\eta_k-R}{(R-1)\bar{t}} + 1 \\
+         &amp;= \sum_{k=0}^{R} \left( \frac{k^2}{R(R-1)t\bar{t}}   \right)\eta_k + 1 - \frac{R}{(R-1)\bar{t}} \\
+         &amp;:= \sum_{k=0}^{R} \beta_k\eta_k  \,, \\
+\end{aligned}
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+\begin{aligned}
+\beta_k &amp;= \frac{k^2}{R(R-1)t\bar{t}}+ 1 - \frac{R}{(R-1)\bar{t}}. \\
+\end{aligned}
+\]</span> It seems odd algebraically to bring the constants inside the sum as if they were multiplied by the <span class="math inline">\(\eta_k\)</span> proportions, but this works because <span class="math inline">\(\sum \eta_k = 1\)</span>.</p>
+<p>The coefficients aren’t unique if the distribution of <span class="math inline">\(\eta_k\)</span> is symmetrical, as is the case we worked out by hand in <a href="./tapmodel.html">Chapter 2</a>, with <span class="math inline">\(R=2\)</span> and <span class="math inline">\(t = p= .5\)</span>. In case of symmetrical proportions of Class 1 ratings, we could use</p>
+<p><span class="math display">\[
+\begin{aligned}
+\dot\beta_k &amp;= \frac{1}{2}(\beta_k+\beta_{R-k}). \\
+\end{aligned}
+\]</span> In the special case when <span class="math inline">\(t = p = 1/2\)</span> and <span class="math inline">\(R = 2\)</span>, we have <span class="math inline">\(\beta_0 = -3\)</span>, <span class="math inline">\(\beta_1 = -1, \beta_2 = 5\)</span>, so <span class="math inline">\(\dot \beta_0 = \beta_2 = 1\)</span> and <span class="math inline">\(\dot \beta_1 = -1\)</span> as we found with the direct derivation. In general we can’t use this method, because <span class="math inline">\(\eta_k\)</span> isn’t usually symmetrical.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>betas <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">k =</span> <span class="dv">0</span><span class="sc">:</span>R,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">beta1 =</span> tapModel<span class="sc">::</span><span class="fu">exact_accuracy_coefs</span>(R, .<span class="dv">1</span>),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">beta2 =</span> tapModel<span class="sc">::</span><span class="fu">exact_accuracy_coefs</span>(R, .<span class="dv">3</span>),</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">beta3  =</span>tapModel<span class="sc">::</span><span class="fu">exact_accuracy_coefs</span>(R, .<span class="dv">5</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">gather</span>(beta, val, <span class="sc">-</span>k) <span class="sc">|&gt;</span> </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tp =</span> <span class="fu">case_when</span>( beta <span class="sc">==</span> <span class="st">"beta1"</span> <span class="sc">~</span> <span class="st">".1"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                           beta <span class="sc">==</span> <span class="st">"beta2"</span> <span class="sc">~</span> <span class="st">".3"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">".5"</span>))</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>betas <span class="sc">|&gt;</span> </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> val, <span class="at">group =</span> tp, <span class="at">color =</span> tp)) <span class="sc">+</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"beta_k"</span>) <span class="sc">+</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Number of Class 1 ratings, k"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-betas" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-betas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="correlation_files/figure-html/fig-betas-1.png" class="img-fluid figure-img" width="384">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-betas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: A sample of weights for exact formulation of accuracy squared, with 30 raters and a selection of values for t=p.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>param_grid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">t =</span> <span class="fu">seq</span>(.<span class="dv">05</span>, .<span class="dv">95</span>, .<span class="dv">05</span>),</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">a =</span> <span class="fu">seq</span>(.<span class="dv">05</span>, .<span class="dv">95</span>, .<span class="dv">05</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">a =</span> a <span class="sc">+</span> t<span class="sc">/</span><span class="dv">30</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">a_calc =</span> <span class="cn">NA</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(param_grid)){</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  t <span class="ot">&lt;-</span> param_grid<span class="sc">$</span>t[i]</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> param_grid<span class="sc">$</span>a[i]</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  props <span class="ot">&lt;-</span> tapModel<span class="sc">:::</span><span class="fu">exact_count_probabilites</span>(<span class="dv">10</span>,t,a,t)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  tap_coefs <span class="ot">&lt;-</span> <span class="fu">exact_accuracy_coefs</span>(<span class="dv">10</span>,t)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  param_grid<span class="sc">$</span>a_calc[i] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(props<span class="sc">*</span>tap_coefs))</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>param_grid <span class="sc">|&gt;</span> </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> a, <span class="at">y =</span> a_calc, <span class="at">color =</span> t)) <span class="sc">+</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>() <span class="sc">+</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-validity" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-validity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="correlation_files/figure-html/fig-validity-1.png" class="img-fluid figure-img" width="384">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-validity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Validity check, calculating accuracy from the linear representation for a range of values of t = p.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The linear expression works precisely across the range of parameters in the grid illustrated in <a href="#fig-validity" class="quarto-xref">Figure&nbsp;2</a>. However, the calculation is quite sensitive to violations of the unbiased rater assumption.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>param_grid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">t =</span> <span class="fu">seq</span>(.<span class="dv">05</span>, .<span class="dv">95</span>, .<span class="dv">05</span>),</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">a =</span> <span class="fu">seq</span>(.<span class="dv">05</span>, .<span class="dv">95</span>, .<span class="dv">05</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">a =</span> a <span class="sc">+</span> t<span class="sc">/</span><span class="dv">30</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">a_calc =</span> <span class="cn">NA</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">a_kappa =</span> <span class="cn">NA</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(param_grid)){</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  t <span class="ot">&lt;-</span> param_grid<span class="sc">$</span>t[i]</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> param_grid<span class="sc">$</span>a[i]</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  props <span class="ot">&lt;-</span> tapModel<span class="sc">:::</span><span class="fu">exact_count_probabilites</span>(<span class="dv">10</span>,t<span class="fl">-.02</span>,a,t<span class="fl">+.02</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  tap_coefs <span class="ot">&lt;-</span> <span class="fu">exact_accuracy_coefs</span>(<span class="dv">10</span>,t)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  param_grid<span class="sc">$</span>a_calc[i] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(props<span class="sc">*</span>tap_coefs))</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  counts <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">N_r =</span> <span class="dv">10</span>, <span class="at">N_c =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">n =</span> props)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  param_grid<span class="sc">$</span>a_kappa[i] <span class="ot">&lt;-</span> <span class="fu">fleiss_kappa</span>(counts)<span class="sc">$</span>a</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>param_grid <span class="sc">|&gt;</span> </span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> a, <span class="at">y =</span> a_calc, <span class="at">color =</span> t)) <span class="sc">+</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>() <span class="sc">+</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-violation" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-violation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="correlation_files/figure-html/fig-violation-1.png" class="img-fluid figure-img" width="384">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-violation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Calculations of accuracy using the linear combination with a minor violation of the unbiased rater assumption.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The results in <a href="#fig-violation" class="quarto-xref">Figure&nbsp;3</a> come from calculating the coefficients with a value of <span class="math inline">\(t\)</span>, then replacing <span class="math inline">\(t\)</span> and <span class="math inline">\(p\)</span> in the simulated data with <span class="math inline">\(\hat{t} = t - .02\)</span> and <span class="math inline">\(\hat{p} = t + .02\)</span>. The resulting estimates of accuracy can become quite poor. This is not true of the Fleiss kappa, which has more robust approximation when the unbiased rater assumption is violated.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>param_grid <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> a, <span class="at">y =</span> a_kappa, <span class="at">color =</span> t)) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>() <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-fleiss" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fleiss-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="correlation_files/figure-html/fig-fleiss-1.png" class="img-fluid figure-img" width="384">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fleiss-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Accuracy approximations by Fleiss kappa when the unbiased rater assumption is slightly violated.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The relatively low approximation error in <a href="#fig-fleiss" class="quarto-xref">Figure&nbsp;4</a> shows a direct comparison to the linear combination approximation.</p>
+</section>
+<section id="correlation-of-ratings-between-raters" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Correlation of Ratings between Raters</h1>
 <p>Given two distinct raters <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> with common accuracy <span class="math inline">\(a\)</span> and guess probability <span class="math inline">\(p\)</span>, what’s the correlation between their ratings? Let <span class="math inline">\(c = E[C_i] = E[C_j] = ta + p\bar{a}\)</span>. Capital letters denote random binary variables, so that <span class="math inline">\(A_i\)</span> is one if the first rater made an accurate assessment and zero if not. <span class="math inline">\(T\)</span> is the true value of a common subject being rated. The covariance between the two raters’ ratings is</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -202,9 +448,10 @@ window.Quarto = {
 <p><span id="eq-cor-c"><span class="math display">\[
 a^2 =\frac{c\overline{c }}{t\bar{t}} \text{Cor}(C_a, C_b) = \frac{c\overline{c }}{t\bar{t}}\kappa_{fleiss}
 \tag{1}\]</span></span></p>
-<p>The correlation between two raters’ ratings of the same subject is the intraclass correlation coefficient (ICC) for a two-way random effects model @shrout_intraclass_1979, which has been shown to be equivalent to the Fleiss kappa as described in @fleiss2013statistical, p.&nbsp;611-12. Under the <span class="math inline">\(t = p\)</span> proficient rater assumption, <span class="math inline">\(c = ta + \bar{a}p = p\)</span>, so that the Fliess kappa is (again) shown to be <span class="math inline">\(a^2\)</span> under that condition. The relation <a href="#eq-cor-c" class="quarto-xref">Equation&nbsp;1</a> suggests that the Fliess kappa could be adjusted for cases when <span class="math inline">\(t \ne p\)</span> by making assumptions about those two parameters. For example, maybe the true rate is known from other information. The overall rate of Class 1 ratings <span class="math inline">\(c\)</span> can be estimated directly from the data, but estimating <span class="math inline">\(t\)</span> requires either prior knowledge of the context or using the full t-a-p estimation process, in which case there’s no need to compute the Fliess kappa.</p>
-<section id="correlation-between-ratings-and-true-values" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="correlation-between-ratings-and-true-values"><span class="header-section-number">1.1</span> Correlation Between Ratings and True Values</h2>
+<p>The correlation between two raters’ ratings of the same subject is the intraclass correlation coefficient (ICC) for a two-way random effects model <span class="citation" data-cites="shrout1979intraclass">Shrout &amp; Fleiss (<a href="#ref-shrout1979intraclass" role="doc-biblioref">1979</a>)</span>, which has been shown to be equivalent to the Fleiss kappa as described in <span class="citation" data-cites="fleiss2013statistical">Fleiss et al. (<a href="#ref-fleiss2013statistical" role="doc-biblioref">2013</a>)</span>, p.&nbsp;611-12. Under the <span class="math inline">\(t = p\)</span> unbiased rater assumption, <span class="math inline">\(c = ta + \bar{a}p = p\)</span>, so that the Fliess kappa is (again) shown to be <span class="math inline">\(a^2\)</span> under that condition. The relation <a href="#eq-cor-c" class="quarto-xref">Equation&nbsp;1</a> suggests that the Fliess kappa could be adjusted for cases when <span class="math inline">\(t \ne p\)</span> by making assumptions about those two parameters. For example, maybe the true rate is known from other information. The overall rate of Class 1 ratings <span class="math inline">\(c\)</span> can be estimated directly from the data, but estimating <span class="math inline">\(t\)</span> requires either prior knowledge of the context or using the full t-a-p estimation process, in which case there’s no need to compute the Fliess kappa.</p>
+</section>
+<section id="correlation-between-ratings-and-true-values" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Correlation Between Ratings and True Values</h1>
 <p>It is of interest to find the correlation between <span class="math inline">\(T_i\)</span> the truth value of subject <span class="math inline">\(i\)</span> and the resulting classification <span class="math inline">\(C_i\)</span>. Note that both of the random variables <span class="math inline">\(T_i\)</span> and <span class="math inline">\(C_i\)</span> take only values of zero or one, so squaring them doesn’t change their values. This fact simplifies computations, for example <span class="math inline">\(E[C_i^2] = E[C_i] = ta + p\bar{a}\)</span>. The variance of <span class="math inline">\(C\)</span> is therefore <span class="math display">\[
 \begin{aligned}
 \textrm{Var}(C) &amp;= E[C^2] - E^2[C] \\
@@ -213,7 +460,7 @@ a^2 =\frac{c\overline{c }}{t\bar{t}} \text{Cor}(C_a, C_b) = \frac{c\overline{c }
        &amp;= (ta + p\bar{a})\overline{(ta + p\bar{a})}. \\
 \end{aligned}
 \]</span> Similarly, <span class="math inline">\(Var(T) = t\bar{t}\)</span>. The correlation between true values and ratings is then</p>
-<p><span class="math display">\[
+<p><span id="eq-cor-tc"><span class="math display">\[
 \begin{aligned}
 \text{Cor}(T, C) &amp;= \frac{\text{Cov}(T, C)}{\sqrt{\text{Var}(T)\text{Var}(C)}} \\
 &amp;= \frac{E[T(Ta + p\bar{a}) ] - t(ta + p\bar{a})}{\sqrt{t\bar{t} c\bar{c}}  } \\
@@ -221,14 +468,14 @@ a^2 =\frac{c\overline{c }}{t\bar{t}} \text{Cor}(C_a, C_b) = \frac{c\overline{c }
 &amp;= a\frac{\sqrt{t\bar{t}}}{\sqrt{c\bar{c}}} \\
 &amp;= a\frac{\sigma_T}{\sigma_C}.
 \end{aligned}
-\]</span> Where <span class="math inline">\(\sigma\)</span> is the standard deviation (square root of variance). The relationship in <strong>?@eq-cor-tc</strong> can also be seen as <span class="math inline">\(a = \text{Cor}(T, C) \frac{\sigma_C}{\sigma_T}\)</span>, which means <span class="math inline">\(a\)</span> can be interpreted as the slope of the regression line <span class="math inline">\(C = \beta_0 + \beta_1T + \varepsilon\)</span>, i.e.&nbsp;<span class="math inline">\(a = \beta_1\)</span>. In the proficient rater case <span class="math inline">\(p = t\)</span>, <span class="math inline">\(\sigma_C = \sigma_T\)</span> and so <span class="math inline">\(\text{Cor}(T, C) = a\)</span>. It can also be shown that for a <span class="math inline">\(t\)</span>-<span class="math inline">\(a_1,a_0\)</span>-<span class="math inline">\(p\)</span> model, the <span class="math inline">\(t=p\)</span> assumption leads to <span class="math inline">\(a = \sqrt{a_1a_0}.\)</span> See @eubankscause.</p>
+\tag{2}\]</span></span></p>
+<p>Where <span class="math inline">\(\sigma\)</span> is the standard deviation (square root of variance). The relationship in <a href="#eq-cor-tc" class="quarto-xref">Equation&nbsp;2</a> can also be seen as <span class="math inline">\(a = \text{Cor}(T, C) \frac{\sigma_C}{\sigma_T}\)</span>, which means <span class="math inline">\(a\)</span> can be interpreted as the slope of the regression line <span class="math inline">\(C = \beta_0 + \beta_1T + \varepsilon\)</span>, i.e.&nbsp;<span class="math inline">\(a = \beta_1\)</span>. In the unbiased rater case <span class="math inline">\(p = t\)</span>, <span class="math inline">\(\sigma_C = \sigma_T\)</span> and so <span class="math inline">\(\text{Cor}(T, C) = a\)</span>. It can also be shown that for a <span class="math inline">\(t\)</span>-<span class="math inline">\(a_1,a_0\)</span>-<span class="math inline">\(p\)</span> model, the <span class="math inline">\(t=p\)</span> assumption leads to <span class="math inline">\(a = \sqrt{a_1a_0}.\)</span> See <span class="citation" data-cites="eubankscause">Eubanks (<a href="#ref-eubankscause" role="doc-biblioref">2014</a>)</span>.</p>
 <p>The two correlations derived here are related by <span class="math inline">\(\text{Cor}^2(T, C) = \text{Cor}(C_i, C_j)\)</span>.</p>
 </section>
-</section>
-<section id="alternate-derivation-of-fleiss-kappa-relationship" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Alternate Derivation of Fleiss Kappa Relationship</h1>
-<p>This appendix gives an alternative derivation for the Fleiss kappa’s relationship to rater accuracy under the proficient rater assumption.</p>
-<p>The Fleiss kappa @fleiss1971measuring is a particular case of Krippendorf’s alpha @krippendorff1978reliability and a multi-rater extension of Scott’s pi @scott1955reliability. The statistic compares the overall distribution of ratings (ignoring subjects) to the average over within-subject distributions. These distributions are used to compute the number of observed matches (i.e.&nbsp;agreements) <span class="math inline">\(m_o\)</span> over subjects <span class="math inline">\(i = 1 \dots N\)</span>. For a two-category classification with a fixed number of raters <span class="math inline">\(R&gt;1\)</span> per subject the number of matched ratings for a given subject <span class="math inline">\(i\)</span> is</p>
+<section id="alternate-derivation-of-fleiss-kappa-relationship" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Alternate Derivation of Fleiss Kappa Relationship</h1>
+<p>This appendix gives an alternative derivation for the Fleiss kappa’s relationship to rater accuracy under the unbiased rater assumption.</p>
+<p>The Fleiss kappa <span class="citation" data-cites="fleiss1971measuring">Fleiss (<a href="#ref-fleiss1971measuring" role="doc-biblioref">1971</a>)</span> is a particular case of Krippendorf’s alpha <span class="citation" data-cites="krippendorff1978reliability">Krippendorff &amp; Fleiss (<a href="#ref-krippendorff1978reliability" role="doc-biblioref">1978</a>)</span> and a multi-rater extension of Scott’s pi <span class="citation" data-cites="scott1955reliability">Scott (<a href="#ref-scott1955reliability" role="doc-biblioref">1955</a>)</span>. The statistic compares the overall distribution of ratings (ignoring subjects) to the average over within-subject distributions. These distributions are used to compute the number of observed matches (i.e.&nbsp;agreements) <span class="math inline">\(m_o\)</span> over subjects <span class="math inline">\(i = 1 \dots N\)</span>. For a two-category classification with a fixed number of raters <span class="math inline">\(R&gt;1\)</span> per subject the number of matched ratings for a given subject <span class="math inline">\(i\)</span> is</p>
 <p><span class="math display">\[
 \begin{aligned}
 m_o &amp;= \frac{ {\binom{k_i}{2}} + {\binom{R - k_i}{2}}}{\binom{R}{2}} \\
@@ -263,12 +510,32 @@ m_o &amp;= \frac{ {\binom{k_i}{2}} + {\binom{R - k_i}{2}}}{\binom{R}{2}} \\
             &amp;= a^2.
 \end{aligned}
 \]</span></p>
-<p>So kappa is the square of accuracy under the proficient rater assumption, with constant rater accuracy and fixed number of raters. The relationship does not depend on the true distribution <span class="math inline">\(t\)</span> of Class 1 cases.</p>
+<p>So kappa is the square of accuracy under the unbiased rater assumption, with constant rater accuracy and fixed number of raters. The relationship does not depend on the true distribution <span class="math inline">\(t\)</span> of Class 1 cases.</p>
+
 
 
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-eubankscause" class="csl-entry" role="listitem">
+Eubanks, D. A. (2014). Causal interfaces. <em>Arxiv.org Preprint</em>. <a href="http://arxiv.org/abs/1404.4884v1">http://arxiv.org/abs/1404.4884v1</a>
+</div>
+<div id="ref-fleiss1971measuring" class="csl-entry" role="listitem">
+Fleiss, J. L. (1971). Measuring nominal scale agreement among many raters. <em>Psychological Bulletin</em>, <em>76</em>(5), 378.
+</div>
+<div id="ref-fleiss2013statistical" class="csl-entry" role="listitem">
+Fleiss, J. L., Levin, B., &amp; Paik, M. C. (2013). <em>Statistical methods for rates and proportions</em>. john wiley &amp; sons.
+</div>
+<div id="ref-krippendorff1978reliability" class="csl-entry" role="listitem">
+Krippendorff, K., &amp; Fleiss, J. L. (1978). Reliability of binary attribute data. <em>Biometrics</em>, <em>34</em>(1), 142–144.
+</div>
+<div id="ref-scott1955reliability" class="csl-entry" role="listitem">
+Scott, W. A. (1955). Reliability of content analysis: The case of nominal scale coding. <em>Public Opinion Quarterly</em>, 321–325.
+</div>
+<div id="ref-shrout1979intraclass" class="csl-entry" role="listitem">
+Shrout, P. E., &amp; Fleiss, J. L. (1979). Intraclass correlations: Uses in assessing rater reliability. <em>Psychological Bulletin</em>, <em>86</em>(2), 420.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -351,8 +618,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -463,7 +728,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
