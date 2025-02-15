@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -56,10 +56,10 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-f3c2ea88cadbcfb37ba28ffa2c97cfc1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -246,7 +246,7 @@ m_o &amp;= m_a + m_i + m_x &amp;\text{(observed match rate)}\\
 <section id="unbiased-raters-the-fleiss-kappa" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Unbiased Raters: the Fleiss Kappa</h1>
 <p>The Fleiss kappa is designed to work with ratings where the number of raters per subject can vary, and with a rating scale of arbitrary length. It assumes an asymptotic form for chance correction, so is most appropriate for large samples. I will only consider the binary scale case here for simplicity.</p>
-<p>The baseline for random ratings for Fleiss is if we took all the ratings and randomly shuffled them between subjects. In this case, the match rate for two raters is given by the proportions of the ratings for the two classes. For example, if Class 1 ratings comprise 20% of the total, then the random match rate is <span class="math inline">\(m_c = .2^2 + .8^2\)</span>. That’s the probability that either two random Class 1 ratings match or two random Class 0 ratings do. If <span class="math inline">\(c\)</span> is the expected proportion of Class 1 ratings, then <span class="math inline">\(m_c = c^2 + \bar{c}^2\)</span>. From the t-a-p diagram, we can see that <span class="math inline">\(c = t(a + \bar{a}p) + \bar{t}\bar{a}p = ta + \bar{a}p\)</span>. If inaccurate ratings assign Class 1 at the true rate so that <span class="math inline">\(t = p\)</span>, I’ll describe the raters as “unbiased.” In that case <span class="math inline">\(c = pa + p\bar{a} = p = t\)</span>; the rating proportions of Class 1 reflect the true rates, because the raters assign proportionate “guesses” for inaccurate ratings. Under this assumption, with <span class="math inline">\(t = p\)</span> and <span class="math inline">\(m_c = m_r = p^2 + \bar{p}^2\)</span>, kappa becomes</p>
+<p>The baseline for random ratings for Fleiss is if we took all the ratings and randomly shuffled them between subjects. In this case, the match rate for two raters is given by the proportions of the ratings for the two classes as found in the data. For example, if Class 1 ratings comprise 20% of the total, then the random match rate is <span class="math inline">\(m_c = .2^2 + .8^2\)</span>. That’s the probability that either two random Class 1 ratings match or two random Class 0 ratings do. If <span class="math inline">\(c\)</span> is the expected proportion of Class 1 ratings, then <span class="math inline">\(m_c = c^2 + \bar{c}^2\)</span>. From the t-a-p diagram, we can see that <span class="math inline">\(c = t(a + \bar{a}p) + \bar{t}\bar{a}p = ta + \bar{a}p\)</span>. If inaccurate ratings assign Class 1 at the true rate so that <span class="math inline">\(t = p\)</span>, I’ll describe the raters as “unbiased.” In that case <span class="math inline">\(c = pa + p\bar{a} = p = t\)</span>; the rating proportions of Class 1 reflect the true rates, because the raters assign proportionate “guesses” for inaccurate ratings. Under this assumption, with <span class="math inline">\(t = p\)</span> and <span class="math inline">\(m_c = m_r = p^2 + \bar{p}^2\)</span>, kappa becomes</p>
 <p><span class="math display">\[
 \begin{aligned}\kappa_f &amp;= \frac{m_o - m_c}{1 - m_c} \\
 &amp;= \frac{a^2+a^2m_r + m_r - 2am_r + 2a\bar{a}(p^2 + \bar{p}^2) - m_r}{1 - m_r} \\
@@ -256,6 +256,7 @@ m_o &amp;= m_a + m_i + m_x &amp;\text{(observed match rate)}\\
 \end{aligned}
 \]</span></p>
 <p>For the Fleiss kappa, it is also true that the expectation of kappa is the accuracy squared, this time if the condition <span class="math inline">\(t = p\)</span> is met by the raters represented in the data you have.</p>
+<p>The Fleiss kappa formula can be thought of as first establishing a random baseline for matches. As described above, it’s by taking all the ratings for all the subjects, scrambling them up randomly, and choosing two at a time to see if they match. That rate is expected to be <span class="math inline">\(c^2 + \bar{c}^2\)</span>, the chance that two Class 1 ratings will match plus the chance that two Class 0 ratings will. Notice that <span class="math inline">\(1 = (c + \bar{c})^2 = c^2 + 2c\bar{c} + \bar{c}^2\)</span>, so the denominator of the kappa formula amounts to the expected rate of non-matches <span class="math inline">\(2c\bar{c}\)</span> in the ratings. The whole formula is then (observed matches - random matches)/(random non-matches).</p>
 <p>A review of the properties of Fleiss kappa can be found in <span class="citation" data-cites="fleiss2013statistical">Fleiss et al. (<a href="#ref-fleiss2013statistical" role="doc-biblioref">2013</a>)</span>, chapter 18, including kappa’s equivalence to an intraclass correlation coefficient, defined as ICC(1,1) in <span class="citation" data-cites="shrout1979intraclass">Shrout &amp; Fleiss (<a href="#ref-shrout1979intraclass" role="doc-biblioref">1979</a>)</span>. Under the <span class="math inline">\(t = p\)</span> “unbiased” condition, rater accuracy <span class="math inline">\(a\)</span> is the correlation between the ratings and the true classifications: <span class="math inline">\(\sqrt{\kappa_f} = a = cor(C, T)\)</span>. Additionally, the Fleiss kappa is the intraclass correlation of the ratings. Derivations of these results are found in <a href="./correlation.html">Appendix A</a>, where there is also an alternative derivation of the <span class="math inline">\(a = \sqrt{\kappa_f}\)</span> result.</p>
 <p>If the <span class="math inline">\(t = p\)</span> assumption is not true for your raters, then the resulting kappa will be biased. In some cases, kappa may be negative. This is a general problem for the kappas, since they make assumptions about the distribution of random raters without testing those assumptions.</p>
 </section>
@@ -271,7 +272,7 @@ Pr[\text{match|random}] = \frac{m_i + m_x}{1-a^2} \approx 1/2.
 Pr[\text{random}] = 1-a^2 \approx 4(ta + \bar{a}p)(1-ta-\bar{a}p)
 \]</span></p>
 <p>Multiplying these gives (page 37) <span class="math inline">\(\hat{m_c} = 2c\bar{c} = 2(ta + \bar{a}p)(1-ta-\bar{a}p)\)</span>. The approach here is ingenious and philosophically rich, but the limitations of a one-parameter index for rater agreement limit how much can be done.</p>
-<p>In our notation here, the Fleiss kappa assumes <span class="math inline">\(m_c = c^2 + \bar{c}^2\)</span>, and the AC1 assumes that <span class="math inline">\(m_c = 2c\bar{c}\)</span>. The AC1 version is the complement of the Fleiss version: they sum to one since <span class="math inline">\(1 = (c + \bar{c})^2 = c^2 + 2c\bar{c} + \bar{c}^2\)</span>. In some sense, the assumptions about the two kappas are opposite: what Fleiss considers random, AC1 considers non-random, and vice-versa, at least in expectation.</p>
+<p>Recall that the Fleiss kappa assumes <span class="math inline">\(m_c = c^2 + \bar{c}^2\)</span>, as compared to the AC1’s <span class="math inline">\(m_c = 2c\bar{c}\)</span>. The AC1 version is the complement of the Fleiss version: they sum to one since <span class="math inline">\(1 = (c + \bar{c})^2 = c^2 + 2c\bar{c} + \bar{c}^2\)</span>. In some sense, the assumptions about the two kappas are opposite: what Fleiss considers random, AC1 considers non-random, and vice-versa, at least in expectation. The Fleiss kappa assumes a benchmark match rate derived from randomly shuffling the raters (regardless of subject). The AC1’s assumption can be seen as shuffling the ratings and then finding the <em>non-match</em> rate (one minus the match rate) in the resulting data. The kappa then becomes (observed matches - random non-matches)/(random matches) whereas the Fleiss version is (observed matches - random matches)/(random non-matches). The two will agree if <span class="math inline">\(m_c = .5\)</span>, which is the S-Statistic’s assumption too.</p>
 </section>
 <section id="cohens-kappa" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Cohen’s Kappa</h1>
@@ -412,8 +413,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -524,7 +523,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
