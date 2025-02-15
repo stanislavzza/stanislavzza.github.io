@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="David Eubanks">
 
-<title>Appendix A: Statistical Details – The Kappa Zoo</title>
+<title>Appendix A: Statistical Details</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -78,58 +77,16 @@ div.csl-indent {
 }</style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-f3c2ea88cadbcfb37ba28ffa2c97cfc1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
-  "copy-button": false,
-  "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
-  "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
-  }
-}</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XP6WMESY52"></script>
-
-<script type="text/javascript">
-
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-XP6WMESY52', { 'anonymize_ip': true});
-</script>
+<script src="correlation_files/libs/clipboard/clipboard.min.js"></script>
+<script src="correlation_files/libs/quarto-html/quarto.js"></script>
+<script src="correlation_files/libs/quarto-html/popper.min.js"></script>
+<script src="correlation_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="correlation_files/libs/quarto-html/anchor.min.js"></script>
+<link href="correlation_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="correlation_files/libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="correlation_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="correlation_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="correlation_files/libs/bootstrap/bootstrap-8a79a254b8e706d3c925cde0a310d4f0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -161,57 +118,12 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="floating nav-fixed">
+<body class="fullcontent">
 
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">The Kappa Zoo</span>
-    </a>
-  </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-</ul>
-          </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
-</div>
-      </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
-<!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contents</h2>
-   
-  <ul class="collapse">
-  <li><a href="#closed-form-accuracy-coefficients" id="toc-closed-form-accuracy-coefficients" class="nav-link active" data-scroll-target="#closed-form-accuracy-coefficients"><span class="header-section-number">1</span> Closed Form Accuracy Coefficients</a></li>
-  <li><a href="#correlation-of-ratings-between-raters" id="toc-correlation-of-ratings-between-raters" class="nav-link" data-scroll-target="#correlation-of-ratings-between-raters"><span class="header-section-number">2</span> Correlation of Ratings between Raters</a></li>
-  <li><a href="#correlation-between-ratings-and-true-values" id="toc-correlation-between-ratings-and-true-values" class="nav-link" data-scroll-target="#correlation-between-ratings-and-true-values"><span class="header-section-number">3</span> Correlation Between Ratings and True Values</a></li>
-  <li><a href="#alternate-derivation-of-fleiss-kappa-relationship" id="toc-alternate-derivation-of-fleiss-kappa-relationship" class="nav-link" data-scroll-target="#alternate-derivation-of-fleiss-kappa-relationship"><span class="header-section-number">4</span> Alternate Derivation of Fleiss Kappa Relationship</a></li>
-  </ul>
-</nav>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-    </div>
-<!-- main -->
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -223,12 +135,6 @@ window.Quarto = {
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>David Eubanks </p>
-          </div>
-  </div>
     
   
     
@@ -239,8 +145,8 @@ window.Quarto = {
 </header>
 
 
-<section id="closed-form-accuracy-coefficients" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Closed Form Accuracy Coefficients</h1>
+<section id="closed-form-accuracy-coefficients" class="level1">
+<h1>Closed Form Accuracy Coefficients</h1>
 <p>We’ll show that</p>
 <p><span class="math display">\[
 a^2 = \sum_{k=0}^R\beta_k\eta_k
@@ -256,23 +162,21 @@ m_o &amp;=  \frac{2}{NR(R-1)}\sum_{k=0}^{R} n_k M_k \\
 &amp;= 1 - \frac{2}{R-1}\sum_{k=0}^{R} k\eta_k + \frac{2}{R(R-1)}\sum_{k=0}^{R} k^2\eta_k \\
 \end{aligned}
 \]</span></p>
-<p>where <span class="math inline">\(\eta_k = n_k / N\)</span> is the proportion of subjects with <span class="math inline">\(k\)</span> ratings of Class 1, so that <span class="math inline">\(\sum \eta_k = 1\)</span>. It will be useful to use the fact that the average rate of Class 1 ratings is</p>
+<p>where <span class="math inline">\(\eta_k = n_k / N\)</span> is the proportion of subjects with <span class="math inline">\(k\)</span> ratings of Class 1, so that <span class="math inline">\(\sum \eta_k = 1\)</span>. Note that the average rate of Class 1 ratings is</p>
 <p><span class="math display">\[
 c = \frac{1}{R}\sum_{k=0}^{R} k\eta_k\,,
 \]</span> since the sum adds up the number of Class 1 ratings over all subjects divided by the number of subjects, and <span class="math inline">\(NR\)</span> is the total number of ratings. Using that idea, we can express</p>
 <p><span class="math display">\[
 \begin{aligned}
-m_o &amp;= 1 - \frac{2R}{R-1}c + \frac{2}{R(R-1)}\sum_{k=0}^{R} k^2\eta_k/R \\
+m_o &amp;= 1 - \frac{2R}{R-1}c + \frac{2}{R-1}\sum_{k=0}^{R} k^2\eta_k/R \\
 &amp;:= 1 - 2\frac{Rc-\gamma}{R-1} \, ,
 \end{aligned}
-\]</span> where <span class="math inline">\(\gamma = \sum k^2\eta_k/R\)</span> to simplify the notation.</p>
-<p>The Fleiss kappa is then the difference between the average match rate and the expected match rate under independence, which is the sum of the products of the marginal proportions of Class 1 ratings for each rater.</p>
+\]</span> where <span class="math inline">\(\gamma = \sum k^2\eta_k/R\)</span> to simplify the notation. The Fleiss kappa is then the difference between the average match rate and the expected match rate under independence, which is the sum of the products of the marginal proportions of Class 1 ratings for each rater.</p>
 <p>The Fleiss formula is</p>
 <p><span class="math display">\[
 \kappa = \frac{m_o - m_c}{1 - m_c},
 \]</span></p>
-<p>where <span class="math inline">\(m_c = c^2 + \bar{c}^2 = 2c^2 - 2c + 1\)</span>. Here <span class="math inline">\(c\)</span> is the average Class 1 rate over all ratings,</p>
-<p>So that we can express the kappa formula as <span class="math display">\[
+<p>where <span class="math inline">\(m_c = c^2 + \bar{c}^2 = 2c^2 - 2c + 1\)</span>. Here <span class="math inline">\(c\)</span> is the average Class 1 rate over all ratings, so that we can express the kappa formula as <span class="math display">\[
 \begin{aligned}
 \kappa &amp;= \frac{1 - 2\frac{Rc-\gamma}{R-1}-2c^2 + 2c - 1  }{1-2c^2 + 2c - 1} \\
 &amp;= \frac{\gamma/c-R}{(R-1)(1-c)} + 1
@@ -291,12 +195,12 @@ m_o &amp;= 1 - \frac{2R}{R-1}c + \frac{2}{R(R-1)}\sum_{k=0}^{R} k^2\eta_k/R \\
 \beta_k &amp;= \frac{k^2}{R(R-1)t\bar{t}}+ 1 - \frac{R}{(R-1)\bar{t}}. \\
 \end{aligned}
 \]</span> It seems odd algebraically to bring the constants inside the sum as if they were multiplied by the <span class="math inline">\(\eta_k\)</span> proportions, but this works because <span class="math inline">\(\sum \eta_k = 1\)</span>.</p>
-<p>The coefficients aren’t unique if the distribution of <span class="math inline">\(\eta_k\)</span> is symmetrical, as is the case we worked out by hand in <a href="./tapmodel.html">Chapter 2</a>, with <span class="math inline">\(R=2\)</span> and <span class="math inline">\(t = p= .5\)</span>. In case of symmetrical proportions of Class 1 ratings, we could use</p>
+<p>The coefficients aren’t unique if the distribution of <span class="math inline">\(\eta_k\)</span> is symmetrical, as is the case we worked out by hand in <a href="tapmodel.qmd">Chapter 2</a>, with <span class="math inline">\(R=2\)</span> and <span class="math inline">\(t = p= .5\)</span>. In case of symmetrical proportions of Class 1 ratings, we could use</p>
 <p><span class="math display">\[
 \begin{aligned}
 \dot\beta_k &amp;= \frac{1}{2}(\beta_k+\beta_{R-k}). \\
 \end{aligned}
-\]</span> In the special case when <span class="math inline">\(t = p = 1/2\)</span> and <span class="math inline">\(R = 2\)</span>, we have <span class="math inline">\(\beta_0 = -3\)</span>, <span class="math inline">\(\beta_1 = -1, \beta_2 = 5\)</span>, so <span class="math inline">\(\dot \beta_0 = \beta_2 = 1\)</span> and <span class="math inline">\(\dot \beta_1 = -1\)</span> as we found with the direct derivation. In general we can’t use this method, because <span class="math inline">\(\eta_k\)</span> isn’t usually symmetrical.</p>
+\]</span> In the special case when <span class="math inline">\(t = p = 1/2\)</span> and <span class="math inline">\(R = 2\)</span>, we have <span class="math inline">\(\beta_0 = -3\)</span>, <span class="math inline">\(\beta_1 = -1, \beta_2 = 5\)</span>, so <span class="math inline">\(\dot \beta_0 = \dot \beta_2 = 1\)</span> and <span class="math inline">\(\dot \beta_1 = -1\)</span> as we found with the direct derivation. In general we can’t use this method, because <span class="math inline">\(\eta_k\)</span> isn’t usually symmetrical.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
@@ -432,8 +336,8 @@ Figure&nbsp;4: Accuracy approximations by Fleiss kappa when the unbiased rater a
 </div>
 <p>The relatively low approximation error in <a href="#fig-fleiss" class="quarto-xref">Figure&nbsp;4</a> shows a direct comparison to the linear combination approximation.</p>
 </section>
-<section id="correlation-of-ratings-between-raters" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Correlation of Ratings between Raters</h1>
+<section id="correlation-of-ratings-between-raters" class="level1">
+<h1>Correlation of Ratings between Raters</h1>
 <p>Given two distinct raters <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> with common accuracy <span class="math inline">\(a\)</span> and guess probability <span class="math inline">\(p\)</span>, what’s the correlation between their ratings? Let <span class="math inline">\(c = E[C_i] = E[C_j] = ta + p\bar{a}\)</span>. Capital letters denote random binary variables, so that <span class="math inline">\(A_i\)</span> is one if the first rater made an accurate assessment and zero if not. <span class="math inline">\(T\)</span> is the true value of a common subject being rated. The covariance between the two raters’ ratings is</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -450,8 +354,8 @@ a^2 =\frac{c\overline{c }}{t\bar{t}} \text{Cor}(C_a, C_b) = \frac{c\overline{c }
 \tag{1}\]</span></span></p>
 <p>The correlation between two raters’ ratings of the same subject is the intraclass correlation coefficient (ICC) for a two-way random effects model <span class="citation" data-cites="shrout1979intraclass">Shrout &amp; Fleiss (<a href="#ref-shrout1979intraclass" role="doc-biblioref">1979</a>)</span>, which has been shown to be equivalent to the Fleiss kappa as described in <span class="citation" data-cites="fleiss2013statistical">Fleiss et al. (<a href="#ref-fleiss2013statistical" role="doc-biblioref">2013</a>)</span>, p.&nbsp;611-12. Under the <span class="math inline">\(t = p\)</span> unbiased rater assumption, <span class="math inline">\(c = ta + \bar{a}p = p\)</span>, so that the Fliess kappa is (again) shown to be <span class="math inline">\(a^2\)</span> under that condition. The relation <a href="#eq-cor-c" class="quarto-xref">Equation&nbsp;1</a> suggests that the Fliess kappa could be adjusted for cases when <span class="math inline">\(t \ne p\)</span> by making assumptions about those two parameters. For example, maybe the true rate is known from other information. The overall rate of Class 1 ratings <span class="math inline">\(c\)</span> can be estimated directly from the data, but estimating <span class="math inline">\(t\)</span> requires either prior knowledge of the context or using the full t-a-p estimation process, in which case there’s no need to compute the Fliess kappa.</p>
 </section>
-<section id="correlation-between-ratings-and-true-values" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Correlation Between Ratings and True Values</h1>
+<section id="correlation-between-ratings-and-true-values" class="level1">
+<h1>Correlation Between Ratings and True Values</h1>
 <p>It is of interest to find the correlation between <span class="math inline">\(T_i\)</span> the truth value of subject <span class="math inline">\(i\)</span> and the resulting classification <span class="math inline">\(C_i\)</span>. Note that both of the random variables <span class="math inline">\(T_i\)</span> and <span class="math inline">\(C_i\)</span> take only values of zero or one, so squaring them doesn’t change their values. This fact simplifies computations, for example <span class="math inline">\(E[C_i^2] = E[C_i] = ta + p\bar{a}\)</span>. The variance of <span class="math inline">\(C\)</span> is therefore <span class="math display">\[
 \begin{aligned}
 \textrm{Var}(C) &amp;= E[C^2] - E^2[C] \\
@@ -472,8 +376,8 @@ a^2 =\frac{c\overline{c }}{t\bar{t}} \text{Cor}(C_a, C_b) = \frac{c\overline{c }
 <p>Where <span class="math inline">\(\sigma\)</span> is the standard deviation (square root of variance). The relationship in <a href="#eq-cor-tc" class="quarto-xref">Equation&nbsp;2</a> can also be seen as <span class="math inline">\(a = \text{Cor}(T, C) \frac{\sigma_C}{\sigma_T}\)</span>, which means <span class="math inline">\(a\)</span> can be interpreted as the slope of the regression line <span class="math inline">\(C = \beta_0 + \beta_1T + \varepsilon\)</span>, i.e.&nbsp;<span class="math inline">\(a = \beta_1\)</span>. In the unbiased rater case <span class="math inline">\(p = t\)</span>, <span class="math inline">\(\sigma_C = \sigma_T\)</span> and so <span class="math inline">\(\text{Cor}(T, C) = a\)</span>. It can also be shown that for a <span class="math inline">\(t\)</span>-<span class="math inline">\(a_1,a_0\)</span>-<span class="math inline">\(p\)</span> model, the <span class="math inline">\(t=p\)</span> assumption leads to <span class="math inline">\(a = \sqrt{a_1a_0}.\)</span> See <span class="citation" data-cites="eubankscause">Eubanks (<a href="#ref-eubankscause" role="doc-biblioref">2014</a>)</span>.</p>
 <p>The two correlations derived here are related by <span class="math inline">\(\text{Cor}^2(T, C) = \text{Cor}(C_i, C_j)\)</span>.</p>
 </section>
-<section id="alternate-derivation-of-fleiss-kappa-relationship" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Alternate Derivation of Fleiss Kappa Relationship</h1>
+<section id="alternate-derivation-of-fleiss-kappa-relationship" class="level1">
+<h1>Alternate Derivation of Fleiss Kappa Relationship</h1>
 <p>This appendix gives an alternative derivation for the Fleiss kappa’s relationship to rater accuracy under the unbiased rater assumption.</p>
 <p>The Fleiss kappa <span class="citation" data-cites="fleiss1971measuring">Fleiss (<a href="#ref-fleiss1971measuring" role="doc-biblioref">1971</a>)</span> is a particular case of Krippendorf’s alpha <span class="citation" data-cites="krippendorff1978reliability">Krippendorff &amp; Fleiss (<a href="#ref-krippendorff1978reliability" role="doc-biblioref">1978</a>)</span> and a multi-rater extension of Scott’s pi <span class="citation" data-cites="scott1955reliability">Scott (<a href="#ref-scott1955reliability" role="doc-biblioref">1955</a>)</span>. The statistic compares the overall distribution of ratings (ignoring subjects) to the average over within-subject distributions. These distributions are used to compute the number of observed matches (i.e.&nbsp;agreements) <span class="math inline">\(m_o\)</span> over subjects <span class="math inline">\(i = 1 \dots N\)</span>. For a two-category classification with a fixed number of raters <span class="math inline">\(R&gt;1\)</span> per subject the number of matched ratings for a given subject <span class="math inline">\(i\)</span> is</p>
 <p><span class="math display">\[
@@ -512,8 +416,6 @@ m_o &amp;= \frac{ {\binom{k_i}{2}} + {\binom{R - k_i}{2}}}{\binom{R}{2}} \\
 \]</span></p>
 <p>So kappa is the square of accuracy under the unbiased rater assumption, with constant rater accuracy and fixed number of raters. The relationship does not depend on the true distribution <span class="math inline">\(t\)</span> of Class 1 cases.</p>
 
-
-
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
@@ -535,7 +437,8 @@ Scott, W. A. (1955). Reliability of content analysis: The case of nominal scale 
 <div id="ref-shrout1979intraclass" class="csl-entry" role="listitem">
 Shrout, P. E., &amp; Fleiss, J. L. (1979). Intraclass correlations: Uses in assessing rater reliability. <em>Psychological Bulletin</em>, <em>86</em>(2), 420.
 </div>
-</div></section></div></main> <!-- /main -->
+</div></section></div></main>
+<!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
