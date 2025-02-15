@@ -504,7 +504,7 @@ Figure&nbsp;4: Box and whisker plots show parameter estimates from simulations o
 </section>
 <section id="sec-exact" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Exact Formulas for Accuracy</h1>
-<p>As we’ll see in <a href="./kappa.html">Chapter 3</a>, the Fliess Kappa illustrates a “closed form” for calculating accuracy in the case when <span class="math inline">\(t = p\)</span>. We can find exact formulas for other special cases, which is useful for theoretical purposes. Consider the two-rater case on <span class="math inline">\(N_s\)</span> subjects, where the number of cases where both raters assigned Class 0 is <span class="math inline">\(n_0\)</span>, the mixed-rating case is <span class="math inline">\(n_1\)</span>, and the count of cases with both Class 1 is <span class="math inline">\(N_2\)</span>. The log likelihood function is</p>
+<p>As we’ll see in <a href="./kappa.html">Chapter 3</a>, the Fliess Kappa illustrates an algorithm for calculating accuracy in the case when <span class="math inline">\(t = p\)</span>. We can find exact “closed-form” formulas for special cases, which can be useful for theoretical purposes. Consider the two-rater case on <span class="math inline">\(N_s\)</span> subjects, where the number of cases where both raters assigned Class 0 is <span class="math inline">\(n_0\)</span>, the mixed-rating case is <span class="math inline">\(n_1\)</span>, and the count of cases with both Class 1 is <span class="math inline">\(N_2\)</span>. The log likelihood function is</p>
 <p><span class="math display">\[
 \begin{aligned}
 \ell(t,a,p)
@@ -533,14 +533,15 @@ a &amp;= \sqrt{\frac{n_0 - n_1+ n_2 }{n_0 + n_1 + n_2}} \\
 &amp;=  \sqrt{\eta_0 - \eta_1 + \eta_2} \, ,
 \end{aligned}
 \tag{3}\]</span></span></p>
-<p>where <span class="math inline">\(\eta_i = n_i/N_r\)</span> is the proportion of cases with <span class="math inline">\(i\)</span> ratings of Class 1. If there are no mismatched ratings, then <span class="math inline">\(\eta_1=0\)</span>, and <span class="math inline">\(a = 1\)</span>. If <span class="math inline">\(\eta_1 = 1/2\)</span>, then the ratings look like coin flips, and <span class="math inline">\(a = 0\)</span>. The form of <a href="#eq-exact-a" class="quarto-xref">Equation&nbsp;3</a> represents <span class="math inline">\(a^2\)</span> as a linear combination of match rates and mismatch rates. In fact, for unbiased raters (<span class="math inline">\(t=p\)</span>) we can derive the coefficients <span class="math inline">\(\beta_k\)</span> so that</p>
+<p>where <span class="math inline">\(\eta_i = n_i/N_r\)</span> is the proportion of cases with <span class="math inline">\(i\)</span> ratings of Class 1. If there are no mismatched ratings, then <span class="math inline">\(\eta_1=0\)</span>, and <span class="math inline">\(a = 1\)</span>. If <span class="math inline">\(\eta_1 = 1/2\)</span>, then the ratings look like coin flips, and <span class="math inline">\(a = 0\)</span>. The form of <a href="#eq-exact-a" class="quarto-xref">Equation&nbsp;3</a> represents <span class="math inline">\(a^2\)</span> as a linear combination of match rates and mismatch rates. In fact, for unbiased raters (<span class="math inline">\(t=p\)</span>) using a fixed <span class="math inline">\(t\)</span> and number of raters <span class="math inline">\(R\)</span>, we can derive the coefficients <span class="math inline">\(\beta_k\)</span> so that</p>
 <p><span id="eq-exact-a-general"><span class="math display">\[
 \begin{aligned}
-a^2 &amp;= \sum_{k=0}^R \beta_k\ \eta_k  \\
+a^2(R,t) &amp;= \sum_{k=0}^R \beta_k\ \eta_k  \\
 \beta_k &amp;= \frac{k^2}{R(R-1)t\bar{t}}+ 1 - \frac{R}{(R-1)\bar{t}}. \\
 \end{aligned}
 \tag{4}\]</span></span></p>
 <p>The derivation of the formula for <span class="math inline">\(\beta_k\)</span> is found in the <a href="./correlation.html">Appendix</a>. The linear models for <span class="math inline">\(a^2\)</span> are useful as theoretical tools, e.g.&nbsp;sensitivity analysis, but shouldn’t be used for direct estimation of accuracy, since the <span class="math inline">\(t=p\)</span> coefficient has to be specified, and the computation is sensitive to violations of the unbiased rater assumption. The supporting R package contains a function <code>tapModel::exact_accuracy_coefs(N_r, tp)</code> that computes the <span class="math inline">\(\beta_k\)</span> coefficients.</p>
+<p>This result shows that when the unbiased rater (<span class="math inline">\(t=p\)</span>) condition is met, the the Fleiss kappa can be thought of as a weighted additive voting method.</p>
 </section>
 <section id="sec-identifiability" class="level1" data-number="7">
 <h1 data-number="7"><span class="header-section-number">7</span> Identifiability</h1>
