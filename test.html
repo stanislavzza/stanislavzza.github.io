@@ -6,10 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="David A. Eubanks">
-<meta name="dcterms.date" content="2025-08-10">
+<meta name="author" content="David Eubanks">
 
-<title>t-a-p diagram – The Kappa Zoo</title>
+<title>Example: PTSD Assessment – The Kappa Zoo</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -78,16 +112,16 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-XP6WMESY52', { 'anonymize_ip': true});
 </script>
-</head><body class="nav-sidebar docked quarto-light">\usepackage{tikz}
-\usepackage{tikz-cd}
-\usepackage{pgfplots}
-\pgfplotsset{compat=1.16}
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 
 
 <link rel="stylesheet" href="styles.css">
+</head>
 
-
-
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -125,8 +159,7 @@ gtag('config', 'G-XP6WMESY52', { 'anonymize_ip': true});
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#simplified-version-with-binary-vars" id="toc-simplified-version-with-binary-vars" class="nav-link active" data-scroll-target="#simplified-version-with-binary-vars"><span class="header-section-number">1</span> simplified version with binary vars</a></li>
-  <li><a href="#invariant-scale" id="toc-invariant-scale" class="nav-link" data-scroll-target="#invariant-scale"><span class="header-section-number">2</span> invariant scale</a></li>
+  <li><a href="#intro" id="toc-intro" class="nav-link active" data-scroll-target="#intro"><span class="header-section-number">1</span> Intro</a></li>
   </ul>
 </nav>
 </nav>
@@ -139,7 +172,7 @@ gtag('config', 'G-XP6WMESY52', { 'anonymize_ip': true});
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">t-a-p diagram</h1>
+<h1 class="title">Example: PTSD Assessment</h1>
 </div>
 
 
@@ -149,16 +182,10 @@ gtag('config', 'G-XP6WMESY52', { 'anonymize_ip': true});
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>David A. Eubanks </p>
+             <p>David Eubanks </p>
           </div>
   </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">August 10, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -168,15 +195,106 @@ gtag('config', 'G-XP6WMESY52', { 'anonymize_ip': true});
 </header>
 
 
-<section id="simplified-version-with-binary-vars" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> simplified version with binary vars</h1>
-<p>Modified to separate branches</p>
-<p>Modified to separate branches with probabilities</p>
-<p>and with rates (not used–wrong)</p>
-</section>
-<section id="invariant-scale" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> invariant scale</h1>
-<p>Dawid &amp;Skene</p>
+<section id="intro" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Intro</h1>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">runif</span>(<span class="dv">10</span>), <span class="at">y =</span> <span class="fu">runif</span>(<span class="dv">10</span>))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="test_files/figure-html/fig-1-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Test caption
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>And a table</p>
+<div class="cell" data-tbl.cap="test caption" data-tbl.location="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)  <span class="sc">|&gt;</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">full_width =</span> <span class="cn">FALSE</span>,           <span class="co"># &lt;- stops spanning the full page</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">position   =</span> <span class="st">"center"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>,<span class="st">"hover"</span>,<span class="st">"condensed"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="tbl-1" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-tbl.location="center" data-tbl.cap="test caption">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1
+</figcaption>
+<div aria-describedby="tbl-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed do-not-create-environment caption-top table-sm small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">x</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.71</td>
+<td style="text-align: right;">0.15</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.66</td>
+<td style="text-align: right;">0.83</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.89</td>
+<td style="text-align: right;">0.83</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.57</td>
+<td style="text-align: right;">0.69</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">0.91</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.73</td>
+<td style="text-align: right;">0.74</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.12</td>
+<td style="text-align: right;">0.39</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.71</td>
+<td style="text-align: right;">0.62</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.93</td>
+<td style="text-align: right;">0.60</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.19</td>
+<td style="text-align: right;">0.02</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
 
 
 </section>

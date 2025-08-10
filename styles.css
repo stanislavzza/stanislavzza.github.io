@@ -1,0 +1,14 @@
+/* Only affect kable tables */
+table.kable_table {
+  width: auto !important;     /* stop full-width stretch */
+  margin-left: auto;          /* center */
+  margin-right: auto;         /* center */
+}
+
+/* If a kable lives inside a Quarto "figure" wrapper, still center it */
+.quarto-figure table.kable_table {
+  width: auto !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+

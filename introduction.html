@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.39">
+<meta name="generator" content="quarto-1.7.31">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,8 +22,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -34,7 +35,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -85,21 +86,22 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-f3c2ea88cadbcfb37ba28ffa2c97cfc1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-fcd204c8655bd031ced4918abb783b1b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
+  "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
+  "panel-placement": "start",
+  "type": "textbox",
   "limit": 50,
   "keyboard-shortcut": [
     "f",
@@ -167,42 +169,44 @@ window.Quarto = {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="floating nav-fixed">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">The Kappa Zoo</span>
-    </a>
-  </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-</ul>
-          </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
-</div>
-      </div> <!-- /container-fluid -->
-    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
+      The Kappa Zoo
+      </li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">The Kappa Zoo</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
     <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contents</h2>
+    <h2 id="toc-title">On this page</h2>
    
-  <ul class="collapse">
+  <ul>
   <li><a href="#sec-intro" id="toc-sec-intro" class="nav-link active" data-scroll-target="#sec-intro"><span class="header-section-number">1</span> Quantifying Agreement</a>
   <ul class="collapse">
   <li><a href="#sec-intro-overview" id="toc-sec-intro-overview" class="nav-link" data-scroll-target="#sec-intro-overview"><span class="header-section-number">1.1</span> Overview</a></li>
@@ -210,13 +214,16 @@ window.Quarto = {
   <li><a href="#sec-intro-confusion" id="toc-sec-intro-confusion" class="nav-link" data-scroll-target="#sec-intro-confusion"><span class="header-section-number">1.3</span> The Confusion Matrix</a></li>
   <li><a href="#sec-intro-agreement" id="toc-sec-intro-agreement" class="nav-link" data-scroll-target="#sec-intro-agreement"><span class="header-section-number">1.4</span> Agreement Statistics</a></li>
   <li><a href="#chance-correction" id="toc-chance-correction" class="nav-link" data-scroll-target="#chance-correction"><span class="header-section-number">1.5</span> Chance Correction</a></li>
-  <li><a href="#the-kappa-zoo" id="toc-the-kappa-zoo" class="nav-link" data-scroll-target="#the-kappa-zoo"><span class="header-section-number">1.6</span> The Kappa Zoo</a></li>
-  <li><a href="#machine-learning" id="toc-machine-learning" class="nav-link" data-scroll-target="#machine-learning"><span class="header-section-number">1.7</span> Machine Learning</a></li>
-  <li><a href="#sec-intro-tap" id="toc-sec-intro-tap" class="nav-link" data-scroll-target="#sec-intro-tap"><span class="header-section-number">1.8</span> The t-a-p model</a></li>
-  <li><a href="#example-wine-judging" id="toc-example-wine-judging" class="nav-link" data-scroll-target="#example-wine-judging"><span class="header-section-number">1.9</span> Example: Wine Judging</a></li>
   </ul></li>
+  <li><a href="#the-kappa-zoo" id="toc-the-kappa-zoo" class="nav-link" data-scroll-target="#the-kappa-zoo"><span class="header-section-number">2</span> The Kappa Zoo</a></li>
+  <li><a href="#machine-learning" id="toc-machine-learning" class="nav-link" data-scroll-target="#machine-learning"><span class="header-section-number">3</span> Machine Learning</a></li>
+  <li><a href="#sec-intro-tap" id="toc-sec-intro-tap" class="nav-link" data-scroll-target="#sec-intro-tap"><span class="header-section-number">4</span> The t-a-p model</a>
+  <ul class="collapse">
+  <li><a href="#example-wine-judging" id="toc-example-wine-judging" class="nav-link" data-scroll-target="#example-wine-judging"><span class="header-section-number">4.1</span> Example: Wine Judging</a></li>
+  </ul></li>
+  <li><a href="#so-called-truth" id="toc-so-called-truth" class="nav-link" data-scroll-target="#so-called-truth"><span class="header-section-number">5</span> So-called Truth</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="introduction.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</nav>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
@@ -255,8 +262,12 @@ window.Quarto = {
 <p>This chapter gives a brief background on rater agreement with a focus on the goals of the project and how legacy methods fall short. It contrasts psychological measurement methods to machine learning algorithms. A general model is introduced that combines the best features of both of those cultures, and an example is given.</p>
 <section id="sec-intro-overview" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="sec-intro-overview"><span class="header-section-number">1.1</span> Overview</h2>
-<p>Humans often use consensus to assess knowledge. We might seek a second opinion for a diagnosis, ask around for restaurant recommendations, or look for online reviews of a product. Intiuitively, we put more weight on opinions that have more agreement. This chapter describes how agreement or disagreement can be quantified. These agreement statistics are restricted to situations where the assessments are made independently and where each subject is assessed at least twice. The combination of independence and repeatability are abbreviated in probability theory as “iid” for “independent and identically distributed.” This is a powerful assumption that allows us to reach strong conclusions. However, it is not always realistic.</p>
-<p>In behavioral science, the focus of these statistics is on human observers who we’ll call “raters.” Raters assign “ratings” to “subjects.” This describes a familiar case like a product review with a five-star rating system. However, the same idea applies to any categorization task, like classifying images of cats and dogs, or diagnosing diseases from medical images. A fascinating example comes from an article in <a href="https://www.theatlantic.com/magazine/archive/2024/09/decoding-voynich-manuscript/679157/">The Atlantic Magazine</a>, here describing an analysis of a very old text called the <a href="https://voynich.nu/index.html">Voynich manuscript</a>.</p>
+<p>Humans often use consensus to assess knowledge. In the introduction to an article on this topic <span class="citation" data-cites="dawid1979maximum">Dawid &amp; Skene (<a href="#ref-dawid1979maximum" role="doc-biblioref">1979</a>)</span> describe problems in using such consensus.</p>
+<blockquote class="blockquote">
+<p>When a patient’s historyis taken by different clinicians, different replies may be obtained to the same question. This may occur for a number of reasons; perhaps slightly different wording is used in each case, or perhaps the question is one the patient finds difficult to answer satisfactorily and so changes his reply from time to time. Similarly, in classifying a facet (sign or symptom) for type, severity, extent or duration, the patient and the clinicians may have different interpretations of the underlying scale of measurement. Such facets are said to be subject to observer error in that the response recorded may not be the “true” response as defined by some standard description of the facet or as implied by a consensus of medical opinion.</p>
+</blockquote>
+<p>We might seek a second opinion for a diagnosis, ask around for restaurant recommendations, or look for online reviews of a product. Intiuitively, we put more weight on opinions that have more agreement. This chapter describes how agreement or disagreement can be quantified. As in the quote above, we may have an idea of metaphysical truth that is obscured by error in the reported observations.</p>
+<p>In behavioral science, the focus of these statistics is on human observers whom we’ll call “raters.” Raters independently assign “ratings” to “subjects.” This describes a familiar case like a product review with a five-star rating system (although those ratings may not be independent). However, the same idea applies to any categorization task, like classifying images of cats and dogs, or diagnosing diseases from medical images. A fascinating example comes from an article in <a href="https://www.theatlantic.com/magazine/archive/2024/09/decoding-voynich-manuscript/679157/">The Atlantic Magazine</a>, here describing an analysis of a very old text called the <a href="https://voynich.nu/index.html">Voynich manuscript</a>.</p>
 <blockquote class="blockquote">
 <p>Davis magnified the handwriting, she noticed subtle variations. In certain places, the script was more cramped or more likely to slant as it crossed the page. She tested this observation by picking a letter that didn’t appear often and tracking it across the manuscript’s pages. Its style, she saw, varied among groups of pages but not within those groups. This suggested that the differences—larger or smaller loops, straighter or curvier crossbars, longer or shorter feet—were the product of different scribes rather than of one scribe writing the same letter in different ways.</p>
 </blockquote>
@@ -317,8 +328,8 @@ Table&nbsp;1: Selected rows from a table at the website for the manuscript: <a h
 </figure>
 </div>
 <p>In <a href="#tbl-manuscript" class="quarto-xref">Table&nbsp;1</a> it’s recorded that Currier thought that the obverse and main folio fRos were in a single hand, whereas Davis has two scribes. Conversely, Davis has the last three rows as the same author while Currier has three. This is an example of how science works toward consensus by placing observations into categories. Agreements are good for pointing to what might be real, and disagreements are for honing or discarding theories.</p>
-<p>The statistical question for data like this is to compare variation within groups to variation between groups. One application is an idea called “signal-to-noise ratio,” which is a measure of how much of the variation in the data is due to the thing we’re interested in (signal) versus how much is due to random variation (noise). In the manuscript example, the signal is the commonality of handwriting within contiguous sections, and the noise is variation within each section. Reliability of measures is the same idea in different clothing, where we might formulate reliability as between-subject variation divided by total variation. As an example, college grade averages (GPA) can have a reliability of about 0.8, meaning that 80% of the variation in grades is due to differences between students, and 20% is due to variation in how individual students earn grades. This makes GPA useful as a statistical measure, for example in predicting career outcomes.</p>
-<p>How do we summarize a data set to sort signal from noise? This question involves a deeper question about the true categorization of subjects.</p>
+<p>The statistical question for data like this is to compare variation within groups to variation between groups. One application is an idea called “signal-to-noise ratio,” which is a measure of how much of the variation in the data is due to the thing we’re interested in (signal) versus how much is due to random variation (noise). In the manuscript example, the signal is the commonality of handwriting within contiguous sections, and the noise is variation within each section. Reliability of measures is the same idea in different clothing, where we might formulate reliability as between-subject variation divided by total variation <span class="citation" data-cites="shrout1979intraclass">(<a href="#ref-shrout1979intraclass" role="doc-biblioref">Shrout &amp; Fleiss, 1979</a>)</span>. As an example, college grade averages (GPA) can have a reliability of about 0.8, meaning that 80% of the variation in grades is due to differences between students, and 20% is due to variation in how individual students earn grades. This makes GPA useful as a statistical measure, for example in predicting career outcomes.</p>
+<p>The signal-to-noise approach usually treats a rating as an ordinary number (scalar), so a 1-5 rating scale is placed on the number line as a measure. If we start from the idea of rater agreement, however, this number-line approach is not as useful as counting agreement on categories. In the development below, we’ll be concerned with ratings as categories, and usually binary choices between some Class 1 or Class 0, e.g.&nbsp;“Does this patient have Covid?”. It is useful to start with the idea of a “true” classification.</p>
 </section>
 <section id="sec-intro-knowledge" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="sec-intro-knowledge"><span class="header-section-number">1.2</span> Seeking Knowledge</h2>
@@ -743,7 +754,7 @@ m_o &amp;= 21/30 = .70 \\
 m_r &amp;= 10/30 = .33 \\
 \kappa_s &amp;= \frac{.70 - .33}{1 - .33} = .47
 \end{aligned}
-\]</span>The kappa is now on a scale of zero (worse) to one (perfect agreement). Interpreting what the value means is difficult because it’s on the wrong scale as noted above. A value close to one half sounds mediocre, but not terrible, but we’re really looking for something like the square root of the agreement rate, which is .69. That value corresponds better to the intuition that the agreement in the table looks pretty good.</p>
+\]</span> The kappa is now on a scale of zero (worse) to one (perfect agreement). Interpreting what the value means is difficult because it’s on the wrong scale as noted above. A value close to one half sounds mediocre, but not terrible, but we’re really looking for something like the square root of the agreement rate, which is .69. That value corresponds better to the intuition that the agreement in the table looks pretty good.</p>
 <p>The coin-flipping assumption for randomness can be replaced with other assumptions. This has the effect of increasing the assumed worst-case agreement rate and hence decreasing kappa values. Perhaps the most popular choice is to reason that the raters are more likely to randomly pick the most common category so the coin should be weighted according to the rating distribution.</p>
 <p>For example, the table of simplified wine ratings has 15 ratings of 1 and 5 of 0, or 75% 1-ratings. The worst case match rate is then the product of the proportions of 1 ratings, or <span class="math inline">\(m_r = (.75)(.75) + (.25)(.25) = .625\)</span>. This is the assumption of the Fleiss kappa. Note that the actual worst case match rate is still close to one half (because of the math), so it’s possible to get a negative Fleiss kappa if the assumption about the distribution of randomness fails.</p>
 <p>One calculation under this proportionality assumption is:</p>
@@ -757,8 +768,9 @@ m_r &amp;= .625 \\
 <p>The deflation of the rater agreement statistic in the Fleiss calculation above makes it clear that assumptions about random agreement are critical. A researcher may justifiably wonder which value is correct: are the wine judges in pretty good agreement, or is the judging mostly random? For historical reasons, rather than treating rater disagreement as a parameter to be discovered, the field has evolved to propose many variations of the kappa formula with different assumptions about the worst-case agreement rate.</p>
 <p>A limitation of most of the kappa statistics is that they make the simplifying assumption that a pair of raters reaches agreement randomly if <em>both</em> raters are random. This omits the possibility that one rater is accurate and the other isn’t.</p>
 </section>
-<section id="the-kappa-zoo" class="level2" data-number="1.6">
-<h2 data-number="1.6" class="anchored" data-anchor-id="the-kappa-zoo"><span class="header-section-number">1.6</span> The Kappa Zoo</h2>
+</section>
+<section id="the-kappa-zoo" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> The Kappa Zoo</h1>
 <p>There are by now several statistics advertised as rater agreement statistics, including Cohen’s kappa, Fleiss’s kappa, Scott’s pi, Krippendorff’s alpha, S, and AC1. For convenience, these statistics will be referred to generically as “kappas.” Researchers who want a simple answer are faced with a bewildering set of options and claims about them. In <span class="citation" data-cites="vach2023gwet">Vach &amp; Gerke (<a href="#ref-vach2023gwet" role="doc-biblioref">2023</a>)</span> we get a sense of the situation.</p>
 <blockquote class="blockquote">
 <p>Gwet’s AC1 has been proposed as an alternative to Cohen’s kappa in evaluating the agreement between two binary ratings. This approach is becoming increasingly popular, and researchers have been criticized for still using Cohen’s kappa. However, a rigorous discussion of properties of Gwet’s AC1 is still missing.</p>
@@ -768,8 +780,8 @@ m_r &amp;= .625 \\
 <p>The agreement statistics for ratings have problems that should now be evident. The goal is to understand a three-dimensional relationship between ratings and true values, but the statistics are single parameters. A second parameter, the worst case baseline, is buried in an assumption, which varies by kappa, and is not tested for fit to the data. The result is a bewildering array of choices for rater agreement measures. As a result of this confusion, different cultures have emerged. If getting published is the goal, then higher agreement rates are more desirable, so a researcher can shop around for the “best” one.</p>
 <p>A research agenda was suggested in <span class="citation" data-cites="landis1977measurement">Landis &amp; Koch (<a href="#ref-landis1977measurement" role="doc-biblioref">1977</a>)</span> that can be paraphrased as understanding (1) the true category of each subject, (2) the accuracy of raters, (3) truth and accuracy within sub-populations of subjects, (4) conditions that cause disagreement, and (5) what distinguishes “for cause” agreement and random agreement. Some of this can be accomplished by taking a fresh look at the kappas.</p>
 </section>
-<section id="machine-learning" class="level2" data-number="1.7">
-<h2 data-number="1.7" class="anchored" data-anchor-id="machine-learning"><span class="header-section-number">1.7</span> Machine Learning</h2>
+<section id="machine-learning" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Machine Learning</h1>
 <p>The geyser of data produced in the information age has led to new methods of analyzing it that fall generally in the description of “machine learning (ML).” Assigning categories to subjects is a common task in machine learning, and the field has developed a number of methods to do so, including neural networks, support vector machines, and random forests. The goal is to assign categories to subjects in a way that generalizes to new subjects. The methods are often evaluated by comparing the predicted categories to the true categories, and the results are summarized in a confusion matrix. See <span class="citation" data-cites="carpenter2008multilevel">Carpenter (<a href="#ref-carpenter2008multilevel" role="doc-biblioref">2008</a>)</span> for a good example of this literature.</p>
 <p><span class="citation" data-cites="breiman">Breiman (<a href="#ref-breiman" role="doc-biblioref">2001</a>)</span> rather famously drew a line between classical statistics and machine learning algorithms, with the glove thrown down in the paper’s abstract:</p>
 <blockquote class="blockquote">
@@ -781,8 +793,8 @@ m_r &amp;= .625 \\
 <p>The advantage of the ML approaches over the kappas is that the three parameter models avoid the confusions of the kappa zoo. But because they lack philosophical grounding, they run into an embarrassment of riches: three parameters is sometimes <em>too many</em> parameters for a model, so there can be multiple solutions. There are work-arounds, but it’s the same species of <em>ad hoc</em> reasoning that causes the problems of the kappa zoo. I propose that the t-a-p model approach, with its explicit epistemological foundation, combines the best of both cultures to avoid some of these problems.</p>
 <p>In the following chapters, I will reference the relevant ML models as appropriate.</p>
 </section>
-<section id="sec-intro-tap" class="level2" data-number="1.8">
-<h2 data-number="1.8" class="anchored" data-anchor-id="sec-intro-tap"><span class="header-section-number">1.8</span> The t-a-p model</h2>
+<section id="sec-intro-tap" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> The t-a-p model</h1>
 <p>We can now describe a regression model that allows us to estimate the four proportions that appear in the confusion matrix (see <a href="#sec-intro-confusion" class="quarto-xref">Section&nbsp;1.3</a>). Since the four cells sum to one, there are three free parameters to estimate.</p>
 <table class="caption-top table">
 <caption>: Confusion matrix with entries to be filled in by the model estimates. The four numbers are proportions and sum to one, leaving three free parameters to estimate. C0 = class zero, and C1 = class one, standing in for any binary categories we might choose.</caption>
@@ -935,9 +947,8 @@ Table&nbsp;9: The t-a-p model’s correspondence to the confusion matrix. Terms 
 </figure>
 </div>
 <p>The entries in <a href="#tbl-tap-confusion" class="quarto-xref">Table&nbsp;9</a> demonstrate that if the t-a-p model fits the data and we are able to estimate the three parameters, it is a general answer to the rater agreement question. The later sections show how S, Fleiss kappa, and other statistics are special cases of t-a-p models.</p>
-</section>
-<section id="example-wine-judging" class="level2" data-number="1.9">
-<h2 data-number="1.9" class="anchored" data-anchor-id="example-wine-judging"><span class="header-section-number">1.9</span> Example: Wine Judging</h2>
+<section id="example-wine-judging" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="example-wine-judging"><span class="header-section-number">4.1</span> Example: Wine Judging</h2>
 <p>The sections above used five rows of the wine judging data for illustration. We now use the whole data set of 183 wines each rated by four judges to estimate the t-a-p parameters. The included app was used (see Chapter 7) for the analysis.</p>
 <p>The binary classification illustrated above was to convert the original scale (1 = no medal, 2 = bronze, 3 = silver, 4 = gold medal) to a binary outcome where 1 = any medal (bronze, silver, gold), and 0 = no medal. We called the Class 1 category “acceptable.” Using the app to analyze that binary comparison we get the following output.</p>
 <div id="fig-wine-binary-distro" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -993,10 +1004,14 @@ Figure&nbsp;5: t-a-p parameter estimates for ordinal scale based on cutpoints
 <p>The second plot, showing estimates for <span class="math inline">\(p\)</span> show the probability with which judges place a wine randomly into the in-class for inaccurate ratings. This will happen less often for the left-most cut-points, since accuracy is higher there. The dotted line is useful here: it shows what the <span class="math inline">\(p\)</span> parameter would look like if the raters assigned ratings proportionally when making inaccurate classifications. For example, we noted earlier that 88% of the ratings are 1-3 (rightmost bar of the previous plot), so for the 3|4 cut-point, proportional random ratings would assign 88% of the inaccurate ratings into the {1,2,3} in-class. That’s where the dotted line is, at 88%. The actual parameter estimate (solid line) is at about 84%, meaning that judges are probably too conservative about assigning the gold medal category. Accuracy is low for the gold medals, and when the judges rate inaccurately, the ratings are slightly biased toward the lower ratings.</p>
 <p>The bottom plot in <a href="#fig-wine-ordinal-results" class="quarto-xref">Figure&nbsp;5</a> estimates the true proportions for each cut-point, after taking into account the other two parameters. For the 3|4 cut-point on the right, it shows a proportion of {1,2,3} wines of about 65%. This is much lower than the 88% of ratings that are {1,2,3}. That’s the combined effect of inaccurate ratings at the top end of the scale combined with the bias toward lower ratings for inaccurate ratings. Looking at the two ends of the scale for the <span class="math inline">\(t\)</span> plot, we can estimate that about 26% of wines are truly in the 1 = no medal category, and about 35% are in the 4 = gold medal category (1 - .65 = .35). That 35% figure comes from reading the estimated value of <span class="math inline">\(t\)</span> at the 3|4 cut point, which is about 65%, and subtracting from one.</p>
 <p>It’s possible to tell good wine from bad wine pretty reliably in this data set, but beyond that individual tastes may not be discerning enough to sort out four levels of wine quality. The scale could possibly be reduced to three ratings, or else keep the existing scale but collapse the 3 and 4 ratings into a single category before reporting the results. The effect of the existing rating system is leaving a lot of probably excellent wines with poorer ratings than they deserve. An alternative approach is to try to improve the accuracy of the higher ratings, which can be facilitated by reducing the rater bias against the highest award. One study showed that it’s possible to improve reliability in college grade assignment through feedback <span class="citation" data-cites="millet2010improving">Millet (<a href="#ref-millet2010improving" role="doc-biblioref">2010</a>)</span>. This method might work more generally for reducing rater bias.</p>
-
-
-
 </section>
+</section>
+<section id="so-called-truth" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> So-called Truth</h1>
+<p>In statistics we commonly make assumptions that we know aren’t true, because a simple approximation is often better than an intractable exactitude for understanding the world. So it is with the assumptions about true ratings I listed above. Independent observation is a powerful way to learn about the world, but it’s not epistemological fairy dust. If the data points to a set of conclusions about the world, we still need a plausible causal explanation to generalize the findings. The t-a-p models and their kin don’t give us must structure; their truth <a href="https://poets.org/poem/song-myself-51">contains multitudes</a>. For example, suppose we ask raters a series of questions like “Is red better than blue?” or “Is Star Wars better than The Godfather?” If we ask enough such questions, we’ll end up with a data set that has plausible “true” values where A &gt; B, B &gt; C, and C &gt; A, violating our intuition about how “better” is transitive. For a biological example, see <a href="https://en.wikipedia.org/wiki/Ring_species">ring species</a>. The point is that we can’t assume any logical structure to “truth” values produces by these agreement models. It’s good to be cautious when understanding and communicating results by not making universal statements from empirical data.</p>
+
+
+
 </section>
 
 
@@ -1046,6 +1061,9 @@ Millet, I. (2010). Improving grading consistency through grade lift reporting. <
 <div id="ref-passonneau2014benefits" class="csl-entry" role="listitem">
 Passonneau, R. J., &amp; Carpenter, B. (2014). The benefits of a model of annotation. <em>Transactions of the Association for Computational Linguistics</em>, <em>2</em>, 311–326.
 </div>
+<div id="ref-shrout1979intraclass" class="csl-entry" role="listitem">
+Shrout, P. E., &amp; Fleiss, J. L. (1979). Intraclass correlations: Uses in assessing rater reliability. <em>Psychological Bulletin</em>, <em>86</em>(2), 420.
+</div>
 <div id="ref-vach2023gwet" class="csl-entry" role="listitem">
 Vach, W., &amp; Gerke, O. (2023). Gwet’s AC1 is not a substitute for cohen’s kappa–a comparison of basic properties. <em>MethodsX</em>, 102212.
 </div>
@@ -1062,236 +1080,242 @@ Vach, W., &amp; Gerke, O. (2023). Gwet’s AC1 is not a substitute for cohen’s
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
         }
       }
+      return false;
     }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/kappazoo\.com\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
         }
-        return container.innerHTML
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1299,185 +1323,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 </div> <!-- /content -->
 
 

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.39">
+<meta name="generator" content="quarto-1.7.31">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,8 +22,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -34,7 +35,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -55,27 +56,7 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -85,21 +66,22 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-f3c2ea88cadbcfb37ba28ffa2c97cfc1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-fcd204c8655bd031ced4918abb783b1b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
+  "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
+  "panel-placement": "start",
+  "type": "textbox",
   "limit": 50,
   "keyboard-shortcut": [
     "f",
@@ -130,6 +112,10 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-XP6WMESY52', { 'anonymize_ip': true});
 </script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -164,49 +150,52 @@ window.Quarto = {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="floating nav-fixed">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">The Kappa Zoo</span>
-    </a>
-  </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-</ul>
-          </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
-</div>
-      </div> <!-- /container-fluid -->
-    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
+      The Kappa Zoo
+      </li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">The Kappa Zoo</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
     <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contents</h2>
+    <h2 id="toc-title">On this page</h2>
    
-  <ul class="collapse">
-  <li><a href="#sec-fit" id="toc-sec-fit" class="nav-link active" data-scroll-target="#sec-fit"><span class="header-section-number">1</span> Assessing Model Validity</a>
-  <ul class="collapse">
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">1.1</span> Introduction</a></li>
-  <li><a href="#a-validation-process-for-binary-ratings" id="toc-a-validation-process-for-binary-ratings" class="nav-link" data-scroll-target="#a-validation-process-for-binary-ratings"><span class="header-section-number">1.2</span> A Validation Process for Binary Ratings</a></li>
-  <li><a href="#example-uniform-raters" id="toc-example-uniform-raters" class="nav-link" data-scroll-target="#example-uniform-raters"><span class="header-section-number">1.3</span> Example: Uniform Raters</a></li>
-  <li><a href="#example-ptsd-data" id="toc-example-ptsd-data" class="nav-link" data-scroll-target="#example-ptsd-data"><span class="header-section-number">1.4</span> Example: PTSD Data</a></li>
-  </ul></li>
+  <ul>
+  <li><a href="#sec-fit" id="toc-sec-fit" class="nav-link active" data-scroll-target="#sec-fit"><span class="header-section-number">1</span> Assessing Model Fit</a></li>
+  <li><a href="#model-calibration" id="toc-model-calibration" class="nav-link" data-scroll-target="#model-calibration"><span class="header-section-number">2</span> Model Calibration</a></li>
+  <li><a href="#estimating-parameter-error" id="toc-estimating-parameter-error" class="nav-link" data-scroll-target="#estimating-parameter-error"><span class="header-section-number">3</span> Estimating Parameter Error</a></li>
+  <li><a href="#model-exaggeration" id="toc-model-exaggeration" class="nav-link" data-scroll-target="#model-exaggeration"><span class="header-section-number">4</span> Model Exaggeration</a></li>
+  <li><a href="#adversarial-raters" id="toc-adversarial-raters" class="nav-link" data-scroll-target="#adversarial-raters"><span class="header-section-number">5</span> Adversarial Raters</a></li>
+  <li><a href="#independence" id="toc-independence" class="nav-link" data-scroll-target="#independence"><span class="header-section-number">6</span> Independence</a></li>
+  <li><a href="#the-dunning-kruger-threshold" id="toc-the-dunning-kruger-threshold" class="nav-link" data-scroll-target="#the-dunning-kruger-threshold"><span class="header-section-number">7</span> The Dunning-Kruger Threshold</a></li>
+  <li><a href="#a-validation-process-for-binary-ratings" id="toc-a-validation-process-for-binary-ratings" class="nav-link" data-scroll-target="#a-validation-process-for-binary-ratings"><span class="header-section-number">8</span> A Validation Process for Binary Ratings</a></li>
   </ul>
 </nav>
 </nav>
@@ -243,119 +232,409 @@ window.Quarto = {
 
 
 <section id="sec-fit" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Assessing Model Validity</h1>
-<p>This chapter discusses general ideas about avoiding errors in analysis and then moves on to specific tools for inter-rater statistics. My general remarks are opinionated, and should be taken as a point of view, not a definitive way to think about analysis. Seek other opinions. You can skip the introduction if you want to get straight to the methods. You’ll see that we have much more analytical ability if the rater data has rater IDs. A PTSD data set is used to illustrate methods to assess model fit and error estimation, with <a href="https://osf.io/7sfua">data</a> from <span class="citation" data-cites="hinde2023inter">Hinde (<a href="#ref-hinde2023inter" role="doc-biblioref">2023</a>)</span>.</p>
-<section id="introduction" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1.1</span> Introduction</h2>
-<p>There are a lot of ways that data analysis can lead us to the wrong conclusion. In analysis I did of a private college’s graduation rates, I discovered that students who got no financial aid from the college were much more likely to drop out. I confidently wrote a proposal showing that increasing financial aid awards judiciously would pay for itself and lead to higher graduation rates, so everyone wins. The enrollment VP interrupted my enthusiastic presentation to tell me that when a students leave, the financial aid office zeros the aid amount in the database after the fact. The reverse causality obviously invalidated my findings. The point of this story is that we should think about the validity of results more broadly than just the statistics we obtain from the data. For a practical treatment of this attitude, see <em>The Scout Mindset</em> by Julia Galef.</p>
-<p>Much of the statistics taught in 101 classes concerns hypothesis testing, with <span class="math inline">\(p\)</span>-values and so on, that address problems like</p>
-<p><span class="math display">\[
-Pr(\text{our data}|\text{bad inputs}),
-\]</span></p>
-<p>by which I mean the probability that we are seeing this data set because something went wrong with measurement or data preparation, etc. In this case, the statistical properties of the data are irrelevant. When I was young I made the mistake of browsing my uncle’s medical reference books and discovered that I had symptoms for a number of dreaded diseases. If confusion is a reliable symptom of a stroke, then Pr(confusion|stroke) is fairly high, but for a healthy 14-year-old Pr(stroke|confusion) fortunately is not! If we estimate Pr(stroke|confusion), we should have an idea about Pr(stroke) before we get too excited. Since we probably can’t estimate Pr(bad inputs) in the expression called out above, this isn’t a statistical question as much as a mindset and a judgment call. As a precautionary meausure, we can entertain the possibility that our rating data is merely coin-flips (i.e.&nbsp;“had a stroke”) and compute how likely our data set is under those circumstances. This is equivalent to a zero-accuracy t-a-p model</p>
-<p><span class="math display">\[
-Pr(\text{ratings data}|t= 1/2, a = 0, p = 1/2).
-\]</span> This computation gives a lower threshold for accuracy, which I called the Dunning-Kruger horizon. If the estimated t-a-p parameters from the data are safely above this, we can conclude that the chance our data “had a stroke” and is equivalent to coin flips is low. There still might be data integrity issues, but they are not catastrophic. Another kind of analysis is more direct, asking</p>
-<p><span class="math display">\[
-Pr(\text{erroneous conclusion}|\text{data and analysis}).
-\]</span> Such questions can be cast within the set of statistical assumptions we work with to estimate model parameters, like independence of samples and the shape of the probability distribution (a binomial mixture in the case of binary ratings). If we estimate average rater accuracy <span class="math inline">\(a = .3\)</span>, we can then ask for a reasonable range of nearby values that might be true given the natural variability of the data. In Bayesian statistics these are called “credible Intervals” to contrast them with “confidence intervals.” We might find that while the average is <span class="math inline">\(a=.3\)</span>, there’s a good chance that <span class="math inline">\(a&lt;.2\)</span>, which is important to know when conveying results.</p>
-<p>The surveying profession has a long tradition of classifying errors into types. One <a href="https://civilengineersforum.com/errors-in-surveying/">description</a> gives the categories of error as personal, instrumental, and natural. I’ll quote from that source in the sections below.</p>
-<section id="personal-error" class="level3" data-number="1.1.1">
-<h3 data-number="1.1.1" class="anchored" data-anchor-id="personal-error"><span class="header-section-number">1.1.1</span> Personal Error</h3>
-<blockquote class="blockquote">
-<p>Error may also arise due to want of perfection of human sight in observing and of touch in manipulating instruments. For example, an error may be there in taking the level reading or reading and angle on the circle of a theodolite. Such errors are known as personal errors.</p>
-</blockquote>
-<p>Gathering and preparing data for analysis is fraught with potential for mistakes. We might get columns mixed up, treat blanks incorrectly, use an outdated version of a file, misinterpret a definition, have a bug in our code, and so on. It’s common to get data with column headers that don’t mean what they seem to mean, or have exceptions. Like a column for grade point averages that has zeros instead of blanks for missing data. A famous example of an analysis that went wrong is the Excel <a href="https://www.forbes.com/sites/realspin/2013/04/18/that-reinhart-and-rogoff-committed-a-spreadsheet-error-completely-misses-the-point/">spreadsheet error</a> in an influential economics article, where a blunder led to bad conclusions.</p>
-<p>In addition to outright blunders, we can get the wrong answer because we want to. We often prefer one answer over another when we do an analysis. It’s nice to get a clear result that will give us that glow of understanding the world and maybe a pay raise. It’s less fun to find that the analysis isn’t useful and we wasted our time. So we might overlook an inquiry that could cast doubt on a “good” result, but pursue it vigorously for a “bad” one. This is a subtle version of [wireheading](https://en.wikipedia.org/wiki/Wirehead_(science_fiction), taking a shortcut to rewards. Galef’s book, mentioned earlier, is one of a genre of books addressing such cognitive biases. Also see <em>Think Again</em> by Adam Grant, <em>Predictably Irrational</em> by Dan Ariely, and <em>Thinking fast and slow</em> by Daniel Kahneman.</p>
-<p>Even if we avoid the reward shortcuts and other biases in our own work, we still have to deal with biases in the people who will use our results. Benn Stancil has a useful observation about this on his <a href="https://benn.substack.com/p/oops">substack</a></p>
-<blockquote class="blockquote">
-<p>Some decisions are made relatively slowly, with intention, and based on reasoned analysis. But most decisions are made quickly and instinctively, based on heuristics, experience, and some rough estimation of how the company works.</p>
-</blockquote>
-<p>He argues that analysts mostly produce technical work and stop there, when we should be trying to affect the heuristics of decision-making. To be more effective, analysts should try to update the mental maps of how things work. As an example, in private colleges the “discount rate” is the fraction of tuition that waived upon entry, and it hovers around 50% these days. Over the last decades increasing discount rates are seen as fiscally irresponsible, and the subject of much board angst. However, it’s easy to show that <a href="https://highered.blogspot.com/2023/06/why-discount-rates-only-go-up.html">discount rates <em>must</em> increase</a> as a consequence of the business model. There’s a persistant gap here between how things work and the perception of how things work, which causes bad decisions to be made. It’s purely cultural, a baked-in bias about the world that so prevelant that it’s self-perpetuating. That’s the kind of thing that analysts are up against, and it’s ubiquitous.</p>
-<p>It can be uncomfortable to make the leap from a statistical estimate to a mental map, because it’s no longer deterministic. But in fact, our statistical analysis isn’t deterministic either; we make lots of subjective choices in the process. We’re going to advertise the limitations of the study as the lawyerly fine print. Use that license to venture beyond the statistics into <em>meaning</em>. Darwin (and his advocates) established evolution without knowing what mechanism caused it (genetic heritability).</p>
-<p>My recommendation is to approach the personal error problem with these strategies. First, we must protect our work from blunders as much as possible. Fully document work <em>as you do it</em> by using <a href="quarto.org">quarto documents</a>) or something similar to combine code and text in a transparent and reproducible form. Take pride in the presentation of the work, even if it’s just for yourself, because that attention to detail carries over to the analysis itself. Write the report for yourself in five years. I like to include an appendix with a description of the analytical method and related statistics, like how to intepret logistic regression coefficients. When coding, I like R’s package documentation for writing functions, and use it even when I’m not writing a package, because the declaration of parameters and results at the top of the function definition forces me to think through what I’m doing before I write the code. Write unit tests when it’s likely to prevent bad things. In addition to the analytical report, create an audit report that summarizes the data in various ways, so you can quickly see if something’s amiss.</p>
-<p>All of this seems like extra work compared to the way I used to do things. I’d start in Excel or SPSS and compute like mad, looking for some morsel of interestingness, pasting graphs and tables into a Word document occasionally. If I found something that looked useful, I had no way to reproduce what I’d done, and no way to know if there was a mistake in that long chain of reasoning. The discipline of writing good reports and creating a data audit will greatly improve your understanding of the data and the kind of analysis you’re using. A nice report makes it natural to share with domain experts to assess the reasonableness of the findings. The experts will make good suggestions, find problems you aren’t aware of, and you may get them interested in your project. That’s a good way to learn about their mental maps and look for ways to improve them.</p>
+<h1 data-number="1"><span class="header-section-number">1</span> Assessing Model Fit</h1>
+<p>To assess the quality of a regression model, we often want to compare the original data to the model specification, which will tend to simplify the data in the direction of the model. The usefulness of the model depends on how well it represents the data in terms of our use cases. The best guide is experience in building models on data you understand. My main advice is not to think of goodness of fit tools as providing “truth,” but rather think of truth as a verb: make <em>lots</em> of models, until it becomes second nature to mentally compare the fit statistics to your use cases. In this way, the tools described in this chapter are like flashlights that let you see aspects of the data and its simplified form, and if you spend enough time looking, you’ll figure out how it’s useful. One way to gain experience is to simulate data sets with known properties, and then see if you can recover those properties.</p>
+<p>The main measure of model fit is the likelihood, which we’re presenting as entropy measured in bits per rating. Within the same data set, we can compare models of different types, including different sorts of parameters, using this metric. This is one way to tell if the average t-a-p model with three parameters is “good enough” to describe a data set, or if we’d be better off with a hierarchical model.</p>
+<p>Likelihood alone is not enough to give us confidence in a model. It’s necessary to lay eyes on the results, usually through a calibration plot, which is the subject of the first section below. The underlying question is whether or not the assumption of a latent truth variable can be supported by the evidence.</p>
+<p>The sections below address some topics related to model fit. To see these in use, refer to the examples that show these tools applied to real data sets.</p>
 </section>
-<section id="instrumental-error" class="level3" data-number="1.1.2">
-<h3 data-number="1.1.2" class="anchored" data-anchor-id="instrumental-error"><span class="header-section-number">1.1.2</span> Instrumental Error</h3>
-<blockquote class="blockquote">
-<p>Surveying error may arise due to imperfection or faulty adjustment of the instrument with which measurement is being taken. For example, a tape may be too long or an angle measuring instrument may be out of adjustment. Such errors are known as instrumental errors.</p>
-</blockquote>
-<p>This describes a difference between the real world and our measurements of it, a misrepresentation of the state of the universe that may bias the results or lead to dubious conclusions. The article on the <a href="https://www.forbes.com/sites/realspin/2013/04/18/that-reinhart-and-rogoff-committed-a-spreadsheet-error-completely-misses-the-point/">spreadsheet error</a> cited earlier is entitled “That Reinhart and Rogoff Committed a Spreadsheet Error Completely Misses the Point,” arguing that the technical blunder was irrelevant because of the instrumental error, e.g.</p>
-<blockquote class="blockquote">
-<p>The idea that GDP and debt statistics from mid-19th century Spain should be an empirical basis for modern economic policy – with an accuracy as fine-tuned as two percent of GDP - is ludicrous on its face.</p>
-</blockquote>
-<p>There seems to be a cognitive bias to accept without question substitutes that are available as proxies for the thing we actually want to understand. I’ll call that the <strong>representation trap</strong>. For example, the authors of <em>Academically Adrift</em> accepted the results of a test[^ Collegiate Learning Assessment, or CLA.] on “critical thinking” as a basis for their claims that students weren’t learning much in college. Even a casual look at that test shows that it has no overlap with most college majors (biology, English, engineering, etc.). So the test doesn’t primarily measure what students learn in college. Moreover, the authors ignore the strong correlation between the “critical thinking” test and intelligence tests. If the psychologists are correct that IQ is relatively fixed, then we wouldn’t expect much change in it. This is not to claim that their conclusions are wrong, just that their method doesn’t offer much support for their conclusions[^ The reception by the press showed there wasn’t much critical thinking going on among those presumably college-educated reporters, so maybe they proved their point after all.], probably because of this “substitution bias.” This problem seems to be ubiquitous in higher education.</p>
-<p>Some amount of instrumental error is probably inevitable. We don’t have a perfect representation of the universe, and the further we get from physical dimensions, the worse that representation is. We can measure how much a person weights with very little instrumentation error, but if we want to measure how happy they are, it’s different. If we fall into the substitution trap, we just ask them how happy they are on a scale of one to ten. It’s fine to use that data, but we shouldn’t treat it as if it perfectly represents the glow of happiness we associate with the word [^ See Dan Gilbert and others for actual research on happiness.]. The first step would be to see if the measure is reliable, e.g.&nbsp;by using inter-rater statistics. If the measures can be shown to be non-random, then there are techniques developed by the educational testing experts <span class="citation" data-cites="brennan2006educational">(<a href="#ref-brennan2006educational" role="doc-biblioref">Brennan et al., 2006</a>)</span> to see if we can figure how how this measure relates to others. Does the happiness measure correlate with lifespan or income? That aligns with expectations. Does it correlate with drug use? Asking such questions can create a web inter-relationships that clarify meaning. It’s easy to forget that this is how the natural sciences converged to reliable measures and theories. I recommend reading that history. Maybe start with Steven Shapin’s <em>Scientific Revolution</em>.</p>
-</section>
-<section id="natural-error" class="level3" data-number="1.1.3">
-<h3 data-number="1.1.3" class="anchored" data-anchor-id="natural-error"><span class="header-section-number">1.1.3</span> Natural Error</h3>
-<blockquote class="blockquote">
-<p>Error in surveying may also be due to variations in natural phenomena such as temperature, humidity, gravity, wind, refraction and magnetic declination. If they are not properly observed while taking measurements, the results will be incorrect. For example, a tape may be 20 meters at 200C but its length will change if the field temperature is different.</p>
-</blockquote>
-<p>Besides blunders and biases, the representation trap, and reliability and validity concerns, there’s the practical nature of modeling. Our goal is to reduce the complexity of the data to a meaningful, usually parsimoneous, description. That reduction is a kind of data compression, and it entails compromise. As such, it’s akin to story-telling, where we don’t include every detail, don’t show <em>every</em> photo of our trip, and maybe adjust the truth slightly in service of the dramatic arc.</p>
-<p>An analog of natural errors in surveying is estimation or residual error in regression models. Once our model has squeezed all the pattern out of the data, the random-looking bits that are left are the natural error. The error can have some pattern left in it, which means our model can be improved, or the error may be “random,” usually meaning normally distributed with mean zero. For the remainder of the discussion, I’ll use the more familiar term “residual error.” The analysis of residuals is comfortably within the domain of statistics. One danger is that we oversell the apparent precision of statistical measures of fit and forget about the other types of error discussed earlier. This is particularly true when we communicate results to non-statisticians, who may over-value the math, mistaking arcane-seeming formulations for truth.</p>
-<p>Usually we want to minimize residual error by finding the right model. But this is a trade-off between describing the exact data set we have and describing the imagined source of the data. This is commonly called the <a href="https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff">bias-variance tradeoff</a>, and leads to regularization, balancing local explanations with global ones, e.g.&nbsp;with a hierarchical Bayesian model <span class="citation" data-cites="mcelreath2020statistical">(<a href="#ref-mcelreath2020statistical" role="doc-biblioref">McElreath, 2020</a>)</span>.</p>
-<p>In our work, natural error is often sampling error, the left-over part after we try to explain the finite ratings with our fitted model (residuals). Whereas instrumental error is a representation problem between the data and the model we map it to, the natural error is the part of the data that can’t be accounted for even with a perfectly good model. These are related. For example, if we predict college outcomes like graduation using student GPAs (cumulative grade averages), we need to use a polynomial expression for GPA, because the relationship isn’t linear (e.g.&nbsp;using a logistic model). If we naively use a simple linear expression for GPA, the predictions (fitted values from the regression) will be biased for high-GPA students, and the “natural errors,” or residuals will have a distinct shape to them. In fact, that’s one way to tell that the model needs to be adjusted. The point is that natural error and instrumental error are considered together as part of the statistical analysis, whereas personal error is entirely different.</p>
-<p>For t-a-p models, <span class="math inline">\(1-a = \bar{a}\)</span> is the chance of random assignment, which can be considered a measure of natural error.</p>
-<p>One reason to do validity checking, including assessing model fit, is to avoid conclusions that are misleading, maybe even the opposite of the truth. See <span class="citation" data-cites="gelman2014beyond">Gelman &amp; Carlin (<a href="#ref-gelman2014beyond" role="doc-biblioref">2014</a>)</span> for a discussion of <a href="https://sites.stat.columbia.edu/gelman/research/published/retropower_final.pdf">“type-S” and “type-M” errors</a>. The nature of statistics is that we don’t know anything for certain, so we often try to quantify the chance of a wrong conclusion given our data and model, or Pr(bad conclusion|data, model). The idea is to “do no harm” by avoiding conclusions that leave our understanding worse off than before.</p>
-</section>
-</section>
-<section id="a-validation-process-for-binary-ratings" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="a-validation-process-for-binary-ratings"><span class="header-section-number">1.2</span> A Validation Process for Binary Ratings</h2>
-<p>The following steps may help you think through the analysis of binary t-a-p models and reduce Pr(bad conclusion).</p>
-<ol start="0" type="1">
-<li><p>Check Assumptions. Validity testing begins with assumptions about the data-gathering process, so it’s essential to seek expertise with the data type to avoid personal errors. If you didn’t generate the data, talk to whoever did. Ask questions that will build confidence that the encodings are valid, the data format reflects your understanding, and the statistical assumptions. In the formal t-a-p model, the most important assumption to check is the independence of raters. If a group of faculty who are scoring student writing portfolios are sitting around a table discussing the essays, the ratings are not independent. Optionally, use prior experience or literature to write down your expectations for <span class="math inline">\(t\)</span> and <span class="math inline">\(a\)</span>. This is so that your ‘surprise factor’ doesn’t get biased by seeing the results first.</p></li>
-<li><p>Compute the three-parameter t-a-p solution with <code>params = fit_counts(as_counts(ratings))</code> and inspect for reasonableness (given your priors) and degeneracy (any coefficient of zero or one).</p></li>
-<li><p>Compute the Dunning-Kruger horizon for your data configuration using the number of subjects as <span class="math inline">\(N_s\)</span> and average raters per subject as <span class="math inline">\(N_r\)</span>. This gives a value for accuracy, below which any estimate is suspect. Suppose the DK number comes back as .3, using a 98% threshold, and the accuracy estimate for your data is .25. We should double-check the validity of the data to make sure it’s not being scrambled inadvertantly.</p></li>
-</ol>
-<p>2.1 If the estimated accuracy is below the DK horizon, fit the model using the MCMC method and inspect the distribution of posterior samples for accuracy. Look for a reasonable range of values that represents uncertainty. If this includes values that are unacceptable, then you may not be able to proceed further. It’s an indication that you need more samples or more reliable ratings or more raters, in some combination. You can simulate these combinations as a kind of power test.</p>
-<ol start="3" type="1">
-<li><p>Use the t-a-p parameters to estimate the <span class="math inline">\(t_u\)</span> truth probabilities and rater <span class="math inline">\(a_j\)</span> and <span class="math inline">\(p_j\)</span> parameters using <code>rating_params = fit_ratings(ratings)</code> and compare the model fit for this hierarchical model to the three-parameter version using <code>model_fit_comparison(rating_params)$plot</code>. This uses the estimated parameters to simulate new ratings to see if the original data set looks like the simulated ones, an indication that the model represents the data. We’re looking for two things here. One is whether the hierarchical model has better fit (fewer bits/rating) than the average model. If not, we should probably stick with the three-parameter model to avoid overfitting. The second thing to inspect is the relationship to the simulated likelihood (bits/rating) and the dashed line indicating the likelihood for the actual data set. Ideally this line will fall well within the bell shape of the simulation distribution. That indicates that the original data is not unusual with respect to the data sets generated by those parameters.</p></li>
-<li><p>Use the <code>rating_params</code>, which have all the hierarchical coefficients, to generate new sample ratings and then see if the solver can properly estimate those coefficients. You can generate boxplots for accuracy with <code>estimate_rater_parameter_error(rating_params)$plot_a</code>. This gives us an idea of how much the sampling error combined with estimation error affect the estimates.</p></li>
-<li><p>Optionally use Bayesian models to further refine parameters and their likely distributions. The <code>shinystan</code> package has interactive tools for detailed analysis.</p></li>
-</ol>
-<p>This process isn’t intended to produce a single statistic that tells us if the model is “good” or not. Rather, it’s intended to be a work flow that allows an analyst to develop an intuition about the data and models to aid in judgments about applications of the ratings. At all points, it’s necessary to apply judgment to test the results for reasonableness with respect to the subjects, raters, and rating processes that produced the data.</p>
-</section>
-<section id="example-uniform-raters" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="example-uniform-raters"><span class="header-section-number">1.3</span> Example: Uniform Raters</h2>
-<p>As a simple illustration of model assessment, I’ll start with a simulated data set where all the raters and subjects have the same average parameters, subject only to sampling error. The data set is generated with 600 subjects and 10 raters each (the same as the ptsd data, which we’ll consider next), with <span class="math inline">\(t = .5\)</span>, <span class="math inline">\(a = .7\)</span>, and <span class="math inline">\(p = .2\)</span>. The raters are significantly biased away from Class 1. One purpose of this example is to inspire some confidence in the method, since we already know the parameter values. Another purpose is to show how we can investigate a parameter set by simulating values from it to make sure we can recover them. This can be done, for example, after estimating parameters from a real rating set.</p>
-<section id="step-1-are-estimated-parameters-reasonable" class="level3" data-number="1.3.1">
-<h3 data-number="1.3.1" class="anchored" data-anchor-id="step-1-are-estimated-parameters-reasonable"><span class="header-section-number">1.3.1</span> Step 1: Are estimated parameters reasonable?</h3>
-<p>Here, we know the real values of the parameters, so our expectations are exact. We can compute the three-parameter model with the functions provided in the <code>tapModel</code> package.</p>
+<section id="model-calibration" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Model Calibration</h1>
+<p>Calibration means that a model can reproduce the basic distributional properties of the data. The most basic comparison we can make between a ratings set and its model is to look at the distribution of Class 1 ratings by subject. The <code>tapModel</code> package has a function to do this, <code>subject_calibration()</code>, which takes a data set and a set of model parameters and produces a comparative plot of the distribution of Class 1 ratings for the original data set and the simulated data sets from the model. This is a good first step to see if the model is reasonable.</p>
+<p>The set up here is that we have 300 subjects and 25 raters each, with randomly-generated rater parameters that average 1/2, with <span class="math inline">\(t = .1\)</span> fixed.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">generate_sample_ratings</span>(<span class="at">N_s =</span> <span class="dv">200</span>, <span class="at">N_r =</span> <span class="dv">10</span>,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">params =</span> <span class="fu">list</span>(<span class="at">t =</span> .<span class="dv">5</span>, <span class="at">a =</span> .<span class="dv">65</span>, <span class="at">p =</span> .<span class="dv">8</span>),</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">details =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>params <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">fit_counts</span>(<span class="fu">as_counts</span>(ratings))</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>params <span class="sc">|&gt;</span> <span class="fu">select</span>(t, a, p) <span class="sc">|&gt;</span> <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>n_subjects <span class="ot">&lt;-</span> <span class="dv">300</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>n_raters   <span class="ot">&lt;-</span> <span class="dv">25</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">generate_ti_aj_pj_ratings</span>( <span class="at">rating_params =</span> <span class="cn">NULL</span>, </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">param_list =</span> <span class="fu">list</span>(</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">t =</span> <span class="fu">rep</span>(.<span class="dv">1</span>,n_subjects), <span class="co">#runif(n_subjects)/2 + .25,</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">a =</span> <span class="fu">runif</span>(n_raters)<span class="sc">/</span><span class="dv">2</span> <span class="sc">+</span> .<span class="dv">25</span>, </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">p =</span> <span class="fu">runif</span>(n_raters)<span class="sc">/</span><span class="dv">2</span> <span class="sc">+</span> .<span class="dv">25</span>)) </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># average tap model</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>params <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>          <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>          <span class="fu">fit_counts</span>()</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>avg_params <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>              <span class="fu">as_rating_params</span>(params)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">subject_calibration</span>(avg_params, <span class="at">n_sim =</span> <span class="dv">50</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># direct-method hierarchical model</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>rating_params <span class="ot">&lt;-</span> <span class="fu">fit_ratings</span>(ratings)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">subject_calibration</span>(rating_params, <span class="at">n_sim =</span> <span class="dv">50</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(p1, p2, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'A'</span>, <span class="st">'B'</span>), <span class="at">label_size =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div id="tbl-uniform-raters1" class="cell quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-uniform-raters1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1: Model fit for 20 uniform raters on 200 subjects, showing the fitted parameters for the average t-a-p model with simulated ratings where t = .5, a = .65, and p = .8.
-</figcaption>
-<div aria-describedby="tbl-uniform-raters1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<div id="fig-subject-calibration" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-subject-calibration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="fit_files/figure-html/fig-subject-calibration-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-subject-calibration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Distribution of Class 1 ratings over subjects, showing the density of Class 1 ratings for the original data set containing noise (blue) and the model with true parameters (orange). Plot A is the average t-a-p model and plot B is the hierarchical version.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The plots in <a href="#fig-subject-calibration" class="quarto-xref">Figure&nbsp;1</a> show that both the average (A) and hierarchical models (B) do a good job of reproducing the distribution of Class 1 ratings across cases. There are two evident modes (bumps where the density piles up). The left one is larger, because <span class="math inline">\(t= .1\)</span> means that there are few Class 1 cases to be detected, so there are more false positives than true positives. The mode on the right is the true positives. The dashed vertical lines denote where the model parameters say these modes should be on average.</p>
+<p>Notice that although the error measures MAE (mean absolute error) and RMSE (root mean squared error) are the same for both models, the log likelihood is smaller (better) for the hierarchical model. This is what we’d expect, since adding parameters to a model will generally improve it.</p>
+<p>In addition to comparing the distributions of Class 1 ratings over subjects, we can use raters as the basis for comparisons, to assess whether the modeled rate of Class 1 ratings per rater matches the empirical assignments.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">rater_calibration</span>(avg_params)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">rater_calibration</span>(rating_params)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(p1, p2, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'A'</span>, <span class="st">'B'</span>), <span class="at">label_size =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-rater-calibration" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rater-calibration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="fit_files/figure-html/fig-rater-calibration-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rater-calibration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Distribution of Class 1 ratings for a simulated data set, showing the cumulative distribution of Class 1 ratings for the noisy data (blue) and the model with estimated average t-a-p parameters (orange).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The rater calibration plot in <a href="#fig-rater-calibration" class="quarto-xref">Figure&nbsp;2</a> shows the main difference in the models. The average model (A) doesn’t distinguish between raters, so the predicted rate of Class 1 assignments is the same for each. For the hierarchical (B) plot, the rates are perfect.</p>
+<p>A t-a-p model produces a predicted Class 1 probability for each rating, which we can compare to the empirical distribution of ratings. To do this, we calculate <span class="math inline">\(Pr(\text{Class 1 rating}; t_i, a_j, p_j) = c_{ij}\)</span> for each rating, put these into bins and calculate the average number of actual Class 1 ratings for each bin.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">rating_calibration</span>(avg_params)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">rating_calibration</span>(rating_params)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(p1, p2, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'A'</span>, <span class="st">'B'</span>), <span class="at">label_size =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-rating-calibration" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rating-calibration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="fit_files/figure-html/fig-rating-calibration-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rating-calibration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Distribution of Class 1 ratings for a simulated data set, showing the cumulative distribution of Class 1 ratings for the noisy data (blue) and the model with estimated average t-a-p parameters (orange).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>We can again see the hierarchical fitting in <a href="#fig-rating-calibration" class="quarto-xref">Figure&nbsp;3</a>, with (A) showing constant modeled values of <span class="math inline">\(c_{ij}\)</span>, since all the parameters are the same for each rating, versus the individually fitted parameters that result in (B).</p>
+<p>We might conclude from the calibration plots that both models give useful information, but if we are seeking information about the individual raters or subjects, the hierarchical model is perfectly usable for that purpose.</p>
+</section>
+<section id="estimating-parameter-error" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Estimating Parameter Error</h1>
+<p>The <code>tapModel</code> library includes a function to assess the estimation error of parameters. It does this by using the parameters to simulate ratings sets, solving those and comparing the results. The resulting variation in parameters will include sampling error, so the margins will be wider for smaller data sets. The code below illustrates.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">estimate_rater_parameter_error</span>(rating_params, <span class="at">n_sim =</span> <span class="dv">10</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>plot_a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-a-error" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-a-error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="fit_files/figure-html/fig-a-error-1.png" class="img-fluid figure-img" width="384">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-a-error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Approximate estimation error for the a_j parameters. The red markers are the original parameter estimates, and the boxplots show the range of parameters generated from simulated data sets.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>A similar plot to <a href="#fig-a-error" class="quarto-xref">Figure&nbsp;4</a> is also provided for the <span class="math inline">\(p_j\)</span> parameters. Other functions for assessing model fit can be found in Chapter 6.</p>
+<p>We can also use MCMC methods to generate densities of likely parameter values.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> <span class="fu">generate_sample_ratings</span>(<span class="at">params =</span> <span class="fu">list</span>(<span class="at">t =</span> .<span class="dv">3</span>, <span class="at">a =</span> .<span class="dv">5</span>, <span class="at">p =</span> .<span class="dv">5</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># fit individual parameters  </span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>mcmc_results <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_ratings_mcmc</span>(<span class="at">quiet =</span> <span class="cn">TRUE</span>)  </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>mcmc_draws <span class="ot">&lt;-</span> mcmc_results<span class="sc">$</span>fitted_model<span class="sc">$</span><span class="fu">draws</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_param_draws_mcmc</span>()</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>mcmc_draws <span class="sc">|&gt;</span> </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">a[1]</span><span class="st">`</span>,<span class="st">`</span><span class="at">a[2]</span><span class="st">`</span>,<span class="st">`</span><span class="at">a[3]</span><span class="st">`</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">row =</span> <span class="fu">row_number</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(param, value, <span class="sc">-</span>row) <span class="sc">|&gt;</span> </span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">alpha =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>,<span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> param) <span class="sc">+</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-a-error-mcmc" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-a-error-mcmc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="fit_files/figure-html/fig-a-error-mcmc-1.png" class="img-fluid figure-img" width="384">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-a-error-mcmc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: MCMC draw densities for the first three accuracy parameters.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The densities from the MCMC draws, like those in <a href="#fig-a-error-mcmc" class="quarto-xref">Figure&nbsp;5</a> can be used to create credible intervals for inferance and to look for multi-modality. See Chapter 4’s disussion of the Kappa Paradox for a good example of the latter. The fitted model that’s returned from the fitting function can also be used with the interactive Shiny app <a href="https://github.com/stan-dev/shinystan">shinystan</a> and other tools, such as the <a href="https://stan-playground.flatironinstitute.org/">stan playground</a> from the Flatiron Institute.</p>
+</section>
+<section id="model-exaggeration" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Model Exaggeration</h1>
+<p>There is a particular issue worth mentioning with smaller data sets, particularly those with few raters per subject. There are cases where we can increase the likelihood of the model while degrading its performance. Recall the likelihood function for the hierarchical t-a-p model, which assigns parameters to each subject and rater. For a single subject, its form is</p>
+<p><span class="math display">\[
+Pr[\text{data|params}] = t_i\pi_1+\bar{t}_i \pi_0,
+\]</span> where the <span class="math inline">\(\pi_1\)</span> factor is the product of all the rater probabilities assuming the true class is 1. Assume that the <span class="math inline">\(\pi\)</span>s are not equal, e.g.&nbsp;<span class="math inline">\(pi_1 &gt; pi_0\)</span>. Then we can maximize the probability (likelihood) by setting <span class="math inline">\(t_i = 1\)</span> and therefore <span class="math inline">\(\bar{t}_i = 0\)</span>. Given any proposed set of hierarchical parameters, we can always increase the likelihood by rounding the estimated <span class="math inline">\(t_i\)</span> values to 0 or 1. This is a kind of model exaggeration, because it hides the actual uncertainty.</p>
+<p>This exaggeration can cause a seeming paradox, where the likelihood increases as the modeled distribution diverges from the empirical one. If the data fits the model, this may not be noticeable, but the presence of noise will cause the “rounding” operation to make more mis-classifications, so the model is more confident about the wrong answer. A sign of this is when model registration gets worse with the hierarchical parameters. Registration here means the match between the distribution of Class 1 ratings per subject in the data set versus the model’s predictions.</p>
+<p>If we allow the <span class="math inline">\(t_i\)</span> parameters to tend too much toward their <span class="math inline">\([0,1]\)</span> limits, the model is more sensitive to error. In this example, it’s sampling error. With only three raters, it’s not a good assumption that a probability less than one half should be rounded to zero, etc. Other kinds of model error could have a similar effect. In the extreme case where all the <span class="math inline">\(t_i\)</span> parameters are 0 or 1, we’re truncating the likelihood function as shown below.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Illustrate a t-a-p binomial mixture distribution of Class 1 Counts</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> .<span class="dv">4</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> .<span class="dv">4</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>pr_c0 <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">-</span>a)<span class="sc">*</span>p </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>pr_c1 <span class="ot">&lt;-</span> a <span class="sc">+</span> pr_c0</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>distr <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">N_c =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>           <span class="fu">rowwise</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>           <span class="fu">mutate</span>(<span class="at">C0 =</span> <span class="fu">dbinom</span>(N_c, <span class="dv">10</span>, pr_c0),</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">C1 =</span> <span class="fu">dbinom</span>(N_c, <span class="dv">10</span>, pr_c1),</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>                  <span class="co"># apply the cut point </span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>                  <span class="at">C0_cut =</span> <span class="fu">if_else</span>(C0 <span class="sc">&gt;</span> C1, C0 <span class="sc">+</span> C1, <span class="cn">NA</span>),</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>                  <span class="at">C1_cut =</span> <span class="fu">if_else</span>(C1 <span class="sc">&gt;</span> C0, C0 <span class="sc">+</span> C1, <span class="cn">NA</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>           <span class="fu">gather</span>(Class, Probability, <span class="sc">-</span>N_c) <span class="sc">|&gt;</span> </span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>           <span class="fu">separate</span>(Class, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"Class"</span>,<span class="st">"Type"</span>), <span class="at">sep =</span> <span class="st">"_"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>           <span class="fu">replace_na</span>(<span class="fu">list</span>(<span class="at">Type =</span> <span class="st">"original"</span>))</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>distr <span class="sc">|&gt;</span> </span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> N_c, <span class="at">y =</span> Probability, <span class="at">color =</span> Class, <span class="at">linetype =</span> Type)) <span class="sc">+</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Number of Class 1 Ratings out of 10"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-sample-distro-cut" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sample-distro-cut-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="fit_files/figure-html/fig-sample-distro-cut-1.png" class="img-fluid figure-img" width="384">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sample-distro-cut-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Sample distribution of Class 1 ratings counts, with <span class="math inline">\(a = .4\)</span> and <span class="math inline">\(p=.4\)</span> after a cut point is applied at 4.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The distributions in <a href="#fig-sample-distro-cut" class="quarto-xref">Figure&nbsp;6</a> show the distorting effect of applying a cut point at four ratings of Class 1 with <span class="math inline">\(a = p = .4\)</span>. The original distributions are shown in the dashed lines, and the cut point distributions are shown in the solid lines. The cut point process biases the likelihood function due to the truncation where the two binomial distributions overlap.</p>
+<p>Model exaggeration won’t usually be a problem when there are many raters, because the <span class="math inline">\(t_i\)</span> values will be close to zero or one with high confidence anyway.</p>
+</section>
+<section id="adversarial-raters" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Adversarial Raters</h1>
+<p>Not every data set will fit the t-a-p assumptions. In that case, we’d expect to see divergence between observed and modeled data even after fitting the data with average or hierachical parameters. One such case is when we have non-independent ratings. Another case is if some raters are adversarial, meaning that they report exactly inaccurately, inverting the rating for what would normally be accurate ratings.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>n_subjects <span class="ot">&lt;-</span> <span class="dv">300</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>n_raters   <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> n_raters<span class="sc">*</span>n_subjects</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">generate_sample_ratings</span>(<span class="at">N_s =</span> <span class="dv">100</span>, <span class="at">N_r =</span> <span class="dv">10</span>, </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">params =</span> <span class="fu">list</span>(<span class="at">t =</span> .<span class="dv">5</span>, <span class="at">a =</span> .<span class="dv">7</span>, <span class="at">p =</span> .<span class="dv">5</span>),</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">details =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>bad_ratings <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># flip accurate ratings for the first ten raters</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rating =</span> <span class="fu">if_else</span>(rater_id <span class="sc">&lt;=</span> <span class="dv">3</span> <span class="sc">&amp;</span> A_ij <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span> <span class="sc">-</span> rating, rating)) </span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># get counts and find the average params</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>avg_params <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>              <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>              <span class="fu">fit_counts</span>()</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>bad_params <span class="ot">&lt;-</span> bad_ratings <span class="sc">|&gt;</span> </span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_counts</span>()</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the computed average model</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>            <span class="fu">as_rating_params</span>(avg_params) <span class="sc">|&gt;</span> </span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>            <span class="fu">subject_calibration</span>()</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_rating_params</span>(bad_params) <span class="sc">|&gt;</span> </span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subject_calibration</span>()</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(p1, p2, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"A"</span>,<span class="st">"B"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-adversary-avg" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-adversary-avg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="fit_files/figure-html/fig-adversary-avg-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-adversary-avg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Distribution of Class 1 ratings for a simulated data set, showing the subject calibration for the original data set (A) and one with three adversarial raters (B).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The B plot in <a href="#fig-adversary-avg" class="quarto-xref">Figure&nbsp;7</a> shows that the model can’t capture the actual distribution of ratings when three out of ten raters invert their ratings. There are two signs that something is wrong. First the entropy is very high in the second plot, and second the modeled density doesn’t look anything like the observed one; the error measures are an order of magnitude worse.</p>
+<p>In such cases, we might want to try to identify adversarial raters to “fix” the data by filtering out the bad actors.</p>
+<p>Even if we switch to a heirarchical model, it doesn’t completely solve the problem. Adversarial raters are not considered in the basic t-a-p model, so the assumption about the behavior of accurate raters fails. However, we can estimate the accuracy of each rater and use that to filter them. The resulting calibration plot is show in <a href="#fig-fix-raters" class="quarto-xref">Figure&nbsp;8</a>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fixed_rating_params <span class="ot">&lt;-</span> <span class="fu">fit_ratings</span>(bad_ratings) <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">filter</span>(a <span class="sc">&gt;</span> .<span class="dv">01</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">subject_calibration</span>(fixed_rating_params)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-fix-raters" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fix-raters-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="fit_files/figure-html/fig-fix-raters-1.png" class="img-fluid figure-img" width="384">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fix-raters-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: An attempt to eliminate bad raters by filtering on accuracy.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The average parameters in <a href="#fig-fix-raters" class="quarto-xref">Figure&nbsp;8</a> are pretty close to the values used to generate the original data set, and the calibration plot looks okay. Obviously, we’d want to dig into the details more deeply for an actual study. Which raters were eliminated, and what evidence is there that they are rating backwards?</p>
+</section>
+<section id="independence" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Independence</h1>
+<p>Imagine that you’ve been asked to assess the reliability of portfolio ratings done by an assessment committee. Three committee members independently review each student’s portfolio of work and rate is as pass (Class 1) or fail (Class 0). Unknown to you, the program director has added a forth column to the data, which appears as a fourth rater, but actually represents the majority vote. You’re not aware of this dependent artificial “rater” and proceed as if it’s another independent vote.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">generate_sample_ratings</span>(<span class="at">N_s =</span> <span class="dv">100</span>, <span class="at">N_r =</span> <span class="dv">3</span>, </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">params =</span> <span class="fu">list</span>(<span class="at">t =</span> .<span class="dv">8</span>, <span class="at">a =</span> .<span class="dv">3</span>, <span class="at">p =</span> .<span class="dv">8</span>)) </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>bad_ratings <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create a majority vote column</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(rater_id, rating) <span class="sc">|&gt;</span> </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">4</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">as.integer</span>(<span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="sc">+</span> <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="sc">+</span> <span class="st">`</span><span class="at">3</span><span class="st">`</span> <span class="sc">&gt;</span> <span class="dv">1</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(rater_id, rating, <span class="sc">-</span>subject_id)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># get counts and find the average params</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>avg_params <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_counts</span>()</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>bad_params <span class="ot">&lt;-</span> bad_ratings <span class="sc">|&gt;</span> </span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_counts</span>()</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the computed average model</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_rating_params</span>(avg_params) <span class="sc">|&gt;</span> </span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subject_calibration</span>()</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_rating_params</span>(bad_params) <span class="sc">|&gt;</span> </span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subject_calibration</span>()</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(p1, p2, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"A"</span>,<span class="st">"B"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-non-independence" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-non-independence-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="fit_files/figure-html/fig-non-independence-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-non-independence-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Distribution of Class 1 ratings for a simulated data set, showing the subject calibration for the original data set (A) and one with a non-independent rater (B).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The plots in <a href="#fig-non-independence" class="quarto-xref">Figure&nbsp;9</a> contrast the model fit without the dependent data (A) and with it (B), showing a poor subject calibration for the latter. This is good! Dependent raters violate the model assumptions, and we’d hope that the model would not fit in such cases.</p>
+<p>We can attempt to detect non-independence using a correlation matrix among raters.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>bad_ratings <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(rater_id, rating) <span class="sc">|&gt;</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>subject_id) <span class="sc">|&gt;</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">full_width =</span> <span class="cn">FALSE</span>,           <span class="co"># &lt;- stops spanning the full page</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">position   =</span> <span class="st">"center"</span>,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>,<span class="st">"hover"</span>,<span class="st">"condensed"</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="tbl-cor" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-cor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Correlation matrix among raters per subject.
+</figcaption>
+<div aria-describedby="tbl-cor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed do-not-create-environment cell caption-top table-sm small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
-<th style="text-align: right;">t</th>
-<th style="text-align: right;">a</th>
-<th style="text-align: right;">p</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">1</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">2</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">3</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">4</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">0.51</td>
-<td style="text-align: right;">0.66</td>
-<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">0.13</td>
+<td style="text-align: right;">0.55</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.13</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">0.50</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.55</td>
+<td style="text-align: right;">0.34</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">1.00</td>
 </tr>
 </tbody>
 </table>
@@ -364,39 +643,73 @@ Table&nbsp;1: Model fit for 20 uniform raters on 200 subjects, showing the fitte
 </figure>
 </div>
 </div>
-<p>The parameters don’t look degenerate (close to zero or one).</p>
-</section>
-<section id="step-2.-where-is-the-dk-horizon" class="level3" data-number="1.3.2">
-<h3 data-number="1.3.2" class="anchored" data-anchor-id="step-2.-where-is-the-dk-horizon"><span class="header-section-number">1.3.2</span> Step 2. Where is the DK Horizon?</h3>
-<p>The next step is to find the Dunning-Kruger threshold for this data configuration. Recall that this is a reframing of the null hypothesis <span class="math inline">\(p\)</span>-value to emphasize ignorance.</p>
+<p>Notice that the correlations for rater 4 in <a href="#tbl-cor" class="quarto-xref">Table&nbsp;1</a> are all larger than the rest. This test isn’t definitive, but it gives us a reason to look into rater 4, at which point we would likely discover the problem.</p>
+<p>The correlation is problematic when raters have no variation in their ratings. A more general approach is to use the covariance of ratings between raters. See the formula for correlation between raters, found in the <a href="./correlation.html">Appendix</a> for how to proceed. Given two raters, we’ll compute the centered dot product of their ratings as the empirical covariance, and use the formula is <span class="math inline">\(a_1a_2 t \bar{t}\)</span> as the expected value. This is done in the <code>tapModel::rater_cov()</code> function. Using that idea, we can find the difference between expected and actual values by rater pair.</p>
+<p>For larger numbers of raters, we can benchmark the expected range of covariance differences by using simulated data with the <code>rater_cov_quantile()</code> function. This is illustrated with another problem we might encounter: duplicated raters, where the ratings are identical or nearly so.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tapModel<span class="sc">::</span><span class="fu">simulate_exact_fit</span>(<span class="dv">200</span>,<span class="dv">10</span>,<span class="at">n_sim =</span> <span class="dv">50</span>, <span class="at">output =</span> <span class="st">"plot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">generate_sample_ratings</span>(<span class="at">N_s =</span> <span class="dv">200</span>, <span class="at">N_r =</span> <span class="dv">90</span>, </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">params =</span> <span class="fu">list</span>(<span class="at">t =</span> .<span class="dv">5</span>, <span class="at">a =</span> .<span class="dv">5</span>, <span class="at">p =</span> .<span class="dv">5</span>)) </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>dupe_ratings <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(rater_id <span class="sc">&lt;=</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rater_id =</span> rater_id <span class="sc">+</span> <span class="dv">90</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>bad_ratings <span class="ot">&lt;-</span> <span class="fu">rbind</span>(ratings, dupe_ratings)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># find the model </span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>bad_params <span class="ot">&lt;-</span> bad_ratings <span class="sc">|&gt;</span> </span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>          <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>          <span class="fu">fit_counts</span>()</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co"># create the expanded data </span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>rating_params <span class="ot">&lt;-</span> bad_ratings <span class="sc">|&gt;</span>  </span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">as_rating_params</span>(bad_params)</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co"># range of expected correlations</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>range <span class="ot">&lt;-</span> <span class="fu">rater_cov_quantile</span>(rating_params)</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co"># expected and actual correlations</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>cov_results <span class="ot">&lt;-</span> rating_params <span class="sc">|&gt;</span> </span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rater_cov</span>(<span class="at">max_raters =</span> <span class="dv">200</span>)</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_rater_cov</span>(cov_results, range)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="fig-dk-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-non-independence2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-dk-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="fit_files/figure-html/fig-dk-plot-1.png" class="img-fluid figure-img" width="384">
+<div aria-describedby="fig-non-independence2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="fit_files/figure-html/fig-non-independence2-1.png" class="img-fluid figure-img" width="480">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dk-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Ranges of accuracy estimates for nominal t = p = .5 samples.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-non-independence2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: Distribution covariances between raters, with 96% confidence interval marked. Ten duplicate raters have been added to show non-independence.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>The boxplots in <a href="#fig-dk-plot" class="quarto-xref">Figure&nbsp;1</a> show that the DK-horizon is low, maybe around <span class="math inline">\(a=.15\)</span> as the point past which we can’t trust accuracy estimates. If we want, we can put numbers to this by simulating <span class="math inline">\(a=0\)</span> to see how large the accuracy estimates can be from sampling error.</p>
+<p>Notice the blip to the far right of <a href="#fig-non-independence2" class="quarto-xref">Figure&nbsp;10</a> that shows the ten duplicated raters. These are far outside the expected range, and deserving of our attention.</p>
+</section>
+<section id="the-dunning-kruger-threshold" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> The Dunning-Kruger Threshold</h1>
+<p>As a reference point for interpreting coefficients, it can be useful to compute the Dunning-Kruger threshold for the parameters. Recall that this horizon is the largest plausible result for accuracy that can be obtained when accuracy is actually zero. Suppose we have 200 subjects that are each rated by 10 raters. Assuming that <span class="math inline">\(t = p = .5\)</span>, the DK horizon figures appear in <a href="#tbl-dk-threshold" class="quarto-xref">Table&nbsp;2</a>.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dk <span class="ot">&lt;-</span> <span class="fu">dk_horizon</span>(<span class="dv">200</span>, <span class="dv">10</span>, <span class="at">n_sim =</span> <span class="dv">200</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>dk <span class="sc">|&gt;</span> </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.tibble</span>() <span class="sc">|&gt;</span>  </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Threshold =</span> <span class="fu">names</span>(dk)) <span class="sc">|&gt;</span> </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Threshold , <span class="at">Accuracy =</span> value) <span class="sc">|&gt;</span> </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>dk <span class="ot">&lt;-</span> <span class="fu">dk_horizon</span>(<span class="dv">200</span>, <span class="dv">10</span>, <span class="at">n_sim =</span> <span class="dv">200</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>dk <span class="sc">|&gt;</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.tibble</span>() <span class="sc">|&gt;</span>  </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Threshold =</span> <span class="fu">names</span>(dk)) <span class="sc">|&gt;</span> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Threshold , <span class="at">Accuracy =</span> value) <span class="sc">|&gt;</span> </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)<span class="sc">|&gt;</span> </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">full_width =</span> <span class="cn">FALSE</span>,           <span class="co"># &lt;- stops spanning the full page</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">position   =</span> <span class="st">"center"</span>,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>,<span class="st">"hover"</span>,<span class="st">"condensed"</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div id="tbl-dk-threshold" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -405,11 +718,11 @@ Table&nbsp;2: Estimated percentiles for accuracy, given 600 subjects with ten ra
 </figcaption>
 <div aria-describedby="tbl-dk-threshold-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<table class="table table-striped table-hover table-condensed do-not-create-environment cell caption-top table-sm small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
-<th style="text-align: left;">Threshold</th>
-<th style="text-align: right;">Accuracy</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Threshold</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Accuracy</th>
 </tr>
 </thead>
 <tbody>
@@ -440,628 +753,266 @@ Table&nbsp;2: Estimated percentiles for accuracy, given 600 subjects with ten ra
 </figure>
 </div>
 </div>
-<p>For a data set of this size, 98% of the randomly generated ratings resulted in an accuracy parameter estimate of .15 or less. It’s reasonable to be suspicious of parameter estimates that have <span class="math inline">\(a\)</span> below that threshold. We might be being fooled by sampling and estimation error into thinking the raters are much more accurate than they actually are. In this case, with an estimate of about .65 (the true value), we easily pass the DK-threshold test.</p>
+<p>For a data set of this size, 98% of the randomly generated ratings resulted in an accuracy parameter estimate of .15 or less. It’s reasonable to be suspicious of parameter estimates that have <span class="math inline">\(a\)</span> below that threshold. We might be being fooled by sampling and estimation error into thinking the raters are much more accurate than they actually are.</p>
+<p>This computation is limited in that is assumes ratings are unbiased (i.e.&nbsp;<span class="math inline">\(t = p\)</span>). However, it may still be useful as a sanity check. See the discussion of Dunning-Kruger in Chapter 2 for more.</p>
 </section>
-<section id="step-3.-do-we-need-a-hierarchical-model" class="level3" data-number="1.3.3">
-<h3 data-number="1.3.3" class="anchored" data-anchor-id="step-3.-do-we-need-a-hierarchical-model"><span class="header-section-number">1.3.3</span> Step 3. Do we need a hierarchical model?</h3>
-<p>Next we assess the likelihood in units of bits/rating to compare the three-parameter model to the more detailed hierarchical model.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rating_params <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">fit_ratings</span>(ratings)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>tapModel<span class="sc">::</span><span class="fu">model_fit_comparison</span>(rating_params, <span class="at">model_names =</span> <span class="fu">c</span>(<span class="st">"hierarchical"</span>,<span class="st">"average"</span>))<span class="sc">$</span>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div id="fig-uniform-rater-compare" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-uniform-rater-compare-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="fit_files/figure-html/fig-uniform-rater-compare-1.png" class="img-fluid figure-img" width="432">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-uniform-rater-compare-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Model fit for uniform raters, showing the simulated distribution of bits per rating for the average and hierarchical t-a-p models with simulated ratings where t = .5, a = .7, and p = .2. The vertical lines shows the bits per rating for each model with the original data set, and the densities are for data sets simulated from the respective parameters.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>The model fit in <a href="#fig-uniform-rater-compare" class="quarto-xref">Figure&nbsp;2</a> shows overlapping distributions of log likelihoods for the hierarchical and average (three-parameter) t-a-p models. Recall that better fit for a model means a smaller value of bits/rating (hence larger likelihood). Here there’s no difference between the two models, so we can conclude that the hierarchical model is adding parameters with no benefit. In this case, we would choose the average three-parameter t-a-p model as the most parsimonious description of the data. Because this is simulated data, we know that’s the correct conclusion.</p>
-</section>
-<section id="summary" class="level3" data-number="1.3.4">
-<h3 data-number="1.3.4" class="anchored" data-anchor-id="summary"><span class="header-section-number">1.3.4</span> Summary</h3>
-<p>For this example, we already knew the parameter specification, and the goodness-of-fit process confirmed that the estimate was probably trustable. Moreover, it confirmed that there’s no advantage to choosing a more complicated hierarchical model.</p>
-<p>I chose the sample size and t-a-p parameters for this example because they also correspond to the PTSD data’s specifications. We’ll now turn to that real data set.</p>
-</section>
-</section>
-<section id="example-ptsd-data" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="example-ptsd-data"><span class="header-section-number">1.4</span> Example: PTSD Data</h2>
-<p>The PTSD data set has unknown true parameter values. This is not my research data, so I don’t have intuition about what reasonable answers might look like.</p>
-<section id="step-1.-estimate-t-a-p-parameters" class="level3" data-number="1.4.1">
-<h3 data-number="1.4.1" class="anchored" data-anchor-id="step-1.-estimate-t-a-p-parameters"><span class="header-section-number">1.4.1</span> Step 1. Estimate t-a-p parameters</h3>
-<p>The first step is to estimate the average t-a-p parameters and compare to the DK-threshold.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ptsd)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># convert Q2 to long form</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> ptsd <span class="sc">|&gt;</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Question <span class="sc">==</span> <span class="st">"Q2"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Question) <span class="sc">|&gt;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(RaterID, Rating, <span class="sc">-</span>SubjectID) <span class="sc">|&gt;</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rater_id =</span> <span class="fu">as.integer</span>(<span class="fu">str_extract</span>(RaterID,<span class="st">"</span><span class="sc">\\</span><span class="st">d+"</span>)),</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">rating  =</span> Rating <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">subject_id =</span> SubjectID, rating, rater_id)</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>params <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">fit_counts</span>(<span class="fu">as_counts</span>(ratings))</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>params <span class="sc">|&gt;</span> <span class="fu">select</span>(t, a, p) <span class="sc">|&gt;</span> <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div id="tbl-ptsd-tap" class="cell quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ptsd-tap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;3: t-a-p model fit the PTSD data.
-</figcaption>
-<div aria-describedby="tbl-ptsd-tap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output-display">
-<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: right;">t</th>
-<th style="text-align: right;">a</th>
-<th style="text-align: right;">p</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">0.54</td>
-<td style="text-align: right;">0.65</td>
-<td style="text-align: right;">0.81</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</figure>
-</div>
-</div>
-<p>We already calculated the DK-horizon (step 2) in the previous example. The accuracy estimate of <span class="math inline">\(a=.65\)</span> is signficantly higher than the DK-threshold of .15 that we saw in <a href="#tbl-dk-threshold" class="quarto-xref">Table&nbsp;2</a>.</p>
-</section>
-<section id="step-3.-do-we-need-a-hierarchical-model-1" class="level3" data-number="1.4.2">
-<h3 data-number="1.4.2" class="anchored" data-anchor-id="step-3.-do-we-need-a-hierarchical-model-1"><span class="header-section-number">1.4.2</span> Step 3. Do we need a hierarchical model?</h3>
-<p>If we include parameters for subjects and raters, does model fit improve?</p>
-<div class="cell" data-fig-caption="Model fit for PTSD data Question 2, showing the model fit for the average and hierarchical t-a-p models with the PTSD data set. The vertical lines shows the bits per rating for each model with the original data set, and the densities are for data sets simulated from the respective parameters.">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># generate individual parameters for subjects, raters, ratings</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>rating_params <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">fit_ratings</span>(ratings)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>tapModel<span class="sc">::</span><span class="fu">model_fit_comparison</span>(rating_params, <span class="at">model_names =</span> <span class="fu">c</span>(<span class="st">"hierarchical"</span>,<span class="st">"average"</span>))<span class="sc">$</span>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div id="fig-ptsd1" class="quarto-float quarto-figure quarto-figure-center anchored" width="480">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-ptsd1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="fit_files/figure-html/fig-ptsd1-1.png" id="fig-ptsd1" class="img-fluid figure-img" width="480">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-ptsd1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>Unlike the case in <a href="#fig-uniform-rater-compare" class="quarto-xref">Figure&nbsp;2</a>, the model fit for the PTSD data set in <a href="#fig-ptsd1" class="quarto-xref">Figure&nbsp;3</a> shows that the hierarchical rater model is a much better fit than the average model. The bits per rating for the individual model is .46, while the average model is .57. Raters probably vary in their accuracy and bias since they are classifying complex evidence. If we had the original data we could examine in detail the classifications made by the raters with lowest and highest accuracy, for example by getting more ratings from a few experts. This kind of information could be useful in improving classifications generally.</p>
-<p>In both distributions in <a href="#fig-ptsd1" class="quarto-xref">Figure&nbsp;3</a>, the dashed line showing the bits/rating for the actual data is somewhat to the left of the mean of the distribution of the bits/rating from the simulated ratings. The parameters are generated from the given data, so we’d expect that the original data set would be a somewhat better fit for the model than data that’s randomly generated from the parameters. That’s the case here, but this “overfitting” subjectively doesn’t look too bad. It would be different if the dashed blue line were way off to the left of the distribution. That would indicate a degree of overfitting (or other problem) that we should follow up on.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ptsd)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>raw_ratings <span class="ot">&lt;-</span> ptsd</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># get the ratings for question 2</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>formatted_ratings <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">format_raw_ratings</span>(raw_ratings,</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">rating_cols =</span> <span class="fu">str_c</span>(<span class="st">"Rater "</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>),</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">rating_colnames_type =</span> <span class="st">"rater"</span>,</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">subject_id_col =</span> <span class="st">"SubjectID"</span>,</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">rater_id_col =</span> <span class="cn">NULL</span>,</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">prune =</span> <span class="cn">FALSE</span>) </span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> formatted_ratings <span class="sc">|&gt;</span> </span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Question <span class="sc">==</span> <span class="st">"Q2"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Question) <span class="sc">|&gt;</span> </span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  tapModel<span class="sc">::</span><span class="fu">as_binary_ratings</span>(<span class="at">in_class =</span> <span class="st">"2"</span>)</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co"># compute the rating parameters, t_i, a_j, p_j</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>rating_params <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">fit_ratings</span>(ratings)</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co"># extract the rater parameters</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>rating_params <span class="sc">|&gt;</span> </span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(rater_id) <span class="sc">|&gt;</span> </span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">c_j =</span> <span class="fu">mean</span>(rating),</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>            <span class="at">a_j =</span> <span class="fu">first</span>(a),</span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>            <span class="at">p_j =</span> <span class="fu">first</span>(p),</span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>            <span class="at">bias =</span> <span class="fu">mean</span>(p <span class="sc">-</span> t)) <span class="sc">|&gt;</span> </span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(a_j) <span class="sc">|&gt;</span> </span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div id="tbl-rater-params" class="cell quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-rater-params-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;4: Rater parameters, showing the ID of the rater from the original PTSD data with individual rater statistics: c_j is the rate of class 1 assignments; a_j and p_j are the t-a-p model parameters for this rater; and bias is mean(p_j - t_i).
-</figcaption>
-<div aria-describedby="tbl-rater-params-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output-display">
-<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;">rater_id</th>
-<th style="text-align: right;">c_j</th>
-<th style="text-align: right;">a_j</th>
-<th style="text-align: right;">p_j</th>
-<th style="text-align: right;">bias</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Rater 1</td>
-<td style="text-align: right;">0.84</td>
-<td style="text-align: right;">0.36</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">0.46</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Rater 5</td>
-<td style="text-align: right;">0.80</td>
-<td style="text-align: right;">0.39</td>
-<td style="text-align: right;">0.96</td>
-<td style="text-align: right;">0.42</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Rater 4</td>
-<td style="text-align: right;">0.80</td>
-<td style="text-align: right;">0.43</td>
-<td style="text-align: right;">0.99</td>
-<td style="text-align: right;">0.45</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Rater 2</td>
-<td style="text-align: right;">0.52</td>
-<td style="text-align: right;">0.65</td>
-<td style="text-align: right;">0.48</td>
-<td style="text-align: right;">-0.05</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Rater 9</td>
-<td style="text-align: right;">0.66</td>
-<td style="text-align: right;">0.65</td>
-<td style="text-align: right;">0.87</td>
-<td style="text-align: right;">0.33</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Rater 7</td>
-<td style="text-align: right;">0.54</td>
-<td style="text-align: right;">0.75</td>
-<td style="text-align: right;">0.54</td>
-<td style="text-align: right;">0.00</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Rater 6</td>
-<td style="text-align: right;">0.46</td>
-<td style="text-align: right;">0.76</td>
-<td style="text-align: right;">0.19</td>
-<td style="text-align: right;">-0.35</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Rater 3</td>
-<td style="text-align: right;">0.56</td>
-<td style="text-align: right;">0.79</td>
-<td style="text-align: right;">0.64</td>
-<td style="text-align: right;">0.10</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Rater 8</td>
-<td style="text-align: right;">0.59</td>
-<td style="text-align: right;">0.84</td>
-<td style="text-align: right;">0.87</td>
-<td style="text-align: right;">0.33</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Rater 10</td>
-<td style="text-align: right;">0.60</td>
-<td style="text-align: right;">0.87</td>
-<td style="text-align: right;">0.98</td>
-<td style="text-align: right;">0.44</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</figure>
-</div>
-</div>
-</section>
-<section id="step-4-can-we-recover-the-parameters-from-simulations" class="level3" data-number="1.4.3">
-<h3 data-number="1.4.3" class="anchored" data-anchor-id="step-4-can-we-recover-the-parameters-from-simulations"><span class="header-section-number">1.4.3</span> Step 4: Can we recover the parameters from simulations?</h3>
-<p>To test the robustness of the individual model fit, we can simulate new data sets from the hierarchcial parameters and then see how well we can recover the parameters. This is computationally expensive for large data sets, so I’ll only run 50 of these.</p>
-<div class="cell" data-fig-caption="Rater accuracy values generated from synthetic ratings, showing boxplots of recovered values with red markers to show the input values.">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>error_est <span class="ot">&lt;-</span> <span class="fu">estimate_rater_parameter_error</span>(rating_params,<span class="at">n_sim =</span> <span class="dv">50</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>error_est<span class="sc">$</span>plot_a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div id="fig-ptsd-a" class="quarto-float quarto-figure quarto-figure-center anchored" width="480">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-ptsd-a-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="fit_files/figure-html/fig-ptsd-a-1.png" id="fig-ptsd-a" class="img-fluid figure-img" width="480">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-ptsd-a-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>The results in <a href="#fig-ptsd-a" class="quarto-xref">Figure&nbsp;4</a> show that the individual rater parameters are well recovered from the simulated data sets. The red markers show the proposed accuracy estimates for each rater, and the boxplots show the distribution of recovered values after simulating new ratings and recovering the parameters. We can do the same for the <span class="math inline">\(p_j\)</span> parameters.</p>
-<div class="cell" data-fig-caption="Rater random assignment (p_j) values generated from synthetic ratings, showing boxplots of recovered values with red markers to show the input values.">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>error_est<span class="sc">$</span>plot_p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div id="fig-ptsd-p" class="quarto-float quarto-figure quarto-figure-center anchored" width="480">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-ptsd-p-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="fit_files/figure-html/fig-ptsd-p-1.png" id="fig-ptsd-p" class="img-fluid figure-img" width="480">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-ptsd-p-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>The plots in <a href="#fig-ptsd-p" class="quarto-xref">Figure&nbsp;5</a> show that the estimates are robust, and that raters 1,4,5, and 10 are quite biased toward assigning Class 1. In practice, this feedback can likely be used to improve ratings.</p>
-<p>The PTSD data set is interesting because the same raters used three different methods to assess the PTSD condition for the same subjects. This gives us an opportunity to see how the rater accuracy estimates generalize. We might guess that an inaccurate rater would be inaccurate regardless of the particular measure being used.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ptsd)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>raw_ratings <span class="ot">&lt;-</span> ptsd</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># get the ratings for question 2</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>formatted_ratings <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">format_raw_ratings</span>(raw_ratings,</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">rating_cols =</span> <span class="fu">str_c</span>(<span class="st">"Rater "</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>),</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">rating_colnames_type =</span> <span class="st">"rater"</span>,</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">subject_id_col =</span> <span class="st">"SubjectID"</span>,</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">rater_id_col =</span> <span class="cn">NULL</span>,</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">prune =</span> <span class="cn">FALSE</span>) </span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Method 1</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>method_1 <span class="ot">&lt;-</span> formatted_ratings <span class="sc">|&gt;</span> </span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Question <span class="sc">==</span> <span class="st">"Q1"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Question) <span class="sc">|&gt;</span> </span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  tapModel<span class="sc">::</span><span class="fu">as_binary_ratings</span>(<span class="at">in_class =</span> <span class="st">"2"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  tapModel<span class="sc">::</span><span class="fu">fit_ratings</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(rater_id) <span class="sc">|&gt;</span> </span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">c_j =</span> <span class="fu">mean</span>(rating),</span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">a_j =</span> <span class="fu">first</span>(a),</span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>            <span class="at">p_j =</span> <span class="fu">first</span>(p),</span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>            <span class="at">bias =</span> <span class="fu">mean</span>(p <span class="sc">-</span> t)) <span class="sc">|&gt;</span> </span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Method =</span> <span class="st">"1"</span>)</span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Method 2</span></span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>method_2 <span class="ot">&lt;-</span> formatted_ratings <span class="sc">|&gt;</span> </span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Question <span class="sc">==</span> <span class="st">"Q2"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Question) <span class="sc">|&gt;</span> </span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  tapModel<span class="sc">::</span><span class="fu">as_binary_ratings</span>(<span class="at">in_class =</span> <span class="st">"2"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>  tapModel<span class="sc">::</span><span class="fu">fit_ratings</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(rater_id) <span class="sc">|&gt;</span> </span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">c_j =</span> <span class="fu">mean</span>(rating),</span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>            <span class="at">a_j =</span> <span class="fu">first</span>(a),</span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>            <span class="at">p_j =</span> <span class="fu">first</span>(p),</span>
-<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>            <span class="at">bias =</span> <span class="fu">mean</span>(p <span class="sc">-</span> t)) <span class="sc">|&gt;</span> </span>
-<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Method =</span> <span class="st">"2"</span>)</span>
-<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Method 3</span></span>
-<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>method_3 <span class="ot">&lt;-</span> formatted_ratings <span class="sc">|&gt;</span> </span>
-<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Question <span class="sc">==</span> <span class="st">"Q3"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Question) <span class="sc">|&gt;</span> </span>
-<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>  tapModel<span class="sc">::</span><span class="fu">as_binary_ratings</span>(<span class="at">in_class =</span> <span class="st">"2"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>  tapModel<span class="sc">::</span><span class="fu">fit_ratings</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(rater_id) <span class="sc">|&gt;</span> </span>
-<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">c_j =</span> <span class="fu">mean</span>(rating),</span>
-<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>            <span class="at">a_j =</span> <span class="fu">first</span>(a),</span>
-<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>            <span class="at">p_j =</span> <span class="fu">first</span>(p),</span>
-<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>            <span class="at">bias =</span> <span class="fu">mean</span>(p <span class="sc">-</span> t)) <span class="sc">|&gt;</span> </span>
-<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Method =</span> <span class="st">"3"</span>)</span>
-<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>rater_stats <span class="ot">&lt;-</span> <span class="fu">rbind</span>(method_1, method_2, method_3)</span>
-<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a>rater_stats <span class="sc">|&gt;</span> </span>
-<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rater_id =</span> <span class="fu">reorder</span>(rater_id, a_j)) <span class="sc">|&gt;</span></span>
-<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(parameter, estimate, <span class="sc">-</span>rater_id, <span class="sc">-</span>Method) <span class="sc">|&gt;</span> </span>
-<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(parameter <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"a_j"</span>,<span class="st">"c_j"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> estimate, <span class="at">y =</span> rater_id, <span class="at">color =</span> Method)) <span class="sc">+</span></span>
-<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>parameter) <span class="sc">+</span></span>
-<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div id="fig-compare-aj" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-compare-aj-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="fit_files/figure-html/fig-compare-aj-1.png" class="img-fluid figure-img" width="528">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-compare-aj-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6: Comparison of rater accuracy over three methods of assessing PTSD, where a_j is the estimated rater accuracy for each method, and c_j is the rater’s average Class 1 rate.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>The pattern of <span class="math inline">\(a_j\)</span> estimates over the three evaluation types in <a href="#fig-compare-aj" class="quarto-xref">Figure&nbsp;6</a> show that rater accuracy is consistant, for example with rater 1 consistently among the least accurate, and rater 8 among the best. We can also see that method 2 tends to generate the most accurate results over all the raters. Finally, we can attribute part of the inaccuracy for the low-accuracy raters to over-assigning Class 1. Note that method 2 has more discrimination generally, with smaller raters of Class 1 (the green dots in the right panel are closer to .5).</p>
-</section>
-<section id="summary-1" class="level3" data-number="1.4.4">
-<h3 data-number="1.4.4" class="anchored" data-anchor-id="summary-1"><span class="header-section-number">1.4.4</span> Summary</h3>
-<p>The above analysis shows what the PTSD ratings have impressive accuracy if the model assumptions are met (primarily independence of raters). A hierarchical model is called for, and it shows that the raters have a range of characteristics that might be useful in improving classifications in real-world settings. In particular, some raters are notably more accurate than others. The third method of scoring seems to inflate Class 1 ratings, reducing accuracy generally. The PTSD data analysis shows that we can extract much more meaningful information from the ratings than is possible with the traditional kappa statistics. Note, however, that we only get the full benefit of these new methods if we have rater identification for each rating.</p>
-
+<section id="a-validation-process-for-binary-ratings" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> A Validation Process for Binary Ratings</h1>
+<p>The following steps may help you think through the analysis of binary t-a-p models.</p>
+<ol start="0" type="1">
+<li><p>Check Assumptions. Validity testing begins with assumptions about the data-gathering process, so it’s essential to seek expertise with the data type to avoid personal errors. If you didn’t generate the data, talk to whoever did. Ask questions that will build confidence that the encodings are valid, the data format reflects your understanding, and the statistical assumptions. In the formal t-a-p model, the most important assumption to check is the independence of raters. If a group of faculty who are scoring student writing portfolios are sitting around a table discussing the essays, the ratings are not independent. Optionally, use prior experience or literature to write down your expectations for <span class="math inline">\(t\)</span> and <span class="math inline">\(a\)</span>. This is so that your ‘surprise factor’ doesn’t get biased by seeing the results first.</p></li>
+<li><p>Compute the three-parameter t-a-p solution with <code>params = fit_counts(as_counts(ratings))</code> and inspect for reasonableness (given your priors) and degeneracy (any coefficient of zero or one).</p></li>
+<li><p>Compute the Dunning-Kruger horizon for your data configuration using the number of subjects as <span class="math inline">\(N_s\)</span> and average raters per subject as <span class="math inline">\(N_r\)</span>. This gives a value for accuracy, below which any estimate is suspect. Suppose the DK number comes back as .3, using a 98% threshold, and the accuracy estimate for your data is .25. We should double-check the validity of the data.</p></li>
+</ol>
+<p>2.1 If the estimated accuracy is below the DK horizon, fit the model using the MCMC method and inspect the distribution of posterior samples for accuracy. Look for a reasonable range of values that represents uncertainty. If this includes values that are unacceptable, then you may not be able to proceed further. It’s an indication that you need more samples or more reliable ratings or more raters, in some combination. You can simulate these combinations as a kind of power test.</p>
+<ol start="3" type="1">
+<li><p>Use the t-a-p parameters to estimate the <span class="math inline">\(t_i\)</span> truth probabilities and rater <span class="math inline">\(a_j\)</span> and <span class="math inline">\(p_j\)</span> parameters using <code>rating_params = fit_ratings(ratings)</code> and compare the model fit for this hierarchical model to the three-parameter version using the calibration plots. We’re looking for two things here. One is whether the hierarchical model has better fit (fewer bits/rating) than the average model. If not, we should probably stick with the three-parameter model to avoid overfitting. The second thing to inspect is overall match between modeled and observed ratings, using the error statistics provided on the calibration plots. See the example above on adversarial raters for an obvious misfit.</p></li>
+<li><p>If the model is not well-calibrated, check the independence assumption using <code>rater_cor()</code> and <code>rater_cor_quantile()</code>.</p></li>
+<li><p>Use the <code>rating_params</code>, which have all the hierarchical coefficients, to generate new sample ratings and then see if the solver can properly estimate those coefficients. You can generate boxplots for accuracy with <code>estimate_rater_parameter_error(rating_params)$plot_a</code>. This gives us an idea of how much the sampling error combined with estimation error affect the estimates. Alternatively, you can get more detailed reports using the MCMC solver <code>fit_ratings_mcmc()</code>. The <code>shinystan</code> package has interactive tools for detailed analysis.</p></li>
+</ol>
+<p>This process isn’t intended to produce a single statistic that tells us if the model is “good” or not. Rather, it’s intended to be a work flow that allows an analyst to develop an intuition about the data and models to aid in judgments about applications of the ratings. At all points, it’s necessary to apply judgment to test the results for reasonableness with respect to the subjects, raters, and rating processes that produced the data.</p>
 
 
 </section>
-</section>
-</section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
-<div id="ref-brennan2006educational" class="csl-entry" role="listitem">
-Brennan, R. L., Measurement in Education, N. C. on, et al. (2006). <em>Educational measurement</em>. Praeger Publishers,.
-</div>
-<div id="ref-gelman2014beyond" class="csl-entry" role="listitem">
-Gelman, A., &amp; Carlin, J. (2014). Beyond power calculations: Assessing type s (sign) and type m (magnitude) errors. <em>Perspectives on Psychological Science</em>, <em>9</em>(6), 641–651.
-</div>
-<div id="ref-hinde2023inter" class="csl-entry" role="listitem">
-Hinde, K. (2023). <em>Inter-rater reliability in determining criterion a for PTSD and complex PTSD in parents of autistic children using the life events checklist for DSM-5</em>.
-</div>
-<div id="ref-mcelreath2020statistical" class="csl-entry" role="listitem">
-McElreath, R. (2020). <em>Statistical rethinking: A bayesian course with examples in r and stan</em> (2nd ed.). Chapman; Hall/CRC.
-</div>
-</div></section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
         }
       }
+      return false;
     }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/kappazoo\.com\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
         }
-        return container.innerHTML
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1069,185 +1020,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 </div> <!-- /content -->
 
 

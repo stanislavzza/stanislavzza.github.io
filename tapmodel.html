@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.39">
+<meta name="generator" content="quarto-1.7.31">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,8 +22,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -34,7 +35,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -85,21 +86,22 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-f3c2ea88cadbcfb37ba28ffa2c97cfc1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-fcd204c8655bd031ced4918abb783b1b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
+  "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
+  "panel-placement": "start",
+  "type": "textbox",
   "limit": 50,
   "keyboard-shortcut": [
     "f",
@@ -164,52 +166,61 @@ window.Quarto = {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="floating nav-fixed">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">The Kappa Zoo</span>
-    </a>
-  </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-</ul>
-          </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
-</div>
-      </div> <!-- /container-fluid -->
-    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
+      The Kappa Zoo
+      </li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">The Kappa Zoo</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
     <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contents</h2>
+    <h2 id="toc-title">On this page</h2>
    
-  <ul class="collapse">
+  <ul>
   <li><a href="#sec-intro" id="toc-sec-intro" class="nav-link active" data-scroll-target="#sec-intro"><span class="header-section-number">1</span> Introduction</a></li>
   <li><a href="#sec-conditional" id="toc-sec-conditional" class="nav-link" data-scroll-target="#sec-conditional"><span class="header-section-number">2</span> Conditional Probabilities</a></li>
   <li><a href="#sec-mixtures" id="toc-sec-mixtures" class="nav-link" data-scroll-target="#sec-mixtures"><span class="header-section-number">3</span> Binomial Mixtures</a></li>
   <li><a href="#sec-sims" id="toc-sec-sims" class="nav-link" data-scroll-target="#sec-sims"><span class="header-section-number">4</span> Simulation</a></li>
   <li><a href="#sec-fitting" id="toc-sec-fitting" class="nav-link" data-scroll-target="#sec-fitting"><span class="header-section-number">5</span> Fitting the Model</a></li>
   <li><a href="#sec-exact" id="toc-sec-exact" class="nav-link" data-scroll-target="#sec-exact"><span class="header-section-number">6</span> Exact Formulas for Accuracy</a></li>
-  <li><a href="#sec-identifiability" id="toc-sec-identifiability" class="nav-link" data-scroll-target="#sec-identifiability"><span class="header-section-number">7</span> Identifiability</a></li>
-  <li><a href="#sec-dk" id="toc-sec-dk" class="nav-link" data-scroll-target="#sec-dk"><span class="header-section-number">8</span> The Dunning-Kruger Horizon</a></li>
-  <li><a href="#sec-overdispersion" id="toc-sec-overdispersion" class="nav-link" data-scroll-target="#sec-overdispersion"><span class="header-section-number">9</span> Overdispersion</a></li>
-  <li><a href="#sec-other" id="toc-sec-other" class="nav-link" data-scroll-target="#sec-other"><span class="header-section-number">10</span> Other Properties</a></li>
+  <li><a href="#sec-em" id="toc-sec-em" class="nav-link" data-scroll-target="#sec-em"><span class="header-section-number">7</span> The Expectation-Maximization Algorithm</a>
+  <ul class="collapse">
+  <li><a href="#the-expectation-step" id="toc-the-expectation-step" class="nav-link" data-scroll-target="#the-expectation-step"><span class="header-section-number">7.1</span> The Expectation Step</a></li>
+  <li><a href="#the-maximization-step" id="toc-the-maximization-step" class="nav-link" data-scroll-target="#the-maximization-step"><span class="header-section-number">7.2</span> The Maximization Step</a></li>
+  <li><a href="#likelihood-maximization" id="toc-likelihood-maximization" class="nav-link" data-scroll-target="#likelihood-maximization"><span class="header-section-number">7.3</span> Likelihood Maximization</a></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation"><span class="header-section-number">7.4</span> Implementation</a></li>
+  </ul></li>
+  <li><a href="#sec-identifiability" id="toc-sec-identifiability" class="nav-link" data-scroll-target="#sec-identifiability"><span class="header-section-number">8</span> Identifiability</a></li>
+  <li><a href="#sec-dk" id="toc-sec-dk" class="nav-link" data-scroll-target="#sec-dk"><span class="header-section-number">9</span> The Dunning-Kruger Horizon</a></li>
+  <li><a href="#sec-overdispersion" id="toc-sec-overdispersion" class="nav-link" data-scroll-target="#sec-overdispersion"><span class="header-section-number">10</span> Overdispersion</a></li>
+  <li><a href="#sec-other" id="toc-sec-other" class="nav-link" data-scroll-target="#sec-other"><span class="header-section-number">11</span> Other Properties</a></li>
   </ul>
 </nav>
 </nav>
@@ -294,7 +305,7 @@ Table&nbsp;1: The t-a-p model’s correspondence to the confusion matrix. Terms 
 </ol>
 <p>These requirements operationalize the Justified True Belief (JTB) definition of knowledge used by philosophers who study epistemology. Inaccurate ratings are those where one of the two listed conditions fails. If the rater’s belief is false and chooses the wrong category or if they choose the correct category but because of an invalid justification. The latter case corresponds loosely to Gettier-type problems, where the chain of reasoning reaches a correct conclusion, but because of flaws in perception the logic isn’t sound. A clear case of failing the justification requirement is if raters flip coins to choose categories. Coin flipping is entirely random, but even good raters have some randomness inherent to the classifications. That randomness is the usual starting point for chance-corrected agreement statistics.</p>
 <p>The rating process just described lends itself to a tree diagram that illustrates three variables as conditional probabilities: (1) the true Class 1 rate <span class="math inline">\(t\)</span>, (2) rater accuracy <span class="math inline">\(a\)</span>, and (3) the probability <span class="math inline">\(p\)</span> of choosing Class 1 when rating inaccurately. On the diagram, it’s convenient to use a bar over a variable to denote its complementary probability, e.g.&nbsp;<span class="math inline">\(\bar{a} = 1 - a\)</span>.</p>
-<div id="fig-tree" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="t-a-p model diagram">
+<div id="fig-tree" class="quarto-float quarto-figure quarto-figure-center anchored" alt="t-a-p model diagram" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-tree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/avgtap.png" class="border img-fluid quarto-figure quarto-figure-center figure-img" alt="t-a-p model diagram">
@@ -543,8 +554,496 @@ a^2(R,t) &amp;= \sum_{k=0}^R \beta_k\ \eta_k  \\
 <p>The derivation of the formula for <span class="math inline">\(\beta_k\)</span> is found in the <a href="./correlation.html">Appendix</a>. The linear models for <span class="math inline">\(a^2\)</span> are useful as theoretical tools, e.g.&nbsp;sensitivity analysis, but shouldn’t be used for direct estimation of accuracy, since the <span class="math inline">\(t=p\)</span> coefficient has to be specified, and the computation is sensitive to violations of the unbiased rater assumption. The supporting R package contains a function <code>tapModel::exact_accuracy_coefs(N_r, tp)</code> that computes the <span class="math inline">\(\beta_k\)</span> coefficients.</p>
 <p>This result shows that when the unbiased rater (<span class="math inline">\(t=p\)</span>) condition is met, the the Fleiss kappa can be thought of as a weighted additive voting method.</p>
 </section>
-<section id="sec-identifiability" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Identifiability</h1>
+<section id="sec-em" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> The Expectation-Maximization Algorithm</h1>
+<p>Mixture models have long been associated with Expectation-Maximization (EM) algorithms, which are used to iteratively find maximum likelihood estimates of parameters in models with latent variables. The standard description is that the EM algorithm iteratively refines parameter estimates by alternating between an expectation step (E-step) and a maximization step (M-step). This didn’t help me much in understanding the EM algorithm, and there’s nothing like working through a simple example to fill in the gaps.</p>
+<p>The simplest version of the t-a-p model assumes that all raters and subjects have identical characteristics, and that these three parameters (truth class 1 rate, accuracy, and guessing probability) are averages over an underlying set of binary “latent” variables. Here, latent means that we assume that they exist, but we can’t usually observe them directly. These latent variables are the <span class="math inline">\(T_i\)</span>, <span class="math inline">\(A_i\)</span>, and <span class="math inline">\(P_i\)</span> for each subject <span class="math inline">\(i\)</span> and rater <span class="math inline">\(j\)</span> that determine each rating via the Justified True Belief (JTB) model of knowledge, as amended by Gettier.</p>
+<p>The EM algorithm is a numerical method, something like Newton’s method, which requires a starting point to iterate from. That is, it requires a reasonable guess for the parameter values to start with. The EM algorithm then iteratively refines these parameter estimates until they converge to a stable solution, and it has some nice theoretical properties that you can read about it [ref]. For purposes of an example, let’s start with parameter values of .5 for each. I’ll generate a sample ratings set with parameters <span class="math inline">\(t = .7\)</span>, <span class="math inline">\(a = .6\)</span>, and <span class="math inline">\(p = .4\)</span> for 30 subjects and 5 raters each.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># for reproducibility</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">generate_sample_ratings</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">N_s =</span> <span class="dv">30</span>, </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">N_r =</span> <span class="dv">5</span>, </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">params =</span> <span class="fu">list</span>( <span class="at">t =</span> .<span class="dv">7</span>,  <span class="at">a =</span> .<span class="dv">6</span>, <span class="at">p =</span> .<span class="dv">4</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">details =</span> <span class="cn">TRUE</span> <span class="co"># includes the latent variables in the output</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>ratings <span class="sc">|&gt;</span> </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="tbl-sample-ratings" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-sample-ratings-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Sample ratings with t = .7, a = .6, p = .4
+</figcaption>
+<div aria-describedby="tbl-sample-ratings-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">subject_id</th>
+<th style="text-align: right;">rating</th>
+<th style="text-align: right;">rater_id</th>
+<th style="text-align: right;">T_i</th>
+<th style="text-align: right;">A_ij</th>
+<th style="text-align: right;">P_ij</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<section id="the-expectation-step" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="the-expectation-step"><span class="header-section-number">7.1</span> The Expectation Step</h2>
+<p>With our starting guess of <span class="math inline">\(t = .5\)</span>, <span class="math inline">\(a = .5\)</span>, and <span class="math inline">\(p = .5\)</span>, we can use a trick to infer what the <span class="math inline">\(T_i\)</span> true classes are by asking for the conditional probability of the true class given the observed ratings. This is the E-step, where we compute the expected values of the latent variables based on the current parameter estimates.</p>
+<p>If we examine this question for a single rating, we get an average result.</p>
+<p><span class="math display">\[
+\begin{aligned}
+Pr[T_i = 1 | R_{ij} = 1] &amp;= \frac{Pr[T_i = 1]Pr[C_{ij} = 1 | T_i = 1] }{Pr[C_{ij} = 1]} \\
+&amp;= \frac{t(a + \bar{a}p)}{t(a + \bar{a}p) + \bar{t}\bar{a}p}\\
+&amp;= \frac{t(a + \bar{a}p)}{ta + \bar{a}p}\\
+\end{aligned}
+\]</span></p>
+<p>However, this ignores the whole point of the rater-agreement question. We’re interested in the probability of the <em>pattern</em> of results for a subject, not just a single rating. So we need to compute the expected value of the true class for each subject based on all of their ratings. Recall that the latent truth value is fixed for each subject (hence the <span class="math inline">\(i\)</span> index), so we need to switch to a binomial probability distribution that takes into account all the ratings for a subject. For some given subject <span class="math inline">\(i\)</span> with <span class="math inline">\(N_r\)</span> raters, of whom <span class="math inline">\(N_c\)</span> assigned Class 1, the probability of getting this count is</p>
+<p><span class="math display">\[
+\begin{aligned}
+Pr[T = 1 | N_c = k] &amp;= \frac{Pr[T = 1]Pr[N_c = k , T = 1] }{Pr[N_c = k]} \\
+&amp;= \frac{t\,\text{binom}(N_r,k,a + \bar{a}p)}{t\,\text{binom}(N_r,k,a + \bar{a}p)+\bar{t}\,\text{binom}(N_r,k,\bar{a}p)}.\\
+\end{aligned}
+\]</span></p>
+<p>The function <span class="math inline">\(\text{binom}(N_i,k,p)\)</span> is the binomial probability of getting <span class="math inline">\(k\)</span> successes in <span class="math inline">\(N_i\)</span> trials with a given success probability. We can compute this for each subject in our sample ratings data, and then take the average across all subjects to get the expected value of the true class for each subject.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set the initial guess for params</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> .<span class="dv">5</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> .<span class="dv">5</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> .<span class="dv">5</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>e_step <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(subject_id) <span class="sc">|&gt;</span> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">N_r =</span> <span class="fu">n</span>(), <span class="co"># number of raters</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">R_i =</span> <span class="fu">sum</span>(rating), <span class="co"># number of Class 1 ratings</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">t_i =</span> (t <span class="sc">*</span> <span class="fu">dbinom</span>(R_i , N_r, a <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>a)<span class="sc">*</span>p)) <span class="sc">/</span> </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>            (t <span class="sc">*</span> <span class="fu">dbinom</span>(R_i , N_r, a <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>a)<span class="sc">*</span>p) <span class="sc">+</span> </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>             (<span class="dv">1</span><span class="sc">-</span>t) <span class="sc">*</span> <span class="fu">dbinom</span>(R_i , N_r, (<span class="dv">1</span><span class="sc">-</span>a)<span class="sc">*</span>p))</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>e_step <span class="sc">|&gt;</span> </span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> t_i)) <span class="sc">+</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-e-step" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-e-step-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="tapmodel_files/figure-html/fig-e-step-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e-step-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: E-step results for sample ratings show as a histogram of estimated probability of Class 1
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The mean of the <span class="math inline">\(t_i\)</span> values is the expected value of the true class <span class="math inline">\(t\)</span>, which in this case is 1. Since we know the assigned ratings, we can compare ratings to the <span class="math inline">\(t_i\)</span> estimate. Intuitively, if accuracy is high, we’d expect to see more Class 1 ratings when <span class="math inline">\(t_i\)</span> is near 1, and more Class 0 ratings when <span class="math inline">\(t_i\)</span> is near 0.</p>
+</section>
+<section id="the-maximization-step" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="the-maximization-step"><span class="header-section-number">7.2</span> The Maximization Step</h2>
+<p>If we are given the (approximate) true values for the class of each subject, we can (approximately) evaluate the fraction of accurate ratings, since we have all the information we need. The likelihood of the t-a-p model will be maximized when the values of <span class="math inline">\(a\)</span> and <span class="math inline">\(p\)</span> also produce those rates. For example, suppose the true classes are split evenly between Class 1 and Class 0. If we compare these to the assigned ratings and find a perfect match, we know that <span class="math inline">\(a=1\)</span>. If the ratings look like coin flips, the pattern can be explained with <span class="math inline">\(a=0\)</span> and <span class="math inline">\(p=1\)</span>. The point of using maximum likelihood estimators was to find the parameter values that best fit these rates, informally. Here we’ll use that logic in the other direction, arguing that by fitting the parameter to the rates induced from the E-step, we’re maximizing likelihood.</p>
+<p>The first entry of the confusion matrix is true positive proportion (TPP), where ratings match true values for Class 1 cases <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. The false positive proportion (FPP) is the fraction of ratings of Class 1 when the underlying class is actually Class 0. Since the true classes are latent parameters, we can’t directly calculate TPP or FPP, but given our <span class="math inline">\(t_i\)</span> estimates, we can approximate the values with</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{TPP} &amp;= \frac{1}{N} \sum_{ij}T_i C_{ij} \approx \frac{1}{N} \sum_{ij}t_i C_{ij} \\
+\text{FPP} &amp;= \frac{1}{N} \sum_{ij}\overline{T}_i C_{ij} \approx \frac{1}{N} \sum_{ij}\bar{t}_i C_{ij} \\
+\text{TNP} &amp;= \frac{1}{N} \sum_{ij}\overline{T}_i \overline{C}_{ij} \approx \frac{1}{N} \sum_{ij} \bar{t}_i \overline{C}_{ij} \\
+\text{FNP} &amp;= \frac{1}{N} \sum_{ij}T_i \overline{C}_{ij} \approx \frac{1}{N} \sum_{ij}t_i \overline{C}_{ij},
+\end{aligned}
+\]</span></p>
+<p>where <span class="math inline">\(i\)</span> indexes subjects and <span class="math inline">\(j\)</span> indexes raters, <span class="math inline">\(C_{ij}\)</span> is the rating of the <span class="math inline">\(j\)</span>th rater for the <span class="math inline">\(i\)</span>th subject, and <span class="math inline">\(N\)</span> is the total number of ratings. With the definitions on the right, we have</p>
+<p><span id="eq-confusion-means"><span class="math display">\[
+\begin{aligned}
+t &amp; \approx \sum t_i =  \text{TPP} + \text{FNP} \\
+\bar{t} &amp; \approx \text{FPP} + \text{TNP} \\
+c &amp;= \frac{1}{N} \sum C_{ij} = \text{TPP} + \text{FPP} \\
+\bar{c} &amp;= \text{TNP} + \text{FNP}.
+\end{aligned}
+\tag{5}\]</span></span></p>
+<p>The t-a-p model is a model of ratings, so we can write another expression for these rates that come from the model parameters, computing the expected values from the conditional probabilities, with</p>
+<p><span class="math display">\[
+\begin{aligned}
+E[\text{TPP}] &amp;= ta + t\bar{a}p  \\
+E[\text{FPP}] &amp;= \bar{t} \bar{a}p \\
+E[\text{TNP}] &amp;= \bar{t}a + \bar{t}\bar{a}\bar{p}  \\
+E[\text{FNP}] &amp;= t \bar{a}\bar{p} \\
+\end{aligned}
+\]</span></p>
+<p>If we approximate <span class="math inline">\(t\)</span> from the average of <span class="math inline">\(t_i\)</span>, then we have approximate values for the left side of each equation as well as the <span class="math inline">\(t\)</span> parameter, allowing us to solve for the other two parameters, <span class="math inline">\(a\)</span> and <span class="math inline">\(p\)</span> via</p>
+<p><span class="math display">\[
+\begin{aligned}
+a &amp;= \frac{\text{TPP}}{t} - \frac{\text{FPP}}{\bar{t}} \\
+p &amp;= \frac{\text{FPP}}{\bar{t}\bar{a}}.
+\end{aligned}
+\]</span></p>
+<p>This derivation uses the TPP and FPP, but we could use TNP and FNP instead, and get the same result. This can be seen from the relations in <a href="#eq-confusion-means" class="quarto-xref">Equation&nbsp;5</a>. Note that if we have separate accuracy parameters <span class="math inline">\(a_0\)</span> and <span class="math inline">\(a_1\)</span> for Class 0 and Class 1, we could alter the EM altgorithm accordingly.</p>
+<p>We estimate <span class="math inline">\(a\)</span> and <span class="math inline">\(p\)</span> with this M-step.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">mean</span>(e_step<span class="sc">$</span>t_i)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>m_step <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">left_join</span>(e_step, <span class="at">by =</span> <span class="st">"subject_id"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarize</span>(<span class="at">tpp =</span> <span class="fu">mean</span>(t_i<span class="sc">*</span>rating),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">fpp =</span> <span class="fu">mean</span>((<span class="dv">1</span><span class="sc">-</span>t_i)<span class="sc">*</span>rating)) <span class="sc">|&gt;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">a =</span> <span class="fu">mean</span>(tpp<span class="sc">/</span>t <span class="sc">-</span> fpp<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>t)), <span class="co"># solve for a</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">p =</span> <span class="fu">mean</span>(fpp<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>t)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>a))) <span class="co"># solve for p</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>m_step <span class="sc">|&gt;</span> </span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="tbl-m-step" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-m-step-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: M-step results for sample ratings
+</figcaption>
+<div aria-describedby="tbl-m-step-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">tpp</th>
+<th style="text-align: right;">fpp</th>
+<th style="text-align: right;">a</th>
+<th style="text-align: right;">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">0.64</td>
+<td style="text-align: right;">0.51</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</section>
+<section id="likelihood-maximization" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="likelihood-maximization"><span class="header-section-number">7.3</span> Likelihood Maximization</h2>
+<p>I skipped over an important bit above, in assuming that the shortcut approximation of <span class="math inline">\(a\)</span> and <span class="math inline">\(p\)</span> were the maximum likelihood estimates. It’s useful to spell out what that means. The provisional likelihood <span class="math inline">\(\ell^*\)</span> when given values for <span class="math inline">\(t_i\)</span> can be written as</p>
+<p><span class="math display">\[
+\begin{aligned}
+\ell^* &amp;= \sum_{i,j} \log Pr[R_{ij}, T_i; a, p]\\
+&amp;= \sum_{i,j} R_{ij} T_i \log(a+\bar{a}p) + \sum_{i,j} R_{ij} \overline{T_i} \log(\bar{a}p) \\
+&amp;+ \sum_{i,j} \overline{R}_{ij} T_i \log(\bar{a}\bar{p}) + \sum_{i,j} \overline{R}_{ij} \overline{T_i} \log(a+\bar{a}\bar{p}) ,
+\end{aligned}
+\]</span></p>
+<p>where <span class="math inline">\(t\)</span> is the average over all the <span class="math inline">\(T_i\)</span> values, and as usual <span class="math inline">\(a\)</span> is the average accuracy, and <span class="math inline">\(p\)</span> is the average guessing probability. In practice, I’ll use the mean instead of sum, so that log likelihood is in units of bits per rating.</p>
+<p>This represents the log probability of all the ratings of Class 1. The first term is the true positives, where the rating matches the true class, due to either accurate ratings or guessing. The second term is the false positives, where the rating is Class 1 but the true class is Class 0, due to guessing.</p>
+<p>The sums are just the TPP, etc. proportions defined earlier, except they aren’t divided by the number of ratings, so they are just counts, e.g.</p>
+<p><span class="math display">\[
+TP := \sum_{i,j} R_{ij} T_i \quad \text{and} \quad FP := \sum_{i,j} R_{ij} \overline{T_i}.
+\]</span></p>
+<p>The other two cases, for false negatives and true negatives are defined similarly. We can get the rate TPR by dividing by the number of ratings <span class="math inline">\(N\)</span>.</p>
+<p>Upon differentiating and dividing by the number of ratings <span class="math inline">\(N\)</span> (to convert from TP to TPP, etc.), we obtain</p>
+<p><span class="math display">\[
+\begin{aligned}
+\frac{1}{N} \frac{\partial \ell^*}{\partial a} &amp;= TPP \frac{\bar{p}}{a+\bar{a}p} - FPP \frac{1}{\bar{a}} - FNP \frac{1}{\bar{a}}  + TNP \frac{p}{a + \bar{a}\bar{p}}\\
+\frac{1}{N} \frac{\partial \ell^*}{\partial p} &amp;= FPP \frac{1}{p} + TPP \frac{\bar{a}}{a+\bar{a}p} - FNP \frac{1}{\bar{p}}  - TNP \frac{\bar{a}}{a + \bar{a}\bar{p}} \, ,\\
+\end{aligned}
+\]</span></p>
+<p>where TPP, FPP, etc. are the approximate values for the confusion matrix derived from the E-step discussed above. These two functions will be set to zero to find the critical value by solving for <span class="math inline">\(a\)</span> and <span class="math inline">\(p\)</span>. In the shortcut derivation, we used the fact that for the true values of <span class="math inline">\(t\)</span>, <span class="math inline">\(a\)</span>, and <span class="math inline">\(p\)</span>, we will have <span class="math inline">\(E[TPP] = ta + t\bar{a}p\)</span>, <span class="math inline">\(E[FPP] = \bar{t}\bar{a}p\)</span>, and so on. If we substitute these into the derivatives, it’s easy to see that they are in fact zero.</p>
+</section>
+<section id="implementation" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="implementation"><span class="header-section-number">7.4</span> Implementation</h2>
+<p>The code below implements the EM algorithm as described above and plots the convergence of the parameters.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tapModel)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>ap_log_likelihood <span class="ot">&lt;-</span> <span class="cf">function</span>(params, ratings, confusion) {</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> params[<span class="dv">1</span>]</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> params[<span class="dv">2</span>]</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  a_ <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> a</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  p_ <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> p</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  ll <span class="ot">=</span> confusion<span class="sc">$</span>TP<span class="sc">*</span><span class="fu">log</span>(a <span class="sc">+</span> a_<span class="sc">*</span>p ) <span class="sc">+</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    confusion<span class="sc">$</span>FP<span class="sc">*</span><span class="fu">log</span>(a_<span class="sc">*</span>p) <span class="sc">+</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    confusion<span class="sc">$</span>TN<span class="sc">*</span><span class="fu">log</span>(a <span class="sc">+</span> a_<span class="sc">*</span>p_) <span class="sc">+</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    confusion<span class="sc">$</span>FN<span class="sc">*</span><span class="fu">log</span>(a_<span class="sc">*</span>p_)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">is.nan</span>(ll) <span class="sc">|</span> <span class="fu">is.infinite</span>(ll)) ll <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">1e6</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="sc">-</span>ll<span class="sc">/</span><span class="fu">log</span>(<span class="dv">2</span>))  <span class="co"># Return negative for minimization</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># for reproducibility</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">generate_sample_ratings</span>(</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">N_s =</span> <span class="dv">300</span>,</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">N_r =</span> <span class="dv">50</span>,</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">params =</span> <span class="fu">list</span>( <span class="at">t =</span> .<span class="dv">3</span>,  <span class="at">a =</span> .<span class="dv">2</span>, <span class="at">p =</span> .<span class="dv">8</span>),</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">details =</span> <span class="cn">TRUE</span> <span class="co"># includes the latent variables in the output</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co"># direct optimization</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> .<span class="dv">5</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> .<span class="dv">5</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> .<span class="dv">5</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="co"># the average parameters are the closest to "true" values of the params</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>avg_param <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>  <span class="at">t =</span> <span class="fu">mean</span>(ratings<span class="sc">$</span>T_i),</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">a =</span> <span class="fu">mean</span>(ratings<span class="sc">$</span>A_ij),</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>  <span class="at">p =</span>  <span class="fu">mean</span>(ratings<span class="sc">$</span>P_ij))</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>n_steps <span class="ot">=</span> <span class="dv">25</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">step =</span> <span class="dv">1</span><span class="sc">:</span>n_steps, <span class="at">t =</span> <span class="cn">NA</span>, <span class="at">a =</span> <span class="cn">NA</span>, <span class="at">p =</span> <span class="cn">NA</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ll =</span> <span class="cn">NA</span>, <span class="at">method =</span> <span class="st">"TPP"</span>)</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_steps) {</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>  <span class="co"># both methods use the same E step</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>  e_step <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(subject_id) <span class="sc">|&gt;</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>      <span class="at">N_r =</span> <span class="fu">n</span>(), <span class="co"># number of raters</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>      <span class="at">R_i =</span> <span class="fu">sum</span>(rating), <span class="co"># number of Class 1 ratings</span></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>      <span class="at">t_i =</span> (t <span class="sc">*</span> <span class="fu">dbinom</span>(R_i , N_r, a <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>a)<span class="sc">*</span>p)) <span class="sc">/</span></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>        (t <span class="sc">*</span> <span class="fu">dbinom</span>(R_i , N_r, a <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>a)<span class="sc">*</span>p) <span class="sc">+</span></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>           (<span class="dv">1</span><span class="sc">-</span>t) <span class="sc">*</span> <span class="fu">dbinom</span>(R_i , N_r, (<span class="dv">1</span><span class="sc">-</span>a)<span class="sc">*</span>p)))</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>  <span class="co"># summary statistics from the E step</span></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>  t <span class="ot">&lt;-</span> <span class="fu">mean</span>(e_step<span class="sc">$</span>t_i)</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add column with provisional t_i values</span></span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>  m_ratings <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span></span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(e_step, <span class="at">by =</span> <span class="st">"subject_id"</span>)</span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>  <span class="co"># confusion matrix of proportions </span></span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>  confusion <span class="ot">&lt;-</span> m_ratings <span class="sc">|&gt;</span></span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">TP =</span> <span class="fu">mean</span>(rating<span class="sc">*</span>t_i),</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>              <span class="at">FP =</span> <span class="fu">mean</span>(rating<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>t_i)),</span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>              <span class="at">TN =</span> <span class="fu">mean</span>((<span class="dv">1</span><span class="sc">-</span>rating)<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>t_i)),</span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>              <span class="at">FN =</span> <span class="fu">mean</span>((<span class="dv">1</span> <span class="sc">-</span> rating)<span class="sc">*</span>t_i))</span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>  <span class="co"># method = TPR ################################</span></span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>  m_step <span class="ot">&lt;-</span> confusion <span class="sc">|&gt;</span></span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>      <span class="at">a =</span> TP<span class="sc">/</span>t <span class="sc">-</span> FP<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>t), <span class="co"># solve for a</span></span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>      <span class="at">p =</span> FP<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>t)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>a)) <span class="co"># solve for p</span></span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> m_step<span class="sc">$</span>a</span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> m_step<span class="sc">$</span>p</span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>  estimates<span class="sc">$</span>t[i] <span class="ot">&lt;-</span> t</span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>  estimates<span class="sc">$</span>a[i] <span class="ot">&lt;-</span> a</span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>  estimates<span class="sc">$</span>p[i] <span class="ot">&lt;-</span> p</span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>  estimates<span class="sc">$</span>ll[i] <span class="ot">&lt;-</span> <span class="fu">ap_log_likelihood</span>(<span class="fu">c</span>(a, p), ratings, confusion)</span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>estimates <span class="sc">|&gt;</span></span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(param, value, <span class="sc">-</span>step, <span class="sc">-</span>method) <span class="sc">|&gt;</span></span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> step, <span class="at">y =</span> value, <span class="at">color =</span> param, <span class="at">group =</span> param)) <span class="sc">+</span></span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> value, <span class="at">color =</span> param, <span class="at">group =</span> param),</span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">"dashed"</span>,</span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> avg_param <span class="sc">|&gt;</span> <span class="fu">gather</span>(param, value)) <span class="sc">+</span></span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>method, <span class="at">scales =</span> <span class="st">"free_y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-em-demo" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-em-demo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="tapmodel_files/figure-html/fig-em-demo-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-em-demo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: The EM method for estimating t, a, and p parameters where t = .3, a = .2, p = .8 with 300 subject rated 50 times each. Dotted lines show the averages of the indicator variables T, A, and P as generated by the rating simulation. The green line shows the log likelihood in bits per rating.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The optimization problem in <a href="#fig-em-demo" class="quarto-xref">Figure&nbsp;6</a> is hard, since the accuracy is only .2, and it takes about 20 E-M steps to reach convergence. The dashed lines show the average values of <span class="math inline">\(T_i\)</span>, <span class="math inline">\(A_{ij}\)</span>, and <span class="math inline">\(P_{ij}\)</span>, which are the empirical values of the parameters that avoid sampling error. The bits per rating (log likelihood) is in green. The final estimates are</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>estimates <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(step <span class="sc">==</span> n_steps) <span class="sc">|&gt;</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>step, <span class="sc">-</span>ll, <span class="sc">-</span>method) <span class="sc">|&gt;</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="tbl-final-estimates" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-final-estimates-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4: Final estimates of t, a, and p parameters after 25 iterations
+</figcaption>
+<div aria-describedby="tbl-final-estimates-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">t</th>
+<th style="text-align: right;">a</th>
+<th style="text-align: right;">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">0.21</td>
+<td style="text-align: right;">0.81</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>The tapModel library function <code>fit_counts()</code> uses a quasi-Newton method to simultaneously optimize the three t-a-p parameters with maximum likelihood. It reaches the same solution as the EM algorithm.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># direct optimization</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ratings <span class="sc">|&gt;</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_counts</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(t, a, p) <span class="sc">|&gt;</span> </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="tbl-direct-optimization" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-direct-optimization-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5: Direct optimization results for sample ratings
+</figcaption>
+<div aria-describedby="tbl-direct-optimization-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">t</th>
+<th style="text-align: right;">a</th>
+<th style="text-align: right;">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">0.21</td>
+<td style="text-align: right;">0.81</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-identifiability" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Identifiability</h1>
 <p>Binomial mixtures are not always identifiable, meaning that the data don’t contain enough information to uniquely determine the parameters. If we fit two binomial distributions to the data with complete flexibility, each will have a “success rate” for the underlying Bernoulli trial, which determines the distribution’s mean and variance. There is also a weight parameter that defines the mixture; that determines the heights of the respective histograms of the two binomials. A simple data set would comprise the counts of Class 1 ratings for each subject. If the raters have reasonably high accuracy, a histogram of ratings will have a peak on the right, where a large fraction of raters of true Class 1 ratings agree. The average might be that 75 of 100 raters, on average agree that it’s Class 1. For true Class 0 cases, the raters might have an average of 25 of 100 ratings of Class 1 (erroneous ratings). The <a href="./app.html">chapter on the interactive application</a> shows how to simulate such data. It looks like this:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -556,28 +1055,28 @@ a^2(R,t) &amp;= \sum_{k=0}^R \beta_k\ \eta_k  \\
 <p>Non-identifiable cases do occur when one or more of the t-a-p parameters is zero or one. If <span class="math inline">\(a = 1\)</span>, it doesn’t matter what <span class="math inline">\(p\)</span> is, for example. This can also cause problems when a parameter is <em>close</em> to one or zero. For an example of that, see <a href="./paradox.html">Chapter 4: The Kappa Paradox</a>. These issues can be investigated using Bayesian MCMC estimation, which provides a full posterior distribution for the parameters. The distribution may be multi-modal if there are two competing solutions. This gives us a way to detect degenerate solutions and look for a different model if desired. These degenerate cases aside, the tap parameterization of the binomial mixture has an advantage over generic optimization.</p>
 <p>We can add more parameters to the basic t-a-p model. For example, we might split accuracy into Class 1 accuracy and Class 0 accuracy, as is illustrated in Chapter 4. These additions can lead to multiple solutions, which can often be detected from the MCMC distributions of parameters. This topic needs more development.</p>
 </section>
-<section id="sec-dk" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> The Dunning-Kruger Horizon</h1>
+<section id="sec-dk" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> The Dunning-Kruger Horizon</h1>
 <p>The Dunning–Kruger effect <span class="citation" data-cites="kruger1999unskilled">(<a href="#ref-kruger1999unskilled" role="doc-biblioref">Kruger &amp; Dunning, 1999</a>)</span> is the tendency of people with low ability in some domain to overestimate their own ability (ignorance creates meta-ignorance). It turns out to be a useful metaphor for what happens when we estimate rater accuracy, because low rater accuracy degrades estimates of accuracy. We can visualize this effect using the linear model derived above for for exactly calculating accuracy (<span class="math inline">\(a\)</span>) when <span class="math inline">\(p=t=1/2\)</span> for two raters. If we suppose that thirty subjects are being rated (<span class="math inline">\(N_s=30\)</span>), the t-a-p model assumes a binomial mixture distribution for the counts of Class 1 ratings across all subjects. In particular, if accuracy is zero (<span class="math inline">\(a=0\)</span>), the count <span class="math inline">\(n_1\)</span> of the number of subjects that have split ratings (one Class 1 and one Class 0) will be distributed as a simple binomial with mean <span class="math inline">\(15 = 30(.5)\)</span>. With zero accuracy, the raters are essentially flipping coins. The question is, given this coin-flipping distribution for the results of the ratings, what are the possible accuracy ratings that reflect those random samples? Since we have an exact formula for the accuracy, we can draw a picture.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>N_s <span class="ot">=</span> <span class="dv">30</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>( <span class="at">n1 =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">30</span>,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>              <span class="st">`</span><span class="at">Pr[n1]</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">dbinom</span>(n1, N_s, .<span class="dv">5</span>),</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">a       =</span> <span class="fu">if_else</span>(n1<span class="sc">*</span><span class="dv">2</span> <span class="sc">&gt;=</span> N_s, <span class="dv">0</span>,  <span class="fu">sqrt</span>((N_s <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span>n1)<span class="sc">/</span>N_s)))</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(statistic, value, <span class="sc">-</span>n1) <span class="sc">|&gt;</span> </span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n1, <span class="at">y =</span> value, <span class="at">group =</span> statistic, <span class="at">color =</span> statistic)) <span class="sc">+</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="at">xmin =</span> <span class="dv">11</span>, <span class="at">xmax =</span> <span class="dv">19</span>, <span class="at">ymin =</span> <span class="dv">0</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>, </span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">fill =</span> <span class="st">"#CCCCCC22"</span>, <span class="at">color =</span> <span class="st">"#CCCCCC22"</span>) <span class="sc">+</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Number of Class 1 ratings (n1)"</span>) <span class="sc">+</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>N_s <span class="ot">=</span> <span class="dv">30</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>( <span class="at">n1 =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">30</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>              <span class="st">`</span><span class="at">Pr[n1]</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">dbinom</span>(n1, N_s, .<span class="dv">5</span>),</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">a       =</span> <span class="fu">if_else</span>(n1<span class="sc">*</span><span class="dv">2</span> <span class="sc">&gt;=</span> N_s, <span class="dv">0</span>,  <span class="fu">sqrt</span>((N_s <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span>n1)<span class="sc">/</span>N_s)))</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(statistic, value, <span class="sc">-</span>n1) <span class="sc">|&gt;</span> </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n1, <span class="at">y =</span> value, <span class="at">group =</span> statistic, <span class="at">color =</span> statistic)) <span class="sc">+</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="at">xmin =</span> <span class="dv">11</span>, <span class="at">xmax =</span> <span class="dv">19</span>, <span class="at">ymin =</span> <span class="dv">0</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>, </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">fill =</span> <span class="st">"#CCCCCC22"</span>, <span class="at">color =</span> <span class="st">"#CCCCCC22"</span>) <span class="sc">+</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Number of Class 1 ratings (n1)"</span>) <span class="sc">+</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-random-a" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -586,27 +1085,27 @@ a^2(R,t) &amp;= \sum_{k=0}^R \beta_k\ \eta_k  \\
 <img src="tapmodel_files/figure-html/fig-random-a-1.png" class="img-fluid figure-img" width="480">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-random-a-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5: Illustrating the range of accuracy estimates from random (a = 0, p = .5) ratings of 30 subjects with two raters each. The key statistic is how many mixed ratings n1 (one of each class) are generated, and the blue line shows the probability of each n1 occuring. The shaded region captures 90% of the distribution. The red line shows the accuracy estimate resulting from the sample.
+Figure&nbsp;7: Illustrating the range of accuracy estimates from random (a = 0, p = .5) ratings of 30 subjects with two raters each. The key statistic is how many mixed ratings n1 (one of each class) are generated, and the blue line shows the probability of each n1 occuring. The shaded region captures 90% of the distribution. The red line shows the accuracy estimate resulting from the sample.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>The plot in <a href="#fig-random-a" class="quarto-xref">Figure&nbsp;5</a> shows how bad our estimate of accuracy can be for random ratings. Half of the time the count of mixed ratings <span class="math inline">\(n_1\)</span> will be greater than the mean of 15, and we’ll get the correct estimate of <span class="math inline">\(a = 0\)</span>. The other half of the time, when the number of mismatched ratings is less than 15, the estimate for accuracy quickly increases. We can see from the plot that there’s a significant chance that the estimated <span class="math inline">\(a \ge .25\)</span>. At the left edge of the shaded area, where <span class="math inline">\(n_1 = 11\)</span>, there is a 5% chance of this outcome, and the resulting accuracy estimate is a little more than .5.</p>
+<p>The plot in <a href="#fig-random-a" class="quarto-xref">Figure&nbsp;7</a> shows how bad our estimate of accuracy can be for random ratings. Half of the time the count of mixed ratings <span class="math inline">\(n_1\)</span> will be greater than the mean of 15, and we’ll get the correct estimate of <span class="math inline">\(a = 0\)</span>. The other half of the time, when the number of mismatched ratings is less than 15, the estimate for accuracy quickly increases. We can see from the plot that there’s a significant chance that the estimated <span class="math inline">\(a \ge .25\)</span>. At the left edge of the shaded area, where <span class="math inline">\(n_1 = 11\)</span>, there is a 5% chance of this outcome, and the resulting accuracy estimate is a little more than .5.</p>
 <p>The t-a-p model is asymetrical with respect to accuracy. If the ratings are 100% accurate, we’ll get the correct answer of <span class="math inline">\(a = 1\)</span> every time. But when the accuracy is zero, we’ll get a significant overestimate of <span class="math inline">\(a\)</span> almost half the time. This effect produces a “zone of ignorance” in the following sense. If we can’t <em>a priori</em> rule out a very low accuracy, then as a precautionary measure we should entertain the idea that the ratings are purely random. Maybe something went wrong with the raters or coding or data transmission. Maybe the subject IDs got mixed up. If it’s possible that the ratings could be random, then we must condider how large an estimate of accuracy can be in that condition. That depends on the sample size and <span class="math inline">\(p\)</span>. Assuming <span class="math inline">\(p=.5\)</span> is not universally applicable, but it’s a reasonable reference point.</p>
-<p>If we choose the 5% mark as the cutoff value, as in <a href="#fig-random-a" class="quarto-xref">Figure&nbsp;5</a>, then given the number of subjects and average number of ratings, we can simulate the largest (worst) <span class="math inline">\(a\)</span> that can occur in those conditions at that threshold. I’ll call the resulting value of <span class="math inline">\(a\)</span> the “DK horizon” as a nod to Dunning and Kruger. The analogy isn’t perfect, but the idea is that if accuracy (like expertise) is low enough, a reversal happens, where our estimates of the accuracy increase instead of decrease.</p>
+<p>If we choose the 5% mark as the cutoff value, as in <a href="#fig-random-a" class="quarto-xref">Figure&nbsp;7</a>, then given the number of subjects and average number of ratings, we can simulate the largest (worst) <span class="math inline">\(a\)</span> that can occur in those conditions at that threshold. I’ll call the resulting value of <span class="math inline">\(a\)</span> the “DK horizon” as a nod to Dunning and Kruger. The analogy isn’t perfect, but the idea is that if accuracy (like expertise) is low enough, a reversal happens, where our estimates of the accuracy increase instead of decrease.</p>
 <p>For the example here, the DK horizon is <span class="math inline">\(a = .5\)</span>, meaning with 30 subjects and 2 raters each, any result that has <span class="math inline">\(a \le .5\)</span> is highly suspect; we could be looking at the result of coin-flipping raters. The DK horizon is a veil of ignorance that prevents us from interpreting the t-a-p model coefficients when accuracy is too low. The horizon is affected by sample size, so we can do something like a power analysis to estimate where the DK horizon is.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sampled_a <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/a_sim_exact.csv"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>sampled_a <span class="sc">|&gt;</span> </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> a, <span class="at">y =</span> a_sim, <span class="at">group =</span> a)) <span class="sc">+</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>() <span class="sc">+</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x =</span> a, <span class="at">y =</span> a_sim, <span class="at">group =</span> <span class="dv">1</span>), <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">linewidth =</span> .<span class="dv">9</span>) <span class="sc">+</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(N_s <span class="sc">~</span> N_r)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sampled_a <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/a_sim_exact.csv"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>sampled_a <span class="sc">|&gt;</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> a, <span class="at">y =</span> a_sim, <span class="at">group =</span> a)) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>() <span class="sc">+</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x =</span> a, <span class="at">y =</span> a_sim, <span class="at">group =</span> <span class="dv">1</span>), <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">linewidth =</span> .<span class="dv">9</span>) <span class="sc">+</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(N_s <span class="sc">~</span> N_r)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-a-sim" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -615,20 +1114,20 @@ Figure&nbsp;5: Illustrating the range of accuracy estimates from random (a = 0, 
 <img src="tapmodel_files/figure-html/fig-a-sim-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-a-sim-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6: Box plots showing the maximum likelihood estimate for accuracy (a) from samples drawn from a tap model with parameters t = p = 1/2 and a as shown on the horizontal axis. The 2, 5, 10, and 25 column headers are the number of raters for each subject, and the row headers along the right side are the number of subjects rated by each rater. The blue line is the average accuracy for the sampled ratings.
+Figure&nbsp;8: Box plots showing the maximum likelihood estimate for accuracy (a) from samples drawn from a tap model with parameters t = p = 1/2 and a as shown on the horizontal axis. The 2, 5, 10, and 25 column headers are the number of raters for each subject, and the row headers along the right side are the number of subjects rated by each rater. The blue line is the average accuracy for the sampled ratings.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>As is usually the case, larger sample sizes reduce sampling error. With 300 subjects and 25 raters each (bottom right), there’s hardly any sampling error. But for small sample sizes, the sampling error noticiably increases as accuracy approaches zero. For the 2-rater, 3-subject case in the top left of <a href="#fig-a-sim" class="quarto-xref">Figure&nbsp;6</a>, when <span class="math inline">\(a &lt; .5\)</span>, the estimation error quickly becomes so bad as to make the estimation worthless. Intuitively, if we got an estimate of <span class="math inline">\(a = .3\)</span>, say, the best we can say is that probably the accuracy is somewhere between zero and one half. For the 5-rater, 30-subject case, this “zone of ignorance” is not as bad, with the DK horizon at about <span class="math inline">\(a =.25\)</span>. This is useful knowledge when interpreting parameter estimates from a small sample of ratings.</p>
+<p>As is usually the case, larger sample sizes reduce sampling error. With 300 subjects and 25 raters each (bottom right), there’s hardly any sampling error. But for small sample sizes, the sampling error noticiably increases as accuracy approaches zero. For the 2-rater, 3-subject case in the top left of <a href="#fig-a-sim" class="quarto-xref">Figure&nbsp;8</a>, when <span class="math inline">\(a &lt; .5\)</span>, the estimation error quickly becomes so bad as to make the estimation worthless. Intuitively, if we got an estimate of <span class="math inline">\(a = .3\)</span>, say, the best we can say is that probably the accuracy is somewhere between zero and one half. For the 5-rater, 30-subject case, this “zone of ignorance” is not as bad, with the DK horizon at about <span class="math inline">\(a =.25\)</span>. This is useful knowledge when interpreting parameter estimates from a small sample of ratings.</p>
 </section>
-<section id="sec-overdispersion" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> Overdispersion</h1>
+<section id="sec-overdispersion" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Overdispersion</h1>
 <p>The basic t-a-p model assumes fixed averages of the three parameters over raters and subjects. The most sensible of these assumptions is that there is a single value for <span class="math inline">\(t\)</span> that represents the fraction of Class 1 cases. That leaves two parameters that are certainly oversimplified in the tap model, so that counts of Class 1 ratings per subject are likely to have more variance than a binomial model would. This is due to anticipated variance in rater ability and the difficulty in rating subjects, resulting in <a href="https://en.wikipedia.org/wiki/Overdispersion">overdispersion</a>. A general approach to this problem is to allow each rater to have a different accuracy rate <span class="math inline">\(a_j\)</span> and each subject to have a different guessing rate <span class="math inline">\(p_i\)</span>. This is a hierarchical model, which is described in <a href="./hierarchical.html">Chapter 5: Hierarchical Models</a>. Other approaches include using a beta-binomial prior for parameters, <span class="citation" data-cites="williams1975394">Williams (<a href="#ref-williams1975394" role="doc-biblioref">1975</a>)</span>. Also see <span class="citation" data-cites="ascari2021new">Ascari &amp; Migliorati (<a href="#ref-ascari2021new" role="doc-biblioref">2021</a>)</span>.</p>
 </section>
-<section id="sec-other" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> Other Properties</h1>
+<section id="sec-other" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> Other Properties</h1>
 <p>As is shown in <a href="./correlation.html">Appendix A</a>, rater accuracy <span class="math inline">\(a\)</span> is proportional to the correlation between the true and assigned classifications. If <span class="math inline">\(C\)</span> is the true classification and <span class="math inline">\(T\)</span> is the assigned classification, then</p>
 <p><span class="math display">\[ \text{Cor}(T, C) = a\frac{\sigma_T}{\sigma_C} \]</span></p>
 <p>Related properties can be found in the appendix.</p>
@@ -636,6 +1135,7 @@ Figure&nbsp;6: Box plots showing the maximum likelihood estimate for accuracy (a
 
 
 </section>
+
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
 <div id="ref-agresti2003categorical" class="csl-entry" role="listitem">
@@ -659,238 +1159,249 @@ McLachlan, G., &amp; Peel, D. (2000). Wiley series in probability and statistics
 <div id="ref-williams1975394" class="csl-entry" role="listitem">
 Williams, D. (1975). 394: The analysis of binary responses from toxicological experiments involving reproduction and teratogenicity. <em>Biometrics</em>, 949–952.
 </div>
-</div></section></div></main> <!-- /main -->
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>I’m calling these <em>proportions</em> instead of rates to distinguishing from the usual way of talking about, for example, the true positive <em>rate</em> (TPR), which is the fraction of true Class 1 cases that are rated as Class 1, so the denominator is not all observations, just the true Class 1 cases. For the TPP, it’s the fraction of all ratings that are true Class 1 cases that are also classified as Class 1, so the denominator is all ratings.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
         }
       }
+      return false;
     }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/kappazoo\.com\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
         }
-        return container.innerHTML
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -898,185 +1409,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 </div> <!-- /content -->
 
 
