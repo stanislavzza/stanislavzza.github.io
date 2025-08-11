@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.7.31">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Eubanks">
 
-<title>The TapModel Package – The Kappa Zoo</title>
+<title>The tapModel Package – The Kappa Zoo</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,8 +22,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -34,7 +35,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -55,7 +56,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -65,21 +86,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-fcd204c8655bd031ced4918abb783b1b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
+  "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
+  "panel-placement": "start",
+  "type": "textbox",
   "limit": 50,
   "keyboard-shortcut": [
     "f",
@@ -110,6 +132,9 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-XP6WMESY52', { 'anonymize_ip': true});
 </script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -144,47 +169,63 @@ window.Quarto = {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="floating nav-fixed">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">The Kappa Zoo</span>
-    </a>
-  </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-</ul>
-          </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
-</div>
-      </div> <!-- /container-fluid -->
-    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
+      The Kappa Zoo
+      </li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">The Kappa Zoo</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
     <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contents</h2>
+    <h2 id="toc-title">On this page</h2>
    
-  <ul class="collapse">
+  <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
-  <li><a href="#ordinal-analysis" id="toc-ordinal-analysis" class="nav-link" data-scroll-target="#ordinal-analysis"><span class="header-section-number">2</span> Ordinal Analysis</a></li>
-  <li><a href="#bayesian-models" id="toc-bayesian-models" class="nav-link" data-scroll-target="#bayesian-models"><span class="header-section-number">3</span> Bayesian Models</a></li>
+  <li><a href="#data-types" id="toc-data-types" class="nav-link" data-scroll-target="#data-types"><span class="header-section-number">2</span> Data Types</a>
+  <ul class="collapse">
+  <li><a href="#raw-ratings" id="toc-raw-ratings" class="nav-link" data-scroll-target="#raw-ratings"><span class="header-section-number">2.1</span> Raw ratings</a></li>
+  <li><a href="#example-long-data-format" id="toc-example-long-data-format" class="nav-link" data-scroll-target="#example-long-data-format"><span class="header-section-number">2.2</span> Example: Long data format</a></li>
+  <li><a href="#example-rows-as-subjects" id="toc-example-rows-as-subjects" class="nav-link" data-scroll-target="#example-rows-as-subjects"><span class="header-section-number">2.3</span> Example: Rows as subjects</a></li>
+  <li><a href="#binary-ratings" id="toc-binary-ratings" class="nav-link" data-scroll-target="#binary-ratings"><span class="header-section-number">2.4</span> Binary ratings</a></li>
+  <li><a href="#counts" id="toc-counts" class="nav-link" data-scroll-target="#counts"><span class="header-section-number">2.5</span> Counts</a></li>
+  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters"><span class="header-section-number">2.6</span> Parameters</a></li>
+  <li><a href="#rating-parameters" id="toc-rating-parameters" class="nav-link" data-scroll-target="#rating-parameters"><span class="header-section-number">2.7</span> Rating Parameters</a></li>
+  </ul></li>
+  <li><a href="#fitting-models-to-data" id="toc-fitting-models-to-data" class="nav-link" data-scroll-target="#fitting-models-to-data"><span class="header-section-number">3</span> Fitting Models to Data</a></li>
+  <li><a href="#bayesian-models" id="toc-bayesian-models" class="nav-link" data-scroll-target="#bayesian-models"><span class="header-section-number">4</span> Bayesian Models</a>
+  <ul class="collapse">
+  <li><a href="#sample-mcmc-code" id="toc-sample-mcmc-code" class="nav-link" data-scroll-target="#sample-mcmc-code"><span class="header-section-number">4.1</span> Sample MCMC Code</a></li>
+  </ul></li>
+  <li><a href="#simulating-ratings" id="toc-simulating-ratings" class="nav-link" data-scroll-target="#simulating-ratings"><span class="header-section-number">5</span> Simulating Ratings</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="package.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</nav>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
@@ -195,7 +236,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">The TapModel Package</h1>
+<h1 class="title">The tapModel Package</h1>
 </div>
 
 
@@ -220,336 +261,902 @@ window.Quarto = {
 
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
-<p>This is a user guide to the <code>tapModel</code> package, which you can find on <a href="https://github.com/stanislavzza/tapModel">github</a>. The guide will show you how to format a data set of ratings and fit a t-a-p model to the data.</p>
-<p>There are data sets included in the package to use as examples. We’ll use the <code>wine</code> data set. One the <code>tapModel</code> library is loaded, you can access the data set with <code>data(wine)</code>.</p>
+<p>This is a user guide to the <code>tapModel</code> package, which you can find on <a href="https://github.com/stanislavzza/tapModel">github</a>. The guide will show you how to format a data set of ratings and fit t-a-p models to the data. The library has been designed to make it as easy as possible to generate parameter estimates and goodness of fit tests, so you can think about the meaning of the results instead of fiddling with data formats. The chart in <a href="#fig-data-flow" class="quarto-xref">Figure&nbsp;1</a> shows the work flow for analyzing a binary rating set. There are two branches, one to estimate the average t-a-p model parameters and the other to estimate rater and subject parameters, which is only possible if rater identifiers are present.</p>
+<div class="cell" data-layout-align="default">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>flowchart TB</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  A(raw_ratings) --&gt;|"format_raw_ratings()"|B(ratings)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  B --&gt; |"as_binary_ratings()"|C(binary_ratings)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  C --&gt; |"as_counts()"|D[counts]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  D --&gt; |"fit_counts()"|F[params]</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  C --&gt; |"fit_ratings()"|E[rating_params]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-data-flow" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-data-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div>
+<pre class="mermaid mermaid-js" data-label="fig-data-flow">flowchart TB
+  A(raw_ratings) --&gt;|"format_raw_ratings()"|B(ratings)
+  B --&gt; |"as_binary_ratings()"|C(binary_ratings)
+  C --&gt; |"as_counts()"|D[counts]
+  D --&gt; |"fit_counts()"|F[params]
+  C --&gt; |"fit_ratings()"|E[rating_params]
+</pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-data-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Data flow diagram for ratings
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Raw ratings can come in a variety of forms, so the first step is to standardize the data into binary ratings with integer subject identifiers and (optionally) rater identifiers. The <code>format_raw_ratings()</code> function is intended for this purpose. It assumes that ratings values are found in columns, meaning that there are one or more columns in the data that comprise only ratings and all the ratings. It can be that the ratings are in <em>rows</em> instead, in which case you’ll need to transpose the data before applying the formatting function.</p>
+<p>The formatting function returns data frame in long form with the first column <code>rater_id</code> and the second <code>rating</code>. If there is a rater identifier, it is next as <code>rater_id</code>. There may be other columns of data used for explanatory purposes, which will follow. The data types for the columns are left unchanged.</p>
+<p>Usually we want to start analysis by estimating the three-parameter t-a-p model, which is computed from the rating counts of Class 1 ratings per subject. This is accomplished by applying the <code>as_counts()</code> function to the binary ratings and sending that to <code>fit_counts()</code>. If you have rater identifiers in the data you can fit the individual subject and rater parameters with <code>fit_ratings()</code> as shown in <a href="#fig-data-flow" class="quarto-xref">Figure&nbsp;1</a>.</p>
+</section>
+<section id="data-types" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Data Types</h1>
+<p>As illustrated in <a href="#fig-data-flow" class="quarto-xref">Figure&nbsp;1</a>, raw ratings data first needs to be converted into a standardized format, including standardized column names. From there, ratings data can be transformed in a number of ways to produce summaries and estimates. The sections below describe these transformations and data types.</p>
+<section id="raw-ratings" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="raw-ratings"><span class="header-section-number">2.1</span> Raw ratings</h2>
+<p>The information in a raw ratings data frame needs to be given structure to use the analytical functions. Each column of raw data will be one of:</p>
+<ul>
+<li><p>Rating. This can be text or numerical, ordinal or categorical. For the basic t-a-p model, ratings are converted to binary before analysis. Note that ordinal ratings need to sort in the correct order. For example, a scale of “strongly agree” to “strongly disagree” won’t normally sort into the correct order, but can be fixed by appending a number, like “1 = strongly agree.” Or you can use a factor variable in R to arrange the values in order.</p></li>
+<li><p>Subject identifier. Each subject being rated needs a unique identifier or we can’t do a t-a-p analysis. Originally this identifier can be text or numerical, but it will be converted to an integer. Sometimes the subject is not explicitly identified, but each row of data corresponds to a unique subject. In this case, we can create an identifier by using the row number.</p></li>
+<li><p>Rater identifier. It’s optional to have a rater identifier, but you should include it if you have one. Without identifying unique raters, we must assume that they have identical characteristics. This isn’t usually a good assumption if the raters are human. With rater identifiers, we can estimate accuracy and bias for each.</p></li>
+<li><p>Categories of ratings. A simple rating set may have only one column called “rating,” but a survey with five questions has five categories of response; a customer satisfaction survey might have “quality of service” and “timelines” included in the categories. If there’s more than one category, we usually want to filter to one at a time for analysis. For relationships between items (like a factor analysis or correlation) there are other tools besides t-a-p models to use. However, we could compare the reliability of the items by estimating the t-a-p parameters for each category.</p></li>
+<li><p>Other descriptive information. Information about the subject or rater that’s either used in analysis or there for annotation.</p></li>
+</ul>
+<p>A helper function <code>format_data(raw_ratings)</code> is provided to help with data conversion, but you may prefer to do that yourself, e.g.&nbsp;using <code>dplyr</code> data operations from the <code>tidyverse</code>.</p>
+</section>
+<section id="example-long-data-format" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="example-long-data-format"><span class="header-section-number">2.2</span> Example: Long data format</h2>
+<p>The simplest form of a rating data set has ratings in a single column, with other columns adding information.</p>
 <div class="cell">
 <details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tapModel)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#' Load the included wine data</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(wine)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#' It has rating in columns, one for each wine judge. Each row is a wine.</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#' We can convert to a standard long format with the `format_data` function.</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">format_data</span>(wine, <span class="at">data_type =</span> <span class="st">"raters"</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">#' To compute the t-a-p model, we need the counts for each class. This is a </span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#' dataframe with one row per subjec, with two columns:</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">#'        N_r, the number of ratings for that subject</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">#'        N_c, the number of ratings in class 1 for that subject</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">#'        </span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">#' If we define Class 1 to be "acceptable" wine, with ratings {2,3,4} vs </span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">#' Class 0 = rating 1, we can find the counts with</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">count_ratings</span>(ratings, <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>))</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">#' Compute the solution</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>tap <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">iterative_optim</span>(counts)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">#' Show the results</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(tap, <span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>raw_ratings_long <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">my_subject =</span> <span class="fu">c</span>(<span class="st">"subject10"</span>,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                                              <span class="st">"subject21"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                                              <span class="st">"subject14"</span>, </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                                              <span class="st">"subject3"</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                               <span class="at">my_rater =</span> <span class="fu">c</span>(<span class="st">"agent33"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                                            <span class="st">"agent12"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                                            <span class="st">"agent4"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                                            <span class="st">"agent23"</span>),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                               <span class="at">my_rating =</span> <span class="fu">c</span>(<span class="st">"pass"</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                                             <span class="st">"pass"</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                                             <span class="st">"incomplete"</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                                             <span class="st">"fail"</span>))</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>raw_ratings_long <span class="sc">|&gt;</span> </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th style="text-align: right;">t</th>
-<th style="text-align: right;">a</th>
-<th style="text-align: right;">p</th>
-<th style="text-align: right;">ll</th>
-<th style="text-align: left;">degenerate</th>
+<th style="text-align: left;">my_subject</th>
+<th style="text-align: left;">my_rater</th>
+<th style="text-align: left;">my_rating</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">0.73</td>
-<td style="text-align: right;">0.54</td>
-<td style="text-align: right;">0.78</td>
-<td style="text-align: right;">-243.36</td>
-<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">subject10</td>
+<td style="text-align: left;">agent33</td>
+<td style="text-align: left;">pass</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">subject21</td>
+<td style="text-align: left;">agent12</td>
+<td style="text-align: left;">pass</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">subject14</td>
+<td style="text-align: left;">agent4</td>
+<td style="text-align: left;">incomplete</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">subject3</td>
+<td style="text-align: left;">agent23</td>
+<td style="text-align: left;">fail</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p>You can also format the data using tidyverse functions without the helpers.</p>
+</section>
+<section id="example-rows-as-subjects" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="example-rows-as-subjects"><span class="header-section-number">2.3</span> Example: Rows as subjects</h2>
+<p>This is a simple data arrangement with identified raters, and one row of data per subject. Ratings are found in each column. This might be a portfolio review, with a pass/fail outcome.</p>
 <div class="cell">
 <details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>inclass <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span> <span class="co"># set the range of acceptable ratings</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># this will work for the data format where each rater has a column</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> wine <span class="sc">%&gt;%</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">N_r =</span> <span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="sc">!</span><span class="fu">is.na</span>(.))),   </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">N_c =</span> <span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> . <span class="sc">%in%</span> inclass))) <span class="sc">|&gt;</span> </span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(N_r, N_c)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>          </span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>counts <span class="sc">|&gt;</span> </span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>outcomes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"pass"</span>,<span class="st">"fail"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>raw_ratings <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">rater1 =</span> <span class="fu">sample</span>(outcomes, <span class="dv">3</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                                          , <span class="at">prob =</span> <span class="fu">c</span>(.<span class="dv">8</span>,.<span class="dv">2</span>), <span class="at">replace =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                          <span class="at">rater2 =</span> <span class="fu">sample</span>(outcomes, <span class="dv">3</span>, <span class="at">prob =</span> <span class="fu">c</span>(.<span class="dv">7</span>, .<span class="dv">3</span>), <span class="at">replace =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                          <span class="at">rater3 =</span> <span class="fu">sample</span>(outcomes, <span class="dv">3</span>, <span class="at">prob =</span> <span class="fu">c</span>(.<span class="dv">75</span>,.<span class="dv">25</span>), <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>raw_ratings <span class="sc">|&gt;</span> <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
+<th style="text-align: left;">rater1</th>
+<th style="text-align: left;">rater2</th>
+<th style="text-align: left;">rater3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pass</td>
+<td style="text-align: left;">fail</td>
+<td style="text-align: left;">pass</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pass</td>
+<td style="text-align: left;">fail</td>
+<td style="text-align: left;">fail</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pass</td>
+<td style="text-align: left;">pass</td>
+<td style="text-align: left;">pass</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>There is only one category of rating here, so we can call</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> <span class="fu">format_raw_ratings</span>(raw_ratings,</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">rating_cols =</span> <span class="fu">c</span>(<span class="st">"rater1"</span>,<span class="st">"rater2"</span>,<span class="st">"rater3"</span>),</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">rating_colnames_type =</span> <span class="st">"rater"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">subject_id_col =</span> <span class="cn">NULL</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">rater_id_col =</span> <span class="cn">NULL</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">prune =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>ratings <span class="sc">|&gt;</span> </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">subject_id</th>
+<th style="text-align: left;">rating</th>
+<th style="text-align: left;">rater_id</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">pass</td>
+<td style="text-align: left;">rater1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">pass</td>
+<td style="text-align: left;">rater1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">pass</td>
+<td style="text-align: left;">rater1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">fail</td>
+<td style="text-align: left;">rater2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">fail</td>
+<td style="text-align: left;">rater2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">pass</td>
+<td style="text-align: left;">rater2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">pass</td>
+<td style="text-align: left;">rater3</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">fail</td>
+<td style="text-align: left;">rater3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">pass</td>
+<td style="text-align: left;">rater3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="binary-ratings" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="binary-ratings"><span class="header-section-number">2.4</span> Binary ratings</h2>
+<p>The majority of functions in the <code>tapModel</code> package operate with binary data. If the rating scale is not originally binary, for example it’s a 1-4 scale, then before using binary functions, we have to make a choice of how to convert to binary.</p>
+<div class="cell" data-layout-align="default">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>flowchart TB</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  A(raw_ratings) --&gt;|"format_raw_ratings()"|B(ratings)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  B --&gt; |"as_binary_ratings()"|C(binary_ratings)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-to-binary" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-to-binary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div>
+<pre class="mermaid mermaid-js" data-label="fig-to-binary">flowchart TB
+  A(raw_ratings) --&gt;|"format_raw_ratings()"|B(ratings)
+  B --&gt; |"as_binary_ratings()"|C(binary_ratings)
+</pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-to-binary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Data flow diagram for creating binary ratings
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The conversion can be done by using the two functions in <a href="#fig-to-binary" class="quarto-xref">Figure&nbsp;2</a>, as illustrated using the wine data <span class="citation" data-cites="hodgson2008examination">(<a href="#ref-hodgson2008examination" role="doc-biblioref">Hodgson, 2008</a>)</span>, with the choice that Class 1 will be ratings of 2,3, or 4, and Class 0 is the ratings of 1.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tapModel)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#' Load the included wine data</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(wine)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#' It has rating in columns, one for each wine judge. Each row is a wine.</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> <span class="fu">format_raw_ratings</span>(wine,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                              <span class="at">rating_cols =</span> <span class="fu">c</span>(<span class="st">"J1"</span>,<span class="st">"J2"</span>,<span class="st">"J3"</span>,<span class="st">"J4"</span>),</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>                              <span class="at">rating_colnames_type =</span> <span class="st">"rater"</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>                              <span class="at">subject_id_col =</span> <span class="cn">NULL</span>,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>                              <span class="at">rater_id_col =</span> <span class="cn">NULL</span>,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>                              <span class="at">prune =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#' To compute the t-a-p model, we need the counts for each class. This is a </span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">#' dataframe with one row per subjec, with two columns:</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">#'        N_r, the number of ratings for that subject</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">#'        N_c, the number of ratings in class 1 for that subject</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co">#'        </span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="co">#' If we define Class 1 to be "acceptable" wine, with ratings {2,3,4} vs </span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co">#' Class 0 = rating 1, we can find the counts with</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>binary_ratings <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">as_binary_ratings</span>(ratings, <span class="at">in_class =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)) </span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>binary_ratings <span class="sc">|&gt;</span> </span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="tbl-binary" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-binary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1
+</figcaption>
+<div aria-describedby="tbl-binary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">subject_id</th>
+<th style="text-align: right;">rating</th>
+<th style="text-align: left;">rater_id</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">J1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">J1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">J1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">J1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">J1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Note that in this case, the column headers J1, J1, … correspond to judges, but that these are not unique identifiers for the judges. The <code>rater_id</code> column that’s automatically created by <code>format_raw_ratings()</code> should not be used as a rater ID. There’s no way to know this without knowing the source of the data.</p>
+<p>In coding practice, I use <code>ratings</code> to mean <code>binary_ratings</code> most of the time. That’s what you’ll see in the other chapters of this site. To verify that a (binary) <code>ratings</code> data frame is correct, use <code>verify_ratings(ratings)</code>, which will halt after flagging any problems, or return a zero.</p>
+</section>
+<section id="counts" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="counts"><span class="header-section-number">2.5</span> Counts</h2>
+<div class="cell" data-layout-align="default">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>flowchart TB</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  A(raw_ratings) --&gt;|"format_raw_ratings()"|B(ratings)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  B --&gt; |"as_binary_ratings()"|C(binary_ratings)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  C --&gt; |"as_counts()"|D[counts]</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  C --&gt; |"as_count_index()"|E[count_index]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-counts" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-counts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div>
+<pre class="mermaid mermaid-js" data-label="fig-counts">flowchart TB
+  A(raw_ratings) --&gt;|"format_raw_ratings()"|B(ratings)
+  B --&gt; |"as_binary_ratings()"|C(binary_ratings)
+  C --&gt; |"as_counts()"|D[counts]
+  C --&gt; |"as_count_index()"|E[count_index]
+</pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-counts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Data flow diagram for creating binary ratings to create counts
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>There are two types of count data proceeding from binary ratings. If we want individual subject counts, we use <code>as_count_index()</code>. There’s a more compact way to represent the data if subject IDs are not needed, for which we use <code>as_counts()</code>. Continuing with the binary ratings we made from the wine data, the difference is illustrated below.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>binary_ratings <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_count_index</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="tbl-count-index" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-count-index-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Count index showing number of raters and Class 1 ratings by subject.
+</figcaption>
+<div aria-describedby="tbl-count-index-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">subject_id</th>
 <th style="text-align: right;">N_r</th>
 <th style="text-align: right;">N_c</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">5</td>
+<td style="text-align: right;">4</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">5</td>
-</tr>
-<tr class="even">
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">4</td>
 <td style="text-align: right;">4</td>
 </tr>
 <tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">4</td>
 <td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-</section>
-<section id="ordinal-analysis" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Ordinal Analysis</h1>
-<p>In addition to a binary comparison, where we split the range of possible ratings into two sets, we can also use the ordinal analysis. This is where we put the ratings in a sensible order, like “strongly disagree” to “strongly agree” for a common survey response, then consider each cut-point between these values. In the case of the wine ratings, we have:</p>
-<table class="caption-top table">
-<caption>Wine rating scale</caption>
+</figure>
+</div>
+</div>
+<p>The last shown row of <a href="#tbl-count-index" class="quarto-xref">Table&nbsp;2</a> tells us that the fifth wine had four raters, two of whom rated it Class 1 (i.e.&nbsp;a rating above 1). If we don’t need to keep track of individual subjects, we can use <code>as_counts()</code> instead.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>binary_ratings <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="tbl-counts" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-counts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: Counts enumerating the number of instances of each combination of number of raters and Class 1 ratings
+</figcaption>
+<div aria-describedby="tbl-counts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th>Rating Value</th>
-<th>Meaning</th>
+<th style="text-align: right;">N_r</th>
+<th style="text-align: right;">N_c</th>
+<th style="text-align: right;">n</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>1</td>
-<td>No medal</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
 </tr>
 <tr class="even">
-<td>2</td>
-<td>Bronze medal</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">15</td>
 </tr>
 <tr class="odd">
-<td>3</td>
-<td>Silver medal</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">25</td>
 </tr>
 <tr class="even">
-<td>4</td>
-<td>Gold medal</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">43</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">90</td>
 </tr>
 </tbody>
 </table>
-<p>There are three natural cut-points:</p>
-<ul>
-<li><p>1|2 divides the 1 ratings from higher ones</p></li>
-<li><p>2|3 divides the {1,2} ratings from the {3,4} ratings</p></li>
-<li><p>3|4 divides the {1,2,3} ratings from the 4 ratings.</p></li>
-</ul>
-<p>Each cut point defines a binary classification system, which we can estimate the t-a-p parameters for.</p>
-<p>To use the built-in function for iterating over the cut-points, we need to prepare the data to be in a long format with only two columns <code>SubjectID__</code> and <code>rating</code>.</p>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>The first row of <a href="#tbl-counts" class="quarto-xref">Table&nbsp;3</a> tells us that there were <span class="math inline">\(n=10\)</span> subjects where the four judges unanimously aggreed that the wine was Class 0 (a rating of 1 on the 1-4 scale). In 90 cases they unanimously agreed on Class 1 (rating of 2-4). It’s this more compact representation that gets used by the estimation algorithms <code>fit_counts()</code> or <code>fit_counts_mcmc()</code>, the latter of which uses a Bayesian estimation with Monte Carlo methods.</p>
+<p>To verify that a <code>counts</code> data frame is correct, use <code>verify_counts(counts)</code>, which will halt after flagging any problems, or return a zero.</p>
+</section>
+<section id="parameters" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="parameters"><span class="header-section-number">2.6</span> Parameters</h2>
+<p>The purpose of the <code>tapModel</code> package is to estimate model parameters for a variety of models. The simplest type is a <code>params</code> named list or array of (usually) the three parameters <span class="math inline">\(t\)</span>, <span class="math inline">\(a\)</span>, and <span class="math inline">\(p\)</span>. Note that data frames are lists in R, so the following are all acceptable.</p>
+<div id="tbl-params" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-params-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4: Types of admissible param objects, which contain parameters for the basic model.
+</figcaption>
+<div aria-describedby="tbl-params-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>params_1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">t =</span> .<span class="dv">5</span>, <span class="at">a =</span> .<span class="dv">5</span>, <span class="at">p =</span> .<span class="dv">5</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">verify_params</span>(params_1)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>params_2 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">t =</span> .<span class="dv">5</span>, <span class="at">a =</span> .<span class="dv">5</span>, <span class="at">p =</span> .<span class="dv">5</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">verify_params</span>(params_2)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>params_3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">t =</span> .<span class="dv">5</span>, <span class="at">a =</span> .<span class="dv">5</span>, <span class="at">p =</span> .<span class="dv">5</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">verify_params</span>(params_3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</figure>
+</div>
+<p>There is a variation of this that allows for a bifurcation of the accuracy and randomness parameters, so that <span class="math inline">\(a\)</span> becomes <span class="math inline">\((a_0, a_1)\)</span> and <span class="math inline">\(p\)</span> becomes <span class="math inline">\((p_0,p_1)\)</span>. Currently these extended parameters are only used in a few other places, like simulating data. This will likely change over time as more features are added.</p>
+</section>
+<section id="rating-parameters" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="rating-parameters"><span class="header-section-number">2.7</span> Rating Parameters</h2>
+<p>The basic hierarchical model assigns each subject <span class="math inline">\(i\)</span> a truth probability <span class="math inline">\(t_i\)</span> and each rater <span class="math inline">\(j\)</span> parameters <span class="math inline">\(a_j\)</span> and <span class="math inline">\(p_j\)</span>. So each rating potentially corresponds to a unique combination of parameters, making it convenient to package all this information in one data frame. These objects are generically called <code>rating_params</code>, and are the main object of interest for much of the work we’ll do. Most functions are designed to work with a <code>rating_params</code> data frame.</p>
+<p>There are three main ways to make one of these. First, we can fit a basic model and then “upscale” the results.</p>
 <div class="cell">
 <details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' this will work for the data format where each rater has a column</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> wine <span class="sc">%&gt;%</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SubjectID__ =</span> <span class="fu">row_number</span>()) <span class="sc">|&gt;</span> </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(judge, rating, <span class="sc">-</span>SubjectID__) <span class="sc">|&gt;</span> </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(SubjectID__, rating)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>ratings <span class="sc">|&gt;</span> </span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> <span class="fu">generate_sample_ratings</span>()</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>params <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>          <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>          <span class="fu">fit_counts</span>()</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>rating_params <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_rating_params</span>(params)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>rating_params <span class="sc">|&gt;</span> </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">8</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div id="tbl-rating-params1" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-rating-params1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5: Upscaling params to rating_params.
+</figcaption>
+<div aria-describedby="tbl-rating-params1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th style="text-align: right;">SubjectID__</th>
+<th style="text-align: right;">subject_id</th>
 <th style="text-align: right;">rating</th>
+<th style="text-align: right;">rater_id</th>
+<th style="text-align: right;">t</th>
+<th style="text-align: right;">a</th>
+<th style="text-align: right;">p</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.67</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.67</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">3</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.67</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.67</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.67</td>
+<td style="text-align: right;">0.5</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.67</td>
+<td style="text-align: right;">0.5</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.67</td>
+<td style="text-align: right;">0.5</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
 <td style="text-align: right;">3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.67</td>
+<td style="text-align: right;">0.5</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p>Now we can apply the function to find estimates for the parameters at each cut-point as well as the Fleiss kappa statistics for each.</p>
+</figure>
+</div>
+</div>
+<p>Notice the uniformity of the parameters in <a href="#tbl-rating-params1" class="quarto-xref">Table&nbsp;5</a>, since we’re simply unpacking the average parameters into individual assignments. This can be useful as a starting point for estimating custom parameters, and can also be useful if we want to use functions that require <code>rating_params</code> like <code>subject_calibration(rating_params)</code>.</p>
+<p>The second way to get the <code>rating_params()</code> is to fit the ratings instead of counts.</p>
 <div class="cell">
 <details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>params <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">get_ordinal_tap</span>(ratings)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(params, <span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> <span class="fu">generate_sample_ratings</span>()</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>rating_params <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_ratings</span>()</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>rating_params <span class="sc">|&gt;</span> </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">8</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div id="tbl-rating-params2" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-rating-params2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;6: Estimating individual parameters to get rating_params.
+</figcaption>
+<div aria-describedby="tbl-rating-params2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
+<th style="text-align: right;">subject_id</th>
+<th style="text-align: right;">rating</th>
+<th style="text-align: right;">rater_id</th>
 <th style="text-align: right;">t</th>
 <th style="text-align: right;">a</th>
 <th style="text-align: right;">p</th>
-<th style="text-align: right;">ll</th>
-<th style="text-align: left;">degenerate</th>
-<th style="text-align: left;">CutPoint</th>
-<th style="text-align: left;">type</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">0.27</td>
-<td style="text-align: right;">0.54</td>
-<td style="text-align: right;">0.22</td>
-<td style="text-align: right;">-243.36</td>
-<td style="text-align: left;">FALSE</td>
-<td style="text-align: left;">1|2</td>
-<td style="text-align: left;">t-a-p</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.67</td>
+<td style="text-align: right;">0.48</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">0.24</td>
-<td style="text-align: right;">0.57</td>
-<td style="text-align: right;">0.24</td>
-<td style="text-align: right;">-243.47</td>
-<td style="text-align: left;">FALSE</td>
-<td style="text-align: left;">1|2</td>
-<td style="text-align: left;">Fleiss</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.64</td>
+<td style="text-align: right;">0.29</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">0.54</td>
-<td style="text-align: right;">0.44</td>
-<td style="text-align: right;">0.59</td>
-<td style="text-align: right;">-286.12</td>
-<td style="text-align: left;">FALSE</td>
-<td style="text-align: left;">2|3</td>
-<td style="text-align: left;">t-a-p</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.74</td>
+<td style="text-align: right;">0.70</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">0.57</td>
-<td style="text-align: right;">0.44</td>
-<td style="text-align: right;">0.57</td>
-<td style="text-align: right;">-286.14</td>
-<td style="text-align: left;">FALSE</td>
-<td style="text-align: left;">2|3</td>
-<td style="text-align: left;">Fleiss</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.69</td>
+<td style="text-align: right;">0.64</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">0.65</td>
-<td style="text-align: right;">0.25</td>
-<td style="text-align: right;">0.95</td>
-<td style="text-align: right;">-169.94</td>
-<td style="text-align: left;">FALSE</td>
-<td style="text-align: left;">3|4</td>
-<td style="text-align: left;">t-a-p</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.71</td>
+<td style="text-align: right;">0.55</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">0.88</td>
-<td style="text-align: right;">0.35</td>
-<td style="text-align: right;">0.88</td>
-<td style="text-align: right;">-170.82</td>
-<td style="text-align: left;">FALSE</td>
-<td style="text-align: left;">3|4</td>
-<td style="text-align: left;">Fleiss</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.85</td>
+<td style="text-align: right;">0.67</td>
+<td style="text-align: right;">0.48</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.85</td>
+<td style="text-align: right;">0.64</td>
+<td style="text-align: right;">0.29</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.85</td>
+<td style="text-align: right;">0.74</td>
+<td style="text-align: right;">0.70</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p>Here’s how to plot the results.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>params <span class="sc">|&gt;</span> </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(t,a,p,CutPoint, type) <span class="sc">|&gt;</span> </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(param, value, t, a, p) <span class="sc">|&gt;</span> </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> CutPoint, <span class="at">y =</span> value, <span class="at">color =</span> type, <span class="at">group =</span> type)) <span class="sc">+</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(. <span class="sc">~</span> param)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="package_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
+<p>Notice the variety of parameter estimates in <a href="#tbl-rating-params2" class="quarto-xref">Table&nbsp;6</a>, which is now representing a hierarchical model.</p>
+<p>The third way to get <code>rating_params</code> is to generate random samples from a specification.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> <span class="fu">generate_ti_aj_pj_ratings</span>(<span class="at">param_list =</span> <span class="fu">list</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                                                    <span class="at">t =</span> <span class="fu">runif</span>(<span class="dv">100</span>),</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                                                    <span class="at">a =</span> <span class="fu">runif</span>(<span class="dv">10</span>),</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                                                    <span class="at">p =</span> <span class="fu">runif</span>(<span class="dv">10</span>)))</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                                       </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>rating_params <span class="sc">|&gt;</span> </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">8</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="tbl-rating-params3" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-rating-params3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7: Generating a random rating_params from specified parameters.
+</figcaption>
+<div aria-describedby="tbl-rating-params3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">subject_id</th>
+<th style="text-align: right;">rating</th>
+<th style="text-align: right;">rater_id</th>
+<th style="text-align: right;">t</th>
+<th style="text-align: right;">a</th>
+<th style="text-align: right;">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.67</td>
+<td style="text-align: right;">0.48</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.64</td>
+<td style="text-align: right;">0.29</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.74</td>
+<td style="text-align: right;">0.70</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.69</td>
+<td style="text-align: right;">0.64</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.71</td>
+<td style="text-align: right;">0.55</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.85</td>
+<td style="text-align: right;">0.67</td>
+<td style="text-align: right;">0.48</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.85</td>
+<td style="text-align: right;">0.64</td>
+<td style="text-align: right;">0.29</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.85</td>
+<td style="text-align: right;">0.74</td>
+<td style="text-align: right;">0.70</td>
+</tr>
+</tbody>
+</table>
 </div>
+</div>
+</figure>
+</div>
+</div>
+<p>Instead of providing a parameter list, you can also just provide an existing <code>rating_params</code> data frame using <code>generate_ti_aj_pj_ratings(rating_params = my_rating_params)</code> , and samples will be drawn from the parameters for subjects and raters. This is used, for example, to see if we can recover parameters by fitting the simulated ratings and matching to the original parameters.</p>
 </section>
-<section id="bayesian-models" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Bayesian Models</h1>
+</section>
+<section id="fitting-models-to-data" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Fitting Models to Data</h1>
+<p>To compute the three-parameter t-a-p model, use either <code>fit_counts(counts)</code> or <code>fit_counts_mcmc(counts)</code>. The former uses (by default) an E-M algorithm, and the latter will use a Stan specification with flat priors to solve the binomial mixture problem. The E-M algorithm is very fast, but the MCMC version will potentially reveal any bimodal densities for parameters (see <a href="./paradox.html">Chapter 4</a>) and provide the draws data for detailed examination.</p>
+<details>
+<summary>
+View MACE Stan code
+</summary>
+<div class="sourceCode" id="cb14" data-include="code/t-a-p.stan"><pre class="sourceCode stan code-with-copy"><code class="sourceCode stan"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<p>The MCMC methods return the full model, which you can inspect in a variety of ways, including <code>shinystan</code>, an interactive tool for analyzing convergence, parameter estimates, and more.</p>
+<p>To fit hierarchical models, use <code>fit_ratings(ratings)</code> or <code>fit_ratings_mcmc(ratings)</code>. See the function help pages for more details on options. The section below gives more detail about the types of models that are provided.</p>
+</section>
+<section id="bayesian-models" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Bayesian Models</h1>
 <p>Bayesian estimation using Monte Carlo Markov Chain (MCMC) estimation methods are flexible in allowing for maximum likelihood estimation over any likelihood function you can imagine. This includes the standard t-a–p three-parameter model, but also includes hierarchical models where each subject is assigned a truth value and each rater is assigned an accuracy estimate. The tapModel package provides some limited interface to the most common of these models using <code>library(cmdstanr).</code> Installing that package entails some setup work. Please see the package documentation to install and test your installation before trying out the code below.</p>
-<p>The use of Stan for Bayesian estimation is also included in the package, with an easy interface for three different models:</p>
+<p>The Bayesian versions of the analytical functions are denoted with “_mcmc”. These use model descriptions written in <a href="https://mc-stan.org/">Stan</a> and require additional software to use. You’ll need to install <code>library(cmdstanr)</code> and <code>library(LaplacesDemon)</code>, which may entail installing the tools needed to compile the source code for Stan to run. These functions are provided for users who are comfortable with MCMC output and Bayesian models.</p>
+<p>The use of Stan for Bayesian estimation is also included in the package, with an easy interface for these models:</p>
 <ul>
 <li><p><strong>t-a-p.stan,</strong> a three-parameter t-a-p model</p></li>
 <li><p><strong>t-a0a1-p.stan</strong>, a four-parameter model that splits the accuracy parameter into <span class="math inline">\(a0\)</span> and <span class="math inline">\(a1\)</span>, so that raters can have different accuracies depending on the true classification, and</p></li>
 <li><p><strong>t-a0a1-p0p1.stan</strong>, a five-parameter version that expands the four-parameter version to also include <span class="math inline">\(p0\)</span> and <span class="math inline">\(p1\)</span>, so the guessing probabilities are also conditional on the true classification.</p></li>
+<li><p><strong>t_i-a-p prob.stan</strong>, a random-effects (hierarchical) model where each subject gets a probabilistic truth parameter <span class="math inline">\(t_i \epsilon  [0,1]\)</span>.</p></li>
+<li><p><strong>t_i-a-p soft step.stan</strong>, a random-effects (hierarchical) model where each subject gets a probabilistic truth parameter <span class="math inline">\(t_i \epsilon  [0,1]\)</span>, but it is parameterized by <span class="math inline">\(\tau_i \epsilon \mathbb{R}\)</span>, and a differentiable step function is applied to nudge the <span class="math inline">\(t_i\)</span> parameters toward zero or one. The amount of nudging can be specified in the model.</p></li>
+<li><p><strong>t-a-p_j.stan</strong>, the extension of the Cohen kappa that is covered in <a href="./hierarchical.html">Chapter 5</a>. It allows each rater to have an individual parameter for random assignment of Class 1 in cases where the rating is inaccurate.</p></li>
+<li><p>See <a href="./paradox.html">Chapter 4</a> for examples of the first three of these, and <a href="./hierarchical.html">Chapter 5</a> for examples of the rest.</p></li>
 </ul>
-<p>We can use the <code>counts</code> data frame from the introduction to illustrate.</p>
+<section id="sample-mcmc-code" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="sample-mcmc-code"><span class="header-section-number">4.1</span> Sample MCMC Code</h2>
+<p>We can use the <code>counts</code> data frame from the introduction to illustrate the code for generating the basic t-a-p model using Bayesian MCMC methods.</p>
 <div class="cell">
 <details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cmdstanr)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(LaplacesDemon) <span class="co"># for the Modes() function</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#' Get the .stan source code for the chosen model</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>stan_model_source <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"stan/t-a-p.stan"</span>, <span class="at">package =</span> <span class="st">"tapModel"</span>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#' Compile it. This can take a while, but you only need to do it once.</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#' maybe go make a cup of tea</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>stan_model <span class="ot">&lt;-</span> cmdstanr<span class="sc">::</span><span class="fu">cmdstan_model</span>(stan_model_source)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#' Use the convenience function to run the MCMC</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#' This requires counts to be properly formated. </span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>model_draws <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">fit_tap_model</span>(counts, stan_model) </span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">#' Summarize the statistics</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>est_params <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">get_tap_stats</span>(model_draws)</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">#' Simplify the draw data into a data fram and then</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">#' plot the draw distributions</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>model_draws <span class="sc">|&gt;</span> </span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  tapModel<span class="sc">::</span><span class="fu">extract_vars</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  tapModel<span class="sc">::</span><span class="fu">plot_draw_densities</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ratings with t = .5, a = .7, p = .5</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="fu">generate_sample_ratings</span>() <span class="sc">|&gt;</span> <span class="fu">as_counts</span>()</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#' Use the convenience function to run the MCMC for the three-parameter-model</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>mcmc_output <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">fit_counts_mcmc</span>(counts, <span class="at">quiet =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#' Get the summary </span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>mcmc_params <span class="ot">&lt;-</span> mcmc_output<span class="sc">$</span>params</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>mcmc_params <span class="sc">|&gt;</span> </span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-</div>
-<p>The <code>get_tap_stats</code> function returns a data frame with the mean and interquartile range of the draws, as well as an attempt to identify bimodal densities, which can indicate a problem with model fit or non-unique solutions.</p>
-<div class="cell">
+<div id="tbl-mcmc-tap" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-mcmc-tap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;8: Estimating the t-a-p model with Bayesian MCMC methods.
+</figcaption>
+<div aria-describedby="tbl-mcmc-tap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 6%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 7%">
+<col style="width: 6%">
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: right;">position</th>
@@ -561,296 +1168,383 @@ window.Quarto = {
 <th style="text-align: right;">p75</th>
 <th style="text-align: right;">p95</th>
 <th style="text-align: right;">mode1</th>
-<th style="text-align: right;">mode2</th>
+<th style="text-align: left;">mode2</th>
+<th style="text-align: right;">sd</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">2</td>
-<td style="text-align: left;">a</td>
-<td style="text-align: right;">0.54</td>
-<td style="text-align: right;">0.45</td>
-<td style="text-align: right;">0.50</td>
-<td style="text-align: right;">0.54</td>
-<td style="text-align: right;">0.58</td>
-<td style="text-align: right;">0.64</td>
-<td style="text-align: right;">0.53</td>
-<td style="text-align: right;">0.55</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">lp__</td>
+<td style="text-align: right;">-172.39</td>
+<td style="text-align: right;">-174.82</td>
+<td style="text-align: right;">-172.95</td>
+<td style="text-align: right;">-172.08</td>
+<td style="text-align: right;">-171.46</td>
+<td style="text-align: right;">-171.05</td>
+<td style="text-align: right;">-171.39</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">1.25</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">3</td>
-<td style="text-align: left;">p</td>
-<td style="text-align: right;">0.77</td>
-<td style="text-align: right;">0.63</td>
-<td style="text-align: right;">0.73</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">a</td>
+<td style="text-align: right;">0.72</td>
+<td style="text-align: right;">0.66</td>
+<td style="text-align: right;">0.70</td>
+<td style="text-align: right;">0.72</td>
+<td style="text-align: right;">0.74</td>
 <td style="text-align: right;">0.78</td>
-<td style="text-align: right;">0.82</td>
-<td style="text-align: right;">0.88</td>
-<td style="text-align: right;">0.80</td>
-<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.73</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">0.03</td>
 </tr>
 <tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">p</td>
+<td style="text-align: right;">0.58</td>
+<td style="text-align: right;">0.45</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">0.58</td>
+<td style="text-align: right;">0.63</td>
+<td style="text-align: right;">0.70</td>
+<td style="text-align: right;">0.60</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">0.07</td>
+</tr>
+<tr class="even">
 <td style="text-align: right;">4</td>
 <td style="text-align: left;">t</td>
-<td style="text-align: right;">0.73</td>
-<td style="text-align: right;">0.62</td>
-<td style="text-align: right;">0.69</td>
-<td style="text-align: right;">0.73</td>
-<td style="text-align: right;">0.78</td>
-<td style="text-align: right;">0.83</td>
-<td style="text-align: right;">0.73</td>
-<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.58</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: right;">0.54</td>
+<td style="text-align: right;">0.58</td>
+<td style="text-align: right;">0.61</td>
+<td style="text-align: right;">0.66</td>
+<td style="text-align: right;">0.58</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">0.05</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p>The <code>plot_draw_densities</code> function will plot the draws for each parameter, with the mean labeled and the interquartile range shaded. The average log likelihood is indicated with a dotted line.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/drawplot.png" class="img-fluid figure-img"></p>
-<figcaption>Parameter estimates for t-a-p on wine data with mean labeled and interquartile range shaded. Average log likelihood is indicated with dotted line.</figcaption>
 </figure>
 </div>
+</div>
+<p>Notice that the parameter estimates are given in a richer format that the basic <code>params</code> data, e.g.&nbsp;from <code>fit_counts(counts)</code>. It returns a data frame with the mean and interquartile range of the draws, as well as an attempt to identify bimodal densities, which can indicate a problem with model fit or non-unique solutions. We can convert to the basic format by picking which estimate (e.g.&nbsp;average, median, or mode) to use. This is demonstrated in the code block below.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>params <span class="ot">&lt;-</span> mcmc_params <span class="sc">|&gt;</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(var <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"t"</span>,<span class="st">"a"</span>,<span class="st">"p"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(var, avg) <span class="sc">|&gt;</span> <span class="co"># or median, or mode1 etc</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(var, avg)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>params <span class="sc">|&gt;</span> </span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="tbl-mcmc-convert" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-mcmc-convert-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9: Converting to a params format using the average.
+</figcaption>
+<div aria-describedby="tbl-mcmc-convert-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">a</th>
+<th style="text-align: right;">p</th>
+<th style="text-align: right;">t</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.72</td>
+<td style="text-align: right;">0.58</td>
+<td style="text-align: right;">0.58</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>One advantage of the MCMC approach is the ability to examine draw densities. These can be visualized as follows.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>mcmc_output<span class="sc">$</span>fitted_model<span class="sc">$</span><span class="fu">draws</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_densities_mcmc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-densities" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-densities-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="package_files/figure-html/fig-densities-1.png" class="img-fluid figure-img" width="384">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-densities-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Parameter estimate densities from MCMC draws. Shading shows 5% to 95%, the inter-quartile range, and the mean estimate. The dotted lines show the scaled likelihood.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Note that to get the draws, we need to call the <code>draws()</code> function on the fitted model. The parentheses are required, since it’s a function call, not a data object.</p>
+</section>
+</section>
+<section id="simulating-ratings" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Simulating Ratings</h1>
+<p>In addition to loading data, it’s possible to simulate ratings from specified parameters. There are three functions provided for that purpose, all with reasonable defaults to make it quick to generate a test set of ratings.</p>
+
 
 
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-hodgson2008examination" class="csl-entry" role="listitem">
+Hodgson, R. T. (2008). An examination of judge reliability at a major US wine competition. <em>Journal of Wine Economics</em>, <em>3</em>(2), 105–113.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
         }
       }
+      return false;
     }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/kappazoo\.com\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
         }
-        return container.innerHTML
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -858,185 +1552,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 </div> <!-- /content -->
 
 
