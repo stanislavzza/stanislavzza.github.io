@@ -1298,6 +1298,43 @@ Figure&nbsp;4: Parameter estimate densities from MCMC draws. Shading shows 5% to
 <section id="simulating-ratings" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Simulating Ratings</h1>
 <p>In addition to loading data, it’s possible to simulate ratings from specified parameters. There are three functions provided for that purpose, all with reasonable defaults to make it quick to generate a test set of ratings.</p>
+<p>For three-parameter ratings, use <code>generate_sample_ratings()</code>, where you can specify the number of subjects and raters and the t-a-p parameters. If you want to avoid sampling error, you can (almost) exactly reproduce the long-run distribution with <code>generate_exact_ratings()</code>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>ratings_1 <span class="ot">&lt;-</span> <span class="fu">generate_sample_ratings</span>(<span class="at">N_r =</span> <span class="dv">15</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Method =</span> <span class="st">"Sample"</span>) </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>ratings_2 <span class="ot">&lt;-</span> <span class="fu">generate_exact_ratings</span>(<span class="at">N_r =</span> <span class="dv">15</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Method =</span> <span class="st">"Exact"</span>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(ratings_1, ratings_2) <span class="sc">|&gt;</span> </span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> N_c, <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> Method) <span class="sc">+</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Number of Class 1 ratings"</span>) <span class="sc">+</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Number of subjects"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-tap-sims" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-tap-sims-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="package_files/figure-html/fig-tap-sims-1.png" class="img-fluid figure-img" width="480">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tap-sims-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Histograms of simulated data, comparing random samples to exact distributions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Notice in <a href="#fig-tap-sims" class="quarto-xref">Figure&nbsp;5</a> that there’s sampling error in the Sample plot, while the Exact plot is perfectly symmetrical.</p>
+<p>The third way to simulate ratings, <code>generate_ti_aj_pj_ratings()</code>, allows for individual parameters for each subject and rater. To specify these parameters, you can either provide a <code>rating_params</code> data frame, or give the parameters in a list. For the latter method, each rater will rate each subject.</p>
 
 
 
