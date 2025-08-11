@@ -267,7 +267,42 @@ window.Quarto = {
 </div>
 <section id="example-wine-ratings" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Example: Wine Ratings</h1>
-<p>The wine ratings came from private correspondence with the author of <span class="citation" data-cites="hodgson2008examination">Hodgson (<a href="#ref-hodgson2008examination" role="doc-biblioref">2008</a>)</span></p>
+<p>The wine ratings came from private correspondence with the author of <span class="citation" data-cites="hodgson2008examination">Hodgson (<a href="#ref-hodgson2008examination" role="doc-biblioref">2008</a>)</span>.</p>
+<p>The award system has the following encoding:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Rating Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>No medal</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Bronze medal</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Silver medal</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Gold medal</td>
+</tr>
+</tbody>
+</table>
+<p>There’s a helper function in <code>library(tapModel)</code> for ordinal scales, which you can see employed in the code below. The idea is to convert the ordinal scale into a sequence of binary scales by using cut points between the rating values. A cut point of 2|3, for example, separates the 1 and 2 ratings into Class 1 and the 3 and 4 ratings into Class 0.</p>
+<p>There are three natural cut-points:</p>
+<ul>
+<li><p>1|2 divides the 1 ratings from higher ones</p></li>
+<li><p>2|3 divides the {1,2} ratings from the {3,4} ratings</p></li>
+<li><p>3|4 divides the {1,2,3} ratings from the 4 ratings.</p></li>
+</ul>
+<p>Each cut point defines a binary classification system, which we can estimate the t-a-p parameters for. Note that Class 1 is always identified with the lower (left) category set.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>

@@ -46,7 +46,7 @@
   </url>
   <url>
     <loc>https://kappazoo.com/Example_wine.html</loc>
-    <lastmod>2025-08-10T14:24:47.029Z</lastmod>
+    <lastmod>2025-08-11T12:19:07.209Z</lastmod>
   </url>
   <url>
     <loc>https://kappazoo.com/hierarchical.html</loc>
@@ -67,5 +67,9 @@
   <url>
     <loc>https://kappazoo.com/tapmodel.html</loc>
     <lastmod>2025-08-08T11:02:45.333Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kappazoo.com/package.html</loc>
+    <lastmod>2025-08-11T13:40:33.013Z</lastmod>
   </url>
 </urlset>
