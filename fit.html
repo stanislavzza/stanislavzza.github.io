@@ -189,13 +189,14 @@ window.Quarto = {
    
   <ul>
   <li><a href="#sec-fit" id="toc-sec-fit" class="nav-link active" data-scroll-target="#sec-fit"><span class="header-section-number">1</span> Assessing Model Fit</a></li>
-  <li><a href="#model-calibration" id="toc-model-calibration" class="nav-link" data-scroll-target="#model-calibration"><span class="header-section-number">2</span> Model Calibration</a></li>
-  <li><a href="#estimating-parameter-error" id="toc-estimating-parameter-error" class="nav-link" data-scroll-target="#estimating-parameter-error"><span class="header-section-number">3</span> Estimating Parameter Error</a></li>
-  <li><a href="#model-exaggeration" id="toc-model-exaggeration" class="nav-link" data-scroll-target="#model-exaggeration"><span class="header-section-number">4</span> Model Exaggeration</a></li>
-  <li><a href="#adversarial-raters" id="toc-adversarial-raters" class="nav-link" data-scroll-target="#adversarial-raters"><span class="header-section-number">5</span> Adversarial Raters</a></li>
-  <li><a href="#independence" id="toc-independence" class="nav-link" data-scroll-target="#independence"><span class="header-section-number">6</span> Independence</a></li>
-  <li><a href="#the-dunning-kruger-threshold" id="toc-the-dunning-kruger-threshold" class="nav-link" data-scroll-target="#the-dunning-kruger-threshold"><span class="header-section-number">7</span> The Dunning-Kruger Threshold</a></li>
-  <li><a href="#a-validation-process-for-binary-ratings" id="toc-a-validation-process-for-binary-ratings" class="nav-link" data-scroll-target="#a-validation-process-for-binary-ratings"><span class="header-section-number">8</span> A Validation Process for Binary Ratings</a></li>
+  <li><a href="#sec-units" id="toc-sec-units" class="nav-link" data-scroll-target="#sec-units"><span class="header-section-number">2</span> Units of Likelihood</a></li>
+  <li><a href="#model-calibration" id="toc-model-calibration" class="nav-link" data-scroll-target="#model-calibration"><span class="header-section-number">3</span> Model Calibration</a></li>
+  <li><a href="#estimating-parameter-error" id="toc-estimating-parameter-error" class="nav-link" data-scroll-target="#estimating-parameter-error"><span class="header-section-number">4</span> Estimating Parameter Error</a></li>
+  <li><a href="#model-exaggeration" id="toc-model-exaggeration" class="nav-link" data-scroll-target="#model-exaggeration"><span class="header-section-number">5</span> Model Exaggeration</a></li>
+  <li><a href="#adversarial-raters" id="toc-adversarial-raters" class="nav-link" data-scroll-target="#adversarial-raters"><span class="header-section-number">6</span> Adversarial Raters</a></li>
+  <li><a href="#independence" id="toc-independence" class="nav-link" data-scroll-target="#independence"><span class="header-section-number">7</span> Independence</a></li>
+  <li><a href="#the-dunning-kruger-threshold" id="toc-the-dunning-kruger-threshold" class="nav-link" data-scroll-target="#the-dunning-kruger-threshold"><span class="header-section-number">8</span> The Dunning-Kruger Threshold</a></li>
+  <li><a href="#a-validation-process-for-binary-ratings" id="toc-a-validation-process-for-binary-ratings" class="nav-link" data-scroll-target="#a-validation-process-for-binary-ratings"><span class="header-section-number">9</span> A Validation Process for Binary Ratings</a></li>
   </ul>
 </nav>
 </nav>
@@ -238,38 +239,155 @@ window.Quarto = {
 <p>Likelihood alone is not enough to give us confidence in a model. It’s necessary to lay eyes on the results, usually through a calibration plot, which is the subject of the first section below. The underlying question is whether or not the assumption of a latent truth variable can be supported by the evidence.</p>
 <p>The sections below address some topics related to model fit. To see these in use, refer to the examples that show these tools applied to real data sets.</p>
 </section>
-<section id="model-calibration" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Model Calibration</h1>
+<section id="sec-units" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Units of Likelihood</h1>
+<p>The likelihood of a ratings set under the assumption of given parameters was derived in <a href="./hierarchical.html">Chapter 5</a>. In practice, we use the log (base 1/2) of the likelihood as a measure of model fit. This produces a number of bits, which are averaged over all ratings to get a comparable figure of the rating entropy. This is the figure reported out in the <code>tapModel</code> functions like <code>tapModel::subject_calibration()</code>. At the moment, the <code>tapModel::fit_counts()</code> estimation function uses binomial mixtures directly on the counts of Class 1 ratings, so its log likelihood cannot be interpreted in the same way the hierarchical log likelihood can. To directly compute the log likelihood for a hierarchical model, use <code>tapModel::bits_per_rating(rating_params)</code>.</p>
+<p>A simple form of the likelihood function is when the truth values are known. In practice, the probabilities <span class="math inline">\(t_i\)</span> often closely approximate this situation. In that case we have</p>
+<p><span id="eq-likelihood3"><span class="math display">\[
+Pr(\text{data ; parameters}) = \prod_{T_i = 1}\pi_{1k_j}^{(j)} \prod_{T_i = 0}  \pi_{0k_j}^{(j)} ,
+\tag{1}\]</span></span></p>
+<p>where the products are over all ratings assigned to subjects that are Class 1 or Class 0 (respectively) in truth. With many data sets, as an estimation algorithm converges toward values of <span class="math inline">\(t_i\)</span> that are close to 0 or 1, the likelihood converges to this form. Using approximations of <span class="math inline">\(a_j \approx a\)</span>, <span class="math inline">\(p_j \approx p\)</span>, we can see that</p>
+<p><span id="eq-log-likelihood3"><span class="math display">\[
+\begin{aligned}
+\ell(\text{data ; parameters}) &amp;= \sum_{T_i = 1} \log \pi_{1k_j}^{(j)} +  \sum_{T_i = 0}  \log \pi_{0k_j}^{(j)} \\
+&amp; \approx \sum_{k\epsilon {0,1}} ( t \pi_{1k}\log \pi_{1k} +  \bar{t}\pi_{0k}\log \pi_{0k}  ) \\
+&amp;= t\bar{a}\bar{p}\log \bar{a}\bar{p} + t(a +\bar{a}p)\log (a +\bar{a}p)\\  
+&amp;+ \bar{t}(a+\bar{a}\bar{p})\log (a+\bar{a}\bar{p})+ \bar{t}(\bar{a}p)\log (\bar{a}p)
+.
+\end{aligned}
+\tag{2}\]</span></span></p>
+<p>From <a href="#eq-log-likelihood3" class="quarto-xref">Equation&nbsp;2</a>, we can derive the cases when <span class="math inline">\(a=1\)</span> and <span class="math inline">\(a=0\)</span> that were discussed earlier.</p>
+<p>Each rating of Class 1 by rater <span class="math inline">\(j\)</span> contributes log likelihood in the form <span class="math inline">\(\log \pi_{1k_j}^{(j)}\)</span>. Recall that <span class="math inline">\(k_j\)</span> is the assigned class (0 or 1) by that rater for that subject. It’s reasonable to average over these to create an measure of fit that’s comparable across hierarchical models. It gets more complicated with Bayesian models because of prior distributions on the parameters, but put that aside for now.</p>
+<p>In the usual treatment, the log base is 2 or <span class="math inline">\(e\)</span>, in which case the log of any probability is between negative infinity (for very small probabilities) and zero (for probability of one). The reason for log base 2 is that we can think of <span class="math inline">\(-\log_2 p = \log_2 1/p\)</span> as <em>bits of information</em>, thanks to <a href="https://en.wikipedia.org/wiki/Entropy_(information_theory)">Shannon’s entropy formula</a>. I’ll take this a step further and use log base 1/2, so we don’t need the pesky negatives, which are only there because of the mathematicians’ habit of only using log bases greater than one.</p>
+<p>Information in log-base-one-half equates a probability to fair coin flips. A probability of 1/8 is <span class="math inline">\(\log 1/8 = 3\)</span> bits of information (since <span class="math inline">\(2^3 = 8\)</span>), corresponding to eight possible outcomes starting with three heads (HHH) and proceeding through seven more variations like HTH to TTT. The information is that novelty is introduced into the world when we create the three classifications (heads or tails) based on random events. Non-random events don’t produce information. So if a coin has two heads, we’d always get HHH, so the probability of that single outcome is 1, and <span class="math inline">\(\log 1 = 0\)</span> bits.</p>
+<p>From the point of view of ratings, perfect accuracy doesn’t “give us information,” which sounds weird, so it’s more natural to substitute “entropy” (randomness) for “information.”</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I will use the convention that <span class="math inline">\(\log x\)</span> means <span class="math inline">\(\log_{\frac{1}{2} } x\)</span>, without specifying the base each time. This reads oddly for those used to the usual log bases, since the log of any probability with base greater than one is negative. Hence there are a lot of expressions that start with negative signs in the usual likelihood formulations. The advantage of log base 1/2 is that we don’t need the negative signs to get a result in bits. Another important difference is that when we maximize likelihood, we <em>minimize</em> the number of informational bits per rating (again, because of the lack of a minus sign).</p>
+</div>
+</div>
+<p>To get a sense of how this works, suppose all the raters have <span class="math inline">\(a_j = 1\)</span>, so all the ratings are accurate. Then the probability <span class="math inline">\(\pi\)</span> of the assignment of any given rating is 1, since the rater is certain to get the right answer. In that case, <span class="math inline">\(\log \pi = 0\)</span>, so the log likelihood is zero bits per rating. On the other hand, if <span class="math inline">\(a_j = 0\)</span> for all raters, then all the ratings are random assignment. Assume that <span class="math inline">\(p_j = p\)</span> is the constant random assignment rate, so that <span class="math inline">\(\pi_{00} = \pi_{10} = \bar{p}\)</span> and <span class="math inline">\(\pi_{01} = \pi_{11} = p\)</span>. In that case, the average log likelihood per rating is</p>
+<p><span id="eq-p-entropy"><span class="math display">\[
+\frac{\ell(\text{data ; parameters})}{N}  = p \log p+ \bar{p} \log \bar{p} ,
+\tag{3}\]</span></span></p>
+<p>where there are <span class="math inline">\(N\)</span> ratings. If <span class="math inline">\(p = 1/2\)</span> this is the entropy of flipping a coin, which is 1 bit per rating.</p>
+<p>Using this convention, likelihood is maximized when accuracy is 100%, and the log likelihood is zero bits per rating. The worst case for any t-a-p model ratings set is when accuracy is 0%, and (with constant <span class="math inline">\(p\)</span>) we get average bits per rating that depends on the value of <span class="math inline">\(t\)</span> and <span class="math inline">\(p\)</span>. Because of convexity, this value attains a maximum when <span class="math inline">\(t = p = .5\)</span>, so the maximum number of bits per rating is <span class="math inline">\(s = \log .5 = 1\)</span>, the entropy from a coin flip. This line of thought shows us that maximizing likelihood is minimizing model <em>randomness</em>, which we’ll call <em>entropy</em>. Minimizing entropy is minimizing randomness left over in the ratings model, rather like a least squares regression minimizes residuals (the part we can’t explain with the model).</p>
+<p>The log likelihood in bits per rating can be estimated using <code>tapModel::bits_per_rating(rater_params)</code> as shown below.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>xlogx <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">if_else</span>(x <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">0</span>, <span class="sc">-</span>x<span class="sc">*</span><span class="fu">log</span>(x)<span class="sc">/</span><span class="fu">log</span>(<span class="dv">2</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">t =</span> <span class="fu">c</span>(.<span class="dv">1</span>, .<span class="dv">5</span>), <span class="at">a =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,.<span class="dv">05</span>), <span class="at">p =</span> <span class="fu">c</span>(.<span class="dv">1</span>, .<span class="dv">5</span>), <span class="at">LL =</span> <span class="cn">NA</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(output)){</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  params <span class="ot">=</span> <span class="fu">list</span>(<span class="at">t =</span> output<span class="sc">$</span>t[i], <span class="at">a =</span> output<span class="sc">$</span>a[i], <span class="at">p =</span>output<span class="sc">$</span>p[i])</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulate data</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  ratings <span class="ot">&lt;-</span> <span class="fu">generate_sample_ratings</span>(<span class="at">N_s =</span> <span class="dv">1000</span>, <span class="at">params =</span> params, <span class="at">details =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># use the average t-a-p params used to generate the data as heirarchical </span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># values for raters, and estimate from that the t_i values for each </span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># subject.</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  rating_params <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as_rating_params</span>(params) <span class="sc">|&gt;</span> </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">estimate_ti</span>()</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># store results</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>LL[i] <span class="ot">&lt;-</span> <span class="fu">bits_per_rating</span>(rating_params)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>LL_approx[i] <span class="ot">&lt;-</span> <span class="fu">expected_bits_per_rating</span>(params)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>output <span class="sc">%&gt;%</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(type, value, LL, LL_approx) <span class="sc">%&gt;%</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">tp =</span> <span class="fu">str_c</span>(<span class="st">"t="</span>, t, <span class="st">" p="</span>, p),</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="fu">recode</span>(type, </span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>                  <span class="at">LL =</span> <span class="st">"Empirical"</span>,</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>                  <span class="at">LL_approx =</span> <span class="st">"Expected"</span>),   <span class="co"># nice legend labels</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="fu">factor</span>(type, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Empirical"</span>, <span class="st">"Expected"</span>))</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> a, <span class="at">y =</span> value, <span class="at">color =</span> tp, <span class="at">group =</span> <span class="fu">interaction</span>(tp, type),</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> type)) <span class="sc">+</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Bits per rating"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-rater-entropy" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rater-entropy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="fit_files/figure-html/fig-rater-entropy-1.png" class="img-fluid figure-img" width="480">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rater-entropy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Log likelihood in bits per rating for a variety of parameters, with 1000 samples. The dotted lines are the expected values and the solid lines are the empirical ones, which have sampling noise.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The overplotted purple and green lines in <a href="#fig-rater-entropy" class="quarto-xref">Figure&nbsp;1</a> illustrate that the entropy (bits per rating) doesn’t depend on <span class="math inline">\(t\)</span> if <span class="math inline">\(p = 1/2\)</span>. We also see that as <span class="math inline">\(a\)</span> approaches one, the entropy approaches zero. However, the case <span class="math inline">\(t = .5\)</span> and <span class="math inline">\(p=.1\)</span> shows that decreasing entropy (i.e.&nbsp;maximizing likelihood) is not always the same thing as maximizing accuracy <span class="math inline">\(a\)</span>. In that case, as ratings become inaccurate, 90% of them tend toward Class 0, which reduces entropy to an expected value of <span class="math inline">\((.1)\log(.1) + (.9)\log(.9)=\)</span> 0.47 bits per rating, per <a href="#eq-p-entropy" class="quarto-xref">Equation&nbsp;3</a>. Note that neither the formulas nor plots for entropy at <span class="math inline">\(a=0\)</span> depend on <span class="math inline">\(t\)</span>; the true class only matters if accuracy is positive.</p>
+<p>I found it surprising how large entropy is when all the parameters are .5 (<span class="math inline">\(s = .81\)</span> bits per rating). If we disaggregate the contributions for each of the four cases, the conditions where the rating matches the true value (from <span class="math inline">\(\pi_{00}\)</span> and <span class="math inline">\(\pi_{11}\)</span>) contribute .5 to the entropy. This is because half of the correct answers are due to coin flips (Gettier-like conditions). The wrong answers (from <span class="math inline">\(\pi_{10}\)</span> and <span class="math inline">\(\pi_{01}\)</span>) contribute another .31 bits per rating of entropy. It’s probably better, however, to think of the entropy as a mixture of two sources, corresponding to Class 0 and Class 1, with <span class="math inline">\(t\)</span> as the mixing parameter. This idea leads to the need to incorporate the class-specific parameters, e.g.&nbsp;<span class="math inline">\(a_0, a_1\)</span> into both the E-M solver and the log likelihood calculations. I have not done that yet, however. See the <a href="./Example_wine.html">wine judging example</a> for more development of the idea.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If we use average parameters as produced by <code>fit_counts()</code> to estimate empirical bits per rating, first apply the E-step of the E-M algorithm, which estimates the individual <span class="math inline">\(t_i\)</span> probabilities. This can be done with <code>ratings |&gt; as_rating_params(params) |&gt;  estimate_ti() |&gt; bits_per_rating()</code>, and you can see an example of this in the code block that generates <a href="#fig-rater-entropy" class="quarto-xref">Figure&nbsp;1</a>. If you’re satisfied with the expected entropy, the function <code>expected_bits_per_rating(params)</code> will do it with less fuss. Usually this is good enough.</p>
+</div>
+</div>
+<p>What if we want to compare the entropy (hence likelihood) of ratings from the same source, but that have different estimated values of <span class="math inline">\(t\)</span>? Since the proportion of true Class 1 cases could vary by sample, it would be convenient to factor that out when comparing the other parameters. We could do this by artificially setting <span class="math inline">\(t=.5\)</span> in the parameters and leaving <span class="math inline">\(a\)</span> and <span class="math inline">\(p\)</span> alone. There’s a convenience function for this called <code>rater_entropy(params)</code> but I’d consider this experimental. Another approach might be to sub-sample ratings to balance the Class 1 cases, but this is awkward and subject to all kinds of problems.</p>
+</section>
+<section id="model-calibration" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Model Calibration</h1>
 <p>Calibration means that a model can reproduce the basic distributional properties of the data. The most basic comparison we can make between a ratings set and its model is to look at the distribution of Class 1 ratings by subject. The <code>tapModel</code> package has a function to do this, <code>subject_calibration()</code>, which takes a data set and a set of model parameters and produces a comparative plot of the distribution of Class 1 ratings for the original data set and the simulated data sets from the model. This is a good first step to see if the model is reasonable.</p>
 <p>The set up here is that we have 300 subjects and 25 raters each, with randomly-generated rater parameters that average 1/2, with <span class="math inline">\(t = .1\)</span> fixed.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>n_subjects <span class="ot">&lt;-</span> <span class="dv">300</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>n_raters   <span class="ot">&lt;-</span> <span class="dv">25</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">generate_ti_aj_pj_ratings</span>( <span class="at">rating_params =</span> <span class="cn">NULL</span>, </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">param_list =</span> <span class="fu">list</span>(</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">t =</span> <span class="fu">rep</span>(.<span class="dv">1</span>,n_subjects), <span class="co">#runif(n_subjects)/2 + .25,</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">a =</span> <span class="fu">runif</span>(n_raters)<span class="sc">/</span><span class="dv">2</span> <span class="sc">+</span> .<span class="dv">25</span>, </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">p =</span> <span class="fu">runif</span>(n_raters)<span class="sc">/</span><span class="dv">2</span> <span class="sc">+</span> .<span class="dv">25</span>)) </span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># average tap model</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>params <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>          <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>          <span class="fu">fit_counts</span>()</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>avg_params <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>              <span class="fu">as_rating_params</span>(params)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">subject_calibration</span>(avg_params, <span class="at">n_sim =</span> <span class="dv">50</span>)</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># direct-method hierarchical model</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>rating_params <span class="ot">&lt;-</span> <span class="fu">fit_ratings</span>(ratings)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">subject_calibration</span>(rating_params, <span class="at">n_sim =</span> <span class="dv">50</span>)</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(p1, p2, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'A'</span>, <span class="st">'B'</span>), <span class="at">label_size =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>n_subjects <span class="ot">&lt;-</span> <span class="dv">300</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>n_raters   <span class="ot">&lt;-</span> <span class="dv">25</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">generate_ti_aj_pj_ratings</span>( <span class="at">rating_params =</span> <span class="cn">NULL</span>, </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">param_list =</span> <span class="fu">list</span>(</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">t =</span> <span class="fu">rep</span>(.<span class="dv">1</span>,n_subjects), <span class="co">#runif(n_subjects)/2 + .25,</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">a =</span> <span class="fu">runif</span>(n_raters)<span class="sc">/</span><span class="dv">2</span> <span class="sc">+</span> .<span class="dv">25</span>, </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">p =</span> <span class="fu">runif</span>(n_raters)<span class="sc">/</span><span class="dv">2</span> <span class="sc">+</span> .<span class="dv">25</span>)) </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># average tap model</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>params <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>          <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>          <span class="fu">fit_counts</span>()</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>avg_params <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>              <span class="fu">as_rating_params</span>(params)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">subject_calibration</span>(avg_params, <span class="at">n_sim =</span> <span class="dv">50</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># direct-method hierarchical model</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>rating_params <span class="ot">&lt;-</span> <span class="fu">fit_ratings</span>(ratings)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">subject_calibration</span>(rating_params, <span class="at">n_sim =</span> <span class="dv">50</span>)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(p1, p2, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'A'</span>, <span class="st">'B'</span>), <span class="at">label_size =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-subject-calibration" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -278,22 +396,22 @@ window.Quarto = {
 <img src="fit_files/figure-html/fig-subject-calibration-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-subject-calibration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Distribution of Class 1 ratings over subjects, showing the density of Class 1 ratings for the original data set containing noise (blue) and the model with true parameters (orange). Plot A is the average t-a-p model and plot B is the hierarchical version.
+Figure&nbsp;2: Distribution of Class 1 ratings over subjects, showing the density of Class 1 ratings for the original data set containing noise (blue) and the model with true parameters (orange). Plot A is the average t-a-p model and plot B is the hierarchical version.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>The plots in <a href="#fig-subject-calibration" class="quarto-xref">Figure&nbsp;1</a> show that both the average (A) and hierarchical models (B) do a good job of reproducing the distribution of Class 1 ratings across cases. There are two evident modes (bumps where the density piles up). The left one is larger, because <span class="math inline">\(t= .1\)</span> means that there are few Class 1 cases to be detected, so there are more false positives than true positives. The mode on the right is the true positives. The dashed vertical lines denote where the model parameters say these modes should be on average.</p>
+<p>The plots in <a href="#fig-subject-calibration" class="quarto-xref">Figure&nbsp;2</a> show that both the average (A) and hierarchical models (B) do a good job of reproducing the distribution of Class 1 ratings across cases. There are two evident modes (bumps where the density piles up). The left one is larger, because <span class="math inline">\(t= .1\)</span> means that there are few Class 1 cases to be detected, so there are more false positives than true positives. The mode on the right is the true positives. The dashed vertical lines denote where the model parameters say these modes should be on average.</p>
 <p>Notice that although the error measures MAE (mean absolute error) and RMSE (root mean squared error) are the same for both models, the log likelihood is smaller (better) for the hierarchical model. This is what we’d expect, since adding parameters to a model will generally improve it.</p>
 <p>In addition to comparing the distributions of Class 1 ratings over subjects, we can use raters as the basis for comparisons, to assess whether the modeled rate of Class 1 ratings per rater matches the empirical assignments.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">rater_calibration</span>(avg_params)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">rater_calibration</span>(rating_params)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(p1, p2, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'A'</span>, <span class="st">'B'</span>), <span class="at">label_size =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">rater_calibration</span>(avg_params)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">rater_calibration</span>(rating_params)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(p1, p2, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'A'</span>, <span class="st">'B'</span>), <span class="at">label_size =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-rater-calibration" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -302,21 +420,21 @@ Figure&nbsp;1: Distribution of Class 1 ratings over subjects, showing the densit
 <img src="fit_files/figure-html/fig-rater-calibration-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rater-calibration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Distribution of Class 1 ratings for a simulated data set, showing the cumulative distribution of Class 1 ratings for the noisy data (blue) and the model with estimated average t-a-p parameters (orange).
+Figure&nbsp;3: Distribution of Class 1 ratings for a simulated data set, showing the cumulative distribution of Class 1 ratings for the noisy data (blue) and the model with estimated average t-a-p parameters (orange).
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>The rater calibration plot in <a href="#fig-rater-calibration" class="quarto-xref">Figure&nbsp;2</a> shows the main difference in the models. The average model (A) doesn’t distinguish between raters, so the predicted rate of Class 1 assignments is the same for each. For the hierarchical (B) plot, the rates are perfect.</p>
+<p>The rater calibration plot in <a href="#fig-rater-calibration" class="quarto-xref">Figure&nbsp;3</a> shows the main difference in the models. The average model (A) doesn’t distinguish between raters, so the predicted rate of Class 1 assignments is the same for each. For the hierarchical (B) plot, the rates are perfect.</p>
 <p>A t-a-p model produces a predicted Class 1 probability for each rating, which we can compare to the empirical distribution of ratings. To do this, we calculate <span class="math inline">\(Pr(\text{Class 1 rating}; t_i, a_j, p_j) = c_{ij}\)</span> for each rating, put these into bins and calculate the average number of actual Class 1 ratings for each bin.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">rating_calibration</span>(avg_params)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">rating_calibration</span>(rating_params)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(p1, p2, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'A'</span>, <span class="st">'B'</span>), <span class="at">label_size =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">rating_calibration</span>(avg_params)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">rating_calibration</span>(rating_params)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(p1, p2, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'A'</span>, <span class="st">'B'</span>), <span class="at">label_size =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-rating-calibration" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -325,23 +443,23 @@ Figure&nbsp;2: Distribution of Class 1 ratings for a simulated data set, showing
 <img src="fit_files/figure-html/fig-rating-calibration-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rating-calibration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Distribution of Class 1 ratings for a simulated data set, showing the cumulative distribution of Class 1 ratings for the noisy data (blue) and the model with estimated average t-a-p parameters (orange).
+Figure&nbsp;4: Distribution of Class 1 ratings for a simulated data set, showing the cumulative distribution of Class 1 ratings for the noisy data (blue) and the model with estimated average t-a-p parameters (orange).
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>We can again see the hierarchical fitting in <a href="#fig-rating-calibration" class="quarto-xref">Figure&nbsp;3</a>, with (A) showing constant modeled values of <span class="math inline">\(c_{ij}\)</span>, since all the parameters are the same for each rating, versus the individually fitted parameters that result in (B).</p>
+<p>We can again see the hierarchical fitting in <a href="#fig-rating-calibration" class="quarto-xref">Figure&nbsp;4</a>, with (A) showing constant modeled values of <span class="math inline">\(c_{ij}\)</span>, since all the parameters are the same for each rating, versus the individually fitted parameters that result in (B).</p>
 <p>We might conclude from the calibration plots that both models give useful information, but if we are seeking information about the individual raters or subjects, the hierarchical model is perfectly usable for that purpose.</p>
 </section>
-<section id="estimating-parameter-error" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Estimating Parameter Error</h1>
+<section id="estimating-parameter-error" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Estimating Parameter Error</h1>
 <p>The <code>tapModel</code> library includes a function to assess the estimation error of parameters. It does this by using the parameters to simulate ratings sets, solving those and comparing the results. The resulting variation in parameters will include sampling error, so the margins will be wider for smaller data sets. The code below illustrates.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">estimate_rater_parameter_error</span>(rating_params, <span class="at">n_sim =</span> <span class="dv">10</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>plot_a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">estimate_rater_parameter_error</span>(rating_params, <span class="at">n_sim =</span> <span class="dv">10</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>plot_a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-a-error" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -350,36 +468,36 @@ Figure&nbsp;3: Distribution of Class 1 ratings for a simulated data set, showing
 <img src="fit_files/figure-html/fig-a-error-1.png" class="img-fluid figure-img" width="384">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-a-error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: Approximate estimation error for the a_j parameters. The red markers are the original parameter estimates, and the boxplots show the range of parameters generated from simulated data sets.
+Figure&nbsp;5: Approximate estimation error for the a_j parameters. The red markers are the original parameter estimates, and the boxplots show the range of parameters generated from simulated data sets.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>A similar plot to <a href="#fig-a-error" class="quarto-xref">Figure&nbsp;4</a> is also provided for the <span class="math inline">\(p_j\)</span> parameters. Other functions for assessing model fit can be found in Chapter 6.</p>
+<p>A similar plot to <a href="#fig-a-error" class="quarto-xref">Figure&nbsp;5</a> is also provided for the <span class="math inline">\(p_j\)</span> parameters. Other functions for assessing model fit can be found in Chapter 6.</p>
 <p>We can also use MCMC methods to generate densities of likely parameter values.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> <span class="fu">generate_sample_ratings</span>(<span class="at">params =</span> <span class="fu">list</span>(<span class="at">t =</span> .<span class="dv">3</span>, <span class="at">a =</span> .<span class="dv">5</span>, <span class="at">p =</span> .<span class="dv">5</span>))</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># fit individual parameters  </span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>mcmc_results <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_ratings_mcmc</span>(<span class="at">quiet =</span> <span class="cn">TRUE</span>)  </span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>mcmc_draws <span class="ot">&lt;-</span> mcmc_results<span class="sc">$</span>fitted_model<span class="sc">$</span><span class="fu">draws</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_param_draws_mcmc</span>()</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>mcmc_draws <span class="sc">|&gt;</span> </span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">a[1]</span><span class="st">`</span>,<span class="st">`</span><span class="at">a[2]</span><span class="st">`</span>,<span class="st">`</span><span class="at">a[3]</span><span class="st">`</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">row =</span> <span class="fu">row_number</span>()) <span class="sc">|&gt;</span> </span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(param, value, <span class="sc">-</span>row) <span class="sc">|&gt;</span> </span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">alpha =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>,<span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> param) <span class="sc">+</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> <span class="fu">generate_sample_ratings</span>(<span class="at">params =</span> <span class="fu">list</span>(<span class="at">t =</span> .<span class="dv">3</span>, <span class="at">a =</span> .<span class="dv">5</span>, <span class="at">p =</span> .<span class="dv">5</span>))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># fit individual parameters  </span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>mcmc_results <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_ratings_mcmc</span>(<span class="at">quiet =</span> <span class="cn">TRUE</span>)  </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>mcmc_draws <span class="ot">&lt;-</span> mcmc_results<span class="sc">$</span>fitted_model<span class="sc">$</span><span class="fu">draws</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_param_draws_mcmc</span>()</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>mcmc_draws <span class="sc">|&gt;</span> </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">a[1]</span><span class="st">`</span>,<span class="st">`</span><span class="at">a[2]</span><span class="st">`</span>,<span class="st">`</span><span class="at">a[3]</span><span class="st">`</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">row =</span> <span class="fu">row_number</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(param, value, <span class="sc">-</span>row) <span class="sc">|&gt;</span> </span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">alpha =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>,<span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> param) <span class="sc">+</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-a-error-mcmc" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -388,16 +506,16 @@ Figure&nbsp;4: Approximate estimation error for the a_j parameters. The red mark
 <img src="fit_files/figure-html/fig-a-error-mcmc-1.png" class="img-fluid figure-img" width="384">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-a-error-mcmc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5: MCMC draw densities for the first three accuracy parameters.
+Figure&nbsp;6: MCMC draw densities for the first three accuracy parameters.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>The densities from the MCMC draws, like those in <a href="#fig-a-error-mcmc" class="quarto-xref">Figure&nbsp;5</a> can be used to create credible intervals for inferance and to look for multi-modality. See Chapter 4’s disussion of the Kappa Paradox for a good example of the latter. The fitted model that’s returned from the fitting function can also be used with the interactive Shiny app <a href="https://github.com/stan-dev/shinystan">shinystan</a> and other tools, such as the <a href="https://stan-playground.flatironinstitute.org/">stan playground</a> from the Flatiron Institute.</p>
+<p>The densities from the MCMC draws, like those in <a href="#fig-a-error-mcmc" class="quarto-xref">Figure&nbsp;6</a> can be used to create credible intervals for inferance and to look for multi-modality. See Chapter 4’s disussion of the Kappa Paradox for a good example of the latter. The fitted model that’s returned from the fitting function can also be used with the interactive Shiny app <a href="https://github.com/stan-dev/shinystan">shinystan</a> and other tools, such as the <a href="https://stan-playground.flatironinstitute.org/">stan playground</a> from the Flatiron Institute.</p>
 </section>
-<section id="model-exaggeration" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Model Exaggeration</h1>
+<section id="model-exaggeration" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Model Exaggeration</h1>
 <p>There is a particular issue worth mentioning with smaller data sets, particularly those with few raters per subject. There are cases where we can increase the likelihood of the model while degrading its performance. Recall the likelihood function for the hierarchical t-a-p model, which assigns parameters to each subject and rater. For a single subject, its form is</p>
 <p><span class="math display">\[
 Pr[\text{data|params}] = t_i\pi_1+\bar{t}_i \pi_0,
@@ -407,30 +525,30 @@ Pr[\text{data|params}] = t_i\pi_1+\bar{t}_i \pi_0,
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Illustrate a t-a-p binomial mixture distribution of Class 1 Counts</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> .<span class="dv">4</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> .<span class="dv">4</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>pr_c0 <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">-</span>a)<span class="sc">*</span>p </span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>pr_c1 <span class="ot">&lt;-</span> a <span class="sc">+</span> pr_c0</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>distr <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">N_c =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>           <span class="fu">rowwise</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>           <span class="fu">mutate</span>(<span class="at">C0 =</span> <span class="fu">dbinom</span>(N_c, <span class="dv">10</span>, pr_c0),</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">C1 =</span> <span class="fu">dbinom</span>(N_c, <span class="dv">10</span>, pr_c1),</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>                  <span class="co"># apply the cut point </span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>                  <span class="at">C0_cut =</span> <span class="fu">if_else</span>(C0 <span class="sc">&gt;</span> C1, C0 <span class="sc">+</span> C1, <span class="cn">NA</span>),</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>                  <span class="at">C1_cut =</span> <span class="fu">if_else</span>(C1 <span class="sc">&gt;</span> C0, C0 <span class="sc">+</span> C1, <span class="cn">NA</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>           <span class="fu">gather</span>(Class, Probability, <span class="sc">-</span>N_c) <span class="sc">|&gt;</span> </span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>           <span class="fu">separate</span>(Class, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"Class"</span>,<span class="st">"Type"</span>), <span class="at">sep =</span> <span class="st">"_"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>           <span class="fu">replace_na</span>(<span class="fu">list</span>(<span class="at">Type =</span> <span class="st">"original"</span>))</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>distr <span class="sc">|&gt;</span> </span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> N_c, <span class="at">y =</span> Probability, <span class="at">color =</span> Class, <span class="at">linetype =</span> Type)) <span class="sc">+</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">+</span></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Number of Class 1 Ratings out of 10"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Illustrate a t-a-p binomial mixture distribution of Class 1 Counts</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> .<span class="dv">4</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> .<span class="dv">4</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>pr_c0 <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">-</span>a)<span class="sc">*</span>p </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>pr_c1 <span class="ot">&lt;-</span> a <span class="sc">+</span> pr_c0</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>distr <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">N_c =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>           <span class="fu">rowwise</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>           <span class="fu">mutate</span>(<span class="at">C0 =</span> <span class="fu">dbinom</span>(N_c, <span class="dv">10</span>, pr_c0),</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">C1 =</span> <span class="fu">dbinom</span>(N_c, <span class="dv">10</span>, pr_c1),</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                  <span class="co"># apply the cut point </span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>                  <span class="at">C0_cut =</span> <span class="fu">if_else</span>(C0 <span class="sc">&gt;</span> C1, C0 <span class="sc">+</span> C1, <span class="cn">NA</span>),</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>                  <span class="at">C1_cut =</span> <span class="fu">if_else</span>(C1 <span class="sc">&gt;</span> C0, C0 <span class="sc">+</span> C1, <span class="cn">NA</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>           <span class="fu">gather</span>(Class, Probability, <span class="sc">-</span>N_c) <span class="sc">|&gt;</span> </span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>           <span class="fu">separate</span>(Class, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"Class"</span>,<span class="st">"Type"</span>), <span class="at">sep =</span> <span class="st">"_"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>           <span class="fu">replace_na</span>(<span class="fu">list</span>(<span class="at">Type =</span> <span class="st">"original"</span>))</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>distr <span class="sc">|&gt;</span> </span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> N_c, <span class="at">y =</span> Probability, <span class="at">color =</span> Class, <span class="at">linetype =</span> Type)) <span class="sc">+</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Number of Class 1 Ratings out of 10"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-sample-distro-cut" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -439,55 +557,55 @@ Pr[\text{data|params}] = t_i\pi_1+\bar{t}_i \pi_0,
 <img src="fit_files/figure-html/fig-sample-distro-cut-1.png" class="img-fluid figure-img" width="384">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sample-distro-cut-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6: Sample distribution of Class 1 ratings counts, with <span class="math inline">\(a = .4\)</span> and <span class="math inline">\(p=.4\)</span> after a cut point is applied at 4.
+Figure&nbsp;7: Sample distribution of Class 1 ratings counts, with <span class="math inline">\(a = .4\)</span> and <span class="math inline">\(p=.4\)</span> after a cut point is applied at 4.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>The distributions in <a href="#fig-sample-distro-cut" class="quarto-xref">Figure&nbsp;6</a> show the distorting effect of applying a cut point at four ratings of Class 1 with <span class="math inline">\(a = p = .4\)</span>. The original distributions are shown in the dashed lines, and the cut point distributions are shown in the solid lines. The cut point process biases the likelihood function due to the truncation where the two binomial distributions overlap.</p>
+<p>The distributions in <a href="#fig-sample-distro-cut" class="quarto-xref">Figure&nbsp;7</a> show the distorting effect of applying a cut point at four ratings of Class 1 with <span class="math inline">\(a = p = .4\)</span>. The original distributions are shown in the dashed lines, and the cut point distributions are shown in the solid lines. The cut point process biases the likelihood function due to the truncation where the two binomial distributions overlap.</p>
 <p>Model exaggeration won’t usually be a problem when there are many raters, because the <span class="math inline">\(t_i\)</span> values will be close to zero or one with high confidence anyway.</p>
 </section>
-<section id="adversarial-raters" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Adversarial Raters</h1>
+<section id="adversarial-raters" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Adversarial Raters</h1>
 <p>Not every data set will fit the t-a-p assumptions. In that case, we’d expect to see divergence between observed and modeled data even after fitting the data with average or hierachical parameters. One such case is when we have non-independent ratings. Another case is if some raters are adversarial, meaning that they report exactly inaccurately, inverting the rating for what would normally be accurate ratings.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>n_subjects <span class="ot">&lt;-</span> <span class="dv">300</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>n_raters   <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> n_raters<span class="sc">*</span>n_subjects</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">generate_sample_ratings</span>(<span class="at">N_s =</span> <span class="dv">100</span>, <span class="at">N_r =</span> <span class="dv">10</span>, </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">params =</span> <span class="fu">list</span>(<span class="at">t =</span> .<span class="dv">5</span>, <span class="at">a =</span> .<span class="dv">7</span>, <span class="at">p =</span> .<span class="dv">5</span>),</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">details =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>bad_ratings <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># flip accurate ratings for the first ten raters</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rating =</span> <span class="fu">if_else</span>(rater_id <span class="sc">&lt;=</span> <span class="dv">3</span> <span class="sc">&amp;</span> A_ij <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span> <span class="sc">-</span> rating, rating)) </span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># get counts and find the average params</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>avg_params <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>              <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>              <span class="fu">fit_counts</span>()</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>bad_params <span class="ot">&lt;-</span> bad_ratings <span class="sc">|&gt;</span> </span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_counts</span>()</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the computed average model</span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>            <span class="fu">as_rating_params</span>(avg_params) <span class="sc">|&gt;</span> </span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>            <span class="fu">subject_calibration</span>()</span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_rating_params</span>(bad_params) <span class="sc">|&gt;</span> </span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subject_calibration</span>()</span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(p1, p2, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"A"</span>,<span class="st">"B"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>n_subjects <span class="ot">&lt;-</span> <span class="dv">300</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>n_raters   <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> n_raters<span class="sc">*</span>n_subjects</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">generate_sample_ratings</span>(<span class="at">N_s =</span> <span class="dv">100</span>, <span class="at">N_r =</span> <span class="dv">10</span>, </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">params =</span> <span class="fu">list</span>(<span class="at">t =</span> .<span class="dv">5</span>, <span class="at">a =</span> .<span class="dv">7</span>, <span class="at">p =</span> .<span class="dv">5</span>),</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">details =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>bad_ratings <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># flip accurate ratings for the first ten raters</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rating =</span> <span class="fu">if_else</span>(rater_id <span class="sc">&lt;=</span> <span class="dv">3</span> <span class="sc">&amp;</span> A_ij <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span> <span class="sc">-</span> rating, rating)) </span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co"># get counts and find the average params</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>avg_params <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>              <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>              <span class="fu">fit_counts</span>()</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>bad_params <span class="ot">&lt;-</span> bad_ratings <span class="sc">|&gt;</span> </span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_counts</span>()</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the computed average model</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>            <span class="fu">as_rating_params</span>(avg_params) <span class="sc">|&gt;</span> </span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>            <span class="fu">subject_calibration</span>()</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_rating_params</span>(bad_params) <span class="sc">|&gt;</span> </span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subject_calibration</span>()</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(p1, p2, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"A"</span>,<span class="st">"B"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-adversary-avg" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -496,22 +614,22 @@ Figure&nbsp;6: Sample distribution of Class 1 ratings counts, with <span class="
 <img src="fit_files/figure-html/fig-adversary-avg-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-adversary-avg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7: Distribution of Class 1 ratings for a simulated data set, showing the subject calibration for the original data set (A) and one with three adversarial raters (B).
+Figure&nbsp;8: Distribution of Class 1 ratings for a simulated data set, showing the subject calibration for the original data set (A) and one with three adversarial raters (B).
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>The B plot in <a href="#fig-adversary-avg" class="quarto-xref">Figure&nbsp;7</a> shows that the model can’t capture the actual distribution of ratings when three out of ten raters invert their ratings. There are two signs that something is wrong. First the entropy is very high in the second plot, and second the modeled density doesn’t look anything like the observed one; the error measures are an order of magnitude worse.</p>
+<p>The B plot in <a href="#fig-adversary-avg" class="quarto-xref">Figure&nbsp;8</a> shows that the model can’t capture the actual distribution of ratings when three out of ten raters invert their ratings. There are two signs that something is wrong. First the entropy is very high in the second plot, and second the modeled density doesn’t look anything like the observed one; the error measures are an order of magnitude worse.</p>
 <p>In such cases, we might want to try to identify adversarial raters to “fix” the data by filtering out the bad actors.</p>
-<p>Even if we switch to a heirarchical model, it doesn’t completely solve the problem. Adversarial raters are not considered in the basic t-a-p model, so the assumption about the behavior of accurate raters fails. However, we can estimate the accuracy of each rater and use that to filter them. The resulting calibration plot is show in <a href="#fig-fix-raters" class="quarto-xref">Figure&nbsp;8</a>.</p>
+<p>Even if we switch to a heirarchical model, it doesn’t completely solve the problem. Adversarial raters are not considered in the basic t-a-p model, so the assumption about the behavior of accurate raters fails. However, we can estimate the accuracy of each rater and use that to filter them. The resulting calibration plot is show in <a href="#fig-fix-raters" class="quarto-xref">Figure&nbsp;9</a>.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fixed_rating_params <span class="ot">&lt;-</span> <span class="fu">fit_ratings</span>(bad_ratings) <span class="sc">|&gt;</span> </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">filter</span>(a <span class="sc">&gt;</span> .<span class="dv">01</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">subject_calibration</span>(fixed_rating_params)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fixed_rating_params <span class="ot">&lt;-</span> <span class="fu">fit_ratings</span>(bad_ratings) <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">filter</span>(a <span class="sc">&gt;</span> .<span class="dv">01</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">subject_calibration</span>(fixed_rating_params)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-fix-raters" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -520,51 +638,51 @@ Figure&nbsp;7: Distribution of Class 1 ratings for a simulated data set, showing
 <img src="fit_files/figure-html/fig-fix-raters-1.png" class="img-fluid figure-img" width="384">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fix-raters-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8: An attempt to eliminate bad raters by filtering on accuracy.
+Figure&nbsp;9: An attempt to eliminate bad raters by filtering on accuracy.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>The average parameters in <a href="#fig-fix-raters" class="quarto-xref">Figure&nbsp;8</a> are pretty close to the values used to generate the original data set, and the calibration plot looks okay. Obviously, we’d want to dig into the details more deeply for an actual study. Which raters were eliminated, and what evidence is there that they are rating backwards?</p>
+<p>The average parameters in <a href="#fig-fix-raters" class="quarto-xref">Figure&nbsp;9</a> are pretty close to the values used to generate the original data set, and the calibration plot looks okay. Obviously, we’d want to dig into the details more deeply for an actual study. Which raters were eliminated, and what evidence is there that they are rating backwards?</p>
 </section>
-<section id="independence" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Independence</h1>
+<section id="independence" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Independence</h1>
 <p>Imagine that you’ve been asked to assess the reliability of portfolio ratings done by an assessment committee. Three committee members independently review each student’s portfolio of work and rate is as pass (Class 1) or fail (Class 0). Unknown to you, the program director has added a forth column to the data, which appears as a fourth rater, but actually represents the majority vote. You’re not aware of this dependent artificial “rater” and proceed as if it’s another independent vote.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">generate_sample_ratings</span>(<span class="at">N_s =</span> <span class="dv">100</span>, <span class="at">N_r =</span> <span class="dv">3</span>, </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">params =</span> <span class="fu">list</span>(<span class="at">t =</span> .<span class="dv">8</span>, <span class="at">a =</span> .<span class="dv">3</span>, <span class="at">p =</span> .<span class="dv">8</span>)) </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>bad_ratings <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create a majority vote column</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(rater_id, rating) <span class="sc">|&gt;</span> </span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">4</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">as.integer</span>(<span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="sc">+</span> <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="sc">+</span> <span class="st">`</span><span class="at">3</span><span class="st">`</span> <span class="sc">&gt;</span> <span class="dv">1</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(rater_id, rating, <span class="sc">-</span>subject_id)</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># get counts and find the average params</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>avg_params <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_counts</span>()</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>bad_params <span class="ot">&lt;-</span> bad_ratings <span class="sc">|&gt;</span> </span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_counts</span>()</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the computed average model</span></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_rating_params</span>(avg_params) <span class="sc">|&gt;</span> </span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subject_calibration</span>()</span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_rating_params</span>(bad_params) <span class="sc">|&gt;</span> </span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subject_calibration</span>()</span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(p1, p2, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"A"</span>,<span class="st">"B"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">generate_sample_ratings</span>(<span class="at">N_s =</span> <span class="dv">100</span>, <span class="at">N_r =</span> <span class="dv">3</span>, </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">params =</span> <span class="fu">list</span>(<span class="at">t =</span> .<span class="dv">8</span>, <span class="at">a =</span> .<span class="dv">3</span>, <span class="at">p =</span> .<span class="dv">8</span>)) </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>bad_ratings <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create a majority vote column</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(rater_id, rating) <span class="sc">|&gt;</span> </span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">4</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">as.integer</span>(<span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="sc">+</span> <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="sc">+</span> <span class="st">`</span><span class="at">3</span><span class="st">`</span> <span class="sc">&gt;</span> <span class="dv">1</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(rater_id, rating, <span class="sc">-</span>subject_id)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># get counts and find the average params</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>avg_params <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_counts</span>()</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>bad_params <span class="ot">&lt;-</span> bad_ratings <span class="sc">|&gt;</span> </span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_counts</span>()</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the computed average model</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_rating_params</span>(avg_params) <span class="sc">|&gt;</span> </span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subject_calibration</span>()</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_rating_params</span>(bad_params) <span class="sc">|&gt;</span> </span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subject_calibration</span>()</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(p1, p2, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"A"</span>,<span class="st">"B"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-non-independence" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -573,27 +691,27 @@ Figure&nbsp;8: An attempt to eliminate bad raters by filtering on accuracy.
 <img src="fit_files/figure-html/fig-non-independence-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-non-independence-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;9: Distribution of Class 1 ratings for a simulated data set, showing the subject calibration for the original data set (A) and one with a non-independent rater (B).
+Figure&nbsp;10: Distribution of Class 1 ratings for a simulated data set, showing the subject calibration for the original data set (A) and one with a non-independent rater (B).
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>The plots in <a href="#fig-non-independence" class="quarto-xref">Figure&nbsp;9</a> contrast the model fit without the dependent data (A) and with it (B), showing a poor subject calibration for the latter. This is good! Dependent raters violate the model assumptions, and we’d hope that the model would not fit in such cases.</p>
+<p>The plots in <a href="#fig-non-independence" class="quarto-xref">Figure&nbsp;10</a> contrast the model fit without the dependent data (A) and with it (B), showing a poor subject calibration for the latter. This is good! Dependent raters violate the model assumptions, and we’d hope that the model would not fit in such cases.</p>
 <p>We can attempt to detect non-independence using a correlation matrix among raters.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>bad_ratings <span class="sc">|&gt;</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(rater_id, rating) <span class="sc">|&gt;</span> </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>subject_id) <span class="sc">|&gt;</span> </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">full_width =</span> <span class="cn">FALSE</span>,           <span class="co"># &lt;- stops spanning the full page</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">position   =</span> <span class="st">"center"</span>,</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>,<span class="st">"hover"</span>,<span class="st">"condensed"</span>)</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>bad_ratings <span class="sc">|&gt;</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(rater_id, rating) <span class="sc">|&gt;</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>subject_id) <span class="sc">|&gt;</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">full_width =</span> <span class="cn">FALSE</span>,           <span class="co"># &lt;- stops spanning the full page</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">position   =</span> <span class="st">"center"</span>,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>,<span class="st">"hover"</span>,<span class="st">"condensed"</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div id="tbl-cor" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -649,34 +767,34 @@ Table&nbsp;1: Correlation matrix among raters per subject.
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">generate_sample_ratings</span>(<span class="at">N_s =</span> <span class="dv">200</span>, <span class="at">N_r =</span> <span class="dv">90</span>, </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">params =</span> <span class="fu">list</span>(<span class="at">t =</span> .<span class="dv">5</span>, <span class="at">a =</span> .<span class="dv">5</span>, <span class="at">p =</span> .<span class="dv">5</span>)) </span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>dupe_ratings <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(rater_id <span class="sc">&lt;=</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rater_id =</span> rater_id <span class="sc">+</span> <span class="dv">90</span>)</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>bad_ratings <span class="ot">&lt;-</span> <span class="fu">rbind</span>(ratings, dupe_ratings)</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># find the model </span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>bad_params <span class="ot">&lt;-</span> bad_ratings <span class="sc">|&gt;</span> </span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>          <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>          <span class="fu">fit_counts</span>()</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co"># create the expanded data </span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>rating_params <span class="ot">&lt;-</span> bad_ratings <span class="sc">|&gt;</span>  </span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">as_rating_params</span>(bad_params)</span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co"># range of expected correlations</span></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>range <span class="ot">&lt;-</span> <span class="fu">rater_cov_quantile</span>(rating_params)</span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co"># expected and actual correlations</span></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>cov_results <span class="ot">&lt;-</span> rating_params <span class="sc">|&gt;</span> </span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rater_cov</span>(<span class="at">max_raters =</span> <span class="dv">200</span>)</span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_rater_cov</span>(cov_results, range)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">generate_sample_ratings</span>(<span class="at">N_s =</span> <span class="dv">200</span>, <span class="at">N_r =</span> <span class="dv">90</span>, </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">params =</span> <span class="fu">list</span>(<span class="at">t =</span> .<span class="dv">5</span>, <span class="at">a =</span> .<span class="dv">5</span>, <span class="at">p =</span> .<span class="dv">5</span>)) </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>dupe_ratings <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span> </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(rater_id <span class="sc">&lt;=</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rater_id =</span> rater_id <span class="sc">+</span> <span class="dv">90</span>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>bad_ratings <span class="ot">&lt;-</span> <span class="fu">rbind</span>(ratings, dupe_ratings)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co"># find the model </span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>bad_params <span class="ot">&lt;-</span> bad_ratings <span class="sc">|&gt;</span> </span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>          <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>          <span class="fu">fit_counts</span>()</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co"># create the expanded data </span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>rating_params <span class="ot">&lt;-</span> bad_ratings <span class="sc">|&gt;</span>  </span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">as_rating_params</span>(bad_params)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="co"># range of expected correlations</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>range <span class="ot">&lt;-</span> <span class="fu">rater_cov_quantile</span>(rating_params)</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="co"># expected and actual correlations</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>cov_results <span class="ot">&lt;-</span> rating_params <span class="sc">|&gt;</span> </span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rater_cov</span>(<span class="at">max_raters =</span> <span class="dv">200</span>)</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_rater_cov</span>(cov_results, range)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-non-independence2" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -685,31 +803,51 @@ Table&nbsp;1: Correlation matrix among raters per subject.
 <img src="fit_files/figure-html/fig-non-independence2-1.png" class="img-fluid figure-img" width="480">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-non-independence2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;10: Distribution covariances between raters, with 96% confidence interval marked. Ten duplicate raters have been added to show non-independence.
+Figure&nbsp;11: Distribution covariances between raters, with 96% confidence interval marked. Ten duplicate raters have been added to show non-independence.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Notice the blip to the far right of <a href="#fig-non-independence2" class="quarto-xref">Figure&nbsp;10</a> that shows the ten duplicated raters. These are far outside the expected range, and deserving of our attention.</p>
+<p>Notice the blip to the far right of <a href="#fig-non-independence2" class="quarto-xref">Figure&nbsp;11</a> that shows the ten duplicated raters. These are far outside the expected range, and deserving of our attention.</p>
 </section>
-<section id="the-dunning-kruger-threshold" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> The Dunning-Kruger Threshold</h1>
-<p>As a reference point for interpreting coefficients, it can be useful to compute the Dunning-Kruger threshold for the parameters. Recall that this horizon is the largest plausible result for accuracy that can be obtained when accuracy is actually zero. Suppose we have 200 subjects that are each rated by 10 raters. Assuming that <span class="math inline">\(t = p = .5\)</span>, the DK horizon figures appear in <a href="#tbl-dk-threshold" class="quarto-xref">Table&nbsp;2</a>.</p>
+<section id="the-dunning-kruger-threshold" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> The Dunning-Kruger Threshold</h1>
+<p>As a reference point for interpreting coefficients, it can be useful to compute the Dunning-Kruger threshold for the parameters. Recall that this horizon is the largest plausible result for accuracy that can be obtained when accuracy is actually zero. Suppose we have 25 subjects that are each rated by 2 raters, a pretty small data set. Assuming that <span class="math inline">\(t = p = .5\)</span>, we can estimate accuracy values from simulated data sets and compare to known values.</p>
+<p>This computation is limited in that is assumes ratings are unbiased (i.e.&nbsp;<span class="math inline">\(t = p\)</span>). However, it may still be useful as a sanity check. See the discussion of Dunning-Kruger in <a href="./tapmodel.html">Chapter 2</a> for more. If you want more detail, there’s a function to simulate accuracy sampling error called tapModel::simulate_exact_fit()`. An example is found in <a href="#fig-dk-plot" class="quarto-xref">Figure&nbsp;12</a> showing results for 50 subjects with two raters each.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>dk <span class="ot">&lt;-</span> <span class="fu">dk_horizon</span>(<span class="dv">200</span>, <span class="dv">10</span>, <span class="at">n_sim =</span> <span class="dv">200</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>dk <span class="sc">|&gt;</span> </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.tibble</span>() <span class="sc">|&gt;</span>  </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Threshold =</span> <span class="fu">names</span>(dk)) <span class="sc">|&gt;</span> </span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Threshold , <span class="at">Accuracy =</span> value) <span class="sc">|&gt;</span> </span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)<span class="sc">|&gt;</span> </span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">full_width =</span> <span class="cn">FALSE</span>,           <span class="co"># &lt;- stops spanning the full page</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">position   =</span> <span class="st">"center"</span>,</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>,<span class="st">"hover"</span>,<span class="st">"condensed"</span>)</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tapModel<span class="sc">::</span><span class="fu">simulate_exact_fit</span>(<span class="dv">25</span>,<span class="dv">2</span>,<span class="at">n_sim =</span> <span class="dv">30</span>, <span class="at">output =</span> <span class="st">"plot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-dk-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-dk-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="fit_files/figure-html/fig-dk-plot-1.png" class="img-fluid figure-img" width="384">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dk-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12: Ranges of accuracy estimates for simulated rating sets with t = p = .5 samples. The red markers indicate the mean for each estimated value of accuracy.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>As accuracy approaches zero, more and more of the sampling error must be larger than the true value, so the average result is biased upwards. A more useful direct calculation with <code>tapModel::dk_horizon()</code> gives the bootstrapped probabilities for the “DK horizon”. These appear in <a href="#tbl-dk-threshold" class="quarto-xref">Table&nbsp;2</a>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>dk <span class="ot">&lt;-</span> <span class="fu">dk_horizon</span>(<span class="dv">25</span>, <span class="dv">2</span>, <span class="at">n_sim =</span> <span class="dv">100</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>dk <span class="sc">|&gt;</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.tibble</span>() <span class="sc">|&gt;</span>  </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Threshold =</span> <span class="fu">names</span>(dk)) <span class="sc">|&gt;</span> </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Threshold , <span class="at">Accuracy =</span> value) <span class="sc">|&gt;</span> </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)<span class="sc">|&gt;</span> </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">full_width =</span> <span class="cn">FALSE</span>,           <span class="co"># &lt;- stops spanning the full page</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">position   =</span> <span class="st">"center"</span>,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>,<span class="st">"hover"</span>,<span class="st">"condensed"</span>)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div id="tbl-dk-threshold" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -728,23 +866,23 @@ Table&nbsp;2: Estimated percentiles for accuracy, given 600 subjects with ten ra
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">50%</td>
-<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.08</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">75%</td>
-<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">0.34</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">90%</td>
-<td style="text-align: right;">0.11</td>
+<td style="text-align: right;">0.45</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">95%</td>
-<td style="text-align: right;">0.13</td>
+<td style="text-align: right;">0.55</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">98%</td>
-<td style="text-align: right;">0.15</td>
+<td style="text-align: right;">0.58</td>
 </tr>
 </tbody>
 </table>
@@ -753,11 +891,10 @@ Table&nbsp;2: Estimated percentiles for accuracy, given 600 subjects with ten ra
 </figure>
 </div>
 </div>
-<p>For a data set of this size, 98% of the randomly generated ratings resulted in an accuracy parameter estimate of .15 or less. It’s reasonable to be suspicious of parameter estimates that have <span class="math inline">\(a\)</span> below that threshold. We might be being fooled by sampling and estimation error into thinking the raters are much more accurate than they actually are.</p>
-<p>This computation is limited in that is assumes ratings are unbiased (i.e.&nbsp;<span class="math inline">\(t = p\)</span>). However, it may still be useful as a sanity check. See the discussion of Dunning-Kruger in Chapter 2 for more.</p>
+<p>For a data set of this size, 98% of the randomly generated ratings resulted in an accuracy parameter estimate of .53 or less. It’s reasonable to be suspicious of parameter estimates that have <span class="math inline">\(a\)</span> below that threshold. We might be being fooled by sampling error into thinking the raters are much more accurate than they actually are.</p>
 </section>
-<section id="a-validation-process-for-binary-ratings" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> A Validation Process for Binary Ratings</h1>
+<section id="a-validation-process-for-binary-ratings" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> A Validation Process for Binary Ratings</h1>
 <p>The following steps may help you think through the analysis of binary t-a-p models.</p>
 <ol start="0" type="1">
 <li><p>Check Assumptions. Validity testing begins with assumptions about the data-gathering process, so it’s essential to seek expertise with the data type to avoid personal errors. If you didn’t generate the data, talk to whoever did. Ask questions that will build confidence that the encodings are valid, the data format reflects your understanding, and the statistical assumptions. In the formal t-a-p model, the most important assumption to check is the independence of raters. If a group of faculty who are scoring student writing portfolios are sitting around a table discussing the essays, the ratings are not independent. Optionally, use prior experience or literature to write down your expectations for <span class="math inline">\(t\)</span> and <span class="math inline">\(a\)</span>. This is so that your ‘surprise factor’ doesn’t get biased by seeing the results first.</p></li>

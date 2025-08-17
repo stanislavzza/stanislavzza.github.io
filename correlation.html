@@ -335,6 +335,7 @@ Figure&nbsp;1: A sample of weights for exact formulation of accuracy squared, wi
 </div>
 </div>
 </div>
+<p>Given the rapid growth of these coefficients, which are all positive, we would not expect the exact formula to be numerically stable, espeically for large numbers of raters. An even more severe restriction is that the <span class="math inline">\(\eta\)</span> coefficients need to be exact proportions for a t-a-p model. Sampling error will violate that assumption for most data sets. In practice, it’s better to use the Fleiss formula, which also assumes <span class="math inline">\(t=p\)</span>, although without specifying the common value.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
@@ -432,7 +433,7 @@ Figure&nbsp;4: Accuracy approximations by Fleiss kappa when the unbiased rater a
 </div>
 </div>
 </div>
-<p>The relatively low approximation error in <a href="#fig-fleiss" class="quarto-xref">Figure&nbsp;4</a> shows a direct comparison to the linear combination approximation.</p>
+<p>The relatively low approximation error in <a href="#fig-fleiss" class="quarto-xref">Figure&nbsp;4</a> shows a direct comparison to the linear combination approximation. The latter method isn’t useful for real data sets because of this sensitivity, but is still useful as a theoretical tool.</p>
 </section>
 <section id="correlation-of-ratings-between-raters" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Correlation of Ratings between Raters</h1>

@@ -212,15 +212,14 @@ window.Quarto = {
   <li><a href="#sec-likelihood" id="toc-sec-likelihood" class="nav-link" data-scroll-target="#sec-likelihood"><span class="header-section-number">2</span> Hierarchical Likelihood</a></li>
   <li><a href="#sec-em" id="toc-sec-em" class="nav-link" data-scroll-target="#sec-em"><span class="header-section-number">3</span> Direct E-M Estimation</a></li>
   <li><a href="#mcmc-estimation" id="toc-mcmc-estimation" class="nav-link" data-scroll-target="#mcmc-estimation"><span class="header-section-number">4</span> MCMC Estimation</a></li>
-  <li><a href="#sec-units" id="toc-sec-units" class="nav-link" data-scroll-target="#sec-units"><span class="header-section-number">5</span> Units of Likelihood</a></li>
-  <li><a href="#machine-learning-models" id="toc-machine-learning-models" class="nav-link" data-scroll-target="#machine-learning-models"><span class="header-section-number">6</span> Machine Learning Models</a>
+  <li><a href="#machine-learning-models" id="toc-machine-learning-models" class="nav-link" data-scroll-target="#machine-learning-models"><span class="header-section-number">5</span> Machine Learning Models</a>
   <ul class="collapse">
-  <li><a href="#sec-dawid-skene" id="toc-sec-dawid-skene" class="nav-link" data-scroll-target="#sec-dawid-skene"><span class="header-section-number">6.1</span> Dawid &amp; Skene</a></li>
-  <li><a href="#sec-mace" id="toc-sec-mace" class="nav-link" data-scroll-target="#sec-mace"><span class="header-section-number">6.2</span> MACE</a></li>
+  <li><a href="#sec-dawid-skene" id="toc-sec-dawid-skene" class="nav-link" data-scroll-target="#sec-dawid-skene"><span class="header-section-number">5.1</span> Dawid &amp; Skene</a></li>
+  <li><a href="#sec-mace" id="toc-sec-mace" class="nav-link" data-scroll-target="#sec-mace"><span class="header-section-number">5.2</span> MACE</a></li>
   </ul></li>
-  <li><a href="#groupthink" id="toc-groupthink" class="nav-link" data-scroll-target="#groupthink"><span class="header-section-number">7</span> Groupthink</a></li>
-  <li><a href="#invariant-scales" id="toc-invariant-scales" class="nav-link" data-scroll-target="#invariant-scales"><span class="header-section-number">8</span> Invariant Scales</a></li>
-  <li><a href="#partial-pooling" id="toc-partial-pooling" class="nav-link" data-scroll-target="#partial-pooling"><span class="header-section-number">9</span> Partial Pooling</a></li>
+  <li><a href="#groupthink" id="toc-groupthink" class="nav-link" data-scroll-target="#groupthink"><span class="header-section-number">6</span> Groupthink</a></li>
+  <li><a href="#invariant-scales" id="toc-invariant-scales" class="nav-link" data-scroll-target="#invariant-scales"><span class="header-section-number">7</span> Invariant Scales</a></li>
+  <li><a href="#partial-pooling" id="toc-partial-pooling" class="nav-link" data-scroll-target="#partial-pooling"><span class="header-section-number">8</span> Partial Pooling</a></li>
   </ul>
 </nav>
 </nav>
@@ -281,18 +280,18 @@ Pr(\text{ratings}) &amp;= \left( \pi_{11}^{(1)} T_1+  \pi_{01}^{(1)} \overline{T
 <p><span id="eq-likelihood1"><span class="math display">\[
 Pr(\text{ratings ; parameters}) = \prod_{i}\left( t_i \prod_{j,k_j} \pi_{1k_j}^{(j)} + \bar{t}_i \prod_{j,k_j} \pi_{0k_j}^{(j)} \right),
 \tag{1}\]</span></span></p>
-<p>which can be understood as multiplying together a likelihood factor for each subject <span class="math inline">\(i\)</span>. These factors are of the form illustrated above in the simple example. Each subject-specific factor is a sum of two products; one for the possibility that the subject might be Class 1 and one for Class 0. These term-products over <span class="math inline">\(j,k_j\)</span> multiply <span class="math inline">\(pi\)</span> coefficients for each rater <span class="math inline">\(j\)</span> on subject <span class="math inline">\(i\)</span>, with the coefficient chosen for the class <span class="math inline">\(k_j\)</span> assigned by the rater to that subject. This idea can be extended beyond binary classifications, as in <span class="citation" data-cites="dawid1979maximum">Dawid &amp; Skene (<a href="#ref-dawid1979maximum" role="doc-biblioref">1979</a>)</span>, which is described in more detail in <a href="#sec-dawid-skene" class="quarto-xref">Section&nbsp;6.1</a>.</p>
+<p>which can be understood as multiplying together a likelihood factor for each subject <span class="math inline">\(i\)</span>. These factors are of the form illustrated above in the simple example. Each subject-specific factor is a sum of two products; one for the possibility that the subject might be Class 1 and one for Class 0. These term-products over <span class="math inline">\(j,k_j\)</span> multiply <span class="math inline">\(\pi\)</span> coefficients for each rater <span class="math inline">\(j\)</span> on subject <span class="math inline">\(i\)</span>, with the coefficient chosen for the class <span class="math inline">\(k_j\)</span> assigned by the rater to that subject. This idea can be extended beyond binary classifications, as in <span class="citation" data-cites="dawid1979maximum">Dawid &amp; Skene (<a href="#ref-dawid1979maximum" role="doc-biblioref">1979</a>)</span>, which is described in more detail in <a href="#sec-dawid-skene" class="quarto-xref">Section&nbsp;5.1</a>.</p>
 <p>When applied to the t-a-p model, the generic <span class="math inline">\(\pi\)</span> parameters become</p>
 <p><span id="eq-tap-pi"><span class="math display">\[
 \begin{aligned}
-\pi_{00} &amp;= Pr(\text{assigned Class }0|\text{true class }0) = a + \bar{a}\bar{p} = 1 - \bar{a}p \\
+\pi_{00} &amp;= Pr(\text{assigned Class }0|\text{true class }0) = a + \bar{a}\bar{p}  \\
 \pi_{01} &amp;= Pr(\text{assigned Class }1|\text{true class }0) = \bar{a}p\\
-\pi_{10} &amp;= Pr(\text{assigned Class }0|\text{true class }1) = 1 - a - \bar{a}p = \bar{a} \bar{p} \\
+\pi_{10} &amp;= Pr(\text{assigned Class }0|\text{true class }1) = \bar{a} \bar{p} \\
 \pi_{11} &amp;= Pr(\text{assigned Class }1|\text{true class }1) = a + \bar{a}p.\\
 \end{aligned}
 \tag{2}\]</span></span></p>
-<p>The <span class="math inline">\(j\)</span> indicies are suppressed here for clarity, but in the hierarchical model, each rater has a set of these <span class="math inline">\(\pi\)</span> coefficients. Applying these t-a-p model assumptions to the likelihood model <a href="#eq-likelihood1" class="quarto-xref">Equation&nbsp;1</a> gives us a computable formula. We can estimate parameters using an EM-type approach, by extending the method describe in Chapter 2 to individual rater parameters.</p>
-<p>To compute the log likelihood as a comparable entropy in bits per rating, use <code>bits_per_rating(rating_params)</code>. Note that the likelihood statistics returned by <code>fit_counts(counts)</code> are on a different scale, since they use binomial probabilities in the aggregate. To create a comparable statistic, use <code>ratings |&gt; as_rating_params(params) |&gt; bits_per_rating()</code>, which creates all the rater and subject coefficients needed for the calculation.</p>
+<p>The <span class="math inline">\(j\)</span> indicies are suppressed here for clarity, but in the hierarchical model, each rater has a set of these <span class="math inline">\(\pi\)</span> coefficients. Applying these t-a-p model assumptions to the likelihood model <a href="#eq-likelihood1" class="quarto-xref">Equation&nbsp;1</a> gives us a computable formula. We can estimate parameters using an EM-type approach, by extending the method describe in <a href="./tapmodel.html">Chapter 2</a> to individual rater parameters.</p>
+<p>For a discussion on the usefulness of log likelihood as a measure of model fit, see <a href="./fit.html">Chapter 6</a>. There we see it’s useful to normalize likelihood as entropy, measured in bits per rating. Maximizing likelihood is the same as minimizing model entropy. To compute the log likelihood as a comparable entropy in bits per rating with the <code>tapModel</code> package, use <code>bits_per_rating(rating_params)</code>. Also see the examples for use cases.</p>
 </section>
 <section id="sec-em" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Direct E-M Estimation</h1>
@@ -592,90 +591,13 @@ View Stan code
 <span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </section>
-<section id="sec-units" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Units of Likelihood</h1>
-<p>The likelihood of a ratings set under the assumption of given parameters was derived in <a href="#eq-likelihood1" class="quarto-xref">Equation&nbsp;1</a>. In practice, we use the log (base 1/2) of the likelihood as a measure of model fit. This produces a number of bits, which are averaged over all ratings to get a comparable figure of the rating entropy. This is the figure reported out in the <code>tapModel</code> functions like <code>subject_calibration()</code>.</p>
-<p>A simple form of the likelihood function is when the truth values are known. In that case we have</p>
-<p><span id="eq-likelihood3"><span class="math display">\[
-Pr(\text{data ; parameters}) = \prod_{T_i = 1}\pi_{1k_j}^{(j)} \prod_{T_i = 0}  \pi_{0k_j}^{(j)} ,
-\tag{3}\]</span></span></p>
-<p>where the products are over all ratings assigned to subjects that are Class 1 or Class 0 (respectively) in truth. With many data sets, as an estimation algorithm converges toward values of <span class="math inline">\(t_i\)</span> that are close to 0 or 1, the likelihood converges to this form. The log likelihood would then be</p>
-<p><span id="eq-log-likelihood3"><span class="math display">\[
-\ell(\text{data ; parameters}) = \sum_{T_i = 1} \log \pi_{1k_j}^{(j)} +  \sum_{T_i = 0}  \log \pi_{0k_j}^{(j)} .
-\tag{4}\]</span></span></p>
-<p>Each rating of Class 1 by rater <span class="math inline">\(j\)</span> contributes log likelihood in the form <span class="math inline">\(\log \pi_{1k_j}^{(j)}\)</span>, and it’s reasonable to average over these to create an measure of fit that’s comparable across models. It gets more complicated with Bayesian models because of prior distributions on the parameters, but put that aside for now.</p>
-<p>In the usual treatment, the log base is 2 or <span class="math inline">\(e\)</span>, in which case the log of any probability is between negative infinity (for very small probabilities) and zero (for probability of one). The reason for log base 2 is that we can think of <span class="math inline">\(-\log_2 p = \log_2 1/p\)</span> as <em>bits of information</em>, thanks to <a href="https://en.wikipedia.org/wiki/Entropy_(information_theory)">Shannon’s entropy formula</a>. In physics, entropy is often <span class="math inline">\(s\)</span>, so I’ll follow that convention. I’ll take this a step further and use log base 1/2, so we don’t need the pesky negatives, which are only there because of the mathematicians’ habit of only using log bases greater than one.</p>
-<p>Information in log-base-one-half equates a probability to fair coin flips. A probability of 1/8 is <span class="math inline">\(\log 1/8 = 3\)</span> bits of information (since <span class="math inline">\(2^3 = 8\)</span>), corresponding to eight possible outcomes starting with three heads (HHH) and proceeding through seven more variations like HTH to TTT. The information is that novelty is introduced into the world when we create the three classification based on random events. Non-random events don’t produce information. So if a coin has two heads, we’d always get HHH, so the probability of that single outcome is 1, and <span class="math inline">\(\log 1 = 0\)</span> bits.</p>
-<p>From the point of view of ratings, perfect accuracy doesn’t “give us information,” which sounds weird, so it’s more natural to substitute “entropy” (randomness) for “information.”</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>I will use the convention that <span class="math inline">\(\log x\)</span> means <span class="math inline">\(\log_{\frac{1}{2} } x\)</span>, without specifying the base each time. This reads oddly for those used to the usual log bases, since the log of any probability with base greater than one is negative. Hence there are a lot of expressions that start with negative signs in the usual likelihood formulations. The advantage of log base 1/2 is that we don’t need the negative signs to get a result in bits. Another important difference is that when we maximize likelihood, we <em>minimize</em> the number of informational bits per rating (again, because of the lack of a minus sign).</p>
-</div>
-</div>
-<p>Suppose all the raters have <span class="math inline">\(a_j = 1\)</span>, so all the ratings are accurate. Then the probability <span class="math inline">\(\pi\)</span> of the assignment of any given rating is 1, since the rater is certain to get the right answer. In that case, <span class="math inline">\(\log \pi = 0\)</span>. On the other hand, if <span class="math inline">\(a_j = 0\)</span> for all raters, then all the ratings are random assignment. Assume that <span class="math inline">\(p_j = p\)</span> is the constant random assignment rate, so the average log likelihood per rater is <span class="math inline">\(\log p\)</span> or <span class="math inline">\(\log \bar{p}\)</span>, depending on the true class of the subject. In that case, the average log likelihood per rating is</p>
-<p><span class="math display">\[
-\frac{\ell(\text{data ; parameters})}{N}  = t \log p+ \bar{t} \log \bar{p} ,
-\]</span> where there are <span class="math inline">\(N\)</span> ratings.</p>
-<p>Using this convention, likelihood is maximized when accuracy is 100%, and the log likelihood is zero bits per rating. The worst case for any t-a-p model ratings set is when accuracy is 0%, and (with constant <span class="math inline">\(p\)</span>) we get average bits per rating that depends on the value of <span class="math inline">\(t\)</span> and <span class="math inline">\(p\)</span>. Because of convexity, this value attains a maximum when <span class="math inline">\(t = p = .5\)</span>, so the maximum number of bits per rating is <span class="math inline">\(s = \log .5 = 1\)</span>, the entropy from a coin flip. This line of thought shows us that maximizing likelihood is minimizing model <em>randomness</em>, which we’ll call <em>entropy</em>. Minimizing entropy is minimizing randomness left over in the ratings model, rather like a least squares regression minimizes residuals (the part we can’t explain with the model).</p>
-<p>The log likelihood in bits per rating can be estimated using <code>tapModel::bits_per_rating(rater_params)</code> as shown below.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">t =</span> <span class="fu">c</span>(.<span class="dv">1</span>, .<span class="dv">5</span>), <span class="at">a =</span> <span class="fu">seq</span>(.<span class="dv">1</span>,.<span class="dv">9</span>,.<span class="dv">05</span>), <span class="at">p =</span> <span class="fu">c</span>(.<span class="dv">1</span>, .<span class="dv">5</span>), <span class="at">LL =</span> <span class="cn">NA</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(output)){</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  params <span class="ot">=</span> <span class="fu">list</span>(<span class="at">t =</span> output<span class="sc">$</span>t[i], <span class="at">a =</span> output<span class="sc">$</span>a[i], <span class="at">p =</span>output<span class="sc">$</span>p[i])</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulate data</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  ratings <span class="ot">&lt;-</span> <span class="fu">generate_sample_ratings</span>(<span class="at">N_s =</span> <span class="dv">1000</span>, <span class="at">params =</span> params)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  rating_params <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_rating_params</span>(params)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># store results</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>LL[i] <span class="ot">&lt;-</span> <span class="fu">bits_per_rating</span>(rating_params)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>output <span class="sc">|&gt;</span> </span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tp =</span> <span class="fu">str_c</span>(<span class="st">"t="</span>,t,<span class="st">" p="</span>,p)) <span class="sc">|&gt;</span> </span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> a, <span class="at">y =</span> LL, <span class="at">color =</span> tp, <span class="at">group =</span> tp)) <span class="sc">+</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Bits per rating"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div id="fig-rater-entropy" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-rater-entropy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="hierarchical_files/figure-html/fig-rater-entropy-1.png" class="img-fluid figure-img" width="403">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rater-entropy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Log likelihood in bits per rating for a variety of parameters, with 1000 samples.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p><a href="#fig-rater-entropy" class="quarto-xref">Figure&nbsp;1</a> illustrates that the entropy (bits per rating) generally decreases from one bit at zero accuracy to smaller values as rater accuracy increases. As we’d expect, when the balanced “random” parameters <span class="math inline">\(t\)</span> and <span class="math inline">\(p\)</span> are .5 (a coin flip), we have the most entropy. The case with <span class="math inline">\(t = .5\)</span> and <span class="math inline">\(p = .1\)</span> shows that as ratings become inaccurate, 90% tend toward Class 0, which reduces entropy.</p>
-</section>
-<section id="machine-learning-models" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Machine Learning Models</h1>
+<section id="machine-learning-models" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Machine Learning Models</h1>
 <p>There are two traditions in thinking about rater statistics. The kappa approach is to imagine that the ratings can be chance-corrected to account for ratings that are accidentally correct. This is done via some choice of chance correction, which leads to the “zoo” of kappas, as described in <a href="./kappa.html">Chapter 3</a>. The second approach is generative in the sense that each step of the rating process is modeled in a Markov chain, meaning a sequence of probabilistic choices that lead to a rating. The t-a-p models are generative. Since “generative” is now associated with artificial intelligence, I’ll refer to these as Machine Learning (ML) models, which is a reference to the community that studies them. Training an algorithm on a large data set of annotations is a common ML task, and it’s natural to want to understand the qualities of those annotations. The ML community is familiar with the kappa approach, but I’m not sure how much the reverse is true. Part of my goal in creating this website is to translate between the two modes of thought.</p>
 <p>For an overview of rater statistics from the ML tradition, see <span class="citation" data-cites="paun2018comparing">Paun et al. (<a href="#ref-paun2018comparing" role="doc-biblioref">2018</a>)</span>, where the authors describe and empirically test six methods. I’ll talk about two of these here. Both of these methods assume latent true classes for the subjects being rated, so they implicitly adopt something like a Justified True Belief approach as described in <a href="./introduction.html">Chapter 1</a>.</p>
 <p>In <span class="citation" data-cites="paun2018comparing">Paun et al. (<a href="#ref-paun2018comparing" role="doc-biblioref">2018</a>)</span> the methods are described as “pooled,” meaning estimation of average parameters only, “unpooled”, meaning estimating individual rater and subject parameters, or “partially pooled,” which is a combination of the two approaches designed to take advantage of the magic of <a href="https://en.wikipedia.org/wiki/James%E2%80%93Stein_estimator">Stein Estimators</a>. For a good treatment of this idea in the Bayesian context see <span class="citation" data-cites="mcelreath2020statistical">McElreath (<a href="#ref-mcelreath2020statistical" role="doc-biblioref">2020</a>)</span>.</p>
-<section id="sec-dawid-skene" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="sec-dawid-skene"><span class="header-section-number">6.1</span> Dawid &amp; Skene</h2>
+<section id="sec-dawid-skene" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="sec-dawid-skene"><span class="header-section-number">5.1</span> Dawid &amp; Skene</h2>
 <p><span class="citation" data-cites="dawid1979maximum">Dawid &amp; Skene (<a href="#ref-dawid1979maximum" role="doc-biblioref">1979</a>)</span> published what may be the first hierarchical (unpooled) moded for estimating subject and rater coefficients. In the abstract they describe the problem being addressed.</p>
 <blockquote class="blockquote">
 <p>In compiling a patient record many facets are subject to errors of measurement. A model is presented which allows individual error-rates to be estimated for polytomous facets even when the patient’s “true” response is not available.</p>
@@ -695,75 +617,75 @@ Pr(\text{data; parameters}) = \prod_{i=1}^{N_s}  \left( \sum_{k=1}^K t_k \prod_{
 <p>You’ll recognize from earlier the rater distributions <span class="math inline">\(\pi_{kl}^{(j)} = Pr(\text{Rater j assigns Class l}|\text{true Class is k})\)</span>. The indicator function <span class="math inline">\(I(C_{ij}=l)\)</span> is binary, being one when the condition is true (the assigned class is <span class="math inline">\(l\)</span>) and zero otherwise. So only one of the sub-products in the innermost loop will be something other than 1, and we can rewrite the likelihood as</p>
 <p><span id="eq-dawid-skene-likelihood"><span class="math display">\[
 Pr(\text{data; parameters}) \sim \prod_{i=1}^{N_s}  \left( \sum_{k=1}^K t_k  \left[ \prod_{C_{ij}=1} \pi_{k1}^{(j)} \dots \prod_{C_{ij}=k}\pi_{kk}^{(j)} \right] \right).
-\tag{5}\]</span></span></p>
+\tag{3}\]</span></span></p>
 <p>The innermost products are grouped by the assigned class, which is indexed by the subject <span class="math inline">\(i\)</span> and rater <span class="math inline">\(j\)</span>. As the authors note, this describes the likelihood of <span class="math inline">\(N_s\)</span> independent samples from a mixture of multinomial distribution with weights <span class="math inline">\(t_1 \dots t_k\)</span>. The multinomial coefficients are all factored out and discarded here, since we don’t need them to maximize likelihood.</p>
-<p>The formulation of <a href="#eq-dawid-skene-likelihood" class="quarto-xref">Equation&nbsp;5</a> is the same as what we derived in <a href="#sec-likelihood" class="quarto-xref">Section&nbsp;2</a> before applying the t-a-p assumptions. See <a href="#eq-likelihood1" class="quarto-xref">Equation&nbsp;1</a>; it’s the same thing except for the binary case. The application of the t-a-p model assumptions found in <a href="#eq-likelihood3" class="quarto-xref">Equation&nbsp;3</a> reparameterizes the <span class="math inline">\(\pi\)</span> coefficients and reduces from three per rater (since the four <span class="math inline">\(\pi\)</span>s sum to one, there are only three free variables per rater) plus the <span class="math inline">\(t\)</span> parameter to two per rater. So the basic hierarchical t-a-p model has one fewer coefficient per rater. Dawid &amp; Skene can be translated into a hierarchical t-a-p model along the lines of the average model in <a href="./paradox.html">Chapter 4</a> where the accuracy and random assignment parameters split to be conditioned on the true class. It’s possible to use the Dawid &amp; Skene approach while retaining a parameter for rater accuracy (two of them in this case), e.g.&nbsp;with a Stan script.</p>
+<p>The formulation of <a href="#eq-dawid-skene-likelihood" class="quarto-xref">Equation&nbsp;3</a> is the same as what we derived in <a href="#sec-likelihood" class="quarto-xref">Section&nbsp;2</a> before applying the t-a-p assumptions. See <a href="#eq-likelihood1" class="quarto-xref">Equation&nbsp;1</a>; it’s the same thing except for the binary case. The application of the t-a-p model assumptions found in <strong>?@eq-likelihood3</strong> reparameterizes the <span class="math inline">\(\pi\)</span> coefficients and reduces from three per rater (since the four <span class="math inline">\(\pi\)</span>s sum to one, there are only three free variables per rater) plus the <span class="math inline">\(t\)</span> parameter to two per rater. So the basic hierarchical t-a-p model has one fewer coefficient per rater. Dawid &amp; Skene can be translated into a hierarchical t-a-p model along the lines of the average model in <a href="./paradox.html">Chapter 4</a> where the accuracy and random assignment parameters split to be conditioned on the true class. It’s possible to use the Dawid &amp; Skene approach while retaining a parameter for rater accuracy (two of them in this case), e.g.&nbsp;with a Stan script.</p>
 <p>Bob Carpenter’s Stan code from <span class="citation" data-cites="paun2018comparing">Paun et al. (<a href="#ref-paun2018comparing" role="doc-biblioref">2018</a>)</span> is here:</p>
 <details>
 <summary>
 View Stan code
 </summary>
-<div class="sourceCode" id="cb4"><pre class="sourceCode stan code-with-copy"><code class="sourceCode stan"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> {</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>&gt; J; <span class="co">//number of annotators</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">2</span>&gt; K; <span class="co">//number of classes</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>&gt; N; <span class="co">//number of annotations</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>&gt; I; <span class="co">//number of items</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>,<span class="kw">upper</span>=I&gt; ii[N]; <span class="co">//the item the n-th annotation belongs to</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>,<span class="kw">upper</span>=J&gt; jj[N]; <span class="co">//the annotator which produced the n-th annotation</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> y[N]; <span class="co">//the class of the n-th annotation</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="kw">transformed data</span> {</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">vector</span>[K] alpha = rep_vector(<span class="dv">1</span>,K); <span class="co">//class prevalence prior</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">vector</span>[K] eta = rep_vector(<span class="dv">1</span>,K); <span class="co">//annotator abilities prior</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="kw">parameters</span> {</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">simplex</span>[K] pi;</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">simplex</span>[K] beta[J,K];</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="kw">transformed parameters</span> {</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="dt">vector</span>[K] log_q_c[I];</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  <span class="dt">vector</span>[K] log_pi;</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  <span class="dt">vector</span>[K] log_beta[J,K];</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>  log_pi = log(pi);</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>  log_beta = log(beta);</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span>:I) </span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    log_q_c[i] = log_pi;</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">1</span>:N) </span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (h <span class="cf">in</span> <span class="dv">1</span>:K)</span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>      log_q_c[ii[n],h] = log_q_c[ii[n],h] + log_beta[jj[n],h,y[n]];</span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="kw">model</span> {</span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span>:J)</span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(h <span class="cf">in</span> <span class="dv">1</span>:K)</span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>      beta[j,h] ~ dirichlet(eta);</span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>  pi ~ dirichlet(alpha);</span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span>:I)</span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>    <span class="kw">target +=</span> log_sum_exp(log_q_c[i]);</span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="kw">generated quantities</span> {</span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>  <span class="dt">vector</span>[K] q_z[I]; <span class="co">//the true class distribution of each item</span></span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span>:I)</span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>    q_z[i] = softmax(log_q_c[i]);</span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode stan code-with-copy"><code class="sourceCode stan"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>&gt; J; <span class="co">//number of annotators</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">2</span>&gt; K; <span class="co">//number of classes</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>&gt; N; <span class="co">//number of annotations</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>&gt; I; <span class="co">//number of items</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>,<span class="kw">upper</span>=I&gt; ii[N]; <span class="co">//the item the n-th annotation belongs to</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>,<span class="kw">upper</span>=J&gt; jj[N]; <span class="co">//the annotator which produced the n-th annotation</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> y[N]; <span class="co">//the class of the n-th annotation</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="kw">transformed data</span> {</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">vector</span>[K] alpha = rep_vector(<span class="dv">1</span>,K); <span class="co">//class prevalence prior</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">vector</span>[K] eta = rep_vector(<span class="dv">1</span>,K); <span class="co">//annotator abilities prior</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="kw">parameters</span> {</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">simplex</span>[K] pi;</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">simplex</span>[K] beta[J,K];</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="kw">transformed parameters</span> {</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="dt">vector</span>[K] log_q_c[I];</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="dt">vector</span>[K] log_pi;</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="dt">vector</span>[K] log_beta[J,K];</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  log_pi = log(pi);</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  log_beta = log(beta);</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span>:I) </span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    log_q_c[i] = log_pi;</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">1</span>:N) </span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (h <span class="cf">in</span> <span class="dv">1</span>:K)</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>      log_q_c[ii[n],h] = log_q_c[ii[n],h] + log_beta[jj[n],h,y[n]];</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="kw">model</span> {</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span>:J)</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(h <span class="cf">in</span> <span class="dv">1</span>:K)</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>      beta[j,h] ~ dirichlet(eta);</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>  pi ~ dirichlet(alpha);</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span>:I)</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    <span class="kw">target +=</span> log_sum_exp(log_q_c[i]);</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="kw">generated quantities</span> {</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>  <span class="dt">vector</span>[K] q_z[I]; <span class="co">//the true class distribution of each item</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span>:I)</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>    q_z[i] = softmax(log_q_c[i]);</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <p>See p.&nbsp;573 of <span class="citation" data-cites="paun2018comparing">Paun et al. (<a href="#ref-paun2018comparing" role="doc-biblioref">2018</a>)</span> for a “partially pooled” variation of the Dawid &amp; Skene method.</p>
 <blockquote class="blockquote">
 <p>This structure [uses] information about the population to improve estimates of individuals by regularizing toward the population mean. This is particularly helpful with low count data as found in many crowdsourcing tasks</p>
 </blockquote>
 </section>
-<section id="sec-mace" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="sec-mace"><span class="header-section-number">6.2</span> MACE</h2>
+<section id="sec-mace" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="sec-mace"><span class="header-section-number">5.2</span> MACE</h2>
 <p>The MACE algorithm is newer rater aggreement approach from the machine learning community. It was introduced in <span class="citation" data-cites="hovy2013learning">Hovy et al. (<a href="#ref-hovy2013learning" role="doc-biblioref">2013</a>)</span>, where we find a description of the model’s annotation (rating) generation process.</p>
 <blockquote class="blockquote">
 <p>We assume that an annotator always produces the correct label when he tries to. […] Our model generates the observed annotations as follows: First, for each instance <span class="math inline">\(i\)</span>, we sample the true label <span class="math inline">\(T_i\)</span> from a uniform prior. Then for each annotator <span class="math inline">\(j\)</span>, we draw a binary variable <span class="math inline">\(S_{ij}\)</span> from a Bernoulli distribution with parameter <span class="math inline">\(1 - \theta_j\)</span>. <span class="math inline">\(S_{ij}\)</span> represents whether or not an annotator <span class="math inline">\(j\)</span> is spamming on instance <span class="math inline">\(i\)</span>. We assume that when an annotator is not spamming on an instance, i.e.&nbsp;<span class="math inline">\(S_{ij}=0\)</span>, he just copies the true value to produce annotation <span class="math inline">\(A_{ij}\)</span>. If <span class="math inline">\(S_{ij}=1\)</span>, we say that the annotator is spamming on the current instance, and <span class="math inline">\(A_{ij}\)</span> is sampled from a multinomial with parameter vector <span class="math inline">\(\xi_j\)</span>. Note that in this case the annotation <span class="math inline">\(A_{ij}\)</span> <em>does not</em> depend on the true label <span class="math inline">\(T_i\)</span>.</p>
@@ -783,264 +705,264 @@ View Stan code
 \begin{aligned}
 Pr(C;t,a,p) &amp;= \sum_{T,A} \left[ \prod_{i}  Pr(T_i) \prod_{j}  Pr(A_{ij}; a_j) Pr(C_{ij} | A_{ij},T_i;p_j)\right] \\
 \end{aligned}
-\tag{6}\]</span></span></p>
+\tag{4}\]</span></span></p>
 <p>where I’ve recast the product into the more compact <span class="math inline">\(\pi\)</span> coefficients from Dawid &amp; Skene, and assume binary classifications. All I can figure is that the first line in the paper has a typo reversing the outer sum with the product over <span class="math inline">\(i\)</span>, and it should be written as</p>
 <p><span id="eq-mace-fixed"><span class="math display">\[
 \begin{aligned}
 Pr(C;t,a,p) &amp;=  \prod_{i}  Pr(T_i) \sum_{T,A}\prod_{j}  Pr(A_{ij}; a_j) Pr(C_{ij} | A_{ij},T_i;p_j) \\
 &amp;= \prod_{i}\left( t_i \prod_{j} \pi_{1C_{ij}}^{(j)} + \bar{t}_i \prod_{j} \pi_{0C_{ij}}^{(j)} \right) .
 \end{aligned}
-\tag{7}\]</span></span></p>
-<p>The second line is the earlier derivation, matching the Dawid &amp; Skene likelihood. The next step is to apply the t-a-p reparameterization to the <span class="math inline">\(\pi\)</span> coefficients. Unlike the Dawid &amp; Skene paper, there’s no derivation of the likelihood formula, and the meaning of the sum over <span class="math inline">\(T\)</span> and <span class="math inline">\(A\)</span> is not clear. I assume it’s over the <em>values</em> that these parameters can take, not the empirical vectors of values themselves. In any case, the likelihood is expressed as a sum of products in <a href="#eq-mace" class="quarto-xref">Equation&nbsp;6</a>, which is different from the t-a-p derivation above, which is a product of sums.</p>
-<p>Bob Carpenter’s Stan code for implenting MACE <span class="citation" data-cites="paun2018comparing">(<a href="#ref-paun2018comparing" role="doc-biblioref">Paun et al., 2018</a>)</span> matches the <a href="#eq-mace-fixed" class="quarto-xref">Equation&nbsp;7</a> version. I have changed the array declarations to conform with the latest version of Stan (which broke old code) and added comments to annotate how the variables match to the t-a-p nomenclature. This code, as MACE is, is designed for multiple classes (more than 2), but I’ve described in the binary case. In that case, the algorithm assumes initially that <span class="math inline">\(t=.5\)</span> as a way to generate the parameters we call <span class="math inline">\(a_j\)</span> and <span class="math inline">\(p_j\)</span>, which then allow refined estimation of <span class="math inline">\(t_i\)</span>.</p>
+\tag{5}\]</span></span></p>
+<p>The second line is the earlier derivation, matching the Dawid &amp; Skene likelihood. The next step is to apply the t-a-p reparameterization to the <span class="math inline">\(\pi\)</span> coefficients. Unlike the Dawid &amp; Skene paper, there’s no derivation of the likelihood formula, and the meaning of the sum over <span class="math inline">\(T\)</span> and <span class="math inline">\(A\)</span> is not clear. I assume it’s over the <em>values</em> that these parameters can take, not the empirical vectors of values themselves. In any case, the likelihood is expressed as a sum of products in <a href="#eq-mace" class="quarto-xref">Equation&nbsp;4</a>, which is different from the t-a-p derivation above, which is a product of sums.</p>
+<p>Bob Carpenter’s Stan code for implenting MACE <span class="citation" data-cites="paun2018comparing">(<a href="#ref-paun2018comparing" role="doc-biblioref">Paun et al., 2018</a>)</span> matches the <a href="#eq-mace-fixed" class="quarto-xref">Equation&nbsp;5</a> version. I have changed the array declarations to conform with the latest version of Stan (which broke old code) and added comments to annotate how the variables match to the t-a-p nomenclature. This code, as MACE is, is designed for multiple classes (more than 2), but I’ve described in the binary case. In that case, the algorithm assumes initially that <span class="math inline">\(t=.5\)</span> as a way to generate the parameters we call <span class="math inline">\(a_j\)</span> and <span class="math inline">\(p_j\)</span>, which then allow refined estimation of <span class="math inline">\(t_i\)</span>.</p>
 <details>
 <summary>
 View MACE Stan code
 </summary>
-<div class="sourceCode" id="cb5"><pre class="sourceCode stan code-with-copy"><code class="sourceCode stan"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> {</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>&gt; J; <span class="co">//number of annotators</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">2</span>&gt; K; <span class="co">//number of classes</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>&gt; N; <span class="co">//number of annotations</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>&gt; I; <span class="co">//number of items</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>,<span class="kw">upper</span>=I&gt; ii[N]; <span class="co">//the item the n-th annotation belongs to</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>,<span class="kw">upper</span>=J&gt; jj[N]; <span class="co">//the annotator which produced the n-th annotation</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> y[N]; <span class="co">//the class of the n-th annotation</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="kw">transformed data</span> {</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">vector</span>[K] alpha = rep_vector(<span class="fl">1.0</span>/K,K);</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">vector</span>[K] eta = rep_vector(<span class="dv">10</span>,K);</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="kw">parameters</span> {</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">simplex</span>[K] epsilon[J];</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>, <span class="kw">upper</span>=<span class="dv">1</span>&gt; theta[J];</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="kw">transformed parameters</span> {</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="dt">vector</span>[K] log_q_c[I];</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="dt">vector</span>[K] log_alpha;</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  log_alpha = log(alpha);</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span>:I) </span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    log_q_c[i] = log_alpha;</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">1</span>:N) </span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  {</span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (h <span class="cf">in</span> <span class="dv">1</span>:K)</span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>    {</span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>      <span class="dt">int</span> indicator = (y[n] == h);</span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>      log_q_c[ii[n],h] = log_q_c[ii[n],h] + log( theta[jj[n]] * indicator + (<span class="dv">1</span>-theta[jj[n]]) * epsilon[jj[n],y[n]] );</span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="kw">model</span> {</span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span>:J)</span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>  {</span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>    epsilon[j] ~ dirichlet(eta);</span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>    theta[j] ~ beta(<span class="fl">0.5</span>,<span class="fl">0.5</span>);</span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span>:I)</span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>    <span class="kw">target +=</span> log_sum_exp(log_q_c[i]);</span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="kw">generated quantities</span> {</span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>  <span class="dt">vector</span>[K] q_z[I]; <span class="co">//the true class distribution of each item</span></span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span>:I)</span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>    q_z[i] = softmax(log_q_c[i]);</span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode stan code-with-copy"><code class="sourceCode stan"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>&gt; J; <span class="co">//number of annotators</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">2</span>&gt; K; <span class="co">//number of classes</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>&gt; N; <span class="co">//number of annotations</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>&gt; I; <span class="co">//number of items</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>,<span class="kw">upper</span>=I&gt; ii[N]; <span class="co">//the item the n-th annotation belongs to</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>,<span class="kw">upper</span>=J&gt; jj[N]; <span class="co">//the annotator which produced the n-th annotation</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> y[N]; <span class="co">//the class of the n-th annotation</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="kw">transformed data</span> {</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">vector</span>[K] alpha = rep_vector(<span class="fl">1.0</span>/K,K);</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">vector</span>[K] eta = rep_vector(<span class="dv">10</span>,K);</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="kw">parameters</span> {</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">simplex</span>[K] epsilon[J];</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>, <span class="kw">upper</span>=<span class="dv">1</span>&gt; theta[J];</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="kw">transformed parameters</span> {</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="dt">vector</span>[K] log_q_c[I];</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  <span class="dt">vector</span>[K] log_alpha;</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>  log_alpha = log(alpha);</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span>:I) </span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    log_q_c[i] = log_alpha;</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">1</span>:N) </span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  {</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (h <span class="cf">in</span> <span class="dv">1</span>:K)</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>      <span class="dt">int</span> indicator = (y[n] == h);</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>      log_q_c[ii[n],h] = log_q_c[ii[n],h] + log( theta[jj[n]] * indicator + (<span class="dv">1</span>-theta[jj[n]]) * epsilon[jj[n],y[n]] );</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="kw">model</span> {</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span>:J)</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>  {</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>    epsilon[j] ~ dirichlet(eta);</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    theta[j] ~ beta(<span class="fl">0.5</span>,<span class="fl">0.5</span>);</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span>:I)</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>    <span class="kw">target +=</span> log_sum_exp(log_q_c[i]);</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="kw">generated quantities</span> {</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>  <span class="dt">vector</span>[K] q_z[I]; <span class="co">//the true class distribution of each item</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span>:I)</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>    q_z[i] = softmax(log_q_c[i]);</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </section>
 </section>
-<section id="groupthink" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Groupthink</h1>
+<section id="groupthink" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Groupthink</h1>
 <p>In the discussion of the Fleiss kappa in <a href="./kappa.html">Chapter 3</a>, I noted that the assumption that <span class="math inline">\(p=t\)</span> might imply that knowlege about the true class rate affects rater assignments, which could violate the independence assumption. For example, a rare condition might be ignored because it’s improbable. This knowlege leakage is inevitable with human raters, and the ratings may be better understood as independent conditional on some set of shared beliefs and contexts. Suppose we push this idea by assuming that each rater’s random assignment rate for Class 1 for <em>each subject</em> is the prevalence of ratings for that subject. This could happen if raters talk to each other and take a straw poll before assigning their ratings. In this case, <span class="math inline">\(p\)</span> can be indexed to subjects as <span class="math inline">\(p_i = c_i\)</span>, so we could call the hierarchical model <span class="math inline">\(t_i-a_j-c_i\)</span>. This is the Fleiss assumption, but instead of applied to the whole set of ratings, it’s within each subject. If a rater classifies inaccurately, the class assignment is influenced by the group’s collective opinion, which we might call groupthink.</p>
 <p>The effect of this non-independence is a dramatic reduction in our ability to estimate rater accuracy. A simple way to test this is to modify the average t-a-p model to inject the average Class 1 rate into the <span class="math inline">\(p_j\)</span> parameter (so <span class="math inline">\(p_j = c_i\)</span>) and then find the maximum likelihood.</p>
 <details>
 <summary>
 View Stan code
 </summary>
-<div class="sourceCode" id="cb6"><pre class="sourceCode stan code-with-copy"><code class="sourceCode stan"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">//</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">//   A Groupthink t_i-a_j-c_i model</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">//</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">//   The development is described in the hierarchical chapter under Groupthink</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Learn more about model development with Stan at:</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">//</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">//    http://mc-stan.org/users/interfaces/rstan.html</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">//    https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">// The ratings summary (number of 1-ratings per case) and descriptives</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> {</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>&gt; N;   <span class="co">// number of ratings</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>&gt; S;   <span class="co">// number of subjects being rated</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>&gt; R;   <span class="co">// number of unique raters</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">array</span>[N] <span class="dt">int</span> rating;        <span class="co">// array of binary ratings</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">array</span>[N] <span class="dt">int</span> subject_index; <span class="co">// the ID of the subject for the ith rating. Should be in 1:S</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">array</span>[N] <span class="dt">int</span> rater_index; <span class="co">// the ID of the rater for the ith rating. Should be in 1:R</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="dt">array</span>[S] <span class="dt">real</span> p; <span class="co">// average number of Class 1 ratings for subject i</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="co">// The parameters to estimate</span></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="kw">parameters</span> {</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  <span class="co">// random effects</span></span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span>&lt;<span class="kw">lower</span> = <span class="dv">0</span>, <span class="kw">upper</span> = <span class="dv">1</span>&gt; a;  <span class="co">// rater random parameter</span></span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span>&lt;<span class="kw">lower</span> = <span class="dv">0</span>, <span class="kw">upper</span> = <span class="dv">1</span>&gt; t; <span class="co">// the estimated true class probability for subjects</span></span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="co">// The model to be estimated.</span></span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="kw">model</span> {</span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>  <span class="co">// accumulation of log likelihood by subject</span></span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>  <span class="dt">array</span>[S] <span class="dt">real</span> sub_00 = rep_array(<span class="fl">0.0</span>, S);</span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>  <span class="dt">array</span>[S] <span class="dt">real</span> sub_01 = rep_array(<span class="fl">0.0</span>, S);</span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>  <span class="dt">array</span>[S] <span class="dt">real</span> sub_10 = rep_array(<span class="fl">0.0</span>, S);</span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>  <span class="dt">array</span>[S] <span class="dt">real</span> sub_11 = rep_array(<span class="fl">0.0</span>, S);</span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> subject;</span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span> lpi_00; <span class="co">// Pr(Assigned class = 0 | True class = 0)</span></span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span> lpi_01;</span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span> lpi_10;</span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span> lpi_11;</span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span> p_;</span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span> eps = <span class="fl">1e-10</span>; <span class="co">// hack to avoid log(0)</span></span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>  <span class="co">// priors for average params</span></span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>  t ~ uniform(<span class="dv">0</span>, <span class="dv">1</span>);</span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>  a ~ uniform(<span class="dv">0</span>, <span class="dv">1</span>);</span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>  <span class="co">// log likelihood contribution from raters</span></span>
-<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span>:N) {</span>
-<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>    subject = subject_index[i];</span>
-<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>    p_ = p[subject]; <span class="co">// from the data, equals avg class 1 rating for subject</span></span>
-<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>    <span class="co">// likelihoods</span></span>
-<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>    lpi_00 = log(<span class="dv">1</span>-(<span class="dv">1</span>-a)*p_ + eps);</span>
-<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>    lpi_01 = log((<span class="dv">1</span>-a)*(<span class="dv">1</span>-p_) + eps);</span>
-<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>    lpi_10 = log((<span class="dv">1</span>-a)*p_ + eps);</span>
-<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>    lpi_11 = log(a + (<span class="dv">1</span>-a)*p_ + eps);</span>
-<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(rating[i] == <span class="dv">0</span>){ <span class="co">// assigned class 0</span></span>
-<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>      sub_00[subject] += lpi_00;</span>
-<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>      sub_10[subject] += lpi_10;</span>
-<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {           <span class="co">// assigned class 1</span></span>
-<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>      sub_01[subject] += lpi_01;</span>
-<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>      sub_11[subject] += lpi_11;</span>
-<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>  <span class="co">// accumulate by subject</span></span>
-<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span>:S){</span>
-<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a>      <span class="kw">target +=</span> log_sum_exp(log(t + eps) + sub_11[i] + sub_10[i],</span>
-<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>                            log(<span class="dv">1</span>-t + eps) + sub_01[i] + sub_00[i]);</span>
-<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode stan code-with-copy"><code class="sourceCode stan"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">//</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">//   A Groupthink t_i-a_j-c_i model</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">//</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">//   The development is described in the hierarchical chapter under Groupthink</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Learn more about model development with Stan at:</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">//</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">//    http://mc-stan.org/users/interfaces/rstan.html</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">//    https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">// The ratings summary (number of 1-ratings per case) and descriptives</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> {</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>&gt; N;   <span class="co">// number of ratings</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>&gt; S;   <span class="co">// number of subjects being rated</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>&gt; R;   <span class="co">// number of unique raters</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">array</span>[N] <span class="dt">int</span> rating;        <span class="co">// array of binary ratings</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">array</span>[N] <span class="dt">int</span> subject_index; <span class="co">// the ID of the subject for the ith rating. Should be in 1:S</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">array</span>[N] <span class="dt">int</span> rater_index; <span class="co">// the ID of the rater for the ith rating. Should be in 1:R</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="dt">array</span>[S] <span class="dt">real</span> p; <span class="co">// average number of Class 1 ratings for subject i</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">// The parameters to estimate</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="kw">parameters</span> {</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>  <span class="co">// random effects</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span>&lt;<span class="kw">lower</span> = <span class="dv">0</span>, <span class="kw">upper</span> = <span class="dv">1</span>&gt; a;  <span class="co">// rater random parameter</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span>&lt;<span class="kw">lower</span> = <span class="dv">0</span>, <span class="kw">upper</span> = <span class="dv">1</span>&gt; t; <span class="co">// the estimated true class probability for subjects</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="co">// The model to be estimated.</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="kw">model</span> {</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>  <span class="co">// accumulation of log likelihood by subject</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>  <span class="dt">array</span>[S] <span class="dt">real</span> sub_00 = rep_array(<span class="fl">0.0</span>, S);</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>  <span class="dt">array</span>[S] <span class="dt">real</span> sub_01 = rep_array(<span class="fl">0.0</span>, S);</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>  <span class="dt">array</span>[S] <span class="dt">real</span> sub_10 = rep_array(<span class="fl">0.0</span>, S);</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>  <span class="dt">array</span>[S] <span class="dt">real</span> sub_11 = rep_array(<span class="fl">0.0</span>, S);</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> subject;</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span> lpi_00; <span class="co">// Pr(Assigned class = 0 | True class = 0)</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span> lpi_01;</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span> lpi_10;</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span> lpi_11;</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span> p_;</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span> eps = <span class="fl">1e-10</span>; <span class="co">// hack to avoid log(0)</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>  <span class="co">// priors for average params</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>  t ~ uniform(<span class="dv">0</span>, <span class="dv">1</span>);</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>  a ~ uniform(<span class="dv">0</span>, <span class="dv">1</span>);</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>  <span class="co">// log likelihood contribution from raters</span></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span>:N) {</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>    subject = subject_index[i];</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>    p_ = p[subject]; <span class="co">// from the data, equals avg class 1 rating for subject</span></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>    <span class="co">// likelihoods</span></span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>    lpi_00 = log(<span class="dv">1</span>-(<span class="dv">1</span>-a)*p_ + eps);</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>    lpi_01 = log((<span class="dv">1</span>-a)*(<span class="dv">1</span>-p_) + eps);</span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>    lpi_10 = log((<span class="dv">1</span>-a)*p_ + eps);</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>    lpi_11 = log(a + (<span class="dv">1</span>-a)*p_ + eps);</span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(rating[i] == <span class="dv">0</span>){ <span class="co">// assigned class 0</span></span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>      sub_00[subject] += lpi_00;</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>      sub_10[subject] += lpi_10;</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {           <span class="co">// assigned class 1</span></span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>      sub_01[subject] += lpi_01;</span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>      sub_11[subject] += lpi_11;</span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>  <span class="co">// accumulate by subject</span></span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span>:S){</span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>      <span class="kw">target +=</span> log_sum_exp(log(t + eps) + sub_11[i] + sub_10[i],</span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>                            log(<span class="dv">1</span>-t + eps) + sub_01[i] + sub_00[i]);</span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <p>The simulation here is an easy problem to solve with all three of the t-a-p parameters set to .7. The model estimates for accuracy are around .06 instead of .7.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tapModel)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(LaplacesDemon) <span class="co"># for mode and rbern</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>refresh <span class="ot">=</span> <span class="dv">0</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(refresh){</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulate hierarchical data and compare fit</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  n_sim <span class="ot">=</span> <span class="dv">30</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  n_subjects <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  n_raters <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  true <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  direct1 <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  mcmc1 <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  stan_model <span class="ot">&lt;-</span> <span class="st">"code/t-a-c_i.stan"</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  compiled_model <span class="ot">&lt;-</span> cmdstanr<span class="sc">::</span><span class="fu">cmdstan_model</span>(stan_model)</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  sim_results <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_sim){</span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># simulate data</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    sim_param_list <span class="ot">=</span> <span class="fu">list</span>( <span class="at">t =</span> <span class="fu">runif</span>(n_subjects)<span class="sc">/</span><span class="dv">5</span> <span class="sc">+</span> .<span class="dv">7</span> <span class="sc">-</span> .<span class="dv">1</span>,</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>                       <span class="at">a =</span> <span class="fu">runif</span>(n_raters)<span class="sc">/</span><span class="dv">5</span> <span class="sc">+</span> .<span class="dv">7</span> <span class="sc">-</span> .<span class="dv">1</span>,</span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>                       <span class="at">p =</span> <span class="fu">runif</span>(n_raters)<span class="sc">/</span><span class="dv">5</span> <span class="sc">+</span> .<span class="dv">7</span> <span class="sc">-</span> .<span class="dv">1</span>)</span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    ratings <span class="ot">&lt;-</span> <span class="fu">generate_ti_aj_pj_ratings</span>(<span class="at">param_list =</span> sim_param_list)</span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># empirical averages for true params</span></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    true_subjects <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(subject_id) <span class="sc">|&gt;</span></span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarize</span>(<span class="at">t =</span> <span class="fu">mean</span>(T_i)) <span class="co"># should be 0 or 1</span></span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>    true_raters <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span></span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(rater_id) <span class="sc">|&gt;</span></span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarize</span>(<span class="at">a =</span> <span class="fu">mean</span>(A_ij),</span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>                <span class="at">p =</span> <span class="fu">mean</span>(<span class="fu">if_else</span>(A_ij <span class="sc">==</span> <span class="dv">1</span>, <span class="cn">NA</span>, P_ij), <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># closed form estimation</span></span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>    rating_params <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">fit_ratings</span>(ratings)</span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>    param_list <span class="ot">&lt;-</span> <span class="fu">pull_rating_params</span>(rating_params)</span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>    c_i <span class="ot">&lt;-</span> rating_params <span class="sc">|&gt;</span> </span>
-<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>           <span class="fu">group_by</span>(subject_id) <span class="sc">|&gt;</span> </span>
-<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>           <span class="fu">summarize</span>(<span class="at">c_i =</span> <span class="fu">mean</span>(rating))</span>
-<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>    <span class="co"># mcmc model using Carpenter MACE</span></span>
-<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>    mcmc <span class="ot">&lt;-</span> compiled_model<span class="sc">$</span><span class="fu">sample</span>(</span>
-<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> <span class="fu">list</span>(</span>
-<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>        <span class="at">N =</span> <span class="fu">nrow</span>(rating_params),</span>
-<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>        <span class="at">S =</span> <span class="fu">n_distinct</span>(rating_params<span class="sc">$</span>subject_id),</span>
-<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>        <span class="at">R =</span> <span class="fu">n_distinct</span>(rating_params<span class="sc">$</span>rater_id),</span>
-<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>        <span class="at">rating =</span> rating_params<span class="sc">$</span>rating,</span>
-<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>        <span class="at">subject_index =</span> rating_params<span class="sc">$</span>subject_id,</span>
-<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>        <span class="at">rater_index =</span> rating_params<span class="sc">$</span>rater_id,</span>
-<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>        <span class="at">p =</span> c_i<span class="sc">$</span>c_i),</span>
-<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>      <span class="at">seed =</span> <span class="dv">123</span>,</span>
-<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>      <span class="at">chains =</span> <span class="dv">3</span>,</span>
-<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>      <span class="at">parallel_chains =</span> <span class="dv">3</span>,</span>
-<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>      <span class="at">iter_warmup =</span> <span class="dv">200</span>,</span>
-<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>      <span class="at">refresh =</span> <span class="dv">1000</span>)</span>
-<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>    sim_results[[i]] <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">estimate_params_mcmc</span>(mcmc<span class="sc">$</span><span class="fu">draws</span>()) </span>
-<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>  all_results <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(<span class="fu">seq_along</span>(sim_results), <span class="cf">function</span>(i) {</span>
-<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">&lt;-</span> sim_results[[i]]</span>
-<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a>    df<span class="sc">$</span>sim <span class="ot">&lt;-</span> i</span>
-<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>    df</span>
-<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>  }))</span>
-<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_rds</span>(all_results, <span class="st">"data/groupthink.rds"</span>)</span>
-<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>  all_results <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">"data/groupthink.rds"</span>)</span>
-<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a><span class="co"># plot accuracy estimates</span></span>
-<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a>all_results <span class="sc">|&gt;</span> </span>
-<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(var <span class="sc">==</span> <span class="st">"a"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> avg)) <span class="sc">+</span></span>
-<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
-<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>,<span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">0.7</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Average Rater Accuracy"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tapModel)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(LaplacesDemon) <span class="co"># for mode and rbern</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>refresh <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(refresh){</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulate hierarchical data and compare fit</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  n_sim <span class="ot">=</span> <span class="dv">30</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  n_subjects <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  n_raters <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  true <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  direct1 <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  mcmc1 <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  stan_model <span class="ot">&lt;-</span> <span class="st">"code/t-a-c_i.stan"</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  compiled_model <span class="ot">&lt;-</span> cmdstanr<span class="sc">::</span><span class="fu">cmdstan_model</span>(stan_model)</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  sim_results <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_sim){</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># simulate data</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    sim_param_list <span class="ot">=</span> <span class="fu">list</span>( <span class="at">t =</span> <span class="fu">runif</span>(n_subjects)<span class="sc">/</span><span class="dv">5</span> <span class="sc">+</span> .<span class="dv">7</span> <span class="sc">-</span> .<span class="dv">1</span>,</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>                       <span class="at">a =</span> <span class="fu">runif</span>(n_raters)<span class="sc">/</span><span class="dv">5</span> <span class="sc">+</span> .<span class="dv">7</span> <span class="sc">-</span> .<span class="dv">1</span>,</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>                       <span class="at">p =</span> <span class="fu">runif</span>(n_raters)<span class="sc">/</span><span class="dv">5</span> <span class="sc">+</span> .<span class="dv">7</span> <span class="sc">-</span> .<span class="dv">1</span>)</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>    ratings <span class="ot">&lt;-</span> <span class="fu">generate_ti_aj_pj_ratings</span>(<span class="at">param_list =</span> sim_param_list)</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># empirical averages for true params</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>    true_subjects <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(subject_id) <span class="sc">|&gt;</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarize</span>(<span class="at">t =</span> <span class="fu">mean</span>(T_i)) <span class="co"># should be 0 or 1</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>    true_raters <span class="ot">&lt;-</span> ratings <span class="sc">|&gt;</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(rater_id) <span class="sc">|&gt;</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarize</span>(<span class="at">a =</span> <span class="fu">mean</span>(A_ij),</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>                <span class="at">p =</span> <span class="fu">mean</span>(<span class="fu">if_else</span>(A_ij <span class="sc">==</span> <span class="dv">1</span>, <span class="cn">NA</span>, P_ij), <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># closed form estimation</span></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>    rating_params <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">fit_ratings</span>(ratings)</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>    param_list <span class="ot">&lt;-</span> <span class="fu">pull_rating_params</span>(rating_params)</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>    c_i <span class="ot">&lt;-</span> rating_params <span class="sc">|&gt;</span> </span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>           <span class="fu">group_by</span>(subject_id) <span class="sc">|&gt;</span> </span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>           <span class="fu">summarize</span>(<span class="at">c_i =</span> <span class="fu">mean</span>(rating))</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>    <span class="co"># mcmc model using Carpenter MACE</span></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>    mcmc <span class="ot">&lt;-</span> compiled_model<span class="sc">$</span><span class="fu">sample</span>(</span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> <span class="fu">list</span>(</span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>        <span class="at">N =</span> <span class="fu">nrow</span>(rating_params),</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>        <span class="at">S =</span> <span class="fu">n_distinct</span>(rating_params<span class="sc">$</span>subject_id),</span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>        <span class="at">R =</span> <span class="fu">n_distinct</span>(rating_params<span class="sc">$</span>rater_id),</span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>        <span class="at">rating =</span> rating_params<span class="sc">$</span>rating,</span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>        <span class="at">subject_index =</span> rating_params<span class="sc">$</span>subject_id,</span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>        <span class="at">rater_index =</span> rating_params<span class="sc">$</span>rater_id,</span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>        <span class="at">p =</span> c_i<span class="sc">$</span>c_i),</span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>      <span class="at">seed =</span> <span class="dv">123</span>,</span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>      <span class="at">chains =</span> <span class="dv">3</span>,</span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>      <span class="at">parallel_chains =</span> <span class="dv">3</span>,</span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>      <span class="at">iter_warmup =</span> <span class="dv">200</span>,</span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>      <span class="at">refresh =</span> <span class="dv">1000</span>)</span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>    sim_results[[i]] <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">estimate_params_mcmc</span>(mcmc<span class="sc">$</span><span class="fu">draws</span>()) </span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>  all_results <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(<span class="fu">seq_along</span>(sim_results), <span class="cf">function</span>(i) {</span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">&lt;-</span> sim_results[[i]]</span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a>    df<span class="sc">$</span>sim <span class="ot">&lt;-</span> i</span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>    df</span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>  }))</span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_rds</span>(all_results, <span class="st">"data/groupthink.rds"</span>)</span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a>  all_results <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">"data/groupthink.rds"</span>)</span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a><span class="co"># plot accuracy estimates</span></span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>all_results <span class="sc">|&gt;</span> </span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(var <span class="sc">==</span> <span class="st">"a"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> avg)) <span class="sc">+</span></span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>,<span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">0.7</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Average Rater Accuracy"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1053,8 +975,8 @@ View Stan code
 </div>
 <p>The lesson here is that non-independence, where the raters have a consensus-building process or just a per-subject referent, makes estimating rater accuracy difficult. For more on testing for non-independence, see <a href="./fit.html">Chapter 6</a>.</p>
 </section>
-<section id="invariant-scales" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Invariant Scales</h1>
+<section id="invariant-scales" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Invariant Scales</h1>
 <p>Educational testing has evolved methods like <a href="https://en.wikipedia.org/wiki/Item_response_theory">Item Response Theory</a> (IRT) for simultaneously estimating student ability and test item difficulty. We can compare the standard three-parameter model to the t-a-p model by naming the parameters analogously. Assume it’s a binary (True/False) test for simplicity. For a given test item (think: subject to be rated) there is a true answer <span class="math inline">\(T_i\)</span> and test-taker (rater) classification <span class="math inline">\(C_{ij}\)</span>. Each test-taker <span class="math inline">\(j\)</span> has an intrisic ability to get items correct <span class="math inline">\(\alpha_j\)</span>, which is a real value on <span class="math inline">\((-\infty,+\infty)\)</span>, usually assumed to be normally distributed over a population. Each test item has an intrisic bias difficulty <span class="math inline">\(d_i\)</span> on the same (invariant) scale. The difficulty works against ability, so we’ll be interested in <span class="math inline">\(a_j - d_i\)</span> as a chance of getting the correct answer. The probability of getting the correct answer depends on both the test-taker (rater) and the item (subject), with</p>
 <p><span class="math display">\[
 Pr[C_{ij} = T_i] = \frac{1}{1 + e^{-s_i(\alpha_j - d_i)}},
@@ -1081,8 +1003,8 @@ q + \bar{q} a  &amp;=  t\bar{a}p + \bar{t}\bar{a}\bar{p} + a.\\
 a_{ij} = \frac{1}{1 + e^{-(\alpha_j - \delta_i + \eta y_j)}},
 \]</span> where <span class="math inline">\(\alpha\)</span> is the latent accuracy parameter, <span class="math inline">\(\delta\)</span> is the difficulty latent parameter, and <span class="math inline">\(\eta\)</span> (eta, for experience) is a parameter that measures the effect of experience on accuracy and converts years to the same units as the other parameters.</p>
 </section>
-<section id="partial-pooling" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> Partial Pooling</h1>
+<section id="partial-pooling" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Partial Pooling</h1>
 <p>Another feature of the latent scale for parameters is that we can easily combine average and individual effects. For example, we can use the average accuracy of all raters to estimate the accuracy of a new rater. This is called “partial pooling” in the Bayesian literature, and it works by estimating the average parameters from a large data set and then using them to estimate the individual parameters. The idea is that we can borrow strength from the population to improve our estimates of individual parameters. The simplest case looks like</p>
 <p><span class="math display">\[
 a_j = \frac{1}{1 + e^{-(\alpha + \alpha_j)}},

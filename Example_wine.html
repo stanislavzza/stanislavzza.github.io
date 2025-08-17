@@ -209,6 +209,13 @@ window.Quarto = {
    
   <ul>
   <li><a href="#example-wine-ratings" id="toc-example-wine-ratings" class="nav-link active" data-scroll-target="#example-wine-ratings"><span class="header-section-number">1</span> Example: Wine Ratings</a></li>
+  <li><a href="#independence" id="toc-independence" class="nav-link" data-scroll-target="#independence"><span class="header-section-number">2</span> Independence</a></li>
+  <li><a href="#ordinal-parameters" id="toc-ordinal-parameters" class="nav-link" data-scroll-target="#ordinal-parameters"><span class="header-section-number">3</span> Ordinal Parameters</a></li>
+  <li><a href="#combined-data" id="toc-combined-data" class="nav-link" data-scroll-target="#combined-data"><span class="header-section-number">4</span> Combined Data</a></li>
+  <li><a href="#wine-ratings" id="toc-wine-ratings" class="nav-link" data-scroll-target="#wine-ratings"><span class="header-section-number">5</span> Wine Ratings</a></li>
+  <li><a href="#evaluating-raters" id="toc-evaluating-raters" class="nav-link" data-scroll-target="#evaluating-raters"><span class="header-section-number">6</span> Evaluating Raters</a></li>
+  <li><a href="#a-final-model" id="toc-a-final-model" class="nav-link" data-scroll-target="#a-final-model"><span class="header-section-number">7</span> A Final Model</a></li>
+  <li><a href="#final-thoughts" id="toc-final-thoughts" class="nav-link" data-scroll-target="#final-thoughts"><span class="header-section-number">8</span> Final Thoughts</a></li>
   </ul>
 </nav>
 </nav>
@@ -256,46 +263,58 @@ window.Quarto = {
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(wine)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: rater_id should be ignored as they are generic, not unique to raters</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>ordinal_ratings <span class="ot">&lt;-</span> <span class="fu">format_raw_ratings</span>(wine,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                              <span class="at">rating_cols =</span> <span class="fu">c</span>(<span class="st">"J1"</span>,<span class="st">"J2"</span>,<span class="st">"J3"</span>,<span class="st">"J4"</span>),</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                              <span class="at">rating_colnames_type =</span> <span class="st">"rater"</span>,</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                              <span class="at">subject_id_col =</span> <span class="cn">NULL</span>,</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                              <span class="at">rater_id_col =</span> <span class="cn">NULL</span>,</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>                              <span class="at">prune =</span> <span class="cn">FALSE</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ordinal data sets corresponding to the repeated measures design</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>wine1 <span class="ot">&lt;-</span> wine <span class="sc">|&gt;</span> </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>         <span class="fu">filter</span>(trial <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>wine2 <span class="ot">&lt;-</span> wine <span class="sc">|&gt;</span> </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>         <span class="fu">filter</span>(trial <span class="sc">==</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <section id="example-wine-ratings" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Example: Wine Ratings</h1>
-<p>The wine ratings came from private correspondence with the author of <span class="citation" data-cites="hodgson2008examination">Hodgson (<a href="#ref-hodgson2008examination" role="doc-biblioref">2008</a>)</span>.</p>
-<p>The award system has the following encoding:</p>
+<p>The wine ratings came from private correspondence with the author of <span class="citation" data-cites="hodgson2008examination">Hodgson (<a href="#ref-hodgson2008examination" role="doc-biblioref">2008</a>)</span>. Here’s the abstract of the article.</p>
+<blockquote class="blockquote">
+<p>Wine judge performance at a major wine competition has been analyzed from 2005 to 2008 using replicate samples. Each panel of four expert judges received a flight of 30 wines imbedded with triplicate samples poured from the same bottle. Between 65 and 70 judges were tested each year. About 10 percent of the judges were able to replicate their score within a single medal group. Another 10 percent, on occasion, scored the same wine Bronze to Gold. Judges tend to be more consistent in what they don’t like than what they do. An analysis of variance covering every panel over the study period indicates only about half of the panels presented awards based solely on wine quality.</p>
+</blockquote>
+<p>The data comes from a wine-judging event, where (p.&nbsp;106)</p>
+<blockquote class="blockquote">
+<p>[F]our triplicate samples [are] served to 16 panels of judges. A typical flight consists of 30 wines. When possible, triplicate samples of all four wines were served in the second flight of the day randomly interspersed among the 30 wines. A typical day’s work involves four to six flights, about 150 wines. Each triplicate was poured from the same bottle and served on the same flight. The overriding principle was to design the experiment to maximize the probability in favor of the judges’ ability to replicate their scores. The judges first mark the wine’s score independently, and their scores are recorded by the panel’s secretary. Afterward the judges discuss the wine. Based on the discussion, some judges modify their initial score; others do not. For this study, only the first, independent score is used to analyze an individual judge’s consistency in scoring wines.</p>
+</blockquote>
+<p>I only have a part of the total data set, comprising 1,464 ratings by four judges of 183 wines. Each judge rated each wine twice (blind), and this is annotated with a “trial” column. The ratings are taken independently, except for the question of how to treat the repeated measures. One way to look at this data set is to think of it as two (almost) independent data sets with the same subjects and raters.</p>
+<p>The original analysis in <span class="citation" data-cites="hodgson2008examination">Hodgson (<a href="#ref-hodgson2008examination" role="doc-biblioref">2008</a>)</span> uses a variance-based method, which is a powerful way to describe the contributions of raters, subjects, etc. to the variance in the ratings. The probability of identical repeated measures (same rater and subject resulting in the)</p>
+<p>The judges’ award system is based on a score from 80 to 100, which on advice from the author, has the following encoding.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
+<th>Score Range</th>
 <th>Rating Value</th>
 <th>Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
+<td>80</td>
 <td>1</td>
 <td>No medal</td>
 </tr>
 <tr class="even">
+<td>82-86</td>
 <td>2</td>
 <td>Bronze medal</td>
 </tr>
 <tr class="odd">
+<td>88-92</td>
 <td>3</td>
 <td>Silver medal</td>
 </tr>
 <tr class="even">
+<td>94-100</td>
 <td>4</td>
 <td>Gold medal</td>
 </tr>
 </tbody>
 </table>
-<p>There’s a helper function in <code>library(tapModel)</code> for ordinal scales, which you can see employed in the code below. The idea is to convert the ordinal scale into a sequence of binary scales by using cut points between the rating values. A cut point of 2|3, for example, separates the 1 and 2 ratings into Class 1 and the 3 and 4 ratings into Class 0.</p>
 <p>There are three natural cut-points:</p>
 <ul>
 <li><p>1|2 divides the 1 ratings from higher ones</p></li>
@@ -306,24 +325,304 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ordinal_params <span class="ot">&lt;-</span> <span class="fu">fit_ordinal_tap</span>(ordinal_ratings)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>ordinal_params <span class="sc">|&gt;</span> </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"t-a-p"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(CutPoint, t, a, p, ll) <span class="sc">|&gt;</span> </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>, <span class="at">format =</span> <span class="st">"html"</span>, <span class="at">escape =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">full_width =</span> <span class="cn">FALSE</span>,           <span class="co"># &lt;- stops spanning the full page</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">position   =</span> <span class="st">"center"</span>,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>,<span class="st">"hover"</span>,<span class="st">"condensed"</span>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>wine <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> rating)) <span class="sc">+</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> trial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-distro" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-distro-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Example_wine_files/figure-html/fig-distro-1.png" class="img-fluid figure-img" width="336">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-distro-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Distribution of ratings
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The counts of ratings over both trials shows that there were significantly more ratings of 1 in the first trial. The general question of interest here is whether or not we can consider the two trials to be independent draws from a common distribution, or if there was some change between the two trials. The design was intended to minimize the latter factor. Another measure of variability is the difference in ratings per vintage across the two trials by rater.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>wine <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">spread</span>(trial, rating) <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Difference =</span> <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="sc">-</span> <span class="st">`</span><span class="at">1</span><span class="st">`</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Difference)) <span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> rater_id )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-avg-ratings" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-avg-ratings-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Example_wine_files/figure-html/fig-avg-ratings-1.png" class="img-fluid figure-img" width="336">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-avg-ratings-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Difference in ratings between trials by judge.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-avg-ratings" class="quarto-xref">Figure&nbsp;2</a> shows that most differences in subject average rating (trial 2 minus trial 1) were small, and that the ratings tended to increase for trial 2. Note, however, that the two trials were interwoven, not sequential, so I don’t think we can say that judges became more lenient over time.</p>
+</section>
+<section id="independence" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Independence</h1>
+<p>Can we just combine the two trials as one data set? The basic t-a-p model doesn’t have an extra accommodations for multiple ratings of a subject by the same rater. These would be treated like any other rating, assumed independent of all other ratings. We can test for independence with the covariance test, to see if combining the trials runs into a problem there. As an example, I’ll use the 1|2 cut point, so that ratings of 1 are Class 1 and ratings of 2-4 are Class 0.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># trial 1</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>cutpoint <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>rating_params1 <span class="ot">&lt;-</span> wine1 <span class="sc">|&gt;</span> </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as_binary_ratings</span>(cutpoint) <span class="sc">|&gt;</span> </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fit_ratings</span>() </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># get rater covariances</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>cov1 <span class="ot">&lt;-</span> rating_params1 <span class="sc">|&gt;</span> </span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        tapModel<span class="sc">::</span><span class="fu">rater_cov</span>()</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># get predicted range of covariance from trial 1</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>range1 <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">rater_cov_quantile</span>(rating_params1)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># trial 2</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>rating_params2 <span class="ot">&lt;-</span> wine2 <span class="sc">|&gt;</span> </span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_binary_ratings</span>(cutpoint) <span class="sc">|&gt;</span> </span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_ratings</span>() </span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co"># get rater covariances</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>cov2 <span class="ot">&lt;-</span> rating_params2 <span class="sc">|&gt;</span> </span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        tapModel<span class="sc">::</span><span class="fu">rater_cov</span>()</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co"># get predicted range of covariance from trial 2</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>range2 <span class="ot">&lt;-</span> tapModel<span class="sc">::</span><span class="fu">rater_cov_quantile</span>(rating_params2)</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="co"># average these </span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>range <span class="ot">&lt;-</span> (range1 <span class="sc">+</span> range2)<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co"># now all together</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>wine <span class="sc">|&gt;</span> </span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make the second trial look like different raters</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rater_id =</span> rater_id <span class="sc">+</span> (trial <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">*</span><span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_binary_ratings</span>(cutpoint) <span class="sc">|&gt;</span> </span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_ratings</span>()  <span class="sc">|&gt;</span> </span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rater_cov</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_rater_cov</span>(range, <span class="at">bins =</span> <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-cov" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cov-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Example_wine_files/figure-html/fig-cov-1.png" class="img-fluid figure-img" width="336">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cov-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Covariances of raters on the whole data set, with expected range marked.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The outliers in <a href="#fig-cov" class="quarto-xref">Figure&nbsp;3</a> suggest that treating repeat ratings as independent is a bad assumption. The approach here seems crude compared to an ANOVA, which can precisely parcel out contributions to variance, but the covariance plot is more general in that it might spot non-independence that we can’t identify the cause of. This shouldn’t be surprising given the obvious self-consisantcy of ratings in <a href="#fig-distro" class="quarto-xref">Figure&nbsp;1</a>.</p>
+<p>It seems best to either consider the two trials as draws from a distribution, or combine them in a way that avoids violating independence.</p>
+</section>
+<section id="ordinal-parameters" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Ordinal Parameters</h1>
+<p>There’s a helper function in <code>fit_ordinal_tap(ratings)</code> for ordinal scales, which you can see employed in the code below. The idea is to convert the ordinal scale into a sequence of binary scales by using cut points between the rating values. A cut point of 2|3, for example, separates the 1 and 2 ratings into Class 1 and the 3 and 4 ratings into Class 0.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>wine1_params <span class="ot">&lt;-</span> <span class="fu">fit_ordinal_tap</span>(wine1) <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"t-a-p"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                <span class="fu">mutate</span>(<span class="at">trial =</span> <span class="dv">1</span>) </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>wine2_params <span class="ot">&lt;-</span> <span class="fu">fit_ordinal_tap</span>(wine2) <span class="sc">|&gt;</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"t-a-p"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                <span class="fu">mutate</span>(<span class="at">trial =</span> <span class="dv">2</span>) </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(wine1_params, wine2_params) <span class="sc">|&gt;</span> </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(trial, CutPoint, t, a, p, ll) <span class="sc">|&gt;</span> </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rll =</span> <span class="fu">expected_bits_per_rating</span>(<span class="at">params =</span> <span class="fu">list</span>(<span class="at">t =</span> .<span class="dv">5</span>, <span class="at">a =</span> a, <span class="at">p =</span> p))) <span class="sc">|&gt;</span> </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>, <span class="at">format =</span> <span class="st">"html"</span>, <span class="at">escape =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">full_width =</span> <span class="cn">FALSE</span>,           <span class="co"># &lt;- stops spanning the full page</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">position   =</span> <span class="st">"center"</span>,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>,<span class="st">"hover"</span>,<span class="st">"condensed"</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div id="tbl-ord-params" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ord-params-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1: Ordinal coefficients for rating cut points
+Table&nbsp;1: Ordinal coefficients for rating cut points, where ll is expected log likelihood given the parameters, and rll is the same but with t = .5 to represent balanced classes, isolating the entropy from just the raters.
 </figcaption>
 <div aria-describedby="tbl-ord-params-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed do-not-create-environment cell caption-top table-sm small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">trial</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">CutPoint</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">t</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">a</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">ll</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">rll</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">1|2</td>
+<td style="text-align: right;">0.26</td>
+<td style="text-align: right;">0.54</td>
+<td style="text-align: right;">0.22</td>
+<td style="text-align: right;">0.59</td>
+<td style="text-align: right;">0.70</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">2|3</td>
+<td style="text-align: right;">0.54</td>
+<td style="text-align: right;">0.44</td>
+<td style="text-align: right;">0.59</td>
+<td style="text-align: right;">0.84</td>
+<td style="text-align: right;">0.85</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">3|4</td>
+<td style="text-align: right;">0.71</td>
+<td style="text-align: right;">0.26</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.45</td>
+<td style="text-align: right;">0.58</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">1|2</td>
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">0.60</td>
+<td style="text-align: right;">0.09</td>
+<td style="text-align: right;">0.42</td>
+<td style="text-align: right;">0.59</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">2|3</td>
+<td style="text-align: right;">0.59</td>
+<td style="text-align: right;">0.60</td>
+<td style="text-align: right;">0.38</td>
+<td style="text-align: right;">0.73</td>
+<td style="text-align: right;">0.71</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">3|4</td>
+<td style="text-align: right;">0.87</td>
+<td style="text-align: right;">0.59</td>
+<td style="text-align: right;">0.84</td>
+<td style="text-align: right;">0.43</td>
+<td style="text-align: right;">0.64</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>The parameter estimates <a href="#tbl-ord-params" class="quarto-xref">Table&nbsp;1</a> are not stable between the two trials, which casts doubt on the model fit generally. There’s either some source of variance not accounted for, or the sampling assumptions aren’t being met.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plot_results <span class="ot">&lt;-</span>  <span class="fu">vector</span>(<span class="st">"list"</span>, <span class="dv">6</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>){ <span class="co"># cut point</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>){ <span class="co"># trial </span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>      temp_ratings <span class="ot">&lt;-</span> wine <span class="sc">|&gt;</span> </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">filter</span>(trial <span class="sc">==</span> j) <span class="sc">|&gt;</span> </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as_binary_ratings</span>(<span class="dv">1</span><span class="sc">:</span>i)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>      temp_params <span class="ot">&lt;-</span> temp_ratings <span class="sc">|&gt;</span> </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fit_counts</span>()</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>      temp_plot<span class="ot">&lt;-</span> temp_ratings <span class="sc">|&gt;</span> </span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as_rating_params</span>(temp_params) <span class="sc">|&gt;</span> </span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">subject_calibration</span>()</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>      plot_results[[i <span class="sc">+</span> (j<span class="dv">-1</span>)<span class="sc">*</span><span class="dv">3</span>]] <span class="ot">&lt;-</span> temp_plot</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>title1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Trial 1"</span>) <span class="sc">+</span> <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>title2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Trial 2"</span>) <span class="sc">+</span> <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(title1, title2, </span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>                   plot_results[[<span class="dv">1</span>]], plot_results[[<span class="dv">4</span>]],</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>                   plot_results[[<span class="dv">2</span>]], plot_results[[<span class="dv">5</span>]], </span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>                   plot_results[[<span class="dv">3</span>]], plot_results[[<span class="dv">6</span>]],</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>                   <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">2</span>, </span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="st">"1|2"</span>,<span class="st">"1|2"</span>,<span class="st">"2|3"</span>,<span class="st">"2|3"</span>,<span class="st">"3|4"</span>,<span class="st">"3|4"</span>),</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>                    <span class="at">rel_heights =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>),</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>                   <span class="at">label_size =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-calibration" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-calibration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Example_wine_files/figure-html/fig-calibration-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-calibration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Subject calibration for the three cut points. Trial 1 is in the left column, with cut points 1|2 through 3|4. Trial 2 is in the right column with same cut points.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The subject calibrations in <a href="#fig-calibration" class="quarto-xref">Figure&nbsp;4</a> is quite good for all except for the 2|3 cut point for trial 2, which is a poor fit.</p>
+</section>
+<section id="combined-data" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Combined Data</h1>
+<p>In this data we have a direct way to assess rater accuracy, by comparing ratings of the same subjects between trials. We saw in <a href="#fig-distro" class="quarto-xref">Figure&nbsp;1</a> that a high proportion of raters found the same classification between trials. This could be either because of reliability in the rating assignments, or a violation of independence whereby raters <em>recognize</em> a wine they’ve tasted before. I don’t know how likely that is, but it’s conceivable that if a rater can identify a vintage, they might assign a rating from memory.</p>
+<p>To attempt to improve data quality it seems reasonable to just keep cases where raters agree with themselves on a particular wine, and discard ratings where they disagree with themselves. This imagines a new protocol for the wine judging, where after the two trials, any ratings where an individual judge didn’t agree with him/herself is tossed out. Since we are only taking one rating per judge-wine combination, we shouldn’t have an independence problem.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>wine_clean <span class="ot">&lt;-</span> wine <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>              <span class="fu">spread</span>(trial, rating) <span class="sc">|&gt;</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">filter</span>(<span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="sc">==</span> <span class="st">`</span><span class="at">2</span><span class="st">`</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(subject_id, <span class="at">rating =</span> <span class="st">`</span><span class="at">1</span><span class="st">`</span>, rater_id)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>wine_clean_params <span class="ot">&lt;-</span> <span class="fu">fit_ordinal_tap</span>(wine_clean) <span class="sc">|&gt;</span> </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"t-a-p"</span>) </span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>wine_clean_params  <span class="sc">|&gt;</span> </span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(CutPoint, t, a, p, ll) <span class="sc">|&gt;</span> </span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rll =</span> <span class="fu">expected_bits_per_rating</span>(<span class="at">params =</span> <span class="fu">list</span>(<span class="at">t =</span> .<span class="dv">5</span>, <span class="at">a =</span> a, <span class="at">p =</span> p))) <span class="sc">|&gt;</span> </span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>, <span class="at">format =</span> <span class="st">"html"</span>, <span class="at">escape =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">full_width =</span> <span class="cn">FALSE</span>,           <span class="co"># &lt;- stops spanning the full page</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">position   =</span> <span class="st">"center"</span>,</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>,<span class="st">"hover"</span>,<span class="st">"condensed"</span>)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="tbl-ord-params-clean" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ord-params-clean-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Ordinal coefficients for rating cut points, where ll is expected log likelihood given the parameters, and rll is the same but with t = .5 to represent balanced classes, isolating the entropy from just the raters.
+</figcaption>
+<div aria-describedby="tbl-ord-params-clean-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <table class="table table-striped table-hover table-condensed do-not-create-environment cell caption-top table-sm small" data-quarto-postprocess="true">
 <thead>
@@ -333,29 +632,33 @@ Table&nbsp;1: Ordinal coefficients for rating cut points
 <th style="text-align: right;" data-quarto-table-cell-role="th">a</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">p</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">ll</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">rll</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">1|2</td>
-<td style="text-align: right;">0.26</td>
-<td style="text-align: right;">0.54</td>
-<td style="text-align: right;">0.22</td>
-<td style="text-align: right;">0.73</td>
+<td style="text-align: right;">0.28</td>
+<td style="text-align: right;">0.62</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">0.42</td>
+<td style="text-align: right;">0.58</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">2|3</td>
-<td style="text-align: right;">0.54</td>
-<td style="text-align: right;">0.44</td>
-<td style="text-align: right;">0.59</td>
-<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">0.64</td>
+<td style="text-align: right;">0.63</td>
+<td style="text-align: right;">0.22</td>
+<td style="text-align: right;">0.70</td>
+<td style="text-align: right;">0.64</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">3|4</td>
-<td style="text-align: right;">0.71</td>
-<td style="text-align: right;">0.26</td>
-<td style="text-align: right;">0.94</td>
-<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.90</td>
+<td style="text-align: right;">0.72</td>
+<td style="text-align: right;">0.63</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.57</td>
 </tr>
 </tbody>
 </table>
@@ -364,59 +667,603 @@ Table&nbsp;1: Ordinal coefficients for rating cut points
 </figure>
 </div>
 </div>
-<p>It seems from <a href="#tbl-ord-params" class="quarto-xref">Table&nbsp;1</a> that accuracy declines as the quality measure improves, implying that it’s easier for judges to find agreement on lower-quality wines than higher-qualities ones. This may be a general effect, because I’ve seen it in other cases, but I have not done a literature review to find out more.</p>
-<p>Notice that the bits per rating (log likelihood) decreases for the 3|4 cut-point because of the large value of <span class="math inline">\(p\)</span>, because there’s less uncertainty about the “guesses.”</p>
+<p>Generally, <a href="#tbl-ord-params-clean" class="quarto-xref">Table&nbsp;2</a> shows higher accuracy and lower entropy. Let’s look at the subject calibration.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cp12_ratings <span class="ot">&lt;-</span> ordinal_ratings <span class="sc">|&gt;</span> </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">rating =</span> <span class="fu">as.integer</span>(rating <span class="sc">&lt;=</span> <span class="dv">1</span>))</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>cp12_params <span class="ot">&lt;-</span> cp12_ratings <span class="sc">|&gt;</span> </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fit_counts</span>()</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>cp12_plot<span class="ot">&lt;-</span> cp12_ratings <span class="sc">|&gt;</span> </span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>            <span class="fu">as_rating_params</span>(cp12_params) <span class="sc">|&gt;</span> </span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>            <span class="fu">subject_calibration</span>()</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>cp23_ratings <span class="ot">&lt;-</span> ordinal_ratings <span class="sc">|&gt;</span> </span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">rating =</span> <span class="fu">as.integer</span>(rating <span class="sc">&lt;=</span> <span class="dv">2</span>))</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>cp23_params <span class="ot">&lt;-</span> cp23_ratings <span class="sc">|&gt;</span> </span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fit_counts</span>()</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>cp23_plot<span class="ot">&lt;-</span> cp23_ratings <span class="sc">|&gt;</span> </span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>            <span class="fu">as_rating_params</span>(cp23_params) <span class="sc">|&gt;</span> </span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>            <span class="fu">subject_calibration</span>()</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>cp34_ratings <span class="ot">&lt;-</span> ordinal_ratings <span class="sc">|&gt;</span> </span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">rating =</span> <span class="fu">as.integer</span>(rating <span class="sc">&lt;=</span> <span class="dv">3</span>))</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>cp34_params <span class="ot">&lt;-</span> cp34_ratings <span class="sc">|&gt;</span> </span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fit_counts</span>()</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>cp34_plot<span class="ot">&lt;-</span> cp34_ratings <span class="sc">|&gt;</span> </span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>            <span class="fu">as_rating_params</span>(cp34_params) <span class="sc">|&gt;</span> </span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>            <span class="fu">subject_calibration</span>()</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(cp12_plot, cp23_plot, cp34_plot, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"1|2"</span>,<span class="st">"2|3"</span>,<span class="st">"3|4"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>plot_results <span class="ot">&lt;-</span>  <span class="fu">vector</span>(<span class="st">"list"</span>, <span class="dv">6</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>){ <span class="co"># cut point</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>){ <span class="co"># type</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    temp_ratings <span class="ot">&lt;-</span> wine_clean <span class="sc">|&gt;</span> </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as_binary_ratings</span>(<span class="dv">1</span><span class="sc">:</span>i)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(j <span class="sc">==</span> <span class="dv">1</span>){ <span class="co"># average model</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>      temp_params <span class="ot">&lt;-</span> temp_ratings <span class="sc">|&gt;</span> </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fit_counts</span>()</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>      temp_plot<span class="ot">&lt;-</span> temp_ratings <span class="sc">|&gt;</span> </span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as_rating_params</span>(temp_params) <span class="sc">|&gt;</span> </span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">subject_calibration</span>()</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> { <span class="co"># hierarchical model</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>      temp_plot<span class="ot">&lt;-</span> temp_ratings <span class="sc">|&gt;</span> </span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fit_ratings</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">subject_calibration</span>()</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    plot_results[[i <span class="sc">+</span> (j<span class="dv">-1</span>)<span class="sc">*</span><span class="dv">3</span>]] <span class="ot">&lt;-</span> temp_plot</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>title1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Average"</span>) <span class="sc">+</span> <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>title2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Hierarchical"</span>) <span class="sc">+</span> <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(title1, title2, </span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>                   plot_results[[<span class="dv">1</span>]], plot_results[[<span class="dv">4</span>]],</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>                   plot_results[[<span class="dv">2</span>]], plot_results[[<span class="dv">5</span>]], </span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>                   plot_results[[<span class="dv">3</span>]], plot_results[[<span class="dv">6</span>]],</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>                   <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">2</span>, </span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="st">"1|2"</span>,<span class="st">"1|2"</span>,<span class="st">"2|3"</span>,<span class="st">"2|3"</span>,<span class="st">"3|4"</span>,<span class="st">"3|4"</span>),</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>                   <span class="at">rel_heights =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>),</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>                   <span class="at">label_size =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="fig-calibration" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-calibration-clean" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-calibration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="Example_wine_files/figure-html/fig-calibration-1.png" class="img-fluid figure-img" width="672">
+<div aria-describedby="fig-calibration-clean-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Example_wine_files/figure-html/fig-calibration-clean-1.png" class="img-fluid figure-img" width="672">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-calibration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Subject calibration for the three cut points.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-calibration-clean-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Subject calibration for the three cut points on the cleaned data. The average t-a-p model is in the left column, with cut points 1|2 through 3|4. The hierarchical model is in the right column.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
+<p>The distributions in <a href="#fig-calibration-clean" class="quarto-xref">Figure&nbsp;5</a> look better than the trials taken individually in <a href="#fig-calibration" class="quarto-xref">Figure&nbsp;4</a>. We <em>want</em> “bumps” in the distribution, because that’s a sign of the binomial mixture separating the two means (meaning larger accuracy). Notice that the model fits the 2|3 case better here than in trial 2. Also, the average parameter estimates are significantly different, especially for the 3|4 cutpoint, where the bias (<span class="math inline">\(p-t\)</span>) changes direction.</p>
+<p>Given the significant gains in log likelihood, the reasonableness of individual variation by raters, and additional bonus of gaining rater and rating calibration, should we use the average model or the hierarchical one for the next step? This is a subjective decision, but it amounts to a choice about what we think is the most reasonable distribution of true ratings.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we need to estimate all the parameters for the three hierarchical models</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>wine_clean_params <span class="ot">&lt;-</span> wine_clean_params <span class="sc">|&gt;</span> <span class="fu">select</span>(t, a, p)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>t_results <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"list"</span>, <span class="dv">3</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>a_results <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"list"</span>, <span class="dv">3</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>){</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>   rating_params <span class="ot">&lt;-</span> wine_clean <span class="sc">|&gt;</span> </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>         <span class="fu">as_binary_ratings</span>(<span class="at">in_class =</span> <span class="dv">1</span><span class="sc">:</span>i) <span class="sc">|&gt;</span> </span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>         <span class="fu">fit_ratings</span>()</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  t_results[[i]] <span class="ot">&lt;-</span> rating_params <span class="sc">|&gt;</span> </span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>         <span class="fu">distinct</span>(subject_id, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>         <span class="fu">mutate</span>(<span class="at">cutpoint =</span> <span class="fu">str_c</span>(i,<span class="st">"|"</span>,i<span class="sc">+</span><span class="dv">1</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>         <span class="fu">select</span>(cutpoint, subject_id, t) </span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  a_results[[i]] <span class="ot">&lt;-</span> rating_params <span class="sc">|&gt;</span> </span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">distinct</span>(rater_id, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">mutate</span>(<span class="at">cutpoint =</span> <span class="fu">str_c</span>(i,<span class="st">"|"</span>,i<span class="sc">+</span><span class="dv">1</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">select</span>(cutpoint, rater_id, a,p) </span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>t_results <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(t_results)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>a_results <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(a_results)</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>empirical <span class="ot">&lt;-</span> wine_clean <span class="sc">|&gt;</span> </span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>             <span class="fu">count</span>(rating) <span class="sc">|&gt;</span> </span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>             <span class="fu">mutate</span>(<span class="at">p =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">|&gt;</span> </span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>             <span class="fu">pull</span>(p)</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>t_avg <span class="ot">&lt;-</span> t_results <span class="sc">|&gt;</span> </span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>         <span class="fu">group_by</span>(cutpoint) <span class="sc">|&gt;</span> </span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>         <span class="fu">summarize</span>(<span class="at">t =</span> <span class="fu">mean</span>(t)) <span class="sc">|&gt;</span> </span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>         <span class="fu">pull</span>(t)</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>average_model      <span class="ot">&lt;-</span> <span class="fu">with</span>(wine_clean_params, <span class="fu">c</span>(t[<span class="dv">1</span>], t[<span class="dv">2</span>] <span class="sc">-</span> t[<span class="dv">1</span>], t[<span class="dv">3</span>] <span class="sc">-</span> t[<span class="dv">2</span>], <span class="dv">1</span> <span class="sc">-</span> t[<span class="dv">3</span>]))</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>hierarchical_model <span class="ot">&lt;-</span> <span class="fu">c</span>(t_avg[<span class="dv">1</span>], t_avg[<span class="dv">2</span>] <span class="sc">-</span> t_avg[<span class="dv">1</span>], t_avg[<span class="dv">3</span>] <span class="sc">-</span> t_avg[<span class="dv">2</span>], <span class="dv">1</span> <span class="sc">-</span> t_avg[<span class="dv">3</span>])</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>t_compare <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">rating =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">empirical =</span> empirical, <span class="at">average =</span> average_model, <span class="at">hierarchical =</span> hierarchical_model)</span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>t_compare <span class="sc">|&gt;</span> </span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(type, value, <span class="sc">-</span>rating) <span class="sc">|&gt;</span> </span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> rating, <span class="at">y =</span> value, <span class="at">group =</span> type, <span class="at">color =</span> type)) <span class="sc">+</span></span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="cn">NA</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-scale-calibration" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-scale-calibration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Example_wine_files/figure-html/fig-scale-calibration-1.png" class="img-fluid figure-img" width="336">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scale-calibration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Rating distributions, comparing the average model, hierarchical model, and empirical ratings after cleaning.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>We can think of <a href="#fig-scale-calibration" class="quarto-xref">Figure&nbsp;6</a> as a kind of scale calibration. Compare the average model and empirical rating distributions (red and green). There, the model is asking us to believe that the ratings are slightly inflated; there should be somewhat more ratings of 1 and 2 and fewer of 3 and 4. The hierarchical model, by contrast wants to turn the distribution upside down, saying that both the 1s and 4s are <em>under</em>represented in the actual ratings. Subjectively (to me) this seems unreasonable, and is probably a sign of overfitting the data with too many parameters.</p>
+<p>As a result of this intuition, I’ll use the average model for the rest of the analysis.</p>
+</section>
+<section id="wine-ratings" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Wine Ratings</h1>
+<p>Now that we have a reasonable model of the ratings, we can ask about the qualities of the individual wines; what rating should we assign based on the model’s parameters in combination with the ratings? We can do that by using the E-step of the E-M algorithm to assign <span class="math inline">\(t_i\)</span> ratings to each subject using the average parameter estimates. To assign ratings from the ensemble of three models is a bit awkward, and we might think about either a true categorical method like MACE or an explicit ordinal t-a-p model, which will require more development. I’ll stick with what we’ve got for now, using the average model to estimate <span class="math inline">\(t_i\)</span> for each wine at each cut point. This is found in <a href="#fig-subject-prob" class="quarto-xref">Figure&nbsp;7</a>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>t_results <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"list"</span>, <span class="dv">3</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>){</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>   rating_params <span class="ot">&lt;-</span> wine_clean <span class="sc">|&gt;</span> </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>         <span class="fu">as_binary_ratings</span>(<span class="at">in_class =</span> <span class="dv">1</span><span class="sc">:</span>i) <span class="sc">|&gt;</span> </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>         <span class="fu">as_rating_params</span>(wine_clean_params[i,]) <span class="sc">|&gt;</span> </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>         <span class="fu">estimate_ti</span>()</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  t_results[[i]] <span class="ot">&lt;-</span> rating_params <span class="sc">|&gt;</span> </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>         <span class="fu">distinct</span>(subject_id, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>         <span class="fu">mutate</span>(<span class="at">cutpoint =</span> <span class="fu">str_c</span>(i,<span class="st">"|"</span>,i<span class="sc">+</span><span class="dv">1</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>         <span class="fu">select</span>(cutpoint, subject_id, t) </span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>t_results <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(t_results)</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate rating probabilities</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>rating_probs <span class="ot">&lt;-</span> t_results <span class="sc">|&gt;</span> </span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>                <span class="fu">spread</span>(cutpoint, t) <span class="sc">|&gt;</span> </span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>                <span class="fu">mutate</span>(<span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">`</span><span class="at">1|2</span><span class="st">`</span>,</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>                       <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="ot">=</span> <span class="st">`</span><span class="at">2|3</span><span class="st">`</span> <span class="sc">-</span> <span class="st">`</span><span class="at">1|2</span><span class="st">`</span>,</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>                       <span class="st">`</span><span class="at">3</span><span class="st">`</span> <span class="ot">=</span> <span class="st">`</span><span class="at">3|4</span><span class="st">`</span> <span class="sc">-</span> <span class="st">`</span><span class="at">2|3</span><span class="st">`</span>,</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>                       <span class="st">`</span><span class="at">4</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> <span class="st">`</span><span class="at">3|4</span><span class="st">`</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">select</span>(subject_id, <span class="st">`</span><span class="at">1</span><span class="st">`</span>, <span class="st">`</span><span class="at">2</span><span class="st">`</span>, <span class="st">`</span><span class="at">3</span><span class="st">`</span>, <span class="st">`</span><span class="at">4</span><span class="st">`</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">gather</span>(rating, prob, <span class="sc">-</span>subject_id) </span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>raw_plot <span class="ot">&lt;-</span> rating_probs <span class="sc">|&gt;</span> </span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> prob)) <span class="sc">+</span> </span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Probability estimate for some rating."</span>)</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>max_plot <span class="ot">&lt;-</span> rating_probs <span class="sc">|&gt;</span> </span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(subject_id) <span class="sc">|&gt;</span> </span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(prob <span class="sc">==</span> <span class="fu">max</span>(prob)) <span class="sc">|&gt;</span> </span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> prob)) <span class="sc">+</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Probability estimate for some rating."</span>) <span class="sc">+</span></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(raw_plot, max_plot, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"A"</span>,<span class="st">"B"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-subject-prob" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-subject-prob-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Example_wine_files/figure-html/fig-subject-prob-1.png" class="img-fluid figure-img" width="480">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-subject-prob-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Histogram of (A) all induced probabilities for each subject to have a given rating, and (B) the probability of the most likely rating.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The results in <a href="#fig-subject-prob" class="quarto-xref">Figure&nbsp;7</a> show the limitations of cobbling together three binary models instead of having a true ordinal model, e.g.&nbsp;some of the computed probabilities are negative in figure A. However, there are few of these, and the distribution of probabilities in (A) shows a clearly-defined mixture distribution, even though it complicated with a cluster around .5. The probabilities for the ratings 1-4 will not generally sum to one for a given subject in this ensemble model. However, we can still get some use out of the results by finding the most likely rating per subject, and then insisting on some level of estimated confidence. The histogram of probabilities for these most likely ratings (B) has most of the cases with 70% or more probability. I’ll use a threshold of 70% probability to classify a wine into a given rating. For subjects that lack that level of confidence, I’ll call it “complex” to indicate a lack of agreement.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>model_rating <span class="ot">&lt;-</span> rating_probs<span class="sc">|&gt;</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                <span class="fu">group_by</span>(subject_id) <span class="sc">|&gt;</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                <span class="fu">filter</span>(prob <span class="sc">==</span> <span class="fu">max</span>(prob)) <span class="sc">|&gt;</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                <span class="fu">mutate</span>(<span class="at">model_rating =</span> <span class="fu">if_else</span>(prob <span class="sc">&gt;=</span> .<span class="dv">7</span>, <span class="fu">str_c</span>(rating), <span class="st">"Complex"</span>))</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>wine_stats <span class="ot">&lt;-</span> wine_clean <span class="sc">|&gt;</span> </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>              <span class="fu">left_join</span>(model_rating <span class="sc">|&gt;</span> <span class="fu">select</span>(subject_id, model_rating)) <span class="sc">|&gt;</span> </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>              <span class="fu">group_by</span>(model_rating) <span class="sc">|&gt;</span> </span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>              <span class="fu">summarize</span>(<span class="at">wines =</span> <span class="fu">n_distinct</span>(subject_id),</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>                        <span class="at">avg =</span> <span class="fu">mean</span>(rating),</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>                        <span class="at">sd  =</span> <span class="fu">sd</span>(rating))</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>wine_stats <span class="sc">|&gt;</span> </span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="tbl-wine-ratings" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-wine-ratings-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: After classifying wines by the modeled probabilities, show the counts, average ratings, and standard deviation of ratings in each group. “Complex” means there wasn’t enough agreement to assign a rating using a 70% probability threshold.
+</figcaption>
+<div aria-describedby="tbl-wine-ratings-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">model_rating</th>
+<th style="text-align: right;">wines</th>
+<th style="text-align: right;">avg</th>
+<th style="text-align: right;">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">1.33</td>
+<td style="text-align: right;">0.61</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">2.39</td>
+<td style="text-align: right;">0.58</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">3.01</td>
+<td style="text-align: right;">0.49</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">3.80</td>
+<td style="text-align: right;">0.45</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Complex</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">2.41</td>
+<td style="text-align: right;">0.88</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>The figures in <a href="#tbl-wine-ratings" class="quarto-xref">Table&nbsp;3</a> show that most of the wines can be classifed by the model using the probability threshold, and that the rating averages look as expected. The standard deviation of the “complex” group is high, as we’d expect. In a real judging event, it’s probably not acceptable to classify so many vintages as unratable, but it would increase the validity of the ratings and might add an interesting element. What does it mean in practice for wine judges to find no agreement? It’s qualitatively different from the ordinal rating scale, but do we really expect a single dimension to capture the complexities of wine?</p>
+<p>I tried a dimensionality analysis using the singular value decomposition on the wine ratings by subject and by rater to see if there was a relationship between the singular vectors and the classification as a complex wine. The results were suggestive, but only if I squint and hope for the best. The connection between the factor 1 loading and the probabilities were not clear enough to include here. I thought that the complex wines might have loadings on the first component that were more extreme than the average, but I didn’t find that pattern. There are other types of dimensional analysis, which might lead down a forking path to an explanation.</p>
+</section>
+<section id="evaluating-raters" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Evaluating Raters</h1>
+<p>Given the final model ratings, we can hope to assess the qualities of the raters using the statistics so far.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>match_rate <span class="ot">&lt;-</span> wine <span class="sc">|&gt;</span>   <span class="fu">spread</span>(trial, rating) <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>              <span class="fu">group_by</span>(rater_id) <span class="sc">|&gt;</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">summarize</span>(<span class="at">self_match =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="sc">==</span> <span class="st">`</span><span class="at">2</span><span class="st">`</span>)) </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>wine_clean <span class="sc">|&gt;</span> </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(model_rating <span class="sc">|&gt;</span> <span class="fu">select</span>(subject_id, model_rating)) <span class="sc">|&gt;</span> </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(model_rating <span class="sc">!=</span> <span class="st">"Complex"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model_rating =</span> <span class="fu">as.integer</span>(model_rating)) <span class="sc">|&gt;</span> </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(rater_id) <span class="sc">|&gt;</span> </span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">rated_wines =</span> <span class="fu">n</span>(),</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">model_match =</span> <span class="fu">mean</span>(rating <span class="sc">==</span> model_rating),</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">rating_diff =</span> <span class="fu">mean</span>(rating <span class="sc">-</span> model_rating)) <span class="sc">|&gt;</span> </span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(match_rate) <span class="sc">|&gt;</span> </span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="tbl-rater-stats" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-rater-stats-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4: Wine judge statistics, showing the number of non-complex wines rated, their match rate with the model, the average rating - model_rating difference, and their self-match rate in the full data set with two trials.
+</figcaption>
+<div aria-describedby="tbl-rater-stats-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">rater_id</th>
+<th style="text-align: right;">rated_wines</th>
+<th style="text-align: right;">model_match</th>
+<th style="text-align: right;">rating_diff</th>
+<th style="text-align: right;">self_match</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">109</td>
+<td style="text-align: right;">0.79</td>
+<td style="text-align: right;">0.17</td>
+<td style="text-align: right;">0.79</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">126</td>
+<td style="text-align: right;">0.67</td>
+<td style="text-align: right;">0.22</td>
+<td style="text-align: right;">0.92</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">118</td>
+<td style="text-align: right;">0.73</td>
+<td style="text-align: right;">0.19</td>
+<td style="text-align: right;">0.85</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">121</td>
+<td style="text-align: right;">0.78</td>
+<td style="text-align: right;">0.17</td>
+<td style="text-align: right;">0.86</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p><a href="#tbl-rater-stats" class="quarto-xref">Table&nbsp;4</a> shows that the raters are similar in their performance; they each matched ratings for the same wine at a high rate, and also matched the non-complex wine ratings at a high rate. The difference column show (again) that the raters slightly inflate ratings compared to the fitted average t-a-p model.</p>
+</section>
+<section id="a-final-model" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> A Final Model</h1>
+<p>I can’t resist running one more filter, to remove the “complex” wines, just to see how well the model fits.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plot_results <span class="ot">&lt;-</span>  <span class="fu">vector</span>(<span class="st">"list"</span>, <span class="dv">6</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>wine_cleaner <span class="ot">&lt;-</span> wine_clean <span class="sc">|&gt;</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(model_rating <span class="sc">|&gt;</span> <span class="fu">select</span>(subject_id, model_rating)) <span class="sc">|&gt;</span> </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(model_rating <span class="sc">!=</span> <span class="st">"Complex"</span>) </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>plot_results <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"list"</span>, <span class="dv">6</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>model_results <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"list"</span>,<span class="dv">3</span>) <span class="co"># save the hierarchical models</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>){ <span class="co"># cut point</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>){ <span class="co"># type</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    temp_ratings <span class="ot">&lt;-</span> wine_cleaner <span class="sc">|&gt;</span> </span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as_binary_ratings</span>(<span class="dv">1</span><span class="sc">:</span>i)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(j <span class="sc">==</span> <span class="dv">1</span>){ <span class="co"># average model</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>      temp_params <span class="ot">&lt;-</span> temp_ratings <span class="sc">|&gt;</span> </span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as_counts</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fit_counts</span>()</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>      temp_plot<span class="ot">&lt;-</span> temp_ratings <span class="sc">|&gt;</span> </span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as_rating_params</span>(temp_params) <span class="sc">|&gt;</span> </span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>        <span class="fu">subject_calibration</span>()</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> { <span class="co"># hierarchical model</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>      temp_model <span class="ot">&lt;-</span> temp_ratings <span class="sc">|&gt;</span> </span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fit_ratings</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">cutpoint =</span> <span class="fu">str_c</span>(i,<span class="st">"|"</span>,i<span class="sc">+</span><span class="dv">1</span>))</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>      model_results[[i]] <span class="ot">&lt;-</span> temp_model</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>      temp_plot <span class="ot">&lt;-</span> temp_model <span class="sc">|&gt;</span> </span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>        <span class="fu">subject_calibration</span>()</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>    plot_results[[i <span class="sc">+</span> (j<span class="dv">-1</span>)<span class="sc">*</span><span class="dv">3</span>]] <span class="ot">&lt;-</span> temp_plot</span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>model_results <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(model_results)</span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>title1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Average"</span>) <span class="sc">+</span> <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>title2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Hierarchical"</span>) <span class="sc">+</span> <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(title1, title2, </span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>                   plot_results[[<span class="dv">1</span>]], plot_results[[<span class="dv">4</span>]],</span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>                   plot_results[[<span class="dv">2</span>]], plot_results[[<span class="dv">5</span>]], </span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>                   plot_results[[<span class="dv">3</span>]], plot_results[[<span class="dv">6</span>]],</span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>                   <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">2</span>, </span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="st">"1|2"</span>,<span class="st">"1|2"</span>,<span class="st">"2|3"</span>,<span class="st">"2|3"</span>,<span class="st">"3|4"</span>,<span class="st">"3|4"</span>),</span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>                   <span class="at">rel_heights =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>),</span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>                   <span class="at">label_size =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-calibration-cleaner" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-calibration-cleaner-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Example_wine_files/figure-html/fig-calibration-cleaner-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-calibration-cleaner-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Subject calibration for the three cut points on the cleaned data with complex cases removed. The average t-a-p model is in the left column, with cut points 1|2 through 3|4. The hierarchical model is in the right column.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The average and hierarchical models agree well on the average parameters, and the entropy has decreased again except for the bottom right plot, where the hierarchical model got slightly worse. I think we could trust the hierarchical model here to give us rater information. Let’s look at the scale calibration again.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>t_results <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"list"</span>, <span class="dv">3</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>a_results <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"list"</span>, <span class="dv">3</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>wine_cleaner_params <span class="ot">&lt;-</span> <span class="fu">fit_ordinal_tap</span>(wine_cleaner) <span class="sc">|&gt;</span> </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"t-a-p"</span>) </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>){</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>   rating_params <span class="ot">&lt;-</span> wine_cleaner <span class="sc">|&gt;</span> </span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>         <span class="fu">as_binary_ratings</span>(<span class="at">in_class =</span> <span class="dv">1</span><span class="sc">:</span>i) <span class="sc">|&gt;</span> </span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>         <span class="fu">fit_ratings</span>()</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  t_results[[i]] <span class="ot">&lt;-</span> rating_params <span class="sc">|&gt;</span> </span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>         <span class="fu">distinct</span>(subject_id, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>         <span class="fu">mutate</span>(<span class="at">cutpoint =</span> <span class="fu">str_c</span>(i,<span class="st">"|"</span>,i<span class="sc">+</span><span class="dv">1</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>         <span class="fu">select</span>(cutpoint, subject_id, t) </span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  a_results[[i]] <span class="ot">&lt;-</span> rating_params <span class="sc">|&gt;</span> </span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">distinct</span>(rater_id, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">mutate</span>(<span class="at">cutpoint =</span> <span class="fu">str_c</span>(i,<span class="st">"|"</span>,i<span class="sc">+</span><span class="dv">1</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">select</span>(cutpoint, rater_id, a,p) </span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>t_results <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(t_results)</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>a_results <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(a_results)</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>empirical <span class="ot">&lt;-</span> wine_cleaner <span class="sc">|&gt;</span> </span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>             <span class="fu">count</span>(rating) <span class="sc">|&gt;</span> </span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>             <span class="fu">mutate</span>(<span class="at">p =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">|&gt;</span> </span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>             <span class="fu">pull</span>(p)</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>t_avg <span class="ot">&lt;-</span> t_results <span class="sc">|&gt;</span> </span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>         <span class="fu">group_by</span>(cutpoint) <span class="sc">|&gt;</span> </span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>         <span class="fu">summarize</span>(<span class="at">t =</span> <span class="fu">mean</span>(t)) <span class="sc">|&gt;</span> </span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>         <span class="fu">pull</span>(t)</span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>average_model      <span class="ot">&lt;-</span> <span class="fu">with</span>(wine_cleaner_params, <span class="fu">c</span>(t[<span class="dv">1</span>], t[<span class="dv">2</span>] <span class="sc">-</span> t[<span class="dv">1</span>], t[<span class="dv">3</span>] <span class="sc">-</span> t[<span class="dv">2</span>], <span class="dv">1</span> <span class="sc">-</span> t[<span class="dv">3</span>]))</span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>hierarchical_model <span class="ot">&lt;-</span> <span class="fu">c</span>(t_avg[<span class="dv">1</span>], t_avg[<span class="dv">2</span>] <span class="sc">-</span> t_avg[<span class="dv">1</span>], t_avg[<span class="dv">3</span>] <span class="sc">-</span> t_avg[<span class="dv">2</span>], <span class="dv">1</span> <span class="sc">-</span> t_avg[<span class="dv">3</span>])</span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>t_compare <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">rating =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">empirical =</span> empirical, <span class="at">average =</span> average_model, <span class="at">hierarchical =</span> hierarchical_model)</span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>t_compare <span class="sc">|&gt;</span> </span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(type, value, <span class="sc">-</span>rating) <span class="sc">|&gt;</span> </span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> rating, <span class="at">y =</span> value, <span class="at">group =</span> type, <span class="at">color =</span> type)) <span class="sc">+</span></span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="cn">NA</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-scale-calibration2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-scale-calibration2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Example_wine_files/figure-html/fig-scale-calibration2-1.png" class="img-fluid figure-img" width="336">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scale-calibration2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Rating distributions, comparing the average model, hierarchical model, and empirical ratings after cleaning and de-complexifying.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>This time (compare with <a href="#fig-scale-calibration" class="quarto-xref">Figure&nbsp;6</a>) there’s nothing obviously wrong with the hierarchical model.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>model_results <span class="sc">|&gt;</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(cutpoint, rater_id, a, p) <span class="sc">|&gt;</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>, <span class="at">format =</span> <span class="st">"html"</span>, <span class="at">escape =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="tbl-rater-stats2" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-rater-stats2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5: Rater statistics after cleaning and removing complex cases, using the hierarchical t-a-p model at each cutpoint.
+</figcaption>
+<div aria-describedby="tbl-rater-stats2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">cutpoint</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">rater_id</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">a</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1|2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.65</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1|2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.54</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1|2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.79</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1|2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.84</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2|3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.79</td>
+<td style="text-align: right;">0.27</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2|3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.74</td>
+<td style="text-align: right;">0.33</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2|3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.61</td>
+<td style="text-align: right;">0.44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2|3</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.70</td>
+<td style="text-align: right;">0.24</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3|4</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.60</td>
+<td style="text-align: right;">0.96</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3|4</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: right;">0.89</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3|4</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.75</td>
+<td style="text-align: right;">0.77</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3|4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.63</td>
+<td style="text-align: right;">0.93</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>The modeled <span class="math inline">\(p_j\)</span> parameters in <a href="#tbl-rater-stats" class="quarto-xref">Table&nbsp;4</a> say that when raters make inaccurate ratings at the end of the scale, they <em>always</em> favor the 1 rating and almost always favor the 4 rating. The mid-point 2|3 is more balanced. This pattern can be found in all the model estimates to some extent. I wonder if it’s a model limitation or a psychological effect, or perhaps is just peculiar to this data set for some reason.</p>
+</section>
+<section id="final-thoughts" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Final Thoughts</h1>
+<p>More usual types of analysis on a data set like this are a preference model like proportional odds or a score variance model like ANOVA (hierarchical regression with some level of pooling). The lack of a true ordinal t-a-p model means it’s awkward to work with the cut points, and the dual trials added more complexity that a score variance model can easily accommodate. However, I think the t-a-p model adds a philosophical component that variance-based models don’t, viz addressing the question of a “true” rating. What would it even mean for a wine to have a true score?</p>
+<p>As with any instrument, we can imagine a causal pathway whereby the inputs, comprising the appearance, aroma, and tastes of a vintage, lead predictably to a human assessment based on experience. Here the wine judge <em>is</em> the instrument. Humans can act reliably as causes if the conditions are right. A factory with human workers would be impossible otherwise. So it’s plausible that the judges have a reliable response to the perceived characteristics of the wine samples. It would be hard to explain the self-consistency of the repeated tastings otherwise. As noted earlier, this could be partly to recognition of samples and recall of the prior rating, rather than a true independent trial. That’s not a question we can answer with this data.</p>
+<p>The winnowing process in the analysis here first consolidated the two trials, which is a rather drastic reduction in data. The second filter was to take out the wines with low-confidence probabilities for the modeled ratings. From the usual regression modeling perspective, this is a terrible idea; we don’t throw out samples unless they are clear outliers, and even then we want to think hard about it. However, we’re after something different here: the plausibility of metaphysical truth. This is because the t-a-p model assumption of a latent truth state is a strong assumption (strong means stringent in this context). The convergence of the average and hierarchical models for the last (most-reduced) data set makes me think that a “true wine rating” is not a crazy idea, but subject to some limitations. First we have to insist on high quality ratings, hence the first filter requiring identical ratings across trials. The models are clearly sensitive to noisy data. The second proviso is that the wine scale is but one dimension of the complexities related to wine quality, and therefore some of the wines are not likely to reach consensus. If we can swallow all that, then maybe the final ratings do have some connection to physical reality that starts with sense data, wends through a neurological classification, and ends up with a 1-4 rating or a separate category for unratable or complex wines.</p>
 
 
 

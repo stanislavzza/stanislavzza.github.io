@@ -98,6 +98,35 @@ gtag('js', new Date());
 gtag('config', 'G-XP6WMESY52', { 'anonymize_ip': true});
 </script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -142,7 +171,14 @@ gtag('config', 'G-XP6WMESY52', { 'anonymize_ip': true});
   <ul>
   <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome"><span class="header-section-number">1</span> Welcome</a>
   <ul class="collapse">
-  <li><a href="#table-of-contents" id="toc-table-of-contents" class="nav-link" data-scroll-target="#table-of-contents"><span class="header-section-number">1.1</span> Table of Contents</a></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started"><span class="header-section-number">1.1</span> Getting Started</a></li>
+  <li><a href="#table-of-contents" id="toc-table-of-contents" class="nav-link" data-scroll-target="#table-of-contents"><span class="header-section-number">1.2</span> Table of Contents</a></li>
+  </ul></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview"><span class="header-section-number">2</span> Overview</a>
+  <ul class="collapse">
+  <li><a href="#unification" id="toc-unification" class="nav-link" data-scroll-target="#unification"><span class="header-section-number">2.1</span> Unification</a></li>
+  <li><a href="#surprises" id="toc-surprises" class="nav-link" data-scroll-target="#surprises"><span class="header-section-number">2.2</span> Surprises</a></li>
+  <li><a href="#todo" id="toc-todo" class="nav-link" data-scroll-target="#todo"><span class="header-section-number">2.3</span> Todo</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -181,14 +217,15 @@ gtag('config', 'G-XP6WMESY52', { 'anonymize_ip': true});
 
 <section id="welcome" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Welcome</h1>
-<p>The goal of this project is to make it easy for you to analyze ratings or annotations. Usually these come from humans recording their subjective judgments about a common subject. For example a panel of wine judges independently rates a series of vintages. This type of data is widespread in consumer data (product ratings), medicine (diagnostics, trials), education (evaluation), social science (surveys), and machine learning context (text annotation). The commonality between these is a set of raters (evaluators, annotators) who independently assign categories to subjects, usually from a small number of choices.</p>
-<p>The most basic question about such data sets is “is it just random numbers?” This can be answered by comparing the variation of responses within each subject to the variation between subjects. Intuiti</p>
-<p>This site explains rater agreement and associated reliability statistics. Much of the content is new, using a general model to explain the features of existing methods from the measurement literature, in the context of more modern approaches from the machine learning (ML) literature. The synthesis of these two fields is the t-a-p model, which combines the intuitiveness of the measurement ideas with the statistical power of the ML algorithms.</p>
-<p>If you are new to t-a-p models, I recommend starting with the <a href="./introduction.html">Chapter 1</a>, which introduces rater agreement as a classification problem and lays out the philosophical and statistical assumptions. Chapter 2 provides the basic statistical derivations needed to work with t-a-p models. Chapter 3 derives the relationship to some existing rater agreement statistics, for example showing how the Fleiss kappa is a special case of a t-a-p model. Chapter 4 expands the number of parameters and shows how this relates to the “kappa paradox.” Chapter 5 allows each rater and/or subject to have individual parameters for accuracy and truth, and allows for independent variables to be used as regression inputs. This model is equivalent to MACE, from the machine learning literature <span class="citation" data-cites="hovy2013learning">(<a href="#ref-hovy2013learning" role="doc-biblioref">Hovy et al., 2013</a>)</span>. Chapter 6 shows how we can assess the robustness of the results. Chapter 7 introduces the <code>tapModel</code> R package, which allows for easy estimation of the model parameters. Chapter 8 introduces the t-a-p app, an interactive way to use real or simulated data to estimate the model parameters without coding. An appendix is included to provide more detailed statistical derivations and proofs for some results.</p>
-<p><strong>This is a work in progress.</strong></p>
-<p><em>The shiny app documentation in Chapter 8 is out of date</em> because I have updated the tapModel package (Chapter 7) and have not yet applied those changes to the shiny code. I’m working through the ML literature to make sure I have appropriate references and connections to the t-a-p models. Then I’ll update the shiny app. A future chapter will be devoted to the connection between these rater statistics and causality measures, which is how this project actually started <span class="citation" data-cites="eubankscause">(<a href="#ref-eubankscause" role="doc-biblioref">Eubanks, 2014</a>)</span>. The larger issue is to understand the strengths and weaknesses of MCMC estimation for the hierarchical models, e.g.&nbsp;how pooling should work. When all that’s done, I’ll start working through the collection of data samples I’ve gathered over the years to create a catalog of cases. If you’d like to contribute to any of this, email me.</p>
-<section id="table-of-contents" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="table-of-contents"><span class="header-section-number">1.1</span> Table of Contents</h2>
+<p>The goal of this project is to unify and extend research on classification, in particular the statistics used to assess rater agreement or classification accuracy. For example a panel of wine judges independently rates a series of vintages. This type of data is widespread in consumer data (product ratings), medicine (diagnostics, trials), education (evaluation), social science (surveys), and machine learning context (text annotation). The commonality between these is a set of raters (evaluators, annotators) who independently assign categories to subjects, usually from a small number of choices.</p>
+<p>The most basic question about such data sets is “is it just random numbers?” This can be answered by comparing the variation of responses within each subject to the variation between subjects. There are multiple research methods that can be applied, such as ANOVA, Item Response Theory, and other continuous-scale approaches, but the focus here is methods that directly or indirectly use exact rater agreement as the basis for analysis. There are two distinct research traditions in rater agreement. One is from social sciences and medicine that has proliferated a number of rater agreement statistics, each with different assumptions. These “kappas” prompted the title of the website, since there is by now a “zoo” of these statistics to choose from. On a parallel track more associated nowadays with Machine Learning, there has been development of model-based classification statistics (e.g.&nbsp;MACE) that embody a tree-like set of conditional probabilities used to generate (often) hierarchical parameters for the subjects being classified and the raters who assign the classes to the subjects.</p>
+<p>The body of work here includes statistical derivations, an R library for implementing them, and examples of use. It’s intended to be particularly useful for those who are still scratching their heads about which kappa statistic to use. The answer is: don’t. There’s a better way to approach the problem.</p>
+<section id="getting-started" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="getting-started"><span class="header-section-number">1.1</span> Getting Started</h2>
+<p>If you are new to t-a-p models, I recommend starting with the <a href="./introduction.html">Chapter 1</a>, which introduces rater agreement as a classification problem and lays out the philosophical and statistical assumptions. <a href="./tapmodel.html">Chapter 2</a> provides the basic statistical derivations needed to work with t-a-p models. <a href="./kappa.html">Chapter 3</a> derives the relationship to some existing rater agreement statistics, for example showing how the Fleiss kappa is a special case of a t-a-p model. <a href="./paradox.html">Chapter 4</a>expands the number of parameters and shows how this relates to the “kappa paradox.” <a href="./hierarchical.html">Chapter 5</a> develops a hierarchical model that allows each rater and subject to have individual parameters for accuracy and truth. This model is equivalent to a binary version of MACE, from the machine learning literature <span class="citation" data-cites="hovy2013learning">(<a href="#ref-hovy2013learning" role="doc-biblioref">Hovy et al., 2013</a>)</span>. <a href="./fit.html">Chapter 6</a> shows how we can assess model fit and the independence assumption. <a href="./package.html">Chapter 7</a> introduces the <code>tapModel</code> R package, which allows for easy estimation of the model parameters and lots of utilities. <a href="./app.html">Chapter 8</a> introduces the t-a-p app, an interactive way to use real or simulated data to estimate the model parameters without coding. It is currently under construction, since I’ve made major changes to the <code>tapModel</code> package. An appendix is included to provide more detailed statistical derivations and proofs for some results. There is a growing list of examples that use data sets to illustrate the concepts.</p>
+</section>
+<section id="table-of-contents" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="table-of-contents"><span class="header-section-number">1.2</span> Table of Contents</h2>
 <ul>
 <li><p><a href="./introduction.html">Chapter 1: Quantifying Agreement</a></p></li>
 <li><p><a href="./tapmodel.html">Chapter 2: The t-a-p Model</a></p></li>
@@ -207,6 +244,25 @@ gtag('config', 'G-XP6WMESY52', { 'anonymize_ip': true});
 </ul></li>
 <li><p><a href="./correlation.html">Appendix A: Statistical Details</a></p></li>
 </ul>
+</section>
+</section>
+<section id="overview" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Overview</h1>
+<section id="unification" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="unification"><span class="header-section-number">2.1</span> Unification</h2>
+<p>It turns out that the legacy kappa statistics are special cases of the probability-tree statistics. We can see this common link by starting with a simple probability tree for binary classification with three parameters: <span class="math inline">\(t\)</span> is the prevalence of Class 1 (as opposed to Class 0), <span class="math inline">\(a\)</span> is the rater accuracy, and <span class="math inline">\(p\)</span> is a probability for inaccurate assignments. This tree approach imitates the Justified True Belief model of knowledge, and naturally incorporates Gettier problems (getting the right answer for the wrong reason).</p>
+<p>Applying this t-a-p model to the Fleiss Kappa, one of the most well-known of the rater agreement statistics, shows that the kappa is a special case with the assumption that <span class="math inline">\(t = p\)</span>, meaning that when raters make mistakes, they at least retain the distribution of the correct class proportions. I call this the unbiased case.</p>
+</section>
+<section id="surprises" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="surprises"><span class="header-section-number">2.2</span> Surprises</h2>
+<p>The first <em>aha</em> moment was finding that if the t-a-p model’s <span class="math inline">\(t=p\)</span> condition is met, the Fleiss kappa is just the square of accuracy. Another unexpected result was that when rater accuracy approaches zero, expected estimates of rater accuracy <em>increase</em>. I called this the Dunning-Kruger effect, as a tongue-in-cheek reference to the social science research on meta-ignorance. At first I thought this was probably just estimation error, since lower accuracy means noisier data. However, I was able to find an exact closed formula for accuracy when <span class="math inline">\(t=p\)</span>, and show that it’s a real effect: when accuracy is low enough, the chances of an overestimate increase. Weird, right?</p>
+<p>It was surprising to me that not only can the three parameter t-a-p model be estimated with a simple Expectation-Maximization algorithm, but that the hierarchical version can be as well. It was also surprising that the <em>ad hoc</em> procedure I put together for doing this was, in fact, a provable E-M algorithm.</p>
+<p>A recurrent theme in the literature was the suggestion that we needed more coefficients to handle the possibilities in a 2x2 confusion matrix (assigned class versus true class). It sounds odd to say that raters are more accurate when classifying Class 1 cases than Class 0 cases, but it makes sense when we take into account the pattern of false positives and false negatives. This approach–separate accuracies for classes–gives a satisfying explanation of the so-called Kappa Paradox concerning unbalanced data.</p>
+<p>The models can be fit with E-M algorithms or Bayesian MCMC methods, both of which maximize likelihood. It turns out that log likelihood has a natural interpretation as bits of entropy per rating, which is a nice index for assessing model fit.</p>
+</section>
+<section id="todo" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="todo"><span class="header-section-number">2.3</span> Todo</h2>
+<p>This is an ongoing project. A future chapter will be devoted to the connection between these rater statistics and causality measures, which is how this project actually started <span class="citation" data-cites="eubankscause">(<a href="#ref-eubankscause" role="doc-biblioref">Eubanks, 2014</a>)</span>. The larger issue is to understand the strengths and weaknesses of MCMC estimation for the hierarchical models, e.g.&nbsp;how pooling should work. When all that’s done, I’ll start working through the collection of data samples I’ve gathered over the years to create a catalog of cases. If you’d like to contribute to any of this, email me.</p>
 
 
 
