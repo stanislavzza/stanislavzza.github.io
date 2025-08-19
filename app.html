@@ -202,23 +202,12 @@ window.Quarto = {
 </header>
 
 
-<div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-The app is out of sync with the tapModel package
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>I’ve left this page up so you can see what the shiny app does, but it is now out of sync with the development of the tapApp package. Once the package documentation is complete, I’ll fix the shiny app code and the documentation on this page. If want to run this app in the form presented below, you can do it with the tapModel <a href="https://github.com/stanislavzza/tapModel/releases/tag/v0.1.0">demo release</a>.</p>
-</div>
-</div>
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
-<p>The R programming language has been extended to include the creation of interactive apps using a framework called <a href="https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/index.html">Shiny</a>. You’ll need to install the <code>libray(shiny)</code> to run it, with <code>install.packages("shiny")</code>.</p>
-<p>Two separate interactive applications are available for the t-a-p model. One of them is included in the <code>tapModel</code> R package. Once the package is installed, you can open the app with <code>tapModel::launchApp().</code> This is a limited version of the app that does not provide for Bayesian analysis. The full version of the app can be installed as a stand-alone R project from <a href="https://github.com/stanislavzza/t-a-p-rater-agreement">github</a>. There are instructions there on installing it. To take advantage of the Bayesian estimation methods, you’ll need to install additional R packages and tools. The Bayesian estimation is done with a Markov chain Monte Carlo (MCMC) process of sampling from a probability distribution. For that, the Stan programming language is used, with the <a href="https://mc-stan.org/cmdstanr/articles/cmdstanr.html">stancmdr package</a>. That link has installation instructions. The library <code>LaplacesDemon</code> is also needed to compute the modes of distributions.</p>
+<p>The interactive app associated with tapModel was created before the R package, as a way for me to easily try out the methods and visualize results. I recommend it primarily as a learning tool. You can quickly simulate data to specifications and then create models that recover the parameters. The app is no longer being developed, since I’m spending my time on extending the theory and the functionality of the package. The app can only create average models, not hierarchical ones.</p>
+<p>For real work, I recommend writing scripts or Quarto reports.</p>
+<p>The R programming language has been extended to include the creation of interactive apps using a framework called <a href="https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/index.html">Shiny</a>. You’ll need to install the <code>library(shiny)</code> to run it, with <code>install.packages("shiny")</code>.</p>
+<p>You can install the shiny app from <a href="https://github.com/stanislavzza/t-a-p-rater-agreement">github</a>. There are instructions there on installing it. To take advantage of the Bayesian estimation methods, you’ll need to install additional R packages and tools. The Bayesian estimation is done with a Markov chain Monte Carlo (MCMC) process of sampling from a probability distribution. For that, the Stan programming language is used, with the <a href="https://mc-stan.org/cmdstanr/articles/cmdstanr.html">stancmdr package</a>. That link has installation instructions. The library <code>LaplacesDemon</code> is also needed to compute the modes of distributions.</p>
 <section id="basic-functions" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="basic-functions"><span class="header-section-number">1.1</span> Basic Functions</h2>
 <p>The simplest way to get started is with the <code>tapModel</code> library. It provides these functions:</p>
