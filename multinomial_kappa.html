@@ -8,7 +8,7 @@
 
 <meta name="author" content="David Eubanks">
 
-<title>Welcome to the Kappa Zoo – The Kappa Zoo</title>
+<title>Chapter 9: Multinomial Kappa – The Kappa Zoo</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,27 +21,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -169,17 +149,10 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome"><span class="header-section-number">1</span> Welcome</a>
-  <ul class="collapse">
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started"><span class="header-section-number">1.1</span> Getting Started</a></li>
-  <li><a href="#table-of-contents" id="toc-table-of-contents" class="nav-link" data-scroll-target="#table-of-contents"><span class="header-section-number">1.2</span> Table of Contents</a></li>
-  </ul></li>
-  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview"><span class="header-section-number">2</span> Overview</a>
-  <ul class="collapse">
-  <li><a href="#unification" id="toc-unification" class="nav-link" data-scroll-target="#unification"><span class="header-section-number">2.1</span> Unification</a></li>
-  <li><a href="#surprises" id="toc-surprises" class="nav-link" data-scroll-target="#surprises"><span class="header-section-number">2.2</span> Surprises</a></li>
-  <li><a href="#todo" id="toc-todo" class="nav-link" data-scroll-target="#todo"><span class="header-section-number">2.3</span> Todo</a></li>
-  </ul></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#unbiased-raters-the-fleiss-kappa" id="toc-unbiased-raters-the-fleiss-kappa" class="nav-link" data-scroll-target="#unbiased-raters-the-fleiss-kappa"><span class="header-section-number">2</span> Unbiased Raters: the Fleiss Kappa</a></li>
+  <li><a href="#likelihood" id="toc-likelihood" class="nav-link" data-scroll-target="#likelihood"><span class="header-section-number">3</span> Likelihood</a></li>
+  <li><a href="#e-m-algorithm" id="toc-e-m-algorithm" class="nav-link" data-scroll-target="#e-m-algorithm"><span class="header-section-number">4</span> E-M Algorithm</a></li>
   </ul>
 </nav>
 </nav>
@@ -192,7 +165,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Welcome to the Kappa Zoo</h1>
+<h1 class="title">Chapter 9: Multinomial Kappa</h1>
 </div>
 
 
@@ -215,70 +188,118 @@ window.Quarto = {
 </header>
 
 
-<section id="welcome" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Welcome</h1>
-<p>The goal of this project is to unify and extend research on classification, in particular the statistics used to assess rater agreement or classification accuracy. For example a panel of wine judges independently rates a series of vintages. This type of data is widespread in consumer data (product ratings), medicine (diagnostics, trials), education (evaluation), social science (surveys), and machine learning context (text annotation). The commonality between these is a set of raters (evaluators, annotators) who independently assign categories to subjects, usually from a small number of choices.</p>
-<p>The most basic question about such data sets is “is it just random numbers?” This can be answered by comparing the variation of responses within each subject to the variation between subjects. There are multiple research methods that can be applied, such as ANOVA, Item Response Theory, and other continuous-scale approaches, but the focus here is methods that directly or indirectly use exact rater agreement as the basis for analysis. There are two distinct research traditions in rater agreement. One is from social sciences and medicine that has proliferated a number of rater agreement statistics, each with different assumptions. These “kappas” prompted the title of the website, since there is by now a “zoo” of these statistics to choose from. On a parallel track more associated nowadays with Machine Learning, there has been development of model-based classification statistics (e.g.&nbsp;MACE) that embody a tree-like set of conditional probabilities used to generate (often) hierarchical parameters for the subjects being classified and the raters who assign the classes to the subjects.</p>
-<p>The body of work here includes statistical derivations, an R library for implementing them, and examples of use. It’s intended to be particularly useful for those who are still scratching their heads about which kappa statistic to use. The answer is: don’t. There’s a better way to approach the problem.</p>
-<section id="getting-started" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="getting-started"><span class="header-section-number">1.1</span> Getting Started</h2>
-<p>If you are new to t-a-p models, I recommend starting with the <a href="./introduction.html">Chapter 1</a>, which introduces rater agreement as a classification problem and lays out the philosophical and statistical assumptions. <a href="./tapmodel.html">Chapter 2</a> provides the basic statistical derivations needed to work with t-a-p models. <a href="./kappa.html">Chapter 3</a> derives the relationship to some existing rater agreement statistics, for example showing how the Fleiss kappa is a special case of a t-a-p model. <a href="./paradox.html">Chapter 4</a>expands the number of parameters and shows how this relates to the “kappa paradox.” <a href="./hierarchical.html">Chapter 5</a> develops a hierarchical model that allows each rater and subject to have individual parameters for accuracy and truth. This model is equivalent to a binary version of MACE, from the machine learning literature <span class="citation" data-cites="hovy2013learning">(<a href="#ref-hovy2013learning" role="doc-biblioref">Hovy et al., 2013</a>)</span>. <a href="./fit.html">Chapter 6</a> shows how we can assess model fit and the independence assumption. <a href="./package.html">Chapter 7</a> introduces the <code>tapModel</code> R package, which allows for easy estimation of the model parameters and lots of utilities. <a href="./app.html">Chapter 8</a> introduces the t-a-p app, an interactive way to use real or simulated data to estimate the model parameters without coding. It is currently under construction, since I’ve made major changes to the <code>tapModel</code> package. An appendix is included to provide more detailed statistical derivations and proofs for some results. There is a growing list of examples that use data sets to illustrate the concepts.</p>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>So far I’ve considered binary ratings, with the exception of the ML algorithms like MACE, which are designed for <span class="math inline">\(K\)</span> categories. I downgraded those to binary during that discussion for simplicity. But let’s revisit this question, starting with the Fleiss kappa. You’ll recall that with binary ratings, for unbiased raters (<span class="math inline">\(t=p\)</span>), we have <span class="math inline">\(\kappa = a^2\)</span>. The Fleiss kappa is defined for multinomial ratings, so might it be the case that the same relation holds in that case?</p>
+<p>To get there, we have to reimagine the t-a-p model in the case with <span class="math inline">\(K\)</span> categories and <span class="math inline">\(k&gt;2\)</span>. Instead of a binary latent truth <span class="math inline">\(T_i\)</span>, we can allow each subject take on values <span class="math inline">\(1 \dots K\)</span> to indicate the true class. The corresponding probability <span class="math inline">\(t\)</span> now becomes a probability distribution over the <span class="math inline">\(k\)</span> values, so I’ll switch to boldface to indicate a vector. Accuracy need not be vectorized in the simplest case, but the random assignment rate <span class="math inline">\(p\)</span> also needs to become a distribution.</p>
+<p>With vectorized <span class="math inline">\(\boldsymbol{t}\)</span> and <span class="math inline">\(\boldsymbol{p}\)</span> the convention <span class="math inline">\(\bar{p} = 1-p\)</span> no longer makes sense. Instead, I’ll use matrix multiplication, assuming column vectors. So the probability of two random classifications matching is <span class="math inline">\(\boldsymbol{p}^t\boldsymbol{p} = \sum_k{p_k^2}\)</span> where <span class="math inline">\(p_k\)</span> is the <span class="math inline">\(k\)</span>th element of the vector <span class="math inline">\(\boldsymbol{p}\)</span>, and the <span class="math inline">\(t\)</span> superscript means transpose from column to row vector to make a dot product.</p>
+<p>Recall that kappas are based on match rates using a formula that’s agnostic to <span class="math inline">\(K\)</span>. For two ratings to match, two raters <span class="math inline">\(j_1,j_2\)</span> of the same subject <span class="math inline">\(i\)</span> must agree in their assignment of either Class 1 or Class 0 classifications. In other words, the binary random variables must agree: <span class="math inline">\(C_{ij_1} = C_{ij_2}\)</span>, which now may be an integer 1 to <span class="math inline">\(K\)</span>. A generic formula that includes the most common kappas is</p>
+<p><span class="math display">\[
+\kappa = \frac{m_o - m_c}{1 - m_c},
+\]</span> where <span class="math inline">\(m_o\)</span> is the observed proportion of agreements and <span class="math inline">\(m_c\)</span> is the expected proportion of agreements under chance. The assumption about <span class="math inline">\(m_c\)</span> is a defining feature of the various kappa statistics.</p>
+<p>Consider two raters classifying an observation into <span class="math inline">\(K\)</span> categories. In the t-a-p model we can express the expected value of observed matches <span class="math inline">\(m_o\)</span> as the sum of three kinds of agreement: (1) <span class="math inline">\(m_a\)</span> is when both raters are accurate (and hence agree), (2) <span class="math inline">\(m_i\)</span> when both raters are inaccurate (guessing) and agree, and (3) <span class="math inline">\(m_x\)</span> is the mixed case when one rater is accurate and the other is inaccurate but they agree. The second two of these have expressions that include the guessing rate <span class="math inline">\(m_c\)</span>. Following that thinking we have the following expectations for rates:</p>
+<p><span id="eq-match-rates"><span class="math display">\[
+\begin{aligned}
+m_a &amp;= a^2 &amp; \text{(both accurate)}\\
+m_r &amp;= \boldsymbol{p}^t\boldsymbol{p}  &amp; \text{(random ratings)}\\
+m_i &amp;= \bar{a}^2m_r = a^2m_r - 2am_r + m_r &amp;\text{(both inaccurate)}\\
+m_x &amp;= 2a\bar{a}\boldsymbol{t}^t\boldsymbol{p} &amp;\text{(mixed accurate and inaccurate)}\\
+m_o &amp;= m_a + m_i + m_x &amp;\text{(observed match rate)}\\
+    &amp;= a^2+a^2m_r + m_r - 2am_r + 2a\bar{a}\boldsymbol{t}^t\boldsymbol{p}\\
+\end{aligned}
+\tag{1}\]</span></span></p>
+<p>For <span class="math inline">\(m_a\)</span>, both ratings must be accurate, in which case they automatically agree. For <span class="math inline">\(m_i\)</span>, both must be inaccurate (probability <span class="math inline">\(\bar{a}^2\)</span>) and then match randomly (probability <span class="math inline">\(m_r\)</span>). For <span class="math inline">\(m_x\)</span>, one rater must be accurate and the other inaccurate, in which case they agree if the accurate rater chooses the category that the inaccurate rater guesses.</p>
 </section>
-<section id="table-of-contents" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="table-of-contents"><span class="header-section-number">1.2</span> Table of Contents</h2>
-<ul>
-<li><p><a href="./introduction.html">Chapter 1: Quantifying Agreement</a></p></li>
-<li><p><a href="./tapmodel.html">Chapter 2: The t-a-p Model</a></p></li>
-<li><p><a href="./kappa.html">Chapter 3: Kappa Statistics</a></p></li>
-<li><p><a href="./paradox.html">Chapter 4: The Kappa Paradox</a></p></li>
-<li><p><a href="./hierarchical.html">Chapter 5: Hierarchical Models</a></p></li>
-<li><p><a href="./fit.html">Chapter 6: Assessing Model Fit</a></p></li>
-<li><p><a href="./package.html">Chapter 7: The tapModel R Package</a></p></li>
-<li><p><a href="./app.html">Chapter 8: The t-a-p App</a></p></li>
-<li><p><a href="./multinomial_kappa.html">Chapter 9: Multinomial Ratings</a></p></li>
-<li><p><a href="./references.html">References</a></p></li>
-<li><p>Examples</p>
-<ul>
-<li><a href="./Example_uniform_raters.html">Simulated Uniform Raters</a></li>
-<li><a href="./Example_PTSD.html">PTSD Assessment</a></li>
-<li><a href="./Example_wine.html">Wine ratings</a></li>
-<li><a href="./Example_vehicles.html">No Vehicles in the Park</a></li>
-</ul></li>
-<li><p><a href="./correlation.html">Appendix A: Statistical Details</a></p></li>
-</ul>
+<section id="unbiased-raters-the-fleiss-kappa" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Unbiased Raters: the Fleiss Kappa</h1>
+<p>Recall that in terms of the t-a-p model, the Fleiss kappa assumes that the by-chance match rate in the kappa formula comes from the observed rate of each category. Random matches are assumed to have the same distribution as the overall ratings distribution. In the vectorized <strong>t</strong>-a-<strong>p</strong> model, this amounts to finding <span class="math inline">\(\boldsymbol{c} = \boldsymbol{t}a + \bar{a}\boldsymbol{p}\)</span>, and the by-chance match rate in the kappa formula is <span class="math inline">\(m_c = \boldsymbol{c}^t\boldsymbol{c}\)</span>. Under the unbiased rater assumption, where <span class="math inline">\(\boldsymbol{p} = \boldsymbol{t}\)</span> after a bit of algebra we get <span class="math inline">\(m_c = \boldsymbol{p}^t \boldsymbol{p} = m_r\)</span>.</p>
+<p>With that result we can tackle the kappa,</p>
+<p><span class="math display">\[
+\begin{aligned}\kappa_f &amp;= \frac{m_o - m_c}{1 - m_c} \\
+&amp;= \frac{a^2+a^2m_r + m_r - 2am_r + 2a\bar{a}m_r - m_r}{1 - m_r} \\
+&amp;= a^2.
+\end{aligned}
+\]</span></p>
+<p>With vectorized truth and randomness, the math looks just like the binary case, and we get the same result: when the <span class="math inline">\(\boldsymbol{p} = \boldsymbol{t}\)</span> condition is met, kappa is the square of accuracy. This is a nice result, because it gives us a direct way to check multinomial solvers that use unbiased simulated ratings with multiple categories.</p>
 </section>
+<section id="likelihood" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Likelihood</h1>
+<p>The likelihood function for the multinomial case is similar to the binary case. The difference is in the sum, which is over each class. We have</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{Pr(ratings; parameters)} &amp;= \prod_{i=1}^{N_s} \sum_{k_T = 1}^Kt_{k_T}^{(i)}\prod_{j}\pi_{k_Tk_{ij}}^{(j)} \, ,
+\end{aligned}
+\]</span></p>
+<p>where the leftmost product is over subjects, and the sum is over the <span class="math inline">\(K\)</span> classes, where we pull subject <span class="math inline">\(i\)</span>’s truth estimates <span class="math inline">\(\boldsymbol{t}\)</span> and extract the elements one by one. The innermost product is over all the ratings, indexed by the rater <span class="math inline">\(j\)</span>, the assigned rating <span class="math inline">\(k_{ij}\)</span> and each possible true Class <span class="math inline">\(k_T\)</span>. The rater likelihood is</p>
+<p><span class="math display">\[
+\begin{aligned}
+\pi_{k_Tk_{ij}}^{(j)} &amp;= \text{Pr(assigned rating = }k_{ij}\text{; true class = }k_T) \\
+&amp;= \bar{a}_jp_{k_T}^{(j)} + a_jI(k_j = k_T).
+\end{aligned}
+\]</span> Here, <span class="math inline">\(I\)</span> is an indicator function that is one when the assigned rating equals the assumed true rating, and zero otherwise.</p>
 </section>
-<section id="overview" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Overview</h1>
-<section id="unification" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="unification"><span class="header-section-number">2.1</span> Unification</h2>
-<p>It turns out that the legacy kappa statistics are special cases of the probability-tree statistics. We can see this common link by starting with a simple probability tree for binary classification with three parameters: <span class="math inline">\(t\)</span> is the prevalence of Class 1 (as opposed to Class 0), <span class="math inline">\(a\)</span> is the rater accuracy, and <span class="math inline">\(p\)</span> is a probability for inaccurate assignments. This tree approach imitates the Justified True Belief model of knowledge, and naturally incorporates Gettier problems (getting the right answer for the wrong reason).</p>
-<p>Applying this t-a-p model to the Fleiss Kappa, one of the most well-known of the rater agreement statistics, shows that the kappa is a special case with the assumption that <span class="math inline">\(t = p\)</span>, meaning that when raters make mistakes, they at least retain the distribution of the correct class proportions. I call this the unbiased case.</p>
-</section>
-<section id="surprises" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="surprises"><span class="header-section-number">2.2</span> Surprises</h2>
-<p>The first <em>aha</em> moment was finding that if the t-a-p model’s <span class="math inline">\(t=p\)</span> condition is met, the Fleiss kappa is just the square of accuracy. Another unexpected result was that when rater accuracy approaches zero, expected estimates of rater accuracy <em>increase</em>. I called this the Dunning-Kruger effect, as a tongue-in-cheek reference to the social science research on meta-ignorance. At first I thought this was probably just estimation error, since lower accuracy means noisier data. However, I was able to find an exact closed formula for accuracy when <span class="math inline">\(t=p\)</span>, and show that it’s a real effect: when accuracy is low enough, the chances of an overestimate increase.</p>
-<p>It was surprising to me that not only can the three parameter t-a-p model be estimated with a simple Expectation-Maximization algorithm, but that the hierarchical version can be as well. It was also surprising that the <em>ad hoc</em> procedure I put together for doing this was, in fact, a provable E-M algorithm.</p>
-<p>A recurrent theme in the literature was the suggestion that we needed more coefficients to handle the possibilities in a 2x2 confusion matrix (assigned class versus true class). It sounds odd to say that raters are more accurate when classifying Class 1 cases than Class 0 cases, but it makes sense when we take into account the pattern of false positives and false negatives. This approach–separate accuracies for classes–gives a satisfying explanation of the so-called Kappa Paradox concerning unbalanced data.</p>
-<p>The models can be fit with E-M algorithms or Bayesian MCMC methods, both of which maximize likelihood. It turns out that log likelihood has a natural interpretation as bits of entropy per rating, which is a nice index for assessing model fit.</p>
-</section>
-<section id="todo" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="todo"><span class="header-section-number">2.3</span> Todo</h2>
-<p>This is an ongoing project. A future chapter will be devoted to the connection between these rater statistics and causality measures, which is how this project actually started <span class="citation" data-cites="eubankscause">(<a href="#ref-eubankscause" role="doc-biblioref">Eubanks, 2014</a>)</span>. The larger issue is to understand the strengths and weaknesses of MCMC estimation for the hierarchical models, e.g.&nbsp;how pooling should work. As I go along, I’ll work through the collection of data samples I’ve gathered over the years to create a catalog of cases. If you’d like to contribute to any of this, email me.</p>
+<section id="e-m-algorithm" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> E-M Algorithm</h1>
+<p>The E-step of the multinomial case looks like the binary case, just with more classes. The likelihood contribution for a single subject <span class="math inline">\(i\)</span> is</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{Pr(ratings; parameters, subject }i) &amp;= \sum_{k_T = 1}^Kt_{k_T}^{(i)}\prod_{j}\pi_{k_Tk_{ij}}^{(j)} \, ,
+\end{aligned}
+\]</span> from which we extract new estimates of class probabilities via</p>
+$$
+<span class="math display">\[\begin{aligned}
+t_{k_T}^* &amp;\approx  Pr(\text{True class } = k_T  ;\text{ parameters, ratings)} \\
+&amp;=\frac{t_{k_T}\prod_{j}\pi_{{k_T}k_{ij}}^{(j)}}{ \sum_{k_T = 1}^Kt_{k_T}\prod_{j}\pi_{{k_T}k_{ij}}^{(j)} } ,
+\end{aligned}\]</span>
+<p>$$ where it is understood that we’re referring to subject <span class="math inline">\(i\)</span>, so I have removed those annotations. The <span class="math inline">\(t_{k_t}^*\)</span> result on the left is the updated class probability that subject <span class="math inline">\(i\)</span> is class <span class="math inline">\(k_T \, \epsilon \{1 \dots K\}\)</span>.</p>
+<p>To derive the M-step of the algorithm we need to expand the 2x2 confusion matrix to KxK. The matrix consists of probabilities, where the <span class="math inline">\(i,j\)</span> entry contains <span class="math inline">\(Pr(\text{Rating = }j | \text{True class }= i)\)</span>. Confusion matricies are sometimes row-normalized, but this one is not; it’s the intersection of true class values (rows) with rated classes (columns). The empirical matrix comprises the proportions of ratings that fall within each of these groups, which enables us to compare a model with a data set. I’ll illustrate with the <span class="math inline">\(K=3\)</span> case, where the model’s expected value of these proportions is</p>
+<p><span class="math display">\[
+E[C] =
+\begin{bmatrix}
+t_1(a + \bar{a}p_1) &amp; t_1\bar{a}p_2 &amp; t_1\bar{a}p_3 \\
+t_2\bar{a}p_1 &amp; t_2(a + \bar{a}p_2) &amp; t_2\bar{a}p_3 \\
+t_3\bar{a}p_1 &amp; t_3\bar{a}p_2 &amp; t_3(a + \bar{a}p_3)
+\end{bmatrix} .
+\]</span> Here, <span class="math inline">\((t_1, t_2, t_3)\)</span> are the class probabilities, which we can more compactly express as a vector <span class="math inline">\(\boldsymbol{t}\)</span>, and similarly with the <span class="math inline">\(p\)</span> parameters. The empirical <span class="math inline">\(\hat{C}\)</span> we get from the ratings combined with the class probabilities <span class="math inline">\(\boldsymbol{\hat{t}}\)</span> obtained in the E-step.</p>
+<p>To solve for the parameters, we can start with the sum of the diagonals (the trace of the matrix), to get</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{trace}(E[C]) &amp;= t_1(a + \bar{a}p_1) + t_2(a + \bar{a}p_2) + t_3(a + \bar{a}p_3) \\
+&amp;= a(t_1 + t_2 + t_3) + \bar{a}(t_1p_1+ t_2p_2+t_3p_3) \\
+&amp;= a + \bar{a}\boldsymbol{t}^t\boldsymbol{p} \\
+&amp; \approx \text{trace}(\hat{C}) ,
+\end{aligned}
+\]</span> which gives us one equation linking the model to the data. We can sum the off-diagonal columns to get similar equations relating to the components of <span class="math inline">\(\boldsymbol{p}\)</span>. For the first column, we have</p>
+<p><span class="math display">\[
+\begin{aligned}
+E[c_{21} + c_{31}] &amp;= t_2\bar{a}p_1 + t_3\bar{a}p_1 \\
+&amp;= \bar{t}_1\bar{a}p_1 \\
+&amp; \approx \hat{c}_{21} + \hat{c}_{31} \\
+&amp;:= \hat{C}_{o1},
+\end{aligned}
+\]</span> where in the definition in the last step the o means “off-diagonal”, and the 1 means sum over column 1. Recall that we already have estimates for <span class="math inline">\(\boldsymbol{t}\)</span> at this point, and wish to solve for <span class="math inline">\(a\)</span> and <span class="math inline">\(\boldsymbol{p}\)</span>. If we sum the three off-diagonals we obtain <span class="math inline">\(\bar{a}-\bar{a}\boldsymbol{t}^t\boldsymbol{p} = 1 -\text{trace}(E[C])\)</span>, since all the elements of <span class="math inline">\(C\)</span> sum to 1.</p>
+<p>Solving each of the off-diagonal sums for <span class="math inline">\(p_i\)</span> gives us a way to combine with the trace equation and solve for <span class="math inline">\(a\)</span>. Start with <span class="math inline">\(p_1 \approx \hat{C}_{o1}/(\bar{t}_1\bar{a})\)</span> and substitute to obtain</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{trace}(\hat{C}) &amp; \approx a +  \bar{a}(t_1p_1+ t_2p_2+t_3p_3) \\
+&amp;= a + \bar{a} \left(\frac{t_1\hat{C}_{o1}}{\bar{t}_1\bar{a}}  \right) +
+\bar{a} \left(\frac{t_2\hat{C}_{o2}}{\bar{t}_2\bar{a}}  \right) +
+\bar{a} \left(\frac{t_3\hat{C}_{o3}}{\bar{t}_3\bar{a}}  \right) \\
+&amp;= a + \frac{t_1}{\bar{t}_1}\hat{C}_{o1} + \frac{t_2}{\bar{t}_2}\hat{C}_{o2} + \frac{t_3}{\bar{t}_3}\hat{C}_{o3}  \\
+\end{aligned}
+\]</span></p>
+<p>This gives us a simple calculation for the accuracy coefficient, from which we can derive an approximation for <span class="math inline">\(\boldsymbol{p}\)</span> as well:</p>
+<p><span class="math display">\[
+\begin{aligned}
+a &amp; \approx  \text{trace}(\hat{C}) - \left(\frac{t_1}{\bar{t}_1}\hat{C}_{o1} + \frac{t_2}{\bar{t}_2}\hat{C}_{o2} + \frac{t_3}{\bar{t}_3}\hat{C}_{o3} \right) \\
+p_i &amp; \approx \frac{\hat{C}_{oi}}{\bar{t}_i\bar{a}}.
+\end{aligned}
+\]</span> The formula for <span class="math inline">\(a\)</span> gives us some insight into the t-a-p model. When <span class="math inline">\(a=1\)</span> the ratings will match true values, so the matrix will be diagonal with values <span class="math inline">\(\boldsymbol{t}\)</span>. When <span class="math inline">\(a = 0\)</span> we get the outer product <span class="math inline">\(C = \boldsymbol{t}\boldsymbol{p}^t\)</span>.</p>
 
 
-
-</section>
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
-<div id="ref-eubankscause" class="csl-entry" role="listitem">
-Eubanks, D. A. (2014). Causal interfaces. <em>Arxiv.org Preprint</em>. <a href="http://arxiv.org/abs/1404.4884v1">http://arxiv.org/abs/1404.4884v1</a>
-</div>
-<div id="ref-hovy2013learning" class="csl-entry" role="listitem">
-Hovy, D., Berg-Kirkpatrick, T., Vaswani, A., &amp; Hovy, E. (2013). Learning whom to trust with MACE. <em>Proceedings of the 2013 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies</em>, 1120–1130.
-</div>
-</div></section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
