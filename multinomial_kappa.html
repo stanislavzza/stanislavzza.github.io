@@ -8,7 +8,7 @@
 
 <meta name="author" content="David Eubanks">
 
-<title>Chapter 9: Multinomial Kappa – The Kappa Zoo</title>
+<title>Chapter 9: Multinomial Rater Models – The Kappa Zoo</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -152,7 +187,8 @@ window.Quarto = {
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
   <li><a href="#unbiased-raters-the-fleiss-kappa" id="toc-unbiased-raters-the-fleiss-kappa" class="nav-link" data-scroll-target="#unbiased-raters-the-fleiss-kappa"><span class="header-section-number">2</span> Unbiased Raters: the Fleiss Kappa</a></li>
   <li><a href="#likelihood" id="toc-likelihood" class="nav-link" data-scroll-target="#likelihood"><span class="header-section-number">3</span> Likelihood</a></li>
-  <li><a href="#e-m-algorithm" id="toc-e-m-algorithm" class="nav-link" data-scroll-target="#e-m-algorithm"><span class="header-section-number">4</span> E-M Algorithm</a></li>
+  <li><a href="#units-of-entropy" id="toc-units-of-entropy" class="nav-link" data-scroll-target="#units-of-entropy"><span class="header-section-number">4</span> Units of Entropy</a></li>
+  <li><a href="#e-m-algorithm" id="toc-e-m-algorithm" class="nav-link" data-scroll-target="#e-m-algorithm"><span class="header-section-number">5</span> E-M Algorithm</a></li>
   </ul>
 </nav>
 </nav>
@@ -165,7 +201,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Chapter 9: Multinomial Kappa</h1>
+<h1 class="title">Chapter 9: Multinomial Rater Models</h1>
 </div>
 
 
@@ -225,11 +261,11 @@ m_o &amp;= m_a + m_i + m_x &amp;\text{(observed match rate)}\\
 <section id="likelihood" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Likelihood</h1>
 <p>The likelihood function for the multinomial case is similar to the binary case. The difference is in the sum, which is over each class. We have</p>
-<p><span class="math display">\[
+<p><span id="eq-likelihood"><span class="math display">\[
 \begin{aligned}
 \text{Pr(ratings; parameters)} &amp;= \prod_{i=1}^{N_s} \sum_{k_T = 1}^Kt_{k_T}^{(i)}\prod_{j}\pi_{k_Tk_{ij}}^{(j)} \, ,
 \end{aligned}
-\]</span></p>
+\tag{2}\]</span></span></p>
 <p>where the leftmost product is over subjects, and the sum is over the <span class="math inline">\(K\)</span> classes, where we pull subject <span class="math inline">\(i\)</span>’s truth estimates <span class="math inline">\(\boldsymbol{t}\)</span> and extract the elements one by one. The innermost product is over all the ratings, indexed by the rater <span class="math inline">\(j\)</span>, the assigned rating <span class="math inline">\(k_{ij}\)</span> and each possible true Class <span class="math inline">\(k_T\)</span>. The rater likelihood is</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -237,10 +273,146 @@ m_o &amp;= m_a + m_i + m_x &amp;\text{(observed match rate)}\\
 &amp;= \bar{a}_jp_{k_T}^{(j)} + a_jI(k_j = k_T).
 \end{aligned}
 \]</span> Here, <span class="math inline">\(I\)</span> is an indicator function that is one when the assigned rating equals the assumed true rating, and zero otherwise.</p>
+<p>In practice, we compute the log likelihood, and I’ll use the same approach as the binary case, adapted to <span class="math inline">\(K\)</span> classes. Instead of log likelihood as bits per rating, using base 1/2, it is “krits” per rating, short for k-ary digit. Using log base <span class="math inline">\(1/K\)</span> and averaging over ratings again gives us a range of entropy in [0,1]. When <span class="math inline">\(a=1\)</span> the ratings are deterministic (no randomness) and the entropy is zero. For uniform <span class="math inline">\(\boldsymbol{p}\)</span> and <span class="math inline">\(\boldsymbol{t}\)</span> with <span class="math inline">\(a=0\)</span>, entropy is 1 krit/rating. See the code sample below for an example.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tapModel)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># zero accuracy case with the correct model</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">generate_sample_ratings_cat</span>(<span class="at">N_s =</span> <span class="dv">200</span>, <span class="at">N_r =</span> <span class="dv">10</span>, <span class="at">K =</span> <span class="dv">4</span>, </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                            <span class="at">params =</span> <span class="fu">list</span>(<span class="at">t =</span> <span class="fu">rep</span>(.<span class="dv">25</span>,<span class="dv">4</span>),</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                                          <span class="at">a =</span> <span class="dv">0</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                                          <span class="at">p =</span> <span class="fu">rep</span>(.<span class="dv">25</span>, <span class="dv">4</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">krits_per_rating_cat</span>() <span class="co"># = 1</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># a = 1 case, using fit_ratings_cat() to impute good t values</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">generate_sample_ratings_cat</span>(<span class="at">N_s =</span> <span class="dv">200</span>, <span class="at">N_r =</span> <span class="dv">10</span>, <span class="at">K =</span> <span class="dv">4</span>, </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                            <span class="at">params =</span> <span class="fu">list</span>(<span class="at">t =</span> <span class="fu">rep</span>(.<span class="dv">25</span>,<span class="dv">4</span>),</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                                          <span class="at">a =</span> <span class="dv">1</span>,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                                          <span class="at">p =</span> <span class="fu">rep</span>(.<span class="dv">25</span>, <span class="dv">4</span>)),</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>                            <span class="at">details =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_ratings_cat</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">krits_per_rating_cat</span>() <span class="co"># = 0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>We can express the log likelihood <span class="math inline">\(\ell\)</span> compactly in vector form with</p>
+<p><span class="math display">\[
+\begin{aligned}
+\ell(\text{ratings; parameters}) &amp;= -\sum_{i=1}^{N_s} \| \log \boldsymbol{t}_i +
+\sum_j \boldsymbol{\pi}_j \|_1
+\end{aligned}
+\]</span> where each subject <span class="math inline">\(i\)</span> has a vector <span class="math inline">\(\boldsymbol{t}_i\)</span> of estimated class probabilites, and each rater <span class="math inline">\(j\)</span> has a vector <span class="math inline">\(\boldsymbol{\pi}_j\)</span> of conditional class probabilities based on the rating of that subject. All the logs are non-positive, so the norm and minus sign are a notation hack that just means “add up the vector components.”</p>
 </section>
-<section id="e-m-algorithm" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> E-M Algorithm</h1>
-<p>The E-step of the multinomial case looks like the binary case, just with more classes. The likelihood contribution for a single subject <span class="math inline">\(i\)</span> is</p>
+<section id="units-of-entropy" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Units of Entropy</h1>
+<p>For binary ratings I adopted the convention of finding the average log likelihood per rating and using log base 1/2, so the answer is in bits. Here we only need to switch to log base 1/K to have the same benefits.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In the K-class case I will use the convention that <span class="math inline">\(\log x\)</span> means <span class="math inline">\(\log_{\frac{1}{K} } x\)</span>, without specifying the base each time. I nominate “krits” (for “k-ary digits”) as the unit of entropy, following Tukey’s bits, trits, and dits. As with the binary case when we maximize likelihood, we <em>minimize</em> the number of informational krits per rating.</p>
+</div>
+</div>
+<p>As with the binary case, we can estimate log likelihood from parameters by assuming that the probabilities <span class="math inline">\(t_i\)</span> closely approximate indicator vectors. These “one-hot” vectors like <span class="math inline">\((1, 0, 0)\)</span> or <span class="math inline">\((0,1,0)\)</span> exactly identify a single class for each subject. In that case, the sum in <a href="#eq-likelihood" class="quarto-xref">Equation&nbsp;2</a> collapses to a single value of <span class="math inline">\(t_{k_T}\)</span> for each subject. In the <span class="math inline">\(K=3\)</span> case it looks like</p>
+<p><span id="eq-likelihood2"><span class="math display">\[
+Pr(\text{data ; parameters, }K = 3 ) = \prod_{T_i = 1}\pi_{1k_{ij}}^{(j)} \prod_{T_i = 2}  \pi_{2k_{ij}}^{(j)} \prod_{T_i = 3}  \pi_{3k_{ij}}^{(j)} \,,
+\tag{3}\]</span></span></p>
+<p>where the products are over all ratings <span class="math inline">\(k_{ij}\)</span> sorted by the true class as indicated by the <span class="math inline">\(\boldsymbol{t}_i\)</span> vectors. I’ll approximate further by assuming an average model with parameters <span class="math inline">\(boldsymbol{t}\)</span> representing the proportions of true classes over all subjects, a constant rater accuracy <span class="math inline">\(a\)</span>, a constant random assignment rate <span class="math inline">\(boldsymbol{p}\)</span>.</p>
+<p>The key insight is that <span class="math inline">\(\pi_{1k_T}\)</span> is expected to occur at a rate of <span class="math inline">\(\pi_{1k_T}\)</span>, since that’s it’s definition. There will be <span class="math inline">\(Nt_1\pi_{1k}\)</span> contributions of <span class="math inline">\(\log \pi_{1k}\)</span> in the log likelihood sum, on average.</p>
+<p>Taking logs, we have an expectation averaged over <span class="math inline">\(N\)</span> ratings of</p>
+<p><span class="math display">\[
+\begin{aligned}
+E[\ell(\text{data ; parameters})]/N &amp;= E \left[ \sum_{k_T = 1}^K \log \pi_{k_Tk} \right]/N \\
+&amp;= \sum_{k_T = 1}^K t_{k_T}\sum_{k=1}^K \pi_{k_Tk} \log \pi_{k_Tk} \, .\\
+\end{aligned}
+\]</span></p>
+<p>The inner sum has the form of Shannon entropy, which represents the average krits per rating for each assigned class <span class="math inline">\(k = 1 \dots K\)</span>. The total entropy per rating is the weighted average of these using true class rates as weights. Note that the expected entropy only depends on a model specification, not any actual ratings, and it would only be relevant to ratings generated from that model.</p>
+<p>If we set all the components of <span class="math inline">\(boldsymbol{t}\)</span> to <span class="math inline">\(1/K\)</span>, we obtain a kind of standardized rater entropy that’s independent of sampling subjects.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>K <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>t_p <span class="ot">&lt;-</span> <span class="fu">tribble</span>(<span class="sc">~</span>run, <span class="sc">~</span>t, <span class="sc">~</span>p,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>              <span class="dv">1</span>, <span class="fu">c</span>(.<span class="dv">1</span>,.<span class="dv">1</span>,.<span class="dv">4</span>,.<span class="dv">4</span>), <span class="fu">c</span>(.<span class="dv">1</span>,.<span class="dv">1</span>,.<span class="dv">4</span>,.<span class="dv">4</span>), <span class="co"># skewed, unbiased</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>              <span class="dv">2</span>, <span class="fu">c</span>(.<span class="dv">1</span>,.<span class="dv">1</span>,.<span class="dv">4</span>,.<span class="dv">4</span>), <span class="fu">c</span>(.<span class="dv">4</span>,.<span class="dv">4</span>,.<span class="dv">1</span>,.<span class="dv">1</span>), <span class="co"># skewed, biased</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>              <span class="dv">3</span>, <span class="fu">rep</span>(.<span class="dv">25</span>, <span class="dv">4</span>), <span class="fu">rep</span>(.<span class="dv">25</span>, <span class="dv">4</span>))       <span class="co"># uniform, unbiased</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,.<span class="dv">05</span>), <span class="at">LL =</span> <span class="cn">NA</span>, <span class="at">E_LL =</span> <span class="cn">NA</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>          <span class="fu">cross_join</span>(t_p)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(output)){</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  params <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">t =</span> <span class="fu">unlist</span>(output<span class="sc">$</span>t[i]), <span class="at">a =</span> output<span class="sc">$</span>a[i], <span class="at">p =</span> <span class="fu">unlist</span>(output<span class="sc">$</span>p[i]))</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulate data</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  cat_ratings <span class="ot">&lt;-</span> <span class="fu">generate_sample_ratings_cat</span>(<span class="at">N_s =</span> <span class="dv">100</span>, <span class="at">K =</span> K, <span class="at">params =</span> params, <span class="at">details =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># replace subject t with indicator of true value</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  cat_ratings<span class="sc">$</span>subjects <span class="ot">&lt;-</span> cat_ratings<span class="sc">$</span>subjects <span class="sc">|&gt;</span> </span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">t =</span> <span class="fu">lc_indicator</span>(T_i, K)) <span class="sc">|&gt;</span> </span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>T_i)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># use the average t-a-p params used to generate the data as heirarchical </span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># values for raters, and estimate from that the t_i values for each </span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># subject.</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  <span class="co">#cat_ratings &lt;- cat_ratings |&gt; </span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  <span class="co">#  e_m_step_cat(group = FALSE)</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># store results</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>LL[i] <span class="ot">&lt;-</span> <span class="fu">krits_per_rating_cat</span>(cat_ratings)</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>E_LL[i] <span class="ot">&lt;-</span> <span class="fu">expected_krits_per_rating_cat</span>(params)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>output <span class="sc">%&gt;%</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(type, value, LL, E_LL) <span class="sc">%&gt;%</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">model =</span> <span class="fu">str_c</span>(run),</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="fu">recode</span>(type, </span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>                  <span class="at">LL =</span> <span class="st">"Empirical"</span>,</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>                  <span class="at">E_LL =</span> <span class="st">"Expected"</span>),   <span class="co"># nice legend labels</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="fu">factor</span>(type, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Empirical"</span>, <span class="st">"Expected"</span>))</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> a, <span class="at">y =</span> value, <span class="at">color =</span> model, <span class="at">group =</span> <span class="fu">interaction</span>(model, type),</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> type)) <span class="sc">+</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Krits per rating"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-rater-entropy" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rater-entropy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="multinomial_kappa_files/figure-html/fig-rater-entropy-1.png" class="img-fluid figure-img" width="480">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rater-entropy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Log likelihood in krits per rating for three sets of parameters, with 100 samples and five raters. The dotted lines are the expected values and the solid lines are the empirical ones, which have sampling noise. Parameter sets are 1 = skewed, unbiased, 2 = skewed, biased, 3 = uniform, unbiased.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>In <a href="#fig-rater-entropy" class="quarto-xref">Figure&nbsp;1</a> the rater models each have fixed parameters with <span class="math inline">\(a\)</span> varying to show the effect of changing accuracy. The other parameters are</p>
+<ul>
+<li>Model 1: <span class="math inline">\(\boldsymbol{t} = (.1,.1,.4,.4), \boldsymbol{p} = (.1,.1,.4,.4)\)</span></li>
+<li>Model 2: <span class="math inline">\(\boldsymbol{t} = (.1,.1,.4,.4), \boldsymbol{p} = (.4,.4,.1,.1)\)</span></li>
+<li>Model 3: <span class="math inline">\(\boldsymbol{t} = (.25,.25,.25,.25), \boldsymbol{p} = (.25,.25,.25,.25)\)</span>,</li>
+</ul>
+<p>so models 1 and 3 have the <span class="math inline">\(\boldsymbol{t} = \boldsymbol{p}\)</span> property, which we called unbiasedness. The variation in the solid lines comes from sampling, so that the empirical class rates don’t exactly match the model specifications. We can see in model 2 that maximum likelihood in krits per rating doesn’t always occure when <span class="math inline">\(a = 0\)</span>.</p>
+</section>
+<section id="e-m-algorithm" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> E-M Algorithm</h1>
+<p>As with the binary case, we can estimate model parameters from ratings data using a two-step iterative process called an Expectation-Maximization algorithm. The E-step of the multinomial case looks like the binary case, just with more classes. The likelihood contribution for a single subject <span class="math inline">\(i\)</span> is</p>
 <p><span class="math display">\[
 \begin{aligned}
 \text{Pr(ratings; parameters, subject }i) &amp;= \sum_{k_T = 1}^Kt_{k_T}^{(i)}\prod_{j}\pi_{k_Tk_{ij}}^{(j)} \, ,
@@ -294,7 +466,8 @@ E[c_{21} + c_{31}] &amp;= t_2\bar{a}p_1 + t_3\bar{a}p_1 \\
 a &amp; \approx  \text{trace}(\hat{C}) - \left(\frac{t_1}{\bar{t}_1}\hat{C}_{o1} + \frac{t_2}{\bar{t}_2}\hat{C}_{o2} + \frac{t_3}{\bar{t}_3}\hat{C}_{o3} \right) \\
 p_i &amp; \approx \frac{\hat{C}_{oi}}{\bar{t}_i\bar{a}}.
 \end{aligned}
-\]</span> The formula for <span class="math inline">\(a\)</span> gives us some insight into the t-a-p model. When <span class="math inline">\(a=1\)</span> the ratings will match true values, so the matrix will be diagonal with values <span class="math inline">\(\boldsymbol{t}\)</span>. When <span class="math inline">\(a = 0\)</span> we get the outer product <span class="math inline">\(C = \boldsymbol{t}\boldsymbol{p}^t\)</span>.</p>
+\]</span></p>
+<p>The formula for <span class="math inline">\(a\)</span> gives us some insight into the t-a-p model. When <span class="math inline">\(a=1\)</span> the ratings will match true values, so the matrix will be diagonal with values <span class="math inline">\(\boldsymbol{t}\)</span>. When <span class="math inline">\(a = 0\)</span> we get the outer product <span class="math inline">\(C = \boldsymbol{t}\boldsymbol{p}^t\)</span>.</p>
 
 
 </section>
