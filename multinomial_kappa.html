@@ -189,6 +189,7 @@ window.Quarto = {
   <li><a href="#likelihood" id="toc-likelihood" class="nav-link" data-scroll-target="#likelihood"><span class="header-section-number">3</span> Likelihood</a></li>
   <li><a href="#units-of-entropy" id="toc-units-of-entropy" class="nav-link" data-scroll-target="#units-of-entropy"><span class="header-section-number">4</span> Units of Entropy</a></li>
   <li><a href="#e-m-algorithm" id="toc-e-m-algorithm" class="nav-link" data-scroll-target="#e-m-algorithm"><span class="header-section-number">5</span> E-M Algorithm</a></li>
+  <li><a href="#estimating-parameters" id="toc-estimating-parameters" class="nav-link" data-scroll-target="#estimating-parameters"><span class="header-section-number">6</span> Estimating Parameters</a></li>
   </ul>
 </nav>
 </nav>
@@ -432,8 +433,8 @@ t_1(a + \bar{a}p_1) &amp; t_1\bar{a}p_2 &amp; t_1\bar{a}p_3 \\
 t_2\bar{a}p_1 &amp; t_2(a + \bar{a}p_2) &amp; t_2\bar{a}p_3 \\
 t_3\bar{a}p_1 &amp; t_3\bar{a}p_2 &amp; t_3(a + \bar{a}p_3)
 \end{bmatrix} .
-\]</span> Here, <span class="math inline">\((t_1, t_2, t_3)\)</span> are the class probabilities, which we can more compactly express as a vector <span class="math inline">\(\boldsymbol{t}\)</span>, and similarly with the <span class="math inline">\(p\)</span> parameters. The empirical <span class="math inline">\(\hat{C}\)</span> we get from the ratings combined with the class probabilities <span class="math inline">\(\boldsymbol{\hat{t}}\)</span> obtained in the E-step.</p>
-<p>To solve for the parameters, we can start with the sum of the diagonals (the trace of the matrix), to get</p>
+\]</span> Here, <span class="math inline">\(\boldsymbol{t} = (t_1, t_2, t_3)\)</span> are the class probabilities. The empirical <span class="math inline">\(\hat{C}\)</span> we get from the ratings combined with the estimated class probabilities <span class="math inline">\(\boldsymbol{\hat{t}}\)</span> obtained in the E-step along with some proposed values of <span class="math inline">\(a\)</span> and <span class="math inline">\(\boldsymbol{p}\)</span>.</p>
+<p>To solve for the parameters and get better estimates, we can start with the sum of the diagonals (the trace of the matrix), to get</p>
 <p><span class="math display">\[
 \begin{aligned}
 \text{trace}(E[C]) &amp;= t_1(a + \bar{a}p_1) + t_2(a + \bar{a}p_2) + t_3(a + \bar{a}p_3) \\
@@ -468,6 +469,80 @@ p_i &amp; \approx \frac{\hat{C}_{oi}}{\bar{t}_i\bar{a}}.
 \end{aligned}
 \]</span></p>
 <p>The formula for <span class="math inline">\(a\)</span> gives us some insight into the t-a-p model. When <span class="math inline">\(a=1\)</span> the ratings will match true values, so the matrix will be diagonal with values <span class="math inline">\(\boldsymbol{t}\)</span>. When <span class="math inline">\(a = 0\)</span> we get the outer product <span class="math inline">\(C = \boldsymbol{t}\boldsymbol{p}^t\)</span>.</p>
+</section>
+<section id="estimating-parameters" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Estimating Parameters</h1>
+<p>A <span class="math inline">\(K=4\)</span> estimation example is shown below, where 20 data sets are simulated from the same parameters, then solved with <code>tapModel::fit_ratings_cat()</code>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># true parameters</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>true_t <span class="ot">&lt;-</span> <span class="fu">c</span>(.<span class="dv">1</span>, .<span class="dv">2</span>, .<span class="dv">3</span>, .<span class="dv">4</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>true_a <span class="ot">&lt;-</span> .<span class="dv">5</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>true_p <span class="ot">&lt;-</span> <span class="fu">c</span>(.<span class="dv">4</span>, .<span class="dv">3</span>, .<span class="dv">2</span>, .<span class="dv">1</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># number of replications</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>n_iter <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span>n_iter, <span class="cf">function</span>(rep) {</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># generate ratings</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  cat_ratings <span class="ot">&lt;-</span> <span class="fu">generate_sample_ratings_cat</span>(</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">N_s =</span> <span class="dv">100</span>, <span class="at">N_r =</span> <span class="dv">5</span>, <span class="at">K =</span> <span class="dv">4</span>,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">params =</span> <span class="fu">list</span>(<span class="at">t =</span> true_t, <span class="at">a =</span> true_a, <span class="at">p =</span> true_p),</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">details =</span> <span class="cn">FALSE</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># estimate parameters</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  avg_params <span class="ot">&lt;-</span> cat_ratings <span class="sc">|&gt;</span> <span class="fu">fit_counts_cat</span>()</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">rep =</span> rep,</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">param =</span> <span class="fu">c</span>(<span class="fu">paste0</span>(<span class="st">"t"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>), <span class="st">"a"</span>, <span class="fu">paste0</span>(<span class="st">"p"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)),</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">true  =</span> <span class="fu">c</span>(true_t, true_a, true_p),</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">est   =</span> <span class="fu">c</span>(avg_params<span class="sc">$</span>t, avg_params<span class="sc">$</span>a, avg_params<span class="sc">$</span>p)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co"># reshape for plotting</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>plot_data <span class="ot">&lt;-</span> results <span class="sc">%&gt;%</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(param) <span class="sc">%&gt;%</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">true =</span> <span class="fu">first</span>(true),</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">est_min =</span> <span class="fu">min</span>(est),</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">est_max =</span> <span class="fu">max</span>(est),</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">est_mean =</span> <span class="fu">mean</span>(est),</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="co"># plot true values vs estimation ranges</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(plot_data, <span class="fu">aes</span>(<span class="at">x =</span> param, <span class="at">y =</span> true)) <span class="sc">+</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> est_min, <span class="at">ymax =</span> est_max), <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> est_mean), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Parameter value"</span>,</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Parameter"</span>,</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"True parameter (red), estimate mean (blue), and range (error bars)"</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-sim" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sim-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="multinomial_kappa_files/figure-html/fig-sim-1.png" class="img-fluid figure-img" width="384">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sim-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Simulated ratings and solutions for 100 subjects, 5 raters, 4 categories, with t = (.1,.2,.3,.4), a = .5, and p = (.4,.3,.2,.1).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The E-M algorithm is able to recover the coefficients reasonably well here.</p>
 
 
 </section>
