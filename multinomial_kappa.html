@@ -336,7 +336,7 @@ E[\ell(\text{data ; parameters})]/N &amp;= E \left[ \sum_{k_T = 1}^K \log \pi_{k
 \end{aligned}
 \]</span></p>
 <p>The inner sum has the form of Shannon entropy, which represents the average krits per rating for each assigned class <span class="math inline">\(k = 1 \dots K\)</span>. The total entropy per rating is the weighted average of these using true class rates as weights. Note that the expected entropy only depends on a model specification, not any actual ratings, and it would only be relevant to ratings generated from that model.</p>
-<p>If we set all the components of <span class="math inline">\(boldsymbol{t}\)</span> to <span class="math inline">\(1/K\)</span>, we obtain a kind of standardized rater entropy that’s independent of sampling subjects.</p>
+<p>If we set all the components of <span class="math inline">\(\boldsymbol{t}\)</span> to <span class="math inline">\(1/K\)</span>, we obtain a kind of standardized rater entropy that’s independent of sampling subjects.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -425,6 +425,7 @@ t_{k_T}^* &amp;\approx  Pr(\text{True class } = k_T  ;\text{ parameters, ratings
 &amp;=\frac{t_{k_T}\prod_{j}\pi_{{k_T}k_{ij}}^{(j)}}{ \sum_{k_T = 1}^Kt_{k_T}\prod_{j}\pi_{{k_T}k_{ij}}^{(j)} } ,
 \end{aligned}\]</span>
 <p>$$ where it is understood that we’re referring to subject <span class="math inline">\(i\)</span>, so I have removed those annotations. The <span class="math inline">\(t_{k_t}^*\)</span> result on the left is the updated class probability that subject <span class="math inline">\(i\)</span> is class <span class="math inline">\(k_T \, \epsilon \{1 \dots K\}\)</span>.</p>
+<p>As with the binary case, we think of <span class="math inline">\(t_{k_T}\)</span> as the prior distribution on <span class="math inline">\(\boldsymbol{t}\)</span> for this step. The two obvious choices for the prior are the average class probabilities as estimated at the current stage, or the per-subject class probabilities. I haven’t done extensive tests, but the average probabilities seem to outperform the per-subject ones. This is probably because even with a modest number of raters per subject, the individual probabilities quickly head toward zero or one, so these estimates would become very strong priors. Using the average class probabilities allows more influence from the rater probabilities.</p>
 <p>To derive the M-step of the algorithm we need to expand the 2x2 confusion matrix to KxK. The matrix consists of probabilities, where the <span class="math inline">\(i,j\)</span> entry contains <span class="math inline">\(Pr(\text{Rating = }j | \text{True class }= i)\)</span>. Confusion matricies are sometimes row-normalized, but this one is not; it’s the intersection of true class values (rows) with rated classes (columns). The empirical matrix comprises the proportions of ratings that fall within each of these groups, which enables us to compare a model with a data set. I’ll illustrate with the <span class="math inline">\(K=3\)</span> case, where the model’s expected value of these proportions is</p>
 <p><span class="math display">\[
 E[C] =

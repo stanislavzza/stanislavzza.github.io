@@ -300,11 +300,12 @@ Pr(\text{ratings ; parameters}) = \prod_{i}\left( t_i \prod_{j,k_j} \pi_{1k_j}^{
 \begin{aligned}
 t_i^* &amp;\approx  Pr(T_i = 1  |\text{ ratings)} \\
 &amp;= \frac{Pr(\text{ratings}|T_i = 1)Pr(T_i = 1)}{Pr(\text{ratings})} \\
-&amp;=  \frac{t_iPr(\text{ratings}|T_i = 1)}{t_iPr(\text{ratings}|T_i = 1) + \bar{t}_iPr(\text{ratings}|T_i = 0)} \\
-&amp;=\frac{t_i\prod_{j,k_j} \pi_{1k_j}^{(j)}}{t_i\prod_{j,k_j} \pi_{1k_j}^{(j)} + \bar{t}_i\prod_{j,k_j} \pi_{0k_j}^{(j)}} ,
+&amp;=  \frac{t_{avg}Pr(\text{ratings}|T_i = 1)}{t_{avg}Pr(\text{ratings}|T_i = 1) + \bar{t}_{avg}Pr(\text{ratings}|T_i = 0)} \\
+&amp;=\frac{t_{avg}\prod_{j,k_j} \pi_{1k_j}^{(j)}}{t_{avg}\prod_{j,k_j} \pi_{1k_j}^{(j)} + \bar{t}_{avg}\prod_{j,k_j} \pi_{0k_j}^{(j)}} ,
 \end{aligned}
 \]</span></p>
 <p>where the asterisk denotes the updated parameter. The denominator is the additive mixture of the likelihoods of seeing the evidence given that the true class is 1 or 0, as denoted in the first subscript. This step can be accomplished with <code>tapModel::estimate_ti()</code>.</p>
+<p>In the usual Bayesian terminology, <span class="math inline">\(Pr(T_i = 1)\)</span> is the “prior distribution” of the probability that subject <span class="math inline">\(i\)</span> is true. We have choices for that distribution. We could dodge the question by just setting that factor to 1 as an improper distrbution. Or we could use the uniform (uninformative) distribution <span class="math inline">\(t = .5\)</span> for all subjects. The most informative prior is to use the previous estimate for <span class="math inline">\(t_i\)</span>, but this can be counter-productive if we get off to a bad start, because the prior will keep pulling the estimate back to the lousy first guess. Informally, I’ve found that a good compromise is to use the average <span class="math inline">\(t\)</span> over all subjects from the current estimation as a good prior. That’s the way the formula is written with <span class="math inline">\(Pr(T_i = 1) = t_{avg}\)</span>.</p>
 <p>It’s important to note that we’re not maximizing likelihood at this step. If we were, a glance at <a href="#eq-likelihood1" class="quarto-xref">Equation&nbsp;1</a> shows that for each subject, one of the two terms is likely to be larger than the other, in which case we could maximize likelihood by rounding <span class="math inline">\(t_i\)</span> to one or zero.</p>
 <p>The maximization step of the E-M loop is similar to the average parameter case described in Chapter 2. Suppose that we estimate the <span class="math inline">\(t_i\)</span> parameters as just described, and that we have rater IDs in the data set. Then for each rater we can create a confusion matrix of the ratings they assigned versus the estimated true class probabilities. From <a href="./introduction.html">Chapter 1</a> we have the following average rates in the table, where the average true Class 1 rate <span class="math inline">\(t\)</span> is taken over a particular rater <span class="math inline">\(i\)</span>, who has parameters <span class="math inline">\(a_j\)</span> and <span class="math inline">\(p_j\)</span> are now specific to rater <span class="math inline">\(j\)</span>.</p>
 <div id="tbl-tap-confusion" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -399,65 +400,65 @@ Table&nbsp;2: Randomly generated ratings with nine raters having accuracy .1 thr
 <tr class="odd">
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">0.44</td>
-<td style="text-align: right;">0.14</td>
+<td style="text-align: right;">0.15</td>
 <td style="text-align: right;">0.44</td>
-<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.02</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">3</td>
 <td style="text-align: right;">0.52</td>
-<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">0.26</td>
 <td style="text-align: right;">0.55</td>
 <td style="text-align: right;">0.13</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">0.44</td>
-<td style="text-align: right;">0.37</td>
+<td style="text-align: right;">0.39</td>
 <td style="text-align: right;">0.45</td>
-<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">0.03</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">4</td>
 <td style="text-align: right;">0.48</td>
-<td style="text-align: right;">0.40</td>
-<td style="text-align: right;">0.51</td>
-<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">0.39</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.10</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">6</td>
 <td style="text-align: right;">0.40</td>
-<td style="text-align: right;">0.44</td>
+<td style="text-align: right;">0.45</td>
 <td style="text-align: right;">0.38</td>
-<td style="text-align: right;">-0.05</td>
+<td style="text-align: right;">-0.04</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">0.42</td>
-<td style="text-align: right;">0.49</td>
-<td style="text-align: right;">0.41</td>
-<td style="text-align: right;">-0.02</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.42</td>
+<td style="text-align: right;">0.00</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">7</td>
 <td style="text-align: right;">0.44</td>
-<td style="text-align: right;">0.64</td>
-<td style="text-align: right;">0.46</td>
-<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.65</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">0.05</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">8</td>
 <td style="text-align: right;">0.36</td>
 <td style="text-align: right;">0.84</td>
-<td style="text-align: right;">0.01</td>
-<td style="text-align: right;">-0.42</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">-0.38</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">9</td>
 <td style="text-align: right;">0.46</td>
-<td style="text-align: right;">0.94</td>
-<td style="text-align: right;">0.97</td>
-<td style="text-align: right;">0.55</td>
+<td style="text-align: right;">0.93</td>
+<td style="text-align: right;">0.99</td>
+<td style="text-align: right;">0.57</td>
 </tr>
 </tbody>
 </table>
