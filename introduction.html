@@ -222,6 +222,7 @@ window.Quarto = {
   <li><a href="#example-wine-judging" id="toc-example-wine-judging" class="nav-link" data-scroll-target="#example-wine-judging"><span class="header-section-number">4.1</span> Example: Wine Judging</a></li>
   </ul></li>
   <li><a href="#so-called-truth" id="toc-so-called-truth" class="nav-link" data-scroll-target="#so-called-truth"><span class="header-section-number">5</span> So-called Truth</a></li>
+  <li><a href="#sec-majority-vote" id="toc-sec-majority-vote" class="nav-link" data-scroll-target="#sec-majority-vote"><span class="header-section-number">6</span> Majority Vote</a></li>
   </ul>
 </nav>
 </nav>
@@ -832,7 +833,7 @@ m_r &amp;= .625 \\
 <p>The key to this is that the cause either works to connect the true value to the rater’s assigned value, or it fails completely. There’s no “partial cause.” When it fails, the rating is generated from a random process called a Bernoulli trial. It’s the simplest possible type of randomness, taking only two values with some fixed probability, like flipping a weighted coin.</p>
 <div class="cell" data-layout-align="default">
 <details class="code-fold">
-<summary>Code</summary>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>%%{init: {'themeCSS': '.node text { font-family: cursive; }'}}%%</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>%%| label: fig-tap-concept</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>%%| fig-cap: Conceptual map of t-a-p model</span>
@@ -1009,6 +1010,70 @@ Figure&nbsp;5: t-a-p parameter estimates for ordinal scale based on cutpoints
 <section id="so-called-truth" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> So-called Truth</h1>
 <p>In statistics we commonly make assumptions that we know aren’t true, because a simple approximation is often better than an intractable exactitude for understanding the world. So it is with the assumptions about true ratings I listed above. Independent observation is a powerful way to learn about the world, but it’s not epistemological fairy dust. If the data points to a set of conclusions about the world, we still need a plausible causal explanation to generalize the findings. The t-a-p models and their kin don’t give us must structure; their truth <a href="https://poets.org/poem/song-myself-51">contains multitudes</a>. For example, suppose we ask raters a series of questions like “Is red better than blue?” or “Is Star Wars better than The Godfather?” If we ask enough such questions, we’ll end up with a data set that has plausible “true” values where A &gt; B, B &gt; C, and C &gt; A, violating our intuition about how “better” is transitive. For a biological example, see <a href="https://en.wikipedia.org/wiki/Ring_species">ring species</a>. The point is that we can’t assume any logical structure to “truth” values produces by these agreement models. It’s good to be cautious when understanding and communicating results by not making universal statements from empirical data.</p>
+</section>
+<section id="sec-majority-vote" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Majority Vote</h1>
+<p>As a practical application of the t-a-p model, consider the common practice of using majority vote to combine multiple ratings into a single rating. This is a common practice in psychological measurement, for example in learning assessments. We might have two independent reviewers assign a pass/fail rating to a writing portfolio, and if they disagree add a third reviewer to break the tie. The idea is that the majority vote will be more accurate than any individual rater. Is this true under the t-a-p model assumptions about truth and accuracy?</p>
+<p>To understand the idea, consider two raters, each with accuracy <span class="math inline">\(a\)</span>. There are three possible outcomes for their ratings: both accurate, both inaccurate, or one of each. The probability that they are both accurate as the product of two independent trials is <span class="math inline">\(a^2\)</span>, which will always be less than <span class="math inline">\(a\)</span> unless <span class="math inline">\(a\)</span> is 0 or 1. In general, with <span class="math inline">\(n\)</span> raters, the probability that the majority are accurate comes from the binomial distribution:</p>
+<p><span class="math display">\[
+a_{vote} = \sum_{k = \lceil n/2 \rceil}^{n} \binom{n}{k} a^k (1-a)^{n-k}.
+\]</span></p>
+<p>This is the sum of the probabilities of getting <span class="math inline">\(k\)</span> accurate ratings, where <span class="math inline">\(k\)</span> ranges from a majority (ceiling of <span class="math inline">\(n/2\)</span>) to all <span class="math inline">\(n\)</span> raters. In this case the majority vote is guaranteed to give us the true class. The binomial coefficient <span class="math inline">\(\binom{n}{k}\)</span> counts the number of ways to choose <span class="math inline">\(k\)</span> accurate ratings from <span class="math inline">\(n\)</span> total ratings. The terms <span class="math inline">\(a^k\)</span> and <span class="math inline">\((1-a)^{n-k}\)</span> are the probabilities of getting <span class="math inline">\(k\)</span> accurate ratings and <span class="math inline">\(n-k\)</span> inaccurate ratings, respectively.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>plot_df <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_raters =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">19</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">a =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="at">by=</span><span class="fl">0.02</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">a_vote =</span> <span class="cn">NA</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(plot_df)) {</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  n_raters <span class="ot">&lt;-</span> plot_df<span class="sc">$</span>n_raters[i]</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> plot_df<span class="sc">$</span>a[i]</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  probs <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="dv">0</span><span class="sc">:</span>n_raters, <span class="at">size=</span>n_raters, <span class="at">prob=</span>a)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  votes_needed <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(n_raters <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  a_vote <span class="ot">&lt;-</span> <span class="fu">sum</span>(probs[(votes_needed <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span><span class="fu">length</span>(probs)])</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  plot_df<span class="sc">$</span>a_vote[i] <span class="ot">&lt;-</span> a_vote</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>plot_df <span class="sc">|&gt;</span> </span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_raters =</span> <span class="fu">factor</span>(n_raters)) <span class="sc">|&gt;</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>a, <span class="at">y=</span>a_vote, <span class="at">color=</span>n_raters)) <span class="sc">+</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a> <span class="co"># scale_color_brewer(palette="Set1", name="Number of Raters") +</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">x=</span><span class="st">"Individual Rater Accuracy (a)"</span>,</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">y=</span><span class="st">"Aggregate Accuracy"</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-majority-vote" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-majority-vote-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="introduction_files/figure-html/fig-majority-vote-1.png" class="img-fluid figure-img" width="528">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-majority-vote-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Effect of number of raters on aggregate accuracy under majority vote.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The plot in <a href="#fig-majority-vote" class="quarto-xref">Figure&nbsp;6</a> shows the effect of majority vote on aggregate accuracy as a function of individual rater accuracy <span class="math inline">\(a\)</span> for different numbers of raters. The horizontal axis is individual rater accuracy, and the vertical axis is the accuracy of the majority vote. Each colored line corresponds to a different number of raters. Perhaps counterintuitively, the more raters makes accuracy <em>worse</em> if the individual accuracy is less than half. This is because the majority vote will tend to amplify the rate of random assignment in that case. Although the probability that majority vote matches the latent truth depends only on a, the empirical rate at which majority vote matches observed labels in data depends on the truth prevalence <span class="math inline">\(t\)</span> and the guessing parameter <span class="math inline">\(p\)</span>. Thus overall <em>correctness</em> of classifications when voting does not directly reflect classification accuracy. We can accidentally get the right answer.</p>
+<p>The takeaway from <a href="#fig-majority-vote" class="quarto-xref">Figure&nbsp;6</a> is that majority vote is a good idea only if individual raters are better than random, i.e.&nbsp;<span class="math inline">\(a &gt; .5\)</span>. If individual raters are worse than random, adding more raters leads to less accurate ratings than using a single rater.</p>
+<p>Notice that near <span class="math inline">\(a = .5\)</span> the curves are approximately linear (straight lines). Using that intuition we can simplify the formula as long as <span class="math inline">\(a\)</span> is near .5 using the normal approximation to the binomial majority tail:</p>
+<p><span class="math display">\[
+a_{vote} \approx .5 + (a - .5) \sqrt{\frac{2n}{\pi}}.
+\]</span></p>
+<p>The behavior of majority vote under the t-a-p model is closely related to a classical result known as the Condorcet Jury Theorem <span class="citation" data-cites="condorcet1785essay">(<a href="#ref-condorcet1785essay" role="doc-biblioref">Condorcet, 1785</a>)</span>. Condorcet considered a group of independent decision-makers (“jurors”), each of whom reports the correct binary decision with probability <span class="math inline">\(a\)</span>. He proved that if <span class="math inline">\(a&gt;0\)</span>, the majority vote is more accurate than a single decision-maker, and its accuracy increases with the number of raters. If <span class="math inline">\(a=0.5\)</span>, adding more raters does not improve accuracy. And if <span class="math inline">\(a&lt;0.5\)</span>, the majority vote becomes increasingly less accurate as more raters are added.</p>
+<p>This is the pattern shown in <a href="#fig-majority-vote" class="quarto-xref">Figure&nbsp;6</a>. The t-a-p model extends Condorcet’s original framework by introducing additional structure for rating behavior without altering the fundamental criterion for whether majority vote is beneficial.</p>
+<p>Given that many rating sets will have accuracy close to .5, this result is cautionary. The extra trouble of adding raters in those cases only pays off if the full t-a-p model is used to estimate parameters. Simply using majority vote may not improve accuracy, and may even reduce it.</p>
 
 
 
@@ -1036,6 +1101,9 @@ Chaturvedi, S., &amp; Shweta, R. (2015). Evaluation of inter-rater agreement and
 </div>
 <div id="ref-cicchetti1990high" class="csl-entry" role="listitem">
 Cicchetti, D. V., &amp; Feinstein, A. R. (1990). High agreement but low kappa: II. Resolving the paradoxes. <em>Journal of Clinical Epidemiology</em>, <em>43</em>(6), 551–558.
+</div>
+<div id="ref-condorcet1785essay" class="csl-entry" role="listitem">
+Condorcet, M. de. (1785). Essay on the application of analysis to the probability of majority decisions. <em>Paris: Imprimerie Royale</em>, 1785.
 </div>
 <div id="ref-dawid1979maximum" class="csl-entry" role="listitem">
 Dawid, A. P., &amp; Skene, A. M. (1979). Maximum likelihood estimation of observer error-rates using the EM algorithm. <em>Journal of the Royal Statistical Society: Series C (Applied Statistics)</em>, <em>28</em>(1), 20–28.
