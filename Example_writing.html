@@ -1432,7 +1432,7 @@ View Stan code
 <span id="cb12-104"><a href="#cb12-104" aria-hidden="true" tabindex="-1"></a>      n_1 <span class="sc">*</span> evidence_1 <span class="sc">+</span></span>
 <span id="cb12-105"><a href="#cb12-105" aria-hidden="true" tabindex="-1"></a>      n_0 <span class="sc">*</span> evidence_0</span>
 <span id="cb12-106"><a href="#cb12-106" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb12-107"><a href="#cb12-107" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>n_0, <span class="sc">-</span>n_1, <span class="sc">-</span>year_index, <span class="sc">-</span>evidence_0, <span class="sc">-</span>evidence_1)</span>
+<span id="cb12-107"><a href="#cb12-107" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>n_0, <span class="sc">-</span>n_1, <span class="sc">-</span>year_index)</span>
 <span id="cb12-108"><a href="#cb12-108" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-109"><a href="#cb12-109" aria-hidden="true" tabindex="-1"></a>global_vars <span class="ot">&lt;-</span> <span class="fu">tribble</span>(<span class="sc">~</span>variable, <span class="sc">~</span>group,</span>
 <span id="cb12-110"><a href="#cb12-110" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"alpha_0"</span>, <span class="st">"t_m"</span>,</span>
@@ -1647,7 +1647,7 @@ Table&nbsp;3: Global parameters
 </section>
 <section id="rater-accuracy-a_j" class="level3" data-number="1.5.2">
 <h3 data-number="1.5.2" class="anchored" data-anchor-id="rater-accuracy-a_j"><span class="header-section-number">1.5.2</span> Rater Accuracy (a_j)</h3>
-<p>The population center for rater accuracy is $ _a=-0.65$, which corresponds to <span class="math inline">\(\text{logit}^{−1}(−0.65) \approx .34\)</span>. That’s a very low average rater accuracy, but there is large heterogeneity, with <span class="math inline">\(\sigma_a = 1.26\)</span>, so that a standard deviation above the mean is <span class="math inline">\(\text{logit}^{−1}(−0.65 + 1.26) \approx .65\)</span>. Low accuracy is to be expected given the non-standardized method of assessment.</p>
+<p>The population center for rater accuracy is <span class="math inline">\(\mu_a=-0.65\)</span>, which corresponds to <span class="math inline">\(\text{logit}^{−1}(−0.65) \approx .34\)</span>. That’s a very low average rater accuracy, but there is large heterogeneity, with <span class="math inline">\(\sigma_a = 1.26\)</span>, so that a standard deviation above the mean is <span class="math inline">\(\text{logit}^{−1}(−0.65 + 1.26) \approx .65\)</span>. Low accuracy is to be expected given the non-standardized method of assessment.</p>
 </section>
 <section id="random-assignment-p_j" class="level3" data-number="1.5.3">
 <h3 data-number="1.5.3" class="anchored" data-anchor-id="random-assignment-p_j"><span class="header-section-number">1.5.3</span> Random Assignment (p_j)</h3>
@@ -1816,7 +1816,7 @@ Figure&nbsp;7: Plots of rater accuracy versus the adjusted match between ratings
 <span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
 <span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Prior class probability from GPA and year, t_i"</span>,</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Posterior class probability after ratings, q_i"</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Posterior class probability after ratings, q_m"</span></span>
 <span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  )  <span class="sc">+</span></span>
 <span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1827,23 +1827,14 @@ Figure&nbsp;7: Plots of rater accuracy versus the adjusted match between ratings
 <img src="Example_writing_files/figure-html/fig-model-split-1.png" class="img-fluid figure-img" width="432">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-model-split-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8: Comparison of the student ability estimate from GPA (the prior) with the final probability estimate of Class 1 after adding the ratings data. Occasions corresponding to subjects 114 (green) and 395 (blue) are called out in the plot.
+Figure&nbsp;8: Comparison of the student ability estimate from GPA (the prior) with the final probability estimate of Class 1 (q_m) for that occasion after adding the ratings data. Occasions corresponding to subjects 114 (green) and 395 (blue) are called out in the plot.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>The plot in <a href="#fig-model-split" class="quarto-xref">Figure&nbsp;8</a> illustrates the relationship between prior estimates of student ability from first year college grades and the year difficulty. The posterior estimate we’re calling <span class="math inline">\(q_i\)</span> is occasion-specific, meaning a given student in a given year of college, and it combines student-level information (GPA multiplied by the regression coefficient) with timing (the year multiplied by the difficulty coefficient) to estimate a prior probability (meaning before we consider ratings) that the student is on track with writing development. The ratings data then supply more specific evidence about that occasion. A useful consequence of the Justified True Belief generative construction is a natural Bayesian decomposition of inference into prior and observational evidence. This relationship in the model is</p>
-<p><span class="math display">\[
-\begin{aligned}
-\underbrace{
-\text{logit}(q_i)}_{\text{posterior}} &amp;=
-\underbrace{
-\text{logit}(t_i)}_{\text{GPA + year prior}} +
-\underbrace{
-\log L_1 - \log L_0}_{\text{rating evidence}} .
-\end{aligned}
-\]</span> If the ratings had no impact on the posterior probability, all the points would lie on the diagonal 1-1 line of <a href="#fig-model-split" class="quarto-xref">Figure&nbsp;8</a>. But the bands of points at top right and bottom left show that most posterior class probability estimates are being pulled toward <span class="math inline">\(q_i = 1\)</span> or <span class="math inline">\(q_i = 0\)</span> by the ratings evidence. The labeled points in the bottom right of <a href="#fig-model-split" class="quarto-xref">Figure&nbsp;8</a> illustrate the importance of the ratings data. For occasion 1232 (green marker), the ratings data did not move the posterior estimates of on-track classification much from the prior taken from grades and timing. However, for subject 395 (blue), the ratings overwhelmed the priors to produce probabilities near zero or one.</p>
+<p>The plot in <a href="#fig-model-split" class="quarto-xref">Figure&nbsp;8</a> illustrates the relationship between prior estimates of student ability from first year college grades and the year difficulty. The posterior estimate we’re calling <span class="math inline">\(q_m\)</span> is occasion-specific, meaning a given student in a given year of college, and it combines student-level information (GPA multiplied by the regression coefficient) with timing (the year multiplied by the difficulty coefficient) to estimate a prior probability (meaning before we consider ratings) that the student is on track with writing development. The ratings data then supply more specific evidence about that occasion. A useful consequence of the Justified True Belief generative construction is a natural Bayesian decomposition of inference into prior and observational evidence.</p>
+<p>If the ratings had no impact on the posterior probability, all the points would lie on the diagonal 1-1 line of <a href="#fig-model-split" class="quarto-xref">Figure&nbsp;8</a>. But the bands of points at top right and bottom left show that most posterior class probability estimates are being pulled toward <span class="math inline">\(q_m = 1\)</span> or <span class="math inline">\(q_m = 0\)</span> by the ratings evidence. The labeled points in the bottom right of <a href="#fig-model-split" class="quarto-xref">Figure&nbsp;8</a> illustrate the importance of the ratings data. For occasion 1232 (green marker), the ratings data did not move the posterior estimates of on-track classification much from the prior taken from grades and timing. However, for subject 395 (blue), the ratings overwhelmed the priors to produce probabilities near zero or one.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
@@ -1925,7 +1916,32 @@ Table&nbsp;4: Subject details for subjects 114 and 395.
 </figure>
 </div>
 </div>
-<p>The rating averages in <a href="#tbl-subject-details" class="quarto-xref">Table&nbsp;4</a> illustrate the case of subject 114: low ratings pulled down the posterior estimate in both years 3 and 4, although the effect in year four was minimal. Subject 395 shows two reversals from the prior. In the second year, a rating average of .67 pulled down the already-low <span class="math inline">\(t_{238} = .24\)</span> to <span class="math inline">\(q_{238} = .01\)</span>. In the third year, three unanimous ratings of on-track (Class 1) pulled up a low <span class="math inline">\(t_{789} = .08\)</span> to <span class="math inline">\(q_{798} = .84\)</span>. Why is there a difference in the effect of the ratings? <a href="#tbl-rater-details" class="quarto-xref">Table&nbsp;5</a> gives details on the rater parameters involved in these cases.</p>
+<p>The rating averages in <a href="#tbl-subject-details" class="quarto-xref">Table&nbsp;4</a> illustrate the case of subject 114: low ratings pulled down the posterior estimate in both years 3 and 4, although the effect in year four was minimal. Subject 395 shows two reversals from the prior. In the second year, a rating average of .67 pulled down the already-low <span class="math inline">\(t_{238} = .24\)</span> to <span class="math inline">\(q_{238} = .01\)</span>. In the third year, three unanimous ratings of on-track (Class 1) pulled up a low <span class="math inline">\(t_{789} = .08\)</span> to <span class="math inline">\(q_{798} = .84\)</span>. Why is there a difference in the effect of the ratings?</p>
+<p>As noted in <a href="./hierarchical.html">Chapter 5</a>, formulating latent class probability in the log-odds form has an elegant interpretation. The evidence for class probability <span class="math inline">\(q_m\)</span> can be written as</p>
+<p><span class="math display">\[
+\begin{aligned}
+\operatorname{logit}(q_m) &amp;= \underbrace{\operatorname{logit}(t_m)}_{\substack{\text{GPA and year}\\\text{prior evidence}}} + \underbrace{\sum_j \log \frac{P(Y_{jm}\mid T_m=1,a_j,p_{jy})} {P(Y_{jm}\mid T_m=0,a_j,p_{jy})}}_{\text{evidence supplied by the raters}} \\
+&amp;= \operatorname{logit}(t_m)+ \sum_j ( \log L^1_{mj} - \log L^0_{mj} )\\
+&amp;=:  \operatorname{logit}(t_m)+ \sum_j E_{mj}
+\end{aligned}
+\]</span></p>
+<p>where <span class="math inline">\(L^1_{mj} = \log P(Y_{jm}\mid T_m=1,a_j,p_{jy})\)</span> is the rater-derived evidence for occasion <span class="math inline">\(m\)</span> being Class 1, and I’ll define <span class="math inline">\(E_{mj}\)</span> to be the summative evidence for Class 1 from rater <span class="math inline">\(j\)</span> on occasion <span class="math inline">\(m\)</span>. Under the plain t-a-p generative model, for rater <span class="math inline">\(j\)</span>,</p>
+<p><span class="math display">\[
+\begin{aligned}
+P(Y=1\mid T=1) &amp;= a_j+(1-a_j)p_j \\
+P(Y=1\mid T=0)&amp;=(1-a_j)p_j\\
+P(Y=0\mid T=1)&amp;=(1-a_j)(1-p_j) \\
+P(Y=0\mid T=0)&amp;=a_j+(1-a_j)(1-p_j).
+\end{aligned}
+\]</span></p>
+<p>Each observed rating by rater <span class="math inline">\(j\)</span> at year <span class="math inline">\(y\)</span> (which changes <span class="math inline">\(p_j\)</span>), making occasion <span class="math inline">\(m\)</span>, has a log likelihood ratio in favor of <span class="math inline">\(T=1\)</span> shown below. The <span class="math inline">\(L^0\)</span> contributions are similarly derived.</p>
+<p><span class="math display">\[
+\begin{aligned}
+E_{mj}(\text{rating} =1) &amp;= \log \frac{a_j+(1-a_j)p_{mj}} {(1-a_j)p_{mj}} \\
+E_{mj}(\text{rating} =0) &amp;= \log \frac{(1-a_j)(1-p_{mj})} {a_j+(1-a_j)(1-p_{mj})}.
+\end{aligned}
+\]</span></p>
+<p>We can these formulas to quantify the effects of ratings in the cases identified in <a href="#fig-model-split" class="quarto-xref">Figure&nbsp;8</a>. <a href="#tbl-rater-details" class="quarto-xref">Table&nbsp;5</a> gives details on the rater parameters involved in these cases.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
@@ -1933,204 +1949,240 @@ Table&nbsp;4: Subject details for subjects 114 and 395.
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(p, <span class="at">.after =</span> a) <span class="sc">|&gt;</span> </span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(subject_id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">114</span>, <span class="dv">395</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(subject_id, year) <span class="sc">|&gt;</span> </span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>, <span class="at">align =</span> <span class="st">"c"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">L_1 =</span> evidence_1, <span class="at">L_0 =</span> evidence_0, <span class="at">E_mj =</span> logit_effect) <span class="sc">|&gt;</span> </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(occasion_id) <span class="sc">|&gt;</span> </span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>, <span class="at">align =</span> <span class="st">"c"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div id="tbl-rater-details" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-rater-details-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;5: Rater details for subject 395.
+Table&nbsp;5: Rater details for subjects 114 and 395. The logit_effect column is L1 - L0.
 </figcaption>
 <div aria-describedby="tbl-rater-details-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <colgroup>
-<col style="width: 11%">
-<col style="width: 6%">
-<col style="width: 6%">
 <col style="width: 13%">
+<col style="width: 10%">
 <col style="width: 6%">
-<col style="width: 14%">
-<col style="width: 11%">
-<col style="width: 13%">
-<col style="width: 15%">
+<col style="width: 6%">
+<col style="width: 12%">
+<col style="width: 6%">
+<col style="width: 10%">
+<col style="width: 12%">
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 7%">
 </colgroup>
 <thead>
 <tr class="header">
+<th style="text-align: center;">occasion_id</th>
 <th style="text-align: center;">rater_id</th>
 <th style="text-align: center;">a</th>
 <th style="text-align: center;">p</th>
 <th style="text-align: center;">subject_id</th>
 <th style="text-align: center;">year</th>
-<th style="text-align: center;">occasion_id</th>
 <th style="text-align: center;">n_rating</th>
 <th style="text-align: center;">rating_avg</th>
-<th style="text-align: center;">logit_effect</th>
+<th style="text-align: center;">L_1</th>
+<th style="text-align: center;">L_0</th>
+<th style="text-align: center;">E_mj</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
+<td style="text-align: center;">520</td>
 <td style="text-align: center;">18</td>
 <td style="text-align: center;">0.45</td>
 <td style="text-align: center;">0.22</td>
 <td style="text-align: center;">114</td>
 <td style="text-align: center;">3</td>
-<td style="text-align: center;">520</td>
 <td style="text-align: center;">2</td>
 <td style="text-align: center;">0.0</td>
+<td style="text-align: center;">1.56</td>
+<td style="text-align: center;">-0.73</td>
 <td style="text-align: center;">-1.46</td>
 </tr>
 <tr class="even">
+<td style="text-align: center;">520</td>
 <td style="text-align: center;">54</td>
 <td style="text-align: center;">0.29</td>
 <td style="text-align: center;">0.56</td>
 <td style="text-align: center;">114</td>
 <td style="text-align: center;">3</td>
-<td style="text-align: center;">520</td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">0.0</td>
+<td style="text-align: center;">0.56</td>
+<td style="text-align: center;">-0.66</td>
 <td style="text-align: center;">-0.66</td>
 </tr>
 <tr class="odd">
+<td style="text-align: center;">520</td>
 <td style="text-align: center;">55</td>
 <td style="text-align: center;">0.42</td>
 <td style="text-align: center;">0.23</td>
 <td style="text-align: center;">114</td>
 <td style="text-align: center;">3</td>
-<td style="text-align: center;">520</td>
 <td style="text-align: center;">2</td>
 <td style="text-align: center;">0.0</td>
+<td style="text-align: center;">1.42</td>
+<td style="text-align: center;">-0.68</td>
 <td style="text-align: center;">-1.35</td>
 </tr>
 <tr class="even">
+<td style="text-align: center;">520</td>
 <td style="text-align: center;">62</td>
 <td style="text-align: center;">0.22</td>
 <td style="text-align: center;">0.72</td>
 <td style="text-align: center;">114</td>
 <td style="text-align: center;">3</td>
-<td style="text-align: center;">520</td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">1.0</td>
 <td style="text-align: center;">0.34</td>
+<td style="text-align: center;">-0.71</td>
+<td style="text-align: center;">0.34</td>
 </tr>
 <tr class="odd">
+<td style="text-align: center;">520</td>
 <td style="text-align: center;">102</td>
 <td style="text-align: center;">0.38</td>
 <td style="text-align: center;">0.26</td>
 <td style="text-align: center;">114</td>
 <td style="text-align: center;">3</td>
-<td style="text-align: center;">520</td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">0.0</td>
+<td style="text-align: center;">1.21</td>
+<td style="text-align: center;">-0.61</td>
 <td style="text-align: center;">-0.61</td>
 </tr>
 <tr class="even">
+<td style="text-align: center;">1232</td>
 <td style="text-align: center;">24</td>
 <td style="text-align: center;">0.32</td>
 <td style="text-align: center;">0.12</td>
 <td style="text-align: center;">114</td>
 <td style="text-align: center;">4</td>
-<td style="text-align: center;">1232</td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">0.0</td>
+<td style="text-align: center;">1.57</td>
+<td style="text-align: center;">-0.44</td>
 <td style="text-align: center;">-0.44</td>
 </tr>
 <tr class="odd">
+<td style="text-align: center;">1232</td>
 <td style="text-align: center;">55</td>
 <td style="text-align: center;">0.42</td>
 <td style="text-align: center;">0.05</td>
 <td style="text-align: center;">114</td>
 <td style="text-align: center;">4</td>
-<td style="text-align: center;">1232</td>
 <td style="text-align: center;">2</td>
 <td style="text-align: center;">0.5</td>
+<td style="text-align: center;">2.78</td>
+<td style="text-align: center;">-0.57</td>
 <td style="text-align: center;">2.20</td>
 </tr>
 <tr class="even">
+<td style="text-align: center;">1232</td>
 <td style="text-align: center;">57</td>
 <td style="text-align: center;">0.13</td>
 <td style="text-align: center;">0.06</td>
 <td style="text-align: center;">114</td>
 <td style="text-align: center;">4</td>
-<td style="text-align: center;">1232</td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">0.0</td>
+<td style="text-align: center;">1.28</td>
+<td style="text-align: center;">-0.15</td>
 <td style="text-align: center;">-0.15</td>
 </tr>
 <tr class="odd">
+<td style="text-align: center;">1232</td>
 <td style="text-align: center;">76</td>
 <td style="text-align: center;">0.54</td>
 <td style="text-align: center;">0.35</td>
 <td style="text-align: center;">114</td>
 <td style="text-align: center;">4</td>
-<td style="text-align: center;">1232</td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">0.0</td>
+<td style="text-align: center;">1.48</td>
+<td style="text-align: center;">-1.03</td>
 <td style="text-align: center;">-1.03</td>
 </tr>
 <tr class="even">
+<td style="text-align: center;">1232</td>
 <td style="text-align: center;">103</td>
 <td style="text-align: center;">0.52</td>
 <td style="text-align: center;">0.05</td>
 <td style="text-align: center;">114</td>
 <td style="text-align: center;">4</td>
-<td style="text-align: center;">1232</td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">0.0</td>
+<td style="text-align: center;">3.19</td>
+<td style="text-align: center;">-0.77</td>
 <td style="text-align: center;">-0.77</td>
 </tr>
 <tr class="odd">
+<td style="text-align: center;">238</td>
 <td style="text-align: center;">92</td>
 <td style="text-align: center;">0.41</td>
 <td style="text-align: center;">0.91</td>
 <td style="text-align: center;">395</td>
 <td style="text-align: center;">2</td>
-<td style="text-align: center;">238</td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">1.0</td>
 <td style="text-align: center;">0.58</td>
+<td style="text-align: center;">-2.15</td>
+<td style="text-align: center;">0.58</td>
 </tr>
 <tr class="even">
+<td style="text-align: center;">238</td>
 <td style="text-align: center;">109</td>
 <td style="text-align: center;">0.65</td>
 <td style="text-align: center;">0.98</td>
 <td style="text-align: center;">395</td>
 <td style="text-align: center;">2</td>
-<td style="text-align: center;">238</td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">0.0</td>
+<td style="text-align: center;">1.06</td>
+<td style="text-align: center;">-4.76</td>
 <td style="text-align: center;">-4.76</td>
 </tr>
 <tr class="odd">
+<td style="text-align: center;">238</td>
 <td style="text-align: center;">143</td>
 <td style="text-align: center;">0.26</td>
 <td style="text-align: center;">0.89</td>
 <td style="text-align: center;">395</td>
 <td style="text-align: center;">2</td>
-<td style="text-align: center;">238</td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">1.0</td>
 <td style="text-align: center;">0.33</td>
+<td style="text-align: center;">-1.44</td>
+<td style="text-align: center;">0.33</td>
 </tr>
 <tr class="even">
+<td style="text-align: center;">789</td>
 <td style="text-align: center;">17</td>
 <td style="text-align: center;">0.77</td>
 <td style="text-align: center;">0.77</td>
 <td style="text-align: center;">395</td>
 <td style="text-align: center;">3</td>
-<td style="text-align: center;">789</td>
 <td style="text-align: center;">2</td>
 <td style="text-align: center;">1.0</td>
+<td style="text-align: center;">1.68</td>
+<td style="text-align: center;">-2.74</td>
 <td style="text-align: center;">3.36</td>
 </tr>
 <tr class="odd">
+<td style="text-align: center;">789</td>
 <td style="text-align: center;">189</td>
 <td style="text-align: center;">0.65</td>
 <td style="text-align: center;">0.76</td>
 <td style="text-align: center;">395</td>
 <td style="text-align: center;">3</td>
-<td style="text-align: center;">789</td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">1.0</td>
+<td style="text-align: center;">1.23</td>
+<td style="text-align: center;">-2.17</td>
 <td style="text-align: center;">1.23</td>
 </tr>
 </tbody>
@@ -2140,27 +2192,9 @@ Table&nbsp;5: Rater details for subject 395.
 </figure>
 </div>
 </div>
-<p>Under the plain t-a-p generative model, for rater (j),</p>
-<p><span class="math display">\[
-\begin{aligned}
-P(Y=1\mid T=1) &amp;= a_j+(1-a_j)p_j \\
-P(Y=1\mid T=0)&amp;=(1-a_j)p_j\\
-P(Y=0\mid T=1)&amp;=(1-a_j)(1-p_j) \\
-P(Y=0\mid T=0)&amp;=a_j+(1-a_j)(1-p_j).
-\end{aligned}
-\]</span></p>
-<p>Each observed rating by rater <span class="math inline">\(j\)</span> has a log likelihood ratio in favor of <span class="math inline">\(T=1\)</span>, and on a log scale these contributions are</p>
-<p><span class="math display">\[
-\begin{aligned}
-E_j(\text{rating} =1) &amp;= \log \frac{a_j+(1-a_j)p_j} {(1-a_j)p_j} \\
-E_j(\text{rating} =0) &amp;= \log \frac{(1-a_j)(1-p_j)} {a_j+(1-a_j)(1-p_j)}, \text{ so that} \\
-\operatorname{logit}(q_m) &amp;= \operatorname{logit}(t_m) + \sum_{j\in m} E_j(Y_{jm}).
-\end{aligned}
-\]</span></p>
-<p>where you’ll recall that <span class="math inline">\(t_m\)</span> is the prior probability coming from the GPA/year model before seeing the ratings, and <span class="math inline">\(q_m\)</span> is the posterior probability after incorporating them. This understanding allows us to dissect the cases in</p>
-<p>In <a href="#tbl-rater-details" class="quarto-xref">Table&nbsp;5</a>, rater 55 has only <span class="math inline">\(a=.42\)</span>, and on occasion 1232 has <span class="math inline">\(p=.05\)</span>. When this rater fails to discriminate, they almost always emit a 0. Consequently, a rating of zero isn’t much evidence against <span class="math inline">\(T=1\)</span> (log scale), with $ E_{55,1232}(0)=-0.57$, whereas a 1 rating is quite surprising under <span class="math inline">\(T=0\)</span> with $ E_{55,1232}(1)=+2.78$. That rater’s two ratings, one 0 and one 1, produce $ -0.57+2.78=+2.20,$ which is a substantial net vote for <span class="math inline">\(T=1\)</span>, despite the raw rating average being exactly .5.</p>
-<p>Across occasion 1232 the contributions are $ -.44 + 2.20 -.15 -1.03 -.77 = -0.19$. There, the raw ratings are overwhelmingly negative (one positive rating out of six), but collectively they provide almost no net evidence either way. The lone positive from rater 55 essentially neutralizes the five negative ratings because those negative ratings mostly came from raters predisposed to produce 0s when they don’t successfully discriminate.</p>
-<p>In occasion 238, rater 109 has <span class="math inline">\(a=.65,p=.98\)</span>. That’s almost the mirror image of the previous case: a 1 isn’t terribly surprising (<span class="math inline">\(+1.06\)</span>), because this rater defaults overwhelmingly toward 1. But their observed 0 is quite diagnostic, with $ E_{109,238}(0)=-4.76$. The other two positive ratings contribute only $ .58+.33=.91$, so the three-rater combination gives net evidence of $ .91-4.76=-3.85$. Thus a raw majority of 2–1 in favor of 1 becomes very strong model evidence for <span class="math inline">\(T=0\)</span>.</p>
+<p>In <a href="#tbl-rater-details" class="quarto-xref">Table&nbsp;5</a>, rater 55 has only <span class="math inline">\(a=.42\)</span>, and on occasion 1232 has <span class="math inline">\(p=.05\)</span>. When this rater fails to discriminate, they almost always emit a 0. Consequently, a rating of zero isn’t much evidence against <span class="math inline">\(T=1\)</span> (log scale), with <span class="math inline">\(L^0_{1232,55}(0)=-0.57\)</span>, whereas a 1 rating is quite surprising under <span class="math inline">\(T=0\)</span> with <span class="math inline">\(L^1_{1232,55}(1)=+2.78\)</span>. That rater’s two ratings, one 0 and one 1, produce <span class="math inline">\(E_{1232,55} = -0.57+2.78=+2.20\)</span>, which is a substantial net vote for <span class="math inline">\(T=1\)</span>, despite the raw rating average being exactly .5.</p>
+<p>Across occasion 1232 the contributions are <span class="math inline">\(E_{1232} = -.44 + 2.20 -.15 -1.03 -.77 = -0.19\)</span>. There, the raw ratings are overwhelmingly negative (one positive rating out of six), but collectively they provide almost no net evidence either way. The lone positive from rater 55 essentially neutralizes the five negative ratings because those negative ratings mostly came from raters predisposed to produce zeros when they don’t successfully discriminate.</p>
+<p>In occasion 238, rater 109 has <span class="math inline">\(a=.65,p=.98\)</span>. That’s almost the mirror image of the previous case: a 1 isn’t terribly surprising (<span class="math inline">\(+1.06\)</span>), because this rater defaults overwhelmingly toward 1. But their observed 0 is quite diagnostic, with <span class="math inline">\(E_{238,109}(0)=-4.76\)</span>. The other two positive ratings contribute only <span class="math inline">\(.58+.33=.91\)</span>, so the three-rater combination gives net evidence of <span class="math inline">\(.91-4.76=-3.85\)</span>. Thus a raw majority of 2–1 in favor of 1 becomes very strong model evidence for <span class="math inline">\(T=0\)</span>.</p>
 <p>These details reveal the inner workings of the model, showing how the rater parameters strongly influence the model’s evidence for class probabilities.</p>
 </section>
 <section id="model-comparisons" class="level2" data-number="1.9">
@@ -2251,19 +2285,20 @@ E_j(\text{rating} =0) &amp;= \log \frac{(1-a_j)(1-p_j)} {a_j+(1-a_j)(1-p_j)}, \t
 <span id="cb19-79"><a href="#cb19-79" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span></span>
 <span id="cb19-80"><a href="#cb19-80" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb19-81"><a href="#cb19-81" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb19-82"><a href="#cb19-82" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_equal</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb19-83"><a href="#cb19-83" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb19-84"><a href="#cb19-84" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>year) <span class="sc">+</span></span>
-<span id="cb19-85"><a href="#cb19-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"t-a-p posterior Pr[T = 1]"</span>) <span class="sc">+</span></span>
-<span id="cb19-86"><a href="#cb19-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Probability"</span>) <span class="sc">+</span></span>
-<span id="cb19-87"><a href="#cb19-87" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>(</span>
-<span id="cb19-88"><a href="#cb19-88" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(</span>
-<span id="cb19-89"><a href="#cb19-89" aria-hidden="true" tabindex="-1"></a>      <span class="at">irt =</span> <span class="st">"IRT/GLMM"</span>,</span>
-<span id="cb19-90"><a href="#cb19-90" aria-hidden="true" tabindex="-1"></a>      <span class="at">rating =</span> <span class="st">"Rating proportion"</span>,</span>
-<span id="cb19-91"><a href="#cb19-91" aria-hidden="true" tabindex="-1"></a>      <span class="at">t =</span> <span class="st">"Prior class probability (t)"</span>,</span>
-<span id="cb19-92"><a href="#cb19-92" aria-hidden="true" tabindex="-1"></a>      <span class="at">t_em =</span> <span class="st">"t-a-p EM"</span></span>
-<span id="cb19-93"><a href="#cb19-93" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb19-94"><a href="#cb19-94" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-82"><a href="#cb19-82" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb19-83"><a href="#cb19-83" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb19-84"><a href="#cb19-84" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb19-85"><a href="#cb19-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>year) <span class="sc">+</span></span>
+<span id="cb19-86"><a href="#cb19-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"t-a-p posterior Pr[T = 1]"</span>) <span class="sc">+</span></span>
+<span id="cb19-87"><a href="#cb19-87" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Probability"</span>) <span class="sc">+</span></span>
+<span id="cb19-88"><a href="#cb19-88" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_color_discrete</span>(</span>
+<span id="cb19-89"><a href="#cb19-89" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb19-90"><a href="#cb19-90" aria-hidden="true" tabindex="-1"></a>    <span class="at">irt =</span> <span class="st">"IRT/GLMM"</span>,</span>
+<span id="cb19-91"><a href="#cb19-91" aria-hidden="true" tabindex="-1"></a>    <span class="at">rating =</span> <span class="st">"Rating proportion"</span>,</span>
+<span id="cb19-92"><a href="#cb19-92" aria-hidden="true" tabindex="-1"></a>    <span class="at">t =</span> <span class="st">"Prior class probability (t)"</span>,</span>
+<span id="cb19-93"><a href="#cb19-93" aria-hidden="true" tabindex="-1"></a>    <span class="at">tap_em =</span> <span class="st">"t-a-p EM"</span></span>
+<span id="cb19-94"><a href="#cb19-94" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-95"><a href="#cb19-95" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-models" class="quarto-float quarto-figure quarto-figure-center anchored">
